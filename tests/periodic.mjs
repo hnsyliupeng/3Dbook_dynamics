@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import {buildBilayer,validate} from '../apps/gyroid-truss/js/truss.mjs';
 import {F} from '../apps/gyroid-truss/js/gyroid.mjs';
+import {validateLattice,compareFaces,supercellConnectivity} from '../apps/gyroid-truss/js/lattice.mjs';
 for(const w of [.15,.32,.5]){
  const s=buildBilayer(w); assert.equal(s.n,192);
  for(const v of s.vertices)assert.ok(v.p.every(x=>x>=0&&x<1));
  for(const v of s.vertices.slice(0,2*s.n)) assert.ok(Math.abs(F(v.p)-(v.layer?-w:w))<1e-9);
+ const latticeCheck=validateLattice(s,2);assert.ok(latticeCheck.facePass);assert.ok(latticeCheck.graphPass);
  const r=validate(s,.006);assert.ok(r.error<1e-8);assert.ok(r.crossing>0);assert.equal(r.cross,576);
  for(const layer of ['red','blue']){assert.equal(r.connectivity[layer].components,1);assert.equal(r.connectivity[layer].degreeOne,0)}
  const seam=s.vertices.map((v,i)=>v.role==='seam'?i:-1).filter(i=>i>=0);
@@ -29,3 +31,21 @@ import {rigidityBound} from '../apps/gyroid-truss/js/rigidity.mjs';
 const triangle={vertices:[{},{},{}],edges:[{a:0,b:1},{a:1,b:2},{a:2,b:0}]};
 assert.equal(rigidityBound(triangle).maxwellLowerBound,3);
 assert.equal(rigidityBound(triangle).degreeTwo,3);
+
+// Verify actual periodic supercell incidence and opposite-face centreline signatures.
+const lattice=buildBilayer(.32);
+for(const n of [1,2,3]){
+ const r=validateLattice(lattice,n);
+ assert.ok(r.facePass);assert.ok(r.graphPass);assert.equal(r.graph.componentCount,1);
+ assert.equal(r.graph.activeVertices,lattice.vertices.length*n**3);
+ assert.equal(r.graph.edgeCount,lattice.edges.length*n**3);
+ assert.ok(r.graph.wrappedEdges>0);assert.ok(r.surface.maxError<1e-12);
+ console.log(`${n}³ lattice: V=${r.graph.activeVertices}, E=${r.graph.edgeCount}, components=${r.graph.componentCount}, faces match`);
+}
+// Unit-cell connectedness does not prove connectivity of a larger periodic lattice.
+const chain={vertices:[{p:[.2,.3,.4]}],edges:[{a:0,b:0,o:[1,0,0],kind:'red'}]};
+assert.equal(supercellConnectivity(chain,1).componentCount,1);
+assert.equal(supercellConnectivity(chain,2).componentCount,4);
+// Explicitly compare two adjacent cells and catch a deleted boundary member.
+const broken={...lattice,edges:lattice.edges.filter((e,i)=>i!==lattice.edges.findIndex(e=>e.role==='boundary-web'&&e.axis===0))};
+assert.ok(compareFaces(lattice,broken).some(f=>f.pointMismatch+f.segmentMismatch>0));

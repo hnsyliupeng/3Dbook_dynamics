@@ -4,12 +4,13 @@ import * as THREE from '../vendor/three.module.min.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {F} from './gyroid.mjs';
 import {buildBilayer,validate} from './truss.mjs';
+import {validateLattice} from './lattice.mjs';
 import {add,segCellTranslations,sphereCellTranslations} from './geom.mjs';
 const $=id=>document.getElementById(id), viewport=$('viewport');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.setClearColor(0,0);viewport.prepend(renderer.domElement);
 const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.01,100);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.target.set(.5,.5,.5);
 scene.add(new THREE.HemisphereLight(0xffffff,0x9eb3a5,2.3));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(3,5,6);scene.add(light);const light2=new THREE.DirectionalLight(0xb9d1c9,1);light2.position.set(-4,-2,-3);scene.add(light2);
-let model, group, radius=.006, tiles=1, visible={surface:true,struts:true,nodes:false,box:true};
+let model, group, latticeReport, radius=.006, tiles=1, visible={surface:true,struts:true,nodes:false,box:true};
 const materials={red:new THREE.MeshStandardMaterial({color:0xc9625e,roughness:.6}),blue:new THREE.MeshStandardMaterial({color:0x497caa,roughness:.55}),cross:new THREE.MeshStandardMaterial({color:0xe6e6de,roughness:.55}),nodeRed:new THREE.MeshStandardMaterial({color:0xcf716b}),nodeBlue:new THREE.MeshStandardMaterial({color:0x5a88ac})};
 const cyl=new THREE.CylinderGeometry(1,1,1,8),sphere=new THREE.SphereGeometry(1,10,7);let surfaceGeom;
 function surfaceGeometry(){
@@ -23,7 +24,14 @@ function surfaceGeometry(){
  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();return g;
 }
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()};new ResizeObserver(resize).observe(viewport);
-function cameraView(axis=false){let c=tiles/2;controls.target.set(c,c,c);camera.position.set(c+(axis?2.1:2.25)*tiles,c+(axis?2.1:1.75)*tiles,c+(axis?2.1:2.8)*tiles);controls.update()}
+function cameraView(axis=false){
+ let c=tiles/2;controls.target.set(c,c,c);
+ const aspect=Math.max(.15,viewport.clientWidth/Math.max(1,viewport.clientHeight));
+ const vertical=THREE.MathUtils.degToRad(camera.fov),horizontal=2*Math.atan(Math.tan(vertical/2)*aspect);
+ const distance=Math.max(4.1*tiles,1.12*(Math.sqrt(3)*tiles/2)/Math.sin(Math.min(vertical,horizontal)/2));
+ const direction=new THREE.Vector3(...(axis?[1,1,1]:[2.25,1.75,2.8])).normalize();
+ camera.position.copy(controls.target).addScaledVector(direction,distance);controls.update();
+}
 function build(){
  if(group){scene.remove(group);group.traverse(o=>{if(o.geometry && o.geometry!==cyl && o.geometry!==sphere && o.geometry!==surfaceGeom)o.geometry.dispose();if(o.userData.ownedMaterial)o.material.dispose()})}
  group=new THREE.Group();scene.add(group);
@@ -40,7 +48,16 @@ function build(){
  $('tileTag').textContent=`${tiles} × ${tiles} × ${tiles}`;resize();
 }
 function updateChecks(){const v=validate(model,radius);$('nodeCount').textContent=model.n;$('crossCount').textContent=v.cross+v.boundaryWebs.count;$('periodText').textContent=`边界连接点 ${v.boundary.junctionCount} · 单层无断头 ${v.connectivity.red.degreeOne + v.connectivity.blue.degreeOne === 0 ? '是' : '否'}`;$('surfaceText').textContent=`最大 |g ∓ w| = ${v.residual.toExponential(1)}`;const pass=v.minClearance>0;$('clearText').textContent=`最小净距 ${v.minClearance.toFixed(4)} a · ${pass?'未发现干涉':`${v.intersections} 对发生干涉`}`;$('clearIcon').textContent=pass?'✓':'!';$('clearIcon').className='check-icon '+(pass?'':'fail');$('webText').textContent=`${v.boundaryWebs.count} 根 · 中心线交叉 ${v.boundaryWebs.intersectionCount} · 半径邻近 ${v.boundaryWebs.nearCount} 对（${v.proximity.other} 对非一跳邻接）`; $('rigidityText').textContent=`至少 ${v.rigidity.maxwellLowerBound} 个非平移机构；${v.rigidity.degreeTwo} 个二杆节点`;  $('webIcon').className='check-icon '+(v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? 'warning' : ''); $('webIcon').textContent=v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? '!' : '✓';$('periodIcon').className='check-icon '+(v.error<1e-8 && v.connectivity.red.components===1 && v.connectivity.blue.components===1 && v.connectivity.red.degreeOne===0 && v.connectivity.blue.degreeOne===0?'':'fail');$('surfaceIcon').className='check-icon '+(v.residual<1e-8?'':'fail')}
-function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);build();updateChecks();$('loading').style.display='none'}
+function updateLattice(){
+ latticeReport=validateLattice(model,2);const r=latticeReport,ok=r.facePass&&r.graphPass&&r.surface.maxError<1e-12;
+ $('latticeStatus').textContent=ok?'✓ 几何接缝与周期图连通':'! 检测到拼接或连通问题';$('latticeStatus').classList.toggle('failed',!ok);
+ $('latticeFaces').textContent=r.faces.map(f=>`${f.axis.toUpperCase()}: ${f.pointMismatch+f.segmentMismatch}`).join(' / ')+' 不匹配';
+ $('latticeComponents').textContent=`整体 ${r.graph.componentCount} · 红 ${r.red.componentCount} · 蓝 ${r.blue.componentCount}`;
+ $('latticeSize').textContent=`${r.graph.activeVertices.toLocaleString()} / ${r.graph.edgeCount.toLocaleString()}`;
+ $('latticeSurface').textContent=r.surface.maxError.toExponential(1);
+}
+$('latticeExport').onclick=()=>{if(!latticeReport)return;const report={description:'Centreline face signatures and fixed periodic quotient graph; not a solid interference or mechanical stability certification.',w:model.w,radius,report:latticeReport};const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-2x2x2-lattice-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);build();updateChecks();updateLattice();$('loading').style.display='none'}
 for(const id of ['width','radius'])$(id).addEventListener('change',()=>{ $('loading').style.display='block';requestAnimationFrame(()=>setTimeout(rebuild,10)) });for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id]})});
 document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{tiles=+btn.dataset.n;document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',b===btn));build();cameraView()}));$('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
 $('export').onclick=()=>{const data={description:'H=12 approximation with added face-contour reinforcement; fractional coordinates; each undirected edge joins a to b+offset. Not paper Fig.4 simulation data.',w:model.w,vertices:model.vertices,edges:model.edges};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-H12-periodic-graph.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};

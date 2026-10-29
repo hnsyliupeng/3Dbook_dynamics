@@ -1,0 +1,304 @@
+{
+  "w": 0.32,
+  "radius": 0.006,
+  "lattice2": {
+    "n": 2,
+    "surface": {
+      "samplesPerFace": 441,
+      "maxError": 4.440892098500626e-16
+    },
+    "faces": [
+      {
+        "axis": "x",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      },
+      {
+        "axis": "y",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      },
+      {
+        "axis": "z",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      }
+    ],
+    "graph": {
+      "n": 2,
+      "kind": "all",
+      "activeVertices": 11328,
+      "edgeCount": 23616,
+      "wrappedEdges": 1050,
+      "componentCount": 1,
+      "largestComponent": 11328,
+      "isolatedVertices": 0
+    },
+    "red": {
+      "n": 2,
+      "kind": "red",
+      "activeVertices": 5664,
+      "edgeCount": 9408,
+      "wrappedEdges": 420,
+      "componentCount": 1,
+      "largestComponent": 5664,
+      "isolatedVertices": 5664
+    },
+    "blue": {
+      "n": 2,
+      "kind": "blue",
+      "activeVertices": 5664,
+      "edgeCount": 9408,
+      "wrappedEdges": 438,
+      "componentCount": 1,
+      "largestComponent": 5664,
+      "isolatedVertices": 5664
+    },
+    "facePass": true,
+    "graphPass": true
+  },
+  "lattice3": {
+    "n": 3,
+    "surface": {
+      "samplesPerFace": 441,
+      "maxError": 4.440892098500626e-16
+    },
+    "faces": [
+      {
+        "axis": "x",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      },
+      {
+        "axis": "y",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      },
+      {
+        "axis": "z",
+        "positivePoints": 380,
+        "negativePoints": 380,
+        "positiveSegments": 356,
+        "negativeSegments": 356,
+        "pointMismatch": 0,
+        "segmentMismatch": 0
+      }
+    ],
+    "graph": {
+      "n": 3,
+      "kind": "all",
+      "activeVertices": 38232,
+      "edgeCount": 79704,
+      "wrappedEdges": 2367,
+      "componentCount": 1,
+      "largestComponent": 38232,
+      "isolatedVertices": 0
+    },
+    "red": {
+      "n": 3,
+      "kind": "red",
+      "activeVertices": 19116,
+      "edgeCount": 31752,
+      "wrappedEdges": 945,
+      "componentCount": 1,
+      "largestComponent": 19116,
+      "isolatedVertices": 19116
+    },
+    "blue": {
+      "n": 3,
+      "kind": "blue",
+      "activeVertices": 19116,
+      "edgeCount": 31752,
+      "wrappedEdges": 990,
+      "componentCount": 1,
+      "largestComponent": 19116,
+      "isolatedVertices": 19116
+    },
+    "facePass": true,
+    "graphPass": true
+  },
+  "boundary": {
+    "junctionCount": 180,
+    "maxTie": 0.016468041606682637,
+    "railCount": 864,
+    "resolution": 48,
+    "webs": {
+      "count": 24,
+      "perAxis": [
+        8,
+        8,
+        8
+      ]
+    }
+  },
+  "rigidity": {
+    "V": 1416,
+    "E": 2952,
+    "histogram": {
+      "2": 684,
+      "3": 288,
+      "4": 48,
+      "6": 12,
+      "8": 96,
+      "9": 240,
+      "10": 48
+    },
+    "degreeTwo": 684,
+    "maxwellLowerBound": 1293,
+    "localLowerBound": 681,
+    "explanation": "Fixed lattice, point joints, axial bars only. Lower bounds on non-translational infinitesimal mechanisms; not a stiffness rank computation."
+  },
+  "beforeWebs": {
+    "V": 1416,
+    "E": 2928,
+    "histogram": {
+      "2": 684,
+      "3": 336,
+      "6": 12,
+      "8": 96,
+      "9": 240,
+      "10": 48
+    },
+    "degreeTwo": 684,
+    "maxwellLowerBound": 1317,
+    "localLowerBound": 681,
+    "explanation": "Fixed lattice, point joints, axial bars only. Lower bounds on non-translational infinitesimal mechanisms; not a stiffness rank computation."
+  },
+  "proximity": {
+    "radius": 0.006,
+    "nearCount": 144,
+    "byRole": {
+      "original": 24,
+      "boundary": 120
+    },
+    "oneHop": 120,
+    "other": 24,
+    "sample": [
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          70,
+          206
+        ],
+        "role": "original",
+        "distance": 0.006911705203539244,
+        "oneHop": true
+      },
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          690,
+          687
+        ],
+        "role": "boundary",
+        "distance": 0.009055728481128424,
+        "oneHop": false
+      },
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          693,
+          694
+        ],
+        "role": "boundary",
+        "distance": 0.00620483478372915,
+        "oneHop": true
+      },
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          694,
+          690
+        ],
+        "role": "boundary",
+        "distance": 0.00846130897567335,
+        "oneHop": true
+      },
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          1106,
+          1103
+        ],
+        "role": "boundary",
+        "distance": 0.004844410873035342,
+        "oneHop": true
+      },
+      {
+        "web": [
+          544,
+          409
+        ],
+        "other": [
+          1108,
+          1106
+        ],
+        "role": "boundary",
+        "distance": 0.0020243890132340217,
+        "oneHop": true
+      },
+      {
+        "web": [
+          404,
+          535
+        ],
+        "other": [
+          13,
+          261
+        ],
+        "role": "original",
+        "distance": 0.0069117052035393214,
+        "oneHop": true
+      },
+      {
+        "web": [
+          404,
+          535
+        ],
+        "other": [
+          606,
+          604
+        ],
+        "role": "boundary",
+        "distance": 0.004844410873035342,
+        "oneHop": true
+      }
+    ]
+  },
+  "redBlueClearance": 0.039683510239311215
+}
