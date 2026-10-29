@@ -5,3 +5,6 @@
 
 .workspace{align-items:start}.canvas-card{height:700px}
 @media(max-width:650px){.canvas-card{height:510px}}
+
+.warning-mech{background:#fbf5e9;border-color:#efe5d2;color:#aa8755}.mechanics-check .side-hint{margin:14px 0 10px}
+.mechanics-check button:disabled{opacity:.5;cursor:not-allowed}

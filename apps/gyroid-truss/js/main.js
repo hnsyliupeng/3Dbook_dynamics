@@ -5,6 +5,7 @@ import {OrbitControls} from '../vendor/OrbitControls.js';
 import {F} from './gyroid.mjs';
 import {buildBilayer,validate} from './truss.mjs';
 import {validateLattice} from './lattice.mjs';
+import mechanicsDefault from '../../../data/mechanics-default.json';
 import {add,segCellTranslations,sphereCellTranslations} from './geom.mjs';
 const $=id=>document.getElementById(id), viewport=$('viewport');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.setClearColor(0,0);viewport.prepend(renderer.domElement);
@@ -48,6 +49,18 @@ function build(){
  $('tileTag').textContent=`${tiles} × ${tiles} × ${tiles}`;resize();
 }
 function updateChecks(){const v=validate(model,radius);$('nodeCount').textContent=model.n;$('crossCount').textContent=v.cross+v.boundaryWebs.count;$('periodText').textContent=`边界连接点 ${v.boundary.junctionCount} · 单层无断头 ${v.connectivity.red.degreeOne + v.connectivity.blue.degreeOne === 0 ? '是' : '否'}`;$('surfaceText').textContent=`最大 |g ∓ w| = ${v.residual.toExponential(1)}`;const pass=v.minClearance>0;$('clearText').textContent=`最小净距 ${v.minClearance.toFixed(4)} a · ${pass?'未发现干涉':`${v.intersections} 对发生干涉`}`;$('clearIcon').textContent=pass?'✓':'!';$('clearIcon').className='check-icon '+(pass?'':'fail');$('webText').textContent=`${v.boundaryWebs.count} 根 · 中心线交叉 ${v.boundaryWebs.intersectionCount} · 半径邻近 ${v.boundaryWebs.nearCount} 对（${v.proximity.other} 对非一跳邻接）`; $('rigidityText').textContent=`至少 ${v.rigidity.maxwellLowerBound} 个非平移机构；${v.rigidity.degreeTwo} 个二杆节点`;  $('webIcon').className='check-icon '+(v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? 'warning' : ''); $('webIcon').textContent=v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? '!' : '✓';$('periodIcon').className='check-icon '+(v.error<1e-8 && v.connectivity.red.components===1 && v.connectivity.blue.components===1 && v.connectivity.red.degreeOne===0 && v.connectivity.blue.degreeOne===0?'':'fail');$('surfaceIcon').className='check-icon '+(v.residual<1e-8?'':'fail')}
+function updateMechanics(){
+ const isDefault=Math.abs(model.w-.32)<1e-9,m=mechanicsDefault.with_boundary_webs.directional_moduli_over_EA_a2;
+ $('mechanicsResults').style.display=isDefault?'block':'none';
+ $('mechanicsStatus').textContent=isDefault?'固定胞元 · 理想铰接轴向杆':'当前 w 未计算力学数据';
+ $('mechanicsHint').textContent=isDefault?'固定 w=0.32 的数值结果；单位为 EA/a²。圆截面换算忽略实体干涉。存在内部机构，不能作为稳定性认证。':'目前仅内置 w=0.32 的力学结果；其他参数请运行命令行计算，不能沿用这些数值。';
+ $('mechanicsYoung').textContent=m.young_x.toFixed(3)+' EA/a²';
+ $('mechanicsShear').textContent=m.shear_yz_fixed_other_strains.toFixed(3)+' EA/a²';
+ $('mechanicsPoisson').textContent=m.poisson_xy.toFixed(4);
+ $('mechanicsScale').textContent=(m.young_x*Math.PI*radius*radius).toExponential(3);
+ $('mechanicsExport').disabled=!isDefault;
+}
+$('mechanicsExport').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(mechanicsDefault,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-mechanics-w032.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function updateLattice(){
  latticeReport=validateLattice(model,2);const r=latticeReport,ok=r.facePass&&r.graphPass&&r.surface.maxError<1e-12;
  $('latticeStatus').textContent=ok?'✓ 几何接缝与周期图连通':'! 检测到拼接或连通问题';$('latticeStatus').classList.toggle('failed',!ok);
@@ -57,7 +70,7 @@ function updateLattice(){
  $('latticeSurface').textContent=r.surface.maxError.toExponential(1);
 }
 $('latticeExport').onclick=()=>{if(!latticeReport)return;const report={description:'Centreline face signatures and fixed periodic quotient graph; not a solid interference or mechanical stability certification.',w:model.w,radius,report:latticeReport};const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-2x2x2-lattice-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);build();updateChecks();updateLattice();$('loading').style.display='none'}
+function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);build();updateChecks();updateLattice();updateMechanics();$('loading').style.display='none'}
 for(const id of ['width','radius'])$(id).addEventListener('change',()=>{ $('loading').style.display='block';requestAnimationFrame(()=>setTimeout(rebuild,10)) });for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id]})});
 document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{tiles=+btn.dataset.n;document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',b===btn));build();cameraView()}));$('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
 $('export').onclick=()=>{const data={description:'H=12 approximation with added face-contour reinforcement; fractional coordinates; each undirected edge joins a to b+offset. Not paper Fig.4 simulation data.',w:model.w,vertices:model.vertices,edges:model.edges};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-H12-periodic-graph.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};

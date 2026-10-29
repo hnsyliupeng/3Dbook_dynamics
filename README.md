@@ -29,3 +29,7 @@ Three.js 0.170.0 is vendored under its MIT license (see `apps/gyroid-truss/vendo
 ## 点阵结构验证
 
 应用右侧检查 2×2×2 周期超胞的图连通性、各相对面中心线几何集合以及 TPMS 标量函数周期性，并支持下载 JSON。测试还覆盖 3×3×3 超胞及断杆负例。它不是自由外边界试件的验证、无限周期刚性证明或全量实体干涉检查。方法、默认结果与限制见 [点阵结构验证](docs/点阵结构验证.md)。
+
+## 力学参数分析
+
+[周期桁架力学参数分析](docs/周期桁架力学参数分析.md) 给出固定胞元、理想球铰轴向杆的周期均匀化方法、w 扫描和局限。安装 `requirements-mechanics.txt` 后运行 `python3 tools/mechanics.py --w 0.32 --tol 1e-12`；这不是梁单元 FEA 或稳定性认证。应用仅内置 w=0.32 的预计算结果，改变 w 需在命令行重新计算。
