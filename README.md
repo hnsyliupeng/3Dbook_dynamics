@@ -33,3 +33,5 @@ Three.js 0.170.0 is vendored under its MIT license (see `apps/gyroid-truss/vendo
 ## 力学参数分析
 
 [周期桁架力学参数分析](docs/周期桁架力学参数分析.md) 给出固定胞元、理想球铰轴向杆的周期均匀化方法、w 扫描和局限。安装 `requirements-mechanics.txt` 后运行 `python3 tools/mechanics.py --w 0.32 --tol 1e-12`；这不是梁单元 FEA 或稳定性认证。应用仅内置 w=0.32 的预计算结果，改变 w 需在命令行重新计算。
+
+力学视图提供 w=0.32 的六种应变控制工况下杆轴力和放大变形显示。颜色是 N/EA 而不是实体等效应力；由于内部机构存在，位移图只是一个非唯一的最小范数解。运行 `OPENBLAS_NUM_THREADS=1 python3 tools/mechanics_fields.py` 可重建预计算场，详见力学分析报告第 7 节。
