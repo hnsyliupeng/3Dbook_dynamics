@@ -1,0 +1,136 @@
+{
+  "model": "linear 3D Euler-Bernoulli frame; rigid joints; fixed-cell periodic fluctuation with six macro strain cases",
+  "w": 0.32,
+  "resolution": 48,
+  "a_mm": 100.0,
+  "r_over_a": 0.006,
+  "r_mm": 0.6,
+  "strain_order": [
+    "exx",
+    "eyy",
+    "ezz",
+    "gamma_yz",
+    "gamma_xz",
+    "gamma_xy"
+  ],
+  "warnings": [
+    "elastic constants are assumed illustrative values, not measured or guaranteed; printed polymers are anisotropic",
+    "linear rigid-joint beam model is not solid FEA; does not include joint solids, shear deformation, plasticity, large deformation, creep, buckling or contact",
+    "approximate graph includes artificial boundary frames; not paper figure 4 coordinates",
+    "known capsule interference and extremely short beams; model is not fabrication-ready",
+    "small residual and positive homogenized stiffness do not certify stability at nonzero wavevector or for a finite specimen"
+  ],
+  "materials": {
+    "PLA": {
+      "V": 1416,
+      "edges": 2952,
+      "dof_free": 8493,
+      "nu": 0.36,
+      "r_over_a": 0.006,
+      "section": {
+        "A_over_a2": 0.00011309733552923255,
+        "I_over_a4": 1.017876019763093e-09,
+        "J_over_a4": 2.035752039526186e-09
+      },
+      "min_length_over_a": 0.002229880425207811,
+      "C_over_E": [
+        [
+          0.002883841772679677,
+          0.0014436756810016272,
+          0.0014436756810016313,
+          3.5981632578533677e-07,
+          2.2860786492150855e-07,
+          5.375512604250989e-07
+        ],
+        [
+          0.0014436756810016272,
+          0.0028838417726796944,
+          0.0014436756810016255,
+          5.37551260425155e-07,
+          3.5981632578537875e-07,
+          2.286078649214997e-07
+        ],
+        [
+          0.0014436756810016313,
+          0.0014436756810016255,
+          0.0028838417726796952,
+          2.2860786492159907e-07,
+          5.375512604251307e-07,
+          3.598163257853783e-07
+        ],
+        [
+          3.5981632578533677e-07,
+          5.37551260425155e-07,
+          2.2860786492159907e-07,
+          0.0008267047063085635,
+          -1.3798436906157518e-07,
+          -1.3798436906157844e-07
+        ],
+        [
+          2.2860786492150855e-07,
+          3.5981632578537875e-07,
+          5.375512604251307e-07,
+          -1.3798436906157518e-07,
+          0.0008267047063085615,
+          -1.3798436906154588e-07
+        ],
+        [
+          5.375512604250989e-07,
+          2.286078649214997e-07,
+          3.598163257853783e-07,
+          -1.3798436906157844e-07,
+          -1.3798436906154588e-07,
+          0.0008267047063085602
+        ]
+      ],
+      "C_eigenvalues_over_E": [
+        0.0008264284811738647,
+        0.0008268425730794994,
+        0.0008268425730795019,
+        0.0014401662092761755,
+        0.001440166209276192,
+        0.005771193391079519
+      ],
+      "moduli": {
+        "young_x_over_E": 0.001920610617378836,
+        "young_y_over_E": 0.0019206106173788567,
+        "young_z_over_E": 0.0019206106173788537,
+        "poisson_xy": 0.33360363419718986,
+        "shear_yz_fixed_over_E": 0.0008267047063085635,
+        "bulk_uniform_strain_over_E": 0.001923731044894315
+      },
+      "relative_equilibrium_residual": [
+        5.703521637766586e-14,
+        4.940205817778091e-14,
+        4.2569009513102576e-14,
+        2.6673359641402793e-14,
+        6.302075240270161e-14,
+        4.642965830342351e-14
+      ],
+      "max_equilibrium_residual": 6.302075240270161e-14,
+      "solver": "sparse direct LU; periodic fluctuations; first-node translations gauged; all rotations free",
+      "gauged_stiffness_modes": {
+        "eigenvalues": [
+          2.3052807193554807e-09,
+          2.3052808319387628e-09,
+          2.3054990687499904e-09,
+          2.305608477403446e-09
+        ],
+        "absolute_residuals": [
+          3.8414139233380487e-19,
+          1.1952714199177779e-17,
+          6.067498616227602e-19,
+          1.242349448329277e-18
+        ],
+        "note": "k=0 only, coordinate- and scaling-dependent; eigenvalues of static gauged K, not frequencies; no global buckling or BZ stability result."
+      },
+      "material_assumption": {
+        "E_GPa": 3.5,
+        "nu": 0.36
+      },
+      "nominal_E_MPa": 3500.0,
+      "nominal_Ex_MPa": 6.722137160825926,
+      "nominal_C44_MPa": 2.8934664720799725
+    }
+  }
+}

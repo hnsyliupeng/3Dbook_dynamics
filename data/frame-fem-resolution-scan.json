@@ -1,0 +1,36 @@
+{
+  "w": 0.32,
+  "nu": 0.36,
+  "r_over_a": 0.006,
+  "material": "PLA assumed",
+  "warning": "Each sampling regenerates a different boundary graph and connections. This is not a fixed-geometry mesh convergence study.",
+  "results": [
+    {
+      "resolution": 24,
+      "vertices": 984,
+      "edges": 2520,
+      "minimum_length_over_a": 0.0032095784023720955,
+      "young_x_over_E": 0.0019219120894475477,
+      "shear_yz_over_E": 0.0008243204547297305,
+      "residual": 1.108813715267308e-13
+    },
+    {
+      "resolution": 48,
+      "vertices": 1416,
+      "edges": 2952,
+      "minimum_length_over_a": 0.002229880425207811,
+      "young_x_over_E": 0.001920610617378836,
+      "shear_yz_over_E": 0.0008267047063085635,
+      "residual": 6.302075240270161e-14
+    },
+    {
+      "resolution": 96,
+      "vertices": 2280,
+      "edges": 3816,
+      "minimum_length_over_a": 3.5067085919659884e-05,
+      "young_x_over_E": 0.0019233705071388745,
+      "shear_yz_over_E": 0.0008266825369220024,
+      "residual": 6.591158434038928e-12
+    }
+  ]
+}
