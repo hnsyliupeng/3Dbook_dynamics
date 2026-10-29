@@ -50,16 +50,14 @@ function build(){
  const boxGeom=new THREE.EdgesGeometry(new THREE.BoxGeometry(tiles,tiles,tiles));const boxMat=new THREE.LineBasicMaterial({color:0x8ea99a,transparent:true,opacity:.65});const box=new THREE.LineSegments(boxGeom,boxMat);box.position.setScalar(tiles/2);box.name='box';box.visible=visible.box;box.userData.ownedMaterial=true;group.add(box);
  $('tileTag').textContent=`${tiles} × ${tiles} × ${tiles}`;resize();
 }
-// True precomputed LSMR fields for the current w=0.32 periodic graph.
-// Geometry is cut in the undeformed reference cell, then the endpoints are moved.
-// Periodic offsets contribute to the affine part of displacement.
+// Axial-force colors on the UNDEFORMED periodic graph. Do not display the
+// non-unique displacement field of this mechanism-rich pin-jointed model.
 function addForceVisual(){
- const mode=Number($('loadCase').value), field=mechanicsFields.modes[mode],fluct=field.fluctuation;
- const amplification=Number($('deformScale').value),applied=.01,visual=applied*amplification;
+ const mode=Number($('loadCase').value),field=mechanicsFields.modes[mode],applied=.01;
  const names=['εxx · X 向拉伸','εyy · Y 向拉伸','εzz · Z 向拉伸','γyz · YZ 剪切','γxz · XZ 剪切','γxy · XY 剪切'];
- $('forceCaseTitle').textContent=names[mode];$('forceOverlay').querySelector('.force-caption').textContent=`单项宏观应变 1% · 其余为 0；变形显示 ${amplification}×`;
+ $('forceCaseTitle').textContent=names[mode];
+ $('forceOverlay').querySelector('.force-caption').textContent='单项宏观应变 1% · 其余为 0';
  const bound=field.max_abs_axial_strain*applied;$('forceMin').textContent=(-bound).toFixed(4);$('forceMax').textContent=(bound).toFixed(4);
- function affine(p){let [x,y,z]=p.map(v=>v-tiles/2);switch(mode){case 0:return [x,0,0];case 1:return [0,y,0];case 2:return [0,0,z];case 3:return [0,z/2,y/2];case 4:return [z/2,0,x/2];default:return [y/2,x/2,0]}}
  const pieces=[];
  model.edges.forEach((e,ei)=>{
   const a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o),delta=b.map((v,k)=>v-a[k]);
@@ -67,28 +65,24 @@ function addForceVisual(){
    if(r[1]-r[0]<1e-8)continue;
    for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++){
     const shift=[t[0]+x,t[1]+y,t[2]+z],coords=q=>a.map((v,k)=>v+shift[k]+q*delta[k]);
-    const p=coords(r[0]),q=coords(r[1]);
-    const disp=(point,tval)=>{const af=affine(point);return af.map((v,k)=>visual*(v+(1-tval)*fluct[e.a][k]+tval*fluct[e.b][k]));};
-    pieces.push({p,q,dp:disp(p,r[0]),dq:disp(q,r[1]),value:field.axial_strain[ei]});
+    pieces.push({p:coords(r[0]),q:coords(r[1]),value:field.axial_strain[ei]});
    }
   }
  });
  const shaded=new THREE.MeshBasicMaterial({color:0xffffff});
- const reference=new THREE.MeshBasicMaterial({color:0x7c8e86,transparent:true,opacity:.19,depthWrite:false});
- const mesh=new THREE.InstancedMesh(cyl,shaded,pieces.length),ghost=new THREE.InstancedMesh(cyl,reference,pieces.length);
- mesh.name=ghost.name='force-struts';mesh.visible=ghost.visible=visible.struts;mesh.userData.ownedMaterial=ghost.userData.ownedMaterial=true;
+ const mesh=new THREE.InstancedMesh(cyl,shaded,pieces.length);
+ mesh.name='force-struts';mesh.visible=visible.struts;mesh.userData.ownedMaterial=true;
  const dummy=new THREE.Object3D(),up=new THREE.Vector3(0,1,0),blue=new THREE.Color('#1658b7'),white=new THREE.Color('#9da8a2'),red=new THREE.Color('#ca3024');
- function transform(a,b,r){const av=new THREE.Vector3(...a),bv=new THREE.Vector3(...b),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.normalize());dummy.scale.set(r,av.distanceTo(bv),r);dummy.updateMatrix();return dummy.matrix}
- pieces.forEach((p,i)=>{ghost.setMatrixAt(i,transform(p.p,p.q,radius*.34));mesh.setMatrixAt(i,transform(add(p.p,p.dp),add(p.q,p.dq),radius));const v=Math.max(-1,Math.min(1,p.value/field.max_abs_axial_strain));const color=white.clone().lerp(v<0?blue:red,Math.sqrt(Math.abs(v)));mesh.setColorAt(i,color)});
- group.add(ghost,mesh);
+ pieces.forEach((p,i)=>{const av=new THREE.Vector3(...p.p),bv=new THREE.Vector3(...p.q),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.normalize());dummy.scale.set(radius,av.distanceTo(bv),radius);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);const v=Math.max(-1,Math.min(1,p.value/field.max_abs_axial_strain));const color=white.clone().lerp(v<0?blue:red,Math.sqrt(Math.abs(v)));mesh.setColorAt(i,color)});
+ group.add(mesh);
 }
 function syncResultUI(){
  const valid=model && Math.abs(model.w-.32)<1e-9 && model.vertices.length===mechanicsFields.node_count && model.edges.length===mechanicsFields.edge_count && model.vertices.every((v,i)=>v.p.every((x,k)=>Math.abs(x-mechanicsFields.positions[i][k])<1e-10)) && model.edges.every((e,i)=>[e.a,e.b,...e.o].every((x,k)=>x===mechanicsFields.edge_keys[i][k]));
  if(!valid)resultMode='structure';
  document.querySelectorAll('#resultMode button').forEach(b=>{b.classList.toggle('active',b.dataset.result===resultMode);b.disabled=b.dataset.result==='force'&&!valid});
- $('forceAvailability').textContent=valid?'w=0.32 的预计算结果；位移受机构影响而非唯一。':'当前 w 无预计算场；力学视图仅支持 w=0.32。';
+ $('forceAvailability').textContent=valid?'位移存在机构、结果非唯一；已关闭变形显示，仅展示未变形轴力。':'当前 w 无预计算场；力学视图仅支持 w=0.32。';
  $('forceOverlay').hidden=resultMode!=='force';$('structureLegend').style.visibility=resultMode==='force'?'hidden':'visible';
- $('loadCase').disabled=!valid;$('deformScale').disabled=!valid;
+ $('loadCase').disabled=!valid;
 }
 function updateChecks(){const v=validate(model,radius);$('nodeCount').textContent=model.n;$('crossCount').textContent=v.cross+v.boundaryWebs.count;$('periodText').textContent=`边界连接点 ${v.boundary.junctionCount} · 单层无断头 ${v.connectivity.red.degreeOne + v.connectivity.blue.degreeOne === 0 ? '是' : '否'}`;$('surfaceText').textContent=`最大 |g ∓ w| = ${v.residual.toExponential(1)}`;const pass=v.minClearance>0;$('clearText').textContent=`最小净距 ${v.minClearance.toFixed(4)} a · ${pass?'未发现干涉':`${v.intersections} 对发生干涉`}`;$('clearIcon').textContent=pass?'✓':'!';$('clearIcon').className='check-icon '+(pass?'':'fail');$('webText').textContent=`${v.boundaryWebs.count} 根 · 中心线交叉 ${v.boundaryWebs.intersectionCount} · 半径邻近 ${v.boundaryWebs.nearCount} 对（${v.proximity.other} 对非一跳邻接）`; $('rigidityText').textContent=`至少 ${v.rigidity.maxwellLowerBound} 个非平移机构；${v.rigidity.degreeTwo} 个二杆节点`;  $('webIcon').className='check-icon '+(v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? 'warning' : ''); $('webIcon').textContent=v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? '!' : '✓';$('periodIcon').className='check-icon '+(v.error<1e-8 && v.connectivity.red.components===1 && v.connectivity.blue.components===1 && v.connectivity.red.degreeOne===0 && v.connectivity.blue.degreeOne===0?'':'fail');$('surfaceIcon').className='check-icon '+(v.residual<1e-8?'':'fail')}
 function updateMechanics(){
@@ -115,9 +109,8 @@ $('latticeExport').onclick=()=>{if(!latticeReport)return;const report={descripti
 function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);syncResultUI();build();updateChecks();updateLattice();updateMechanics();$('loading').style.display='none'}
 for(const id of ['width','radius'])$(id).addEventListener('change',()=>{ $('loading').style.display='block';requestAnimationFrame(()=>setTimeout(rebuild,10)) });for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id] && ((id!=='nodes'&&id!=='struts')||resultMode==='structure');if(id==='struts'&&o.name==='force-struts')o.visible=visible.struts})});
 document.querySelectorAll('#resultMode button').forEach(b=>b.addEventListener('click',()=>{resultMode=b.dataset.result;syncResultUI();build();cameraView();if(resultMode==='force'){camera.position.sub(controls.target).multiplyScalar(.84).add(controls.target);controls.update()}}));
-for(const id of ['loadCase','deformScale'])$(id).addEventListener('input',()=>{$('deformValue').textContent=$('deformScale').value+'×';if(resultMode==='force')build()});
-document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{tiles=+btn.dataset.n;document.querySelectorAll('#resultMode button').forEach(b=>b.addEventListener('click',()=>{resultMode=b.dataset.result;syncResultUI();build();cameraView();if(resultMode==='force'){camera.position.sub(controls.target).multiplyScalar(.84).add(controls.target);controls.update()}}));
-for(const id of ['loadCase','deformScale'])$(id).addEventListener('input',()=>{$('deformValue').textContent=$('deformScale').value+'×';if(resultMode==='force')build()});
-document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',b===btn));build();cameraView()}));$('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
+$('loadCase').addEventListener('change',()=>{if(resultMode==='force')build()});
+document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{tiles=+btn.dataset.n;document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',b===btn));build();cameraView()}));
+$('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
 $('export').onclick=()=>{const data={description:'H=12 approximation with added face-contour reinforcement; fractional coordinates; each undirected edge joins a to b+offset. Not paper Fig.4 simulation data.',w:model.w,vertices:model.vertices,edges:model.edges};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-H12-periodic-graph.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 cameraView();requestAnimationFrame(()=>setTimeout(rebuild,20));function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();

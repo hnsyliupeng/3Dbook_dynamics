@@ -1,0 +1,55 @@
+{
+  "w": 0.32,
+  "degree_two_count": 684,
+  "null_direction_example": {
+    "node": 564,
+    "role": "boundary",
+    "position": [
+      0.0,
+      0.020833333333333332,
+      0.030847095695034896
+    ],
+    "incident_edge_indices": [
+      1884,
+      1889
+    ],
+    "null_direction": [
+      -1.0,
+      0.0,
+      0.0
+    ],
+    "amplitude_in_a": 0.05,
+    "max_weighted_extension_change": 0.0,
+    "note": "Linearized illustration only; arbitrary finite-amplitude null displacement is not a nonlinear equilibrium prediction."
+  },
+  "resolution_scan": [
+    {
+      "resolution": 24,
+      "nodes": 984,
+      "edges": 2520,
+      "min_length": 0.0032095784023720955,
+      "young_x_over_EA_a2": 16.239154341502694,
+      "shear_yz_over_EA_a2": 6.954144551001843,
+      "max_relative_normal_residual": 9.53842645562093e-11
+    },
+    {
+      "resolution": 48,
+      "nodes": 1416,
+      "edges": 2952,
+      "min_length": 0.002229880425207811,
+      "young_x_over_EA_a2": 16.2391543415027,
+      "shear_yz_over_EA_a2": 6.954144551001841,
+      "max_relative_normal_residual": 1.1671373811931708e-10
+    },
+    {
+      "resolution": 96,
+      "nodes": 2280,
+      "edges": 3816,
+      "min_length": 3.5067085919659884e-05,
+      "young_x_over_EA_a2": 16.239154341502694,
+      "shear_yz_over_EA_a2": 6.9541445510018445,
+      "max_relative_normal_residual": 1.027754829628543e-09
+    }
+  ],
+  "note": "Fixed-cell periodic pin joints and axial bars. No bending stiffness. The scan does not validate beam convergence, stability, paper fidelity or collision-free solids."
+}

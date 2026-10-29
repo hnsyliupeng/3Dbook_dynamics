@@ -6,7 +6,7 @@ import {inspectBoundaryBraces,analyzeBoundaryProximity} from './boundary-braces.
 import {rigidityBound} from './rigidity.mjs';
 
 function offset(a,b) { return a.map((v,i)=>Math.round(v-b[i])); }
-export function buildBilayer(w=.32) {
+export function buildBilayer(w=.32, {boundaryResolution=48}={}) {
  const ops=gyroidSymmetryOps().i43d;
  const seeds=WYCKOFF[12].gens.flatMap(g=>orbit(g,ops));
  const red=seeds.map(p=>projectToLevel(p,w).map(mod1));
@@ -29,7 +29,7 @@ export function buildBilayer(w=.32) {
   for(const q of near) edges.push({a:i,b:n+q.j,o:offset(red[i],blue[q.j]),d:q.d,kind:'cross'});
  }
  const model={w,n,vertices,edges};
- model.boundary=reinforceBoundary(model);
+ model.boundary=reinforceBoundary(model,boundaryResolution);
  return model;
 }
 export function validate(s,radius) {

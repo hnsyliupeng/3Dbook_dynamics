@@ -16,8 +16,8 @@ from scipy.sparse.linalg import lsmr
 
 ROOT=Path(__file__).resolve().parent.parent
 
-def model_for(w):
-    p=subprocess.run(['node',str(ROOT/'tools/export_model.mjs'),str(w)],cwd=ROOT,check=True,text=True,capture_output=True)
+def model_for(w, resolution=48):
+    p=subprocess.run(['node',str(ROOT/'tools/export_model.mjs'),str(w),str(resolution)],cwd=ROOT,check=True,text=True,capture_output=True)
     return json.loads(p.stdout)
 
 def make_matrices(model, webs=True):
@@ -71,11 +71,11 @@ def analyze(model, webs, tolerance, maxiter):
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--w',type=float,default=.32);parser.add_argument('--tol',type=float,default=1e-10);parser.add_argument('--maxiter',type=int,default=20000);parser.add_argument('--output',type=Path)
+    parser.add_argument('--w',type=float,default=.32);parser.add_argument('--resolution',type=int,default=48);parser.add_argument('--tol',type=float,default=1e-10);parser.add_argument('--maxiter',type=int,default=20000);parser.add_argument('--output',type=Path)
     args=parser.parse_args()
     if not .15<=args.w<=.5 or args.tol<=0 or args.maxiter<1: parser.error('w must be 0.15..0.50; tol and maxiter must be positive')
-    model=model_for(args.w)
-    result={'method':'fixed-lattice periodic pin-jointed axial truss, six affine strain cases and periodic displacement relaxation','w':args.w,'normalization':'a=1, EA=1; C is in units EA/a²; strain order exx, eyy, ezz, gamma_yz, gamma_xz, gamma_xy','assumptions':['all bars identical axial rigidity EA','linear elastic axial bars and freely hinged nodes','no bending, torsion, prestress, buckling, contact, finite joint size or material nonlinearity','fixed cubic reference cell; affine strain with periodic fluctuations','geometry is the approximate model, not paper figure 4'], 'with_boundary_webs':analyze(model,True,args.tol,args.maxiter),'without_boundary_webs':analyze(model,False,args.tol,args.maxiter)}
+    model=model_for(args.w,args.resolution)
+    result={'method':'fixed-lattice periodic pin-jointed axial truss, six affine strain cases and periodic displacement relaxation','w':args.w,'boundary_resolution':args.resolution,'normalization':'a=1, EA=1; C is in units EA/a²; strain order exx, eyy, ezz, gamma_yz, gamma_xz, gamma_xy','assumptions':['all bars identical axial rigidity EA','linear elastic axial bars and freely hinged nodes','no bending, torsion, prestress, buckling, contact, finite joint size or material nonlinearity','fixed cubic reference cell; affine strain with periodic fluctuations','geometry is the approximate model, not paper figure 4'], 'with_boundary_webs':analyze(model,True,args.tol,args.maxiter),'without_boundary_webs':analyze(model,False,args.tol,args.maxiter)}
     text=json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+'\n'
     if args.output: args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(text,encoding='utf8')
     else: print(text,end='')

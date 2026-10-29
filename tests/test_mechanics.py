@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from tools.mechanics import analyze, model_for
+from tools.mechanics import analyze, model_for, make_matrices
 
 class PeriodicTrussMechanics(unittest.TestCase):
     def test_orthogonal_periodic_rods(self):
@@ -19,6 +19,20 @@ class PeriodicTrussMechanics(unittest.TestCase):
         model={'vertices':[{'p':[0,0,0]},{'p':[.5,0,0]}], 'edges':[{'a':0,'b':1,'o':[0,0,0]}]}
         c=np.array(analyze(model,True,1e-12,1000)['C_over_EA_a2'])
         np.testing.assert_allclose(c,np.zeros((6,6)),atol=1e-12)
+    def test_explicit_boundary_node_null_motion(self):
+        model=model_for(.32); B,D,lengths,edges=make_matrices(model,True)
+        node=564
+        self.assertEqual(model['vertices'][node]['role'],'boundary')
+        incidence=[e for e in edges if e['a']==node or e['b']==node]
+        self.assertEqual(len(incidence),2)
+        # Both contour bars lie in x=0: x motion is an exact first-order null direction.
+        v=np.zeros(B.shape[1]);v[3*node-3]=-1
+        np.testing.assert_allclose(B@v,0,atol=1e-14)
+    def test_boundary_sampling_comparison(self):
+        coarse=analyze(model_for(.32,24),True,1e-10,20000)
+        medium=analyze(model_for(.32,48),True,1e-10,20000)
+        self.assertNotEqual(coarse['vertices'],medium['vertices'])
+        np.testing.assert_allclose(coarse['C_over_EA_a2'],medium['C_over_EA_a2'],atol=1e-7)
     def test_gyroid_convergence_energy_and_braces(self):
         s=model_for(.32)
         with_web=analyze(s,True,1e-10,10000)
