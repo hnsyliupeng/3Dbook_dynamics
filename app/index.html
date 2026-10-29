@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f3ed">
+  <meta name="description" content="从原始 Notebook 出发的交互式经典力学案例，矢量、静力学和动力学的模型驱动三维演示。">
+  <title>经典力学图鉴 · Mechanics Atlas</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="?" aria-label="经典力学图鉴首页">
+      <span class="brand-mark"><span>∑</span></span>
+      <span class="brand-copy"><b>经典力学图鉴</b><small>THE MECHANICS ATLAS</small></span>
+    </a>
+    <div class="topbar-center"><span class="topbar-dot"></span> 一本可以动手的力学书 <span class="topbar-divider"></span> MODEL-DRIVEN LEARNING</div>
+    <div class="topbar-actions">
+      <button class="top-link" id="textMode" type="button">文字版</button>
+      <button class="source-button" id="openCatalog" type="button"><span>▤</span> 源题目录 <span class="source-count">39</span></button>
+    </div>
+  </header>
+  <div class="app-layout">
+    <aside class="sidebar" aria-label="案例目录">
+      <div class="sidebar-intro"><div class="sidebar-label">THE BOOK / 目录</div><div class="sidebar-heading">探索经典力学 <span>↗</span></div><p>从一个问题开始，<br>让公式与运动一起发生。</p></div>
+      <nav id="caseNav" class="case-nav" aria-label="按照知识顺序选择案例"></nav>
+      <div class="sidebar-footer"><div class="sidebar-footer-icon" aria-hidden="true">+</div><div><b>从原题到动态演示</b><p>同类题合并 · 可追溯源单元</p></div></div>
+    </aside>
+    <main class="workspace" id="mainContent">
+      <div class="workspace-inner">
+        <div class="breadcrumbs"><span>THE MECHANICS ATLAS</span><span>/</span><span id="crumbSection">矢量</span><span>/</span><span class="current">案例 <span id="crumbNumber">01</span></span></div>
+        <section class="lesson-header">
+          <div><div class="lesson-kicker"><span class="little-dash"></span><span id="lessonEyebrow"></span> <span class="kicker-en">· INTERACTIVE CASE</span></div><h1 id="lessonTitle"></h1><p id="lessonDescription"></p></div>
+          <div class="header-meta"><span class="verified-pill"><span>✓</span> 已关联源单元</span><button type="button" id="openSource" class="source-inline">查看来源与说明 <span>↗</span></button></div>
+        </section>
+        <section class="book" aria-label="同步推演与三维演示">
+          <div class="book-topline"><div><span class="book-symbol" aria-hidden="true">+</span> <b>交互推演</b><span class="book-top-en"> / THE WORKING MODEL</span></div><div class="book-tools"><span class="mode-label">播放模式</span><div class="mode-switch" role="group" aria-label="播放模式"><button id="manualMode" type="button">手动</button><button id="autoMode" type="button">自动</button></div><span class="book-page" id="bookPage">01 / 12</span></div></div>
+          <div class="book-content">
+            <section class="derivation" aria-label="推导步骤">
+              <div class="question-heading"><span class="mini-label">THE QUESTION / 问题</span><h2 id="lessonQuestion"></h2><p>按顺序探索，公式与场景始终同步。</p></div>
+              <div class="step-list-head"><b>推演步骤</b><span id="stepCounter">01 / 04</span></div>
+              <div id="stepList" class="step-list"></div>
+              <div class="step-footnote"><span>+</span> 点击公式下的彩色标签，定位场景中的对应元素。</div>
+            </section>
+            <section class="scene-panel" aria-label="交互式三维模型">
+              <canvas id="sceneCanvas" aria-label="三维模型，拖动可旋转，滚轮可缩放"></canvas>
+              <div class="scene-label-layer" id="sceneLabels"></div>
+              <div class="scene-top"><div class="scene-badge"><span class="live-dot"></span> <span>模型驱动 · 同步演示</span></div><button id="resetCamera" class="camera-button" type="button" title="重置视角" aria-label="重置三维视角"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.4 5.7M4 5v6h6"/></svg> <span>重置视角</span></button></div>
+              <div class="scene-bottom"><div><span class="scene-bottom-title">FIG. <span id="figureNumber">01</span></span><span id="sceneNote">拖动旋转 · 滚轮缩放</span></div><span class="scene-compass" aria-hidden="true">+</span></div>
+            </section>
+          </div>
+          <div class="playback">
+            <div class="playback-buttons"><button id="play" class="play-button" type="button" aria-label="播放当前步骤">▶</button><button id="previousStep" class="transport-button" type="button" aria-label="上一步" title="上一步"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M18 6l-9 6 9 6z"/></svg></button><button id="nextStep" class="transport-button" type="button" aria-label="下一步" title="下一步"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M6 6l9 6-9 6z"/></svg></button><button id="restart" class="transport-button restart" type="button" aria-label="从头开始" title="从头开始"><svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 1 1 2.4 5.7M4 5v6h6"/></svg></button></div>
+            <div class="timeline-wrap"><div class="timeline-top"><b id="timelineHint">准备开始</b><span id="timeText">00:00</span></div><input id="timeline" type="range" min="0" max="1000" step="1" value="0" aria-label="推演和动画统一进度"><div class="timeline-ticks"><span>开始</span><span>观察</span><span>建立方程</span><span>得到结果</span></div></div>
+            <div class="playback-meta"><span id="speedBadge">步骤演示</span><small>统一时间轴</small></div>
+          </div>
+        </section>
+        <section class="lower-panel">
+          <div class="parameters-panel"><div class="panel-heading"><div><span class="mini-label">MAKE IT YOURS</span><h2>调整参数 <span>↘</span></h2></div><span class="live-indicator"><i></i> 即改即解</span></div><div id="presetWrap" class="preset-wrap" hidden><label for="preset">同类原题</label><select id="preset"></select></div><div class="parameters" id="parameters"></div><p class="parameter-note" id="parameterNote">修改参数将重新求解，保留当前进度。</p></div>
+          <div class="readout-panel"><div class="panel-heading"><div><span class="mini-label">FROM ONE MODEL</span><h2>实时物理量 <span>↗</span></h2></div><span class="readout-hint">随时间轴同步</span></div><div id="readouts" class="readouts"></div><div class="big-idea"><span aria-hidden="true">+</span><div><b>THE BIG IDEA</b><p id="bigIdea"></p></div></div></div>
+        </section>
+        <footer class="workspace-footer"><span>MECHANICS ATLAS <span class="footer-separator">/</span> 用直觉看见力学</span><div class="page-buttons"><button type="button" id="previousCase">← 上一个案例</button><span id="footerPage">01 / 12</span><button type="button" id="nextCase">下一个案例 →</button></div></footer>
+      </div>
+    </main>
+  </div>
+  <dialog id="modal" class="modal"><div class="modal-shell"><div class="modal-top"><div><span id="modalKicker" class="mini-label">SOURCE INDEX</span><h2 id="modalTitle"></h2></div><button type="button" id="closeModal" class="close-button" aria-label="关闭">×</button></div><div id="modalBody" class="modal-body"></div></div></dialog>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

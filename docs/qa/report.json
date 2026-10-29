@@ -1,0 +1,578 @@
+{
+  "generatedAt": "2026-10-29T10:40:10.201Z",
+  "sourceCommit": "dc05f371ac47fb82f9a00f622a274c5433629018",
+  "caseCount": 23,
+  "stepScreenshotCount": 92,
+  "animationCount": 23,
+  "presetScreenshotCount": 5,
+  "geometryRopeCases": [
+    "two-incline-pulley",
+    "movable-pulley",
+    "loaded-moving-pulley"
+  ],
+  "browser": "Headless Chromium, WebGL/SwiftShader",
+  "viewport": "1440×1080; mobile 390×844",
+  "offlineFilePagesChecked": 23,
+  "parameterEndpoints": "min/mid/max; progress preserved",
+  "playback": "manual/auto, step boundary, keyboard",
+  "pixelScan": "141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.",
+  "errors": [],
+  "warnings": [],
+  "entries": [
+    {
+      "id": "vector-resultant",
+      "title": "三维矢量的合成",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/vector-resultant/step-1.png",
+        "screenshots/vector-resultant/step-2.png",
+        "screenshots/vector-resultant/step-3.png",
+        "screenshots/vector-resultant/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "abc",
+          "label": "01B1 · 三维合矢量（模长 6）",
+          "path": "screenshots/vector-resultant/preset-abc.png"
+        },
+        {
+          "id": "five",
+          "label": "01B1 · 五个矢量（合矢量 2j）",
+          "path": "screenshots/vector-resultant/preset-five.png"
+        },
+        {
+          "id": "four",
+          "label": "01B2 · 四个矢量（合矢量 3i）",
+          "path": "screenshots/vector-resultant/preset-four.png"
+        },
+        {
+          "id": "symmetric",
+          "label": "01B2 · 对称矢量（合矢量 72i）",
+          "path": "screenshots/vector-resultant/preset-symmetric.png"
+        },
+        {
+          "id": "triangle",
+          "label": "01B2 · 三角形（模长 2√7）",
+          "path": "screenshots/vector-resultant/preset-triangle.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/vector-resultant.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 7,
+        "maxChanged": 24,
+        "distinctColors": 287,
+        "spikes": []
+      }
+    },
+    {
+      "id": "vector-direction",
+      "title": "方向与大小确定矢量",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/vector-direction/step-1.png",
+        "screenshots/vector-direction/step-2.png",
+        "screenshots/vector-direction/step-3.png",
+        "screenshots/vector-direction/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/vector-direction.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 11,
+        "distinctColors": 317,
+        "spikes": []
+      }
+    },
+    {
+      "id": "two-load-beam",
+      "title": "双载荷梁的支座反力",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/two-load-beam/step-1.png",
+        "screenshots/two-load-beam/step-2.png",
+        "screenshots/two-load-beam/step-3.png",
+        "screenshots/two-load-beam/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/two-load-beam.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 38,
+        "distinctColors": 296,
+        "spikes": []
+      }
+    },
+    {
+      "id": "block-equilibrium",
+      "title": "斜拉绳与临界摩擦",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/block-equilibrium/step-1.png",
+        "screenshots/block-equilibrium/step-2.png",
+        "screenshots/block-equilibrium/step-3.png",
+        "screenshots/block-equilibrium/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/block-equilibrium.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 13,
+        "distinctColors": 325,
+        "spikes": []
+      }
+    },
+    {
+      "id": "ladder-equilibrium",
+      "title": "靠墙梯子的平衡",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/ladder-equilibrium/step-1.png",
+        "screenshots/ladder-equilibrium/step-2.png",
+        "screenshots/ladder-equilibrium/step-3.png",
+        "screenshots/ladder-equilibrium/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/ladder-equilibrium.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 29,
+        "distinctColors": 300,
+        "spikes": []
+      }
+    },
+    {
+      "id": "sphere-cylinder-equilibrium",
+      "title": "球与圆柱的接触平衡",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/sphere-cylinder-equilibrium/step-1.png",
+        "screenshots/sphere-cylinder-equilibrium/step-2.png",
+        "screenshots/sphere-cylinder-equilibrium/step-3.png",
+        "screenshots/sphere-cylinder-equilibrium/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/sphere-cylinder-equilibrium.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 28,
+        "distinctColors": 411,
+        "spikes": []
+      }
+    },
+    {
+      "id": "car-chase",
+      "title": "汽车追上卡车",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/car-chase/step-1.png",
+        "screenshots/car-chase/step-2.png",
+        "screenshots/car-chase/step-3.png",
+        "screenshots/car-chase/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/car-chase.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 149,
+        "maxChanged": 240,
+        "distinctColors": 284,
+        "spikes": []
+      }
+    },
+    {
+      "id": "train-through-tunnel",
+      "title": "列车通过隧道",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/train-through-tunnel/step-1.png",
+        "screenshots/train-through-tunnel/step-2.png",
+        "screenshots/train-through-tunnel/step-3.png",
+        "screenshots/train-through-tunnel/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/train-through-tunnel.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 55,
+        "maxChanged": 89,
+        "distinctColors": 459,
+        "spikes": []
+      }
+    },
+    {
+      "id": "ships-closest-approach",
+      "title": "两船的最近距离",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/ships-closest-approach/step-1.png",
+        "screenshots/ships-closest-approach/step-2.png",
+        "screenshots/ships-closest-approach/step-3.png",
+        "screenshots/ships-closest-approach/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/ships-closest-approach.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 119,
+        "maxChanged": 171,
+        "distinctColors": 218,
+        "spikes": []
+      }
+    },
+    {
+      "id": "velocity-integration",
+      "title": "变速运动与折返",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/velocity-integration/step-1.png",
+        "screenshots/velocity-integration/step-2.png",
+        "screenshots/velocity-integration/step-3.png",
+        "screenshots/velocity-integration/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/velocity-integration.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 104,
+        "maxChanged": 166,
+        "distinctColors": 305,
+        "spikes": []
+      }
+    },
+    {
+      "id": "accelerated-projectile",
+      "title": "有水平加速度的抛体",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/accelerated-projectile/step-1.png",
+        "screenshots/accelerated-projectile/step-2.png",
+        "screenshots/accelerated-projectile/step-3.png",
+        "screenshots/accelerated-projectile/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/accelerated-projectile.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 32,
+        "maxChanged": 70,
+        "distinctColors": 225,
+        "spikes": []
+      }
+    },
+    {
+      "id": "projectile-over-barrier",
+      "title": "抛物线越过障碍物",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/projectile-over-barrier/step-1.png",
+        "screenshots/projectile-over-barrier/step-2.png",
+        "screenshots/projectile-over-barrier/step-3.png",
+        "screenshots/projectile-over-barrier/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/projectile-over-barrier.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 39,
+        "maxChanged": 61,
+        "distinctColors": 226,
+        "spikes": []
+      }
+    },
+    {
+      "id": "projectile-wall-bounce",
+      "title": "抛体与墙面的弹性反射",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/projectile-wall-bounce/step-1.png",
+        "screenshots/projectile-wall-bounce/step-2.png",
+        "screenshots/projectile-wall-bounce/step-3.png",
+        "screenshots/projectile-wall-bounce/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/projectile-wall-bounce.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 51,
+        "maxChanged": 72,
+        "distinctColors": 267,
+        "spikes": []
+      }
+    },
+    {
+      "id": "friction-block",
+      "title": "推力、摩擦与加速度",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/friction-block/step-1.png",
+        "screenshots/friction-block/step-2.png",
+        "screenshots/friction-block/step-3.png",
+        "screenshots/friction-block/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/friction-block.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 81,
+        "maxChanged": 151,
+        "distinctColors": 272,
+        "spikes": []
+      }
+    },
+    {
+      "id": "inclined-friction",
+      "title": "斜面上的摩擦与运动",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/inclined-friction/step-1.png",
+        "screenshots/inclined-friction/step-2.png",
+        "screenshots/inclined-friction/step-3.png",
+        "screenshots/inclined-friction/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/inclined-friction.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 70,
+        "maxChanged": 94,
+        "distinctColors": 224,
+        "spikes": []
+      }
+    },
+    {
+      "id": "two-incline-pulley",
+      "title": "双斜面与滑轮约束",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/two-incline-pulley/step-1.png",
+        "screenshots/two-incline-pulley/step-2.png",
+        "screenshots/two-incline-pulley/step-3.png",
+        "screenshots/two-incline-pulley/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/two-incline-pulley.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 30,
+        "maxChanged": 66,
+        "distinctColors": 302,
+        "spikes": []
+      }
+    },
+    {
+      "id": "movable-pulley",
+      "title": "定滑轮与动滑轮",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/movable-pulley/step-1.png",
+        "screenshots/movable-pulley/step-2.png",
+        "screenshots/movable-pulley/step-3.png",
+        "screenshots/movable-pulley/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/movable-pulley.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 57,
+        "maxChanged": 104,
+        "distinctColors": 338,
+        "spikes": []
+      }
+    },
+    {
+      "id": "loaded-moving-pulley",
+      "title": "外力作用下的动滑轮",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/loaded-moving-pulley/step-1.png",
+        "screenshots/loaded-moving-pulley/step-2.png",
+        "screenshots/loaded-moving-pulley/step-3.png",
+        "screenshots/loaded-moving-pulley/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/loaded-moving-pulley.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 47,
+        "maxChanged": 91,
+        "distinctColors": 385,
+        "spikes": []
+      }
+    },
+    {
+      "id": "slope-energy",
+      "title": "斜坡下滑与摩擦制动",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/slope-energy/step-1.png",
+        "screenshots/slope-energy/step-2.png",
+        "screenshots/slope-energy/step-3.png",
+        "screenshots/slope-energy/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/slope-energy.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 55,
+        "maxChanged": 98,
+        "distinctColors": 298,
+        "spikes": []
+      }
+    },
+    {
+      "id": "falling-rod",
+      "title": "从水平释放的均匀杆",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/falling-rod/step-1.png",
+        "screenshots/falling-rod/step-2.png",
+        "screenshots/falling-rod/step-3.png",
+        "screenshots/falling-rod/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/falling-rod.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 161,
+        "maxChanged": 217,
+        "distinctColors": 281,
+        "spikes": []
+      }
+    },
+    {
+      "id": "five-mass-center",
+      "title": "五个质点的质心",
+      "section": "mass",
+      "screenshots": [
+        "screenshots/five-mass-center/step-1.png",
+        "screenshots/five-mass-center/step-2.png",
+        "screenshots/five-mass-center/step-3.png",
+        "screenshots/five-mass-center/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/five-mass-center.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 17,
+        "maxChanged": 41,
+        "distinctColors": 249,
+        "spikes": []
+      }
+    },
+    {
+      "id": "cone-centroid",
+      "title": "圆锥的切片与质心",
+      "section": "mass",
+      "screenshots": [
+        "screenshots/cone-centroid/step-1.png",
+        "screenshots/cone-centroid/step-2.png",
+        "screenshots/cone-centroid/step-3.png",
+        "screenshots/cone-centroid/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/cone-centroid.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 62,
+        "maxChanged": 245,
+        "distinctColors": 331,
+        "spikes": []
+      }
+    },
+    {
+      "id": "disk-inertia",
+      "title": "圆盘的转动惯量",
+      "section": "mass",
+      "screenshots": [
+        "screenshots/disk-inertia/step-1.png",
+        "screenshots/disk-inertia/step-2.png",
+        "screenshots/disk-inertia/step-3.png",
+        "screenshots/disk-inertia/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/disk-inertia.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 74,
+        "maxChanged": 170,
+        "distinctColors": 287,
+        "spikes": []
+      }
+    }
+  ]
+}

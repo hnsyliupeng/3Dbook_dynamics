@@ -1,0 +1,8378 @@
+{
+  "version": 1,
+  "caseId": "accelerated-projectile",
+  "title": "有水平加速度的抛体",
+  "question": "竖直上抛的同时受到水平加速度，轨迹会怎样？",
+  "assumptions": "02B3 单元 4–8：x₀ = 0、y₀ = 50 m、vₓ₀ = 0、vᵧ₀ = 20 m/s、aₓ = 2 m/s²、g = 10 m/s²。源输出飞行时间 2 + √14 s。",
+  "sourceCommit": "dc05f371ac47fb82f9a00f622a274c5433629018",
+  "sources": [
+    {
+      "file": "02B3 Kinematic Parabolic.ipynb",
+      "cells": [
+        4,
+        6,
+        7,
+        8
+      ],
+      "note": "",
+      "cellIds": [
+        "00ce7b27-a5c5-4f8f-a794-4e16a5d0ca3c",
+        "5cc6659f-2113-4488-85d1-7376f01fe8fd",
+        "406e2fde-8693-42d9-a249-1863fc5cb845",
+        "45bf260a-9a9d-4672-90b0-a82014c509c0"
+      ]
+    }
+  ],
+  "parameters": {
+    "y0": 50,
+    "vy": 20,
+    "ax": 2
+  },
+  "preset": "abc",
+  "duration": 5.741657386773942,
+  "clock": "physical",
+  "timeUnit": "s",
+  "events": [],
+  "colorMap": {
+    "A": "#278f86",
+    "B": "#dc7763",
+    "C": "#dda940",
+    "R": "#305f83",
+    "W1": "#df7863",
+    "W2": "#cc6d5e",
+    "RA": "#258f86",
+    "RB": "#258f86",
+    "moment": "#d19c4c",
+    "weight": "#d97d60",
+    "wall": "#538ba8",
+    "floor": "#258f86",
+    "friction": "#d2a044",
+    "tension": "#8a80b0",
+    "normal": "#528ca7",
+    "car": "#278f86",
+    "truck": "#d77c64",
+    "meeting": "#d0a048",
+    "position": "#4d8ba5",
+    "velocity": "#248f86",
+    "accel": "#dc9d43",
+    "path": "#b9a066",
+    "force": "#d87a64",
+    "blockA": "#278f86",
+    "blockB": "#d77c64",
+    "constraint": "#ba9864",
+    "height": "#668fa5",
+    "energy": "#278f86",
+    "inertia": "#8a80b0",
+    "torque": "#d49d4d",
+    "angular": "#278f86",
+    "mass": "#d77c64",
+    "center": "#238e84",
+    "slice": "#d7a047",
+    "ring": "#d7a047",
+    "turn": "#d7a047",
+    "shipA": "#278f86",
+    "shipB": "#d77c64",
+    "separation": "#d7a047",
+    "closest": "#8a80b0",
+    "impact": "#d7a047",
+    "direction": "#d19c4c",
+    "unit": "#8a80b0",
+    "result": "#278f86",
+    "pointA": "#278f86",
+    "pointB": "#d77c64",
+    "geometry": "#668fa5",
+    "contact": "#d19c4c",
+    "train": "#d77c64",
+    "tunnel": "#668fa5",
+    "observer": "#d19c4c",
+    "obstacle": "#668fa5",
+    "wallSurface": "#668fa5",
+    "appliedForce": "#d87a64"
+  },
+  "derivationScript": [
+    {
+      "title": "从初始状态开始",
+      "formula": "x_0=0,\\ y_0,\\ v_{y0}",
+      "detail": "先确定高度与竖直初速度；这里初始水平速度为零。",
+      "tags": [
+        "position",
+        "velocity"
+      ],
+      "stepId": "1",
+      "tStart": 0,
+      "tEnd": 1.4354143466934854,
+      "highlight": [
+        "position",
+        "velocity"
+      ],
+      "visual": {
+        "highlightObjects": [
+          "position",
+          "velocity"
+        ]
+      }
+    },
+    {
+      "title": "两个方向分别积分",
+      "formula": "x=\\tfrac12a_xt^2,\\quad y=y_0+v_{y0}t-\\tfrac12gt^2",
+      "detail": "水平方向的加速度不为零，竖直方向只受重力。",
+      "tags": [
+        "position",
+        "accel"
+      ],
+      "stepId": "2",
+      "tStart": 1.4354143466934854,
+      "tEnd": 2.870828693386971,
+      "highlight": [
+        "position",
+        "accel"
+      ],
+      "visual": {
+        "highlightObjects": [
+          "position",
+          "accel"
+        ]
+      }
+    },
+    {
+      "title": "观察瞬时速度",
+      "formula": "v_x=a_xt,\\quad v_y=v_{y0}-gt",
+      "detail": "速度箭头随两个速度分量一起连续变化。",
+      "tags": [
+        "velocity",
+        "path"
+      ],
+      "stepId": "3",
+      "tStart": 2.870828693386971,
+      "tEnd": 4.3062430400804566,
+      "highlight": [
+        "velocity",
+        "path"
+      ],
+      "visual": {
+        "highlightObjects": [
+          "velocity",
+          "path"
+        ]
+      }
+    },
+    {
+      "title": "求落地时刻",
+      "formula": "t_{\\rm hit}=\\frac{v_{y0}+\\sqrt{v_{y0}^2+2gy_0}}{g}",
+      "detail": "取 y(t) = 0 的正根，轨迹只显示至第一次落地。",
+      "tags": [
+        "path",
+        "position"
+      ],
+      "stepId": "4",
+      "tStart": 4.3062430400804566,
+      "tEnd": 5.741657386773942,
+      "highlight": [
+        "path",
+        "position"
+      ],
+      "visual": {
+        "highlightObjects": [
+          "path",
+          "position"
+        ]
+      }
+    }
+  ],
+  "timeSeries": [
+    {
+      "p": 0,
+      "t": 0,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0,
+      "y": 50,
+      "vx": 0,
+      "vy": 20,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "50",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "20",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.004166666666666667,
+      "t": 0.023923572444891423,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.0005723373185259682,
+      "y": 50.4756097623052,
+      "vx": 0.047847144889782846,
+      "vy": 19.760764275551086,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "50.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.008333333333333333,
+      "t": 0.047847144889782846,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.002289349274103873,
+      "y": 50.94549615142514,
+      "vx": 0.09569428977956569,
+      "vy": 19.521528551102172,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "50.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.0125,
+      "t": 0.07177071733467427,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.005151035866733714,
+      "y": 51.40965916735981,
+      "vx": 0.14354143466934854,
+      "vy": 19.282292826653258,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "51.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.016666666666666666,
+      "t": 0.09569428977956569,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.009157397096415491,
+      "y": 51.86809881010924,
+      "vx": 0.19138857955913138,
+      "vy": 19.043057102204344,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "51.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.020833333333333332,
+      "t": 0.11961786222445711,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.014308432963149204,
+      "y": 52.320815079673395,
+      "vx": 0.23923572444891422,
+      "vy": 18.80382137775543,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "52.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.025,
+      "t": 0.14354143466934854,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.020604143466934857,
+      "y": 52.767807976052296,
+      "vx": 0.2870828693386971,
+      "vy": 18.564585653306516,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "52.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.029166666666666667,
+      "t": 0.16746500711423998,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.028044528607772446,
+      "y": 53.209077499245936,
+      "vx": 0.33493001422847996,
+      "vy": 18.3253499288576,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "53.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.03333333333333333,
+      "t": 0.19138857955913138,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.036629588385661965,
+      "y": 53.644623649254314,
+      "vx": 0.38277715911826277,
+      "vy": 18.086114204408688,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "53.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.0375,
+      "t": 0.21531215200402282,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.046359322800603425,
+      "y": 54.074446426077444,
+      "vx": 0.43062430400804563,
+      "vy": 17.84687847995977,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "54.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.041666666666666664,
+      "t": 0.23923572444891422,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.057233731852596816,
+      "y": 54.4985458297153,
+      "vx": 0.47847144889782844,
+      "vy": 17.60764275551086,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "54.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.04583333333333333,
+      "t": 0.2631592968938056,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.06925281554164214,
+      "y": 54.9169218601679,
+      "vx": 0.5263185937876113,
+      "vy": 17.368407031061942,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "54.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.05,
+      "t": 0.2870828693386971,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.08241657386773943,
+      "y": 55.32957451743525,
+      "vx": 0.5741657386773942,
+      "vy": 17.129171306613028,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "55.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.05416666666666667,
+      "t": 0.31100644178358855,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.09672500683088865,
+      "y": 55.73650380151733,
+      "vx": 0.6220128835671771,
+      "vy": 16.889935582164114,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "55.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.058333333333333334,
+      "t": 0.33493001422847996,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.11217811443108978,
+      "y": 56.13770971241415,
+      "vx": 0.6698600284569599,
+      "vy": 16.6506998577152,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "56.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.0625,
+      "t": 0.35885358667337136,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.12877589666834285,
+      "y": 56.533192250125715,
+      "vx": 0.7177071733467427,
+      "vy": 16.411464133266286,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "56.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.06666666666666667,
+      "t": 0.38277715911826277,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.14651835354264786,
+      "y": 56.92295141465202,
+      "vx": 0.7655543182365255,
+      "vy": 16.17222840881737,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "56.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.07083333333333333,
+      "t": 0.40670073156315417,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.1654054850540048,
+      "y": 57.30698720599306,
+      "vx": 0.8134014631263083,
+      "vy": 15.932992684368458,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "57.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.075,
+      "t": 0.43062430400804563,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.1854372912024137,
+      "y": 57.68529962414885,
+      "vx": 0.8612486080160913,
+      "vy": 15.693756959919543,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "57.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.07916666666666666,
+      "t": 0.45454787645293704,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.2066137719878745,
+      "y": 58.05788866911937,
+      "vx": 0.9090957529058741,
+      "vy": 15.45452123547063,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.08333333333333333,
+      "t": 0.47847144889782844,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.22893492741038726,
+      "y": 58.424754340904634,
+      "vx": 0.9569428977956569,
+      "vy": 15.215285511021715,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.0875,
+      "t": 0.5023950213427198,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.25240075746995194,
+      "y": 58.785896639504635,
+      "vx": 1.0047900426854397,
+      "vy": 14.976049786572801,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.09166666666666666,
+      "t": 0.5263185937876113,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.2770112621665686,
+      "y": 59.14131556491938,
+      "vx": 1.0526371875752225,
+      "vy": 14.736814062123887,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.09583333333333334,
+      "t": 0.5502421662325028,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.30276644150023724,
+      "y": 59.491011117148865,
+      "vx": 1.1004843324650055,
+      "vy": 14.497578337674973,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.1,
+      "t": 0.5741657386773942,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.3296662954709577,
+      "y": 59.834983296193094,
+      "vx": 1.1483314773547884,
+      "vy": 14.25834261322606,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.10416666666666667,
+      "t": 0.5980893111222856,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.3577108240787301,
+      "y": 60.17323210205206,
+      "vx": 1.1961786222445712,
+      "vy": 14.019106888777145,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.10833333333333334,
+      "t": 0.6220128835671771,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.3869000273235546,
+      "y": 60.505757534725774,
+      "vx": 1.2440257671343542,
+      "vy": 13.77987116432823,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.1125,
+      "t": 0.6459364560120685,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.4172339052054309,
+      "y": 60.83255959421421,
+      "vx": 1.291872912024137,
+      "vy": 13.540635439879315,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.11666666666666667,
+      "t": 0.6698600284569599,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.44871245772435914,
+      "y": 61.153638280517406,
+      "vx": 1.3397200569139198,
+      "vy": 13.301399715430401,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.12083333333333333,
+      "t": 0.6937836009018513,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.4813356848803393,
+      "y": 61.468993593635325,
+      "vx": 1.3875672018037026,
+      "vy": 13.062163990981487,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.125,
+      "t": 0.7177071733467427,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.5151035866733714,
+      "y": 61.778625533568004,
+      "vx": 1.4354143466934854,
+      "vy": 12.822928266532573,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.12916666666666668,
+      "t": 0.7416307457916342,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.5500161631034556,
+      "y": 62.082534100315414,
+      "vx": 1.4832614915832685,
+      "vy": 12.583692542083657,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.13333333333333333,
+      "t": 0.7655543182365255,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.5860734141705914,
+      "y": 62.380719293877554,
+      "vx": 1.531108636473051,
+      "vy": 12.344456817634745,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.1375,
+      "t": 0.789477890681417,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.6232753398747795,
+      "y": 62.67318111425444,
+      "vx": 1.578955781362834,
+      "vy": 12.105221093185829,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.14166666666666666,
+      "t": 0.8134014631263083,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.6616219402160192,
+      "y": 62.95991956144607,
+      "vx": 1.6268029262526167,
+      "vy": 11.865985368736917,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.14583333333333334,
+      "t": 0.8373250355711999,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.7011132151943111,
+      "y": 63.24093463545245,
+      "vx": 1.6746500711423997,
+      "vy": 11.626749644288001,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.15,
+      "t": 0.8612486080160913,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.7417491648096548,
+      "y": 63.516226336273554,
+      "vx": 1.7224972160321825,
+      "vy": 11.387513919839087,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.15416666666666667,
+      "t": 0.8851721804609828,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.7835297890620506,
+      "y": 63.78579466390939,
+      "vx": 1.7703443609219656,
+      "vy": 11.148278195390173,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.15833333333333333,
+      "t": 0.9090957529058741,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.826455087951498,
+      "y": 64.04963961835999,
+      "vx": 1.8181915058117482,
+      "vy": 10.909042470941259,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.1625,
+      "t": 0.9330193253507656,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.8705250614779978,
+      "y": 64.30776119962533,
+      "vx": 1.8660386507015312,
+      "vy": 10.669806746492345,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.16666666666666666,
+      "t": 0.9569428977956569,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.915739709641549,
+      "y": 64.5601594077054,
+      "vx": 1.9138857955913138,
+      "vy": 10.43057102204343,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "0.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.17083333333333334,
+      "t": 0.9808664702405484,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 0.9620990324421527,
+      "y": 64.8068342426002,
+      "vx": 1.9617329404810968,
+      "vy": 10.191335297594517,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.175,
+      "t": 1.0047900426854397,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.0096030298798078,
+      "y": 65.04778570430976,
+      "vx": 2.0095800853708794,
+      "vy": 9.952099573145603,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.17916666666666667,
+      "t": 1.0287136151303313,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.0582517019545155,
+      "y": 65.28301379283405,
+      "vx": 2.0574272302606627,
+      "vy": 9.712863848696687,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.18333333333333332,
+      "t": 1.0526371875752225,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.1080450486662743,
+      "y": 65.51251850817307,
+      "vx": 2.105274375150445,
+      "vy": 9.473628124247774,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.1875,
+      "t": 1.0765607600201141,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.1589830700150858,
+      "y": 65.73629985032686,
+      "vx": 2.1531215200402283,
+      "vy": 9.234392399798859,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.19166666666666668,
+      "t": 1.1004843324650055,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.211065766000949,
+      "y": 65.95435781929537,
+      "vx": 2.200968664930011,
+      "vy": 8.995156675349945,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.19583333333333333,
+      "t": 1.124407904909897,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.264293136623864,
+      "y": 66.16669241507863,
+      "vx": 2.248815809819794,
+      "vy": 8.75592095090103,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2,
+      "t": 1.1483314773547884,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.3186651818838309,
+      "y": 66.37330363767661,
+      "vx": 2.2966629547095767,
+      "vy": 8.516685226452116,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.20416666666666666,
+      "t": 1.1722550497996798,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.3741819017808496,
+      "y": 66.57419148708935,
+      "vx": 2.3445100995993595,
+      "vy": 8.277449502003202,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.20833333333333334,
+      "t": 1.1961786222445712,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.4308432963149205,
+      "y": 66.76935596331681,
+      "vx": 2.3923572444891423,
+      "vy": 8.038213777554288,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2125,
+      "t": 1.2201021946894626,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.4886493654860433,
+      "y": 66.95879706635904,
+      "vx": 2.440204389378925,
+      "vy": 7.798978053105374,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.21666666666666667,
+      "t": 1.2440257671343542,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.5476001092942184,
+      "y": 67.142514796216,
+      "vx": 2.4880515342687084,
+      "vy": 7.5597423286564585,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.22083333333333333,
+      "t": 1.2679493395792454,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.6076955277394445,
+      "y": 67.3205091528877,
+      "vx": 2.5358986791584908,
+      "vy": 7.320506604207546,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.225,
+      "t": 1.291872912024137,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.6689356208217236,
+      "y": 67.49278013637411,
+      "vx": 2.583745824048274,
+      "vy": 7.08127087975863,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.22916666666666666,
+      "t": 1.3157964844690282,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.7313203885410535,
+      "y": 67.6593277466753,
+      "vx": 2.6315929689380564,
+      "vy": 6.842035155309718,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.23333333333333334,
+      "t": 1.3397200569139198,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.7948498308974365,
+      "y": 67.82015198379122,
+      "vx": 2.6794401138278396,
+      "vy": 6.602799430860802,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2375,
+      "t": 1.363643629358811,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.8595239478908703,
+      "y": 67.97525284772188,
+      "vx": 2.727287258717622,
+      "vy": 6.36356370641189,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.24166666666666667,
+      "t": 1.3875672018037026,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.9253427395213571,
+      "y": 68.12463033846726,
+      "vx": 2.7751344036074053,
+      "vy": 6.124327981962974,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "1.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.24583333333333332,
+      "t": 1.411490774248594,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 1.9923062057888954,
+      "y": 68.2682844560274,
+      "vx": 2.822981548497188,
+      "vy": 5.88509225751406,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.25,
+      "t": 1.4354143466934854,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.0604143466934857,
+      "y": 68.40621520040229,
+      "vx": 2.870828693386971,
+      "vy": 5.645856533065146,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.25416666666666665,
+      "t": 1.4593379191383768,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.1296671622351275,
+      "y": 68.5384225715919,
+      "vx": 2.9186758382767537,
+      "vy": 5.406620808616232,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.25833333333333336,
+      "t": 1.4832614915832685,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.2000646524138223,
+      "y": 68.66490656959625,
+      "vx": 2.966522983166537,
+      "vy": 5.167385084167314,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2625,
+      "t": 1.5071850640281599,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.2716068172295683,
+      "y": 68.78566719441535,
+      "vx": 3.0143701280563198,
+      "vy": 4.9281493597184,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.26666666666666666,
+      "t": 1.531108636473051,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.344293656682366,
+      "y": 68.9007044460492,
+      "vx": 3.062217272946102,
+      "vy": 4.68891363526949,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2708333333333333,
+      "t": 1.5550322089179425,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.4181251707722153,
+      "y": 69.01001832449776,
+      "vx": 3.110064417835885,
+      "vy": 4.449677910820576,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.275,
+      "t": 1.578955781362834,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.493101359499118,
+      "y": 69.11360882976109,
+      "vx": 3.157911562725668,
+      "vy": 4.210442186371658,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2791666666666667,
+      "t": 1.6028793538077255,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.569222222863072,
+      "y": 69.21147596183914,
+      "vx": 3.205758707615451,
+      "vy": 3.971206461922744,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2833333333333333,
+      "t": 1.6268029262526167,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.6464877608640767,
+      "y": 69.30361972073196,
+      "vx": 3.2536058525052334,
+      "vy": 3.7319707374738336,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2875,
+      "t": 1.650726498697508,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.7248979735021344,
+      "y": 69.39004010643949,
+      "vx": 3.301452997395016,
+      "vy": 3.4927350130249195,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.2916666666666667,
+      "t": 1.6746500711423997,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.8044528607772445,
+      "y": 69.47073711896178,
+      "vx": 3.3493001422847994,
+      "vy": 3.253499288576002,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.29583333333333334,
+      "t": 1.6985736435872911,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.885152422689406,
+      "y": 69.54571075829878,
+      "vx": 3.3971472871745823,
+      "vy": 3.014263564127088,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "2.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3,
+      "t": 1.7224972160321825,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 2.966996659238619,
+      "y": 69.61496102445055,
+      "vx": 3.444994432064365,
+      "vy": 2.775027839678174,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.30416666666666664,
+      "t": 1.7464207884770737,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.0499855704248837,
+      "y": 69.67848791741706,
+      "vx": 3.4928415769541474,
+      "vy": 2.5357921152292633,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.30833333333333335,
+      "t": 1.7703443609219656,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.1341191562482025,
+      "y": 69.7362914371983,
+      "vx": 3.540688721843931,
+      "vy": 2.2965563907803457,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3125,
+      "t": 1.7942679333668567,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.219397416708571,
+      "y": 69.78837158379427,
+      "vx": 3.5885358667337135,
+      "vy": 2.0573206663314316,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.31666666666666665,
+      "t": 1.8181915058117482,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.305820351805992,
+      "y": 69.834728357205,
+      "vx": 3.6363830116234963,
+      "vy": 1.8180849418825176,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.32083333333333336,
+      "t": 1.8421150782566398,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.393387961540466,
+      "y": 69.87536175743047,
+      "vx": 3.6842301565132796,
+      "vy": 1.5788492174336035,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.325,
+      "t": 1.8660386507015312,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.482100245911991,
+      "y": 69.91027178447067,
+      "vx": 3.7320773014030624,
+      "vy": 1.3396134929846895,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.32916666666666666,
+      "t": 1.8899622231464224,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.571957204920567,
+      "y": 69.9394584383256,
+      "vx": 3.7799244462928447,
+      "vy": 1.1003777685357754,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "3.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3333333333333333,
+      "t": 1.9138857955913138,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.662958838566196,
+      "y": 69.96292171899529,
+      "vx": 3.8277715911826276,
+      "vy": 0.8611420440868613,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "3.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3375,
+      "t": 1.9378093680362054,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.755105146848878,
+      "y": 69.98066162647973,
+      "vx": 3.875618736072411,
+      "vy": 0.6219063196379473,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "3.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3416666666666667,
+      "t": 1.9617329404810968,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.8483961297686107,
+      "y": 69.99267816077888,
+      "vx": 3.9234658809621936,
+      "vy": 0.38267059518903324,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "3.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3458333333333333,
+      "t": 1.9856565129259882,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 3.942831787325395,
+      "y": 69.99897132189278,
+      "vx": 3.9713130258519764,
+      "vy": 0.14343487074011918,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "3.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.35,
+      "t": 2.0095800853708794,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.038412119519231,
+      "y": 69.99954110982144,
+      "vx": 4.019160170741759,
+      "vy": -0.09580085370879488,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3541666666666667,
+      "t": 2.0335036578157712,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.135137126350121,
+      "y": 69.99438752456481,
+      "vx": 4.0670073156315425,
+      "vy": -0.3350365781577125,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.35833333333333334,
+      "t": 2.0574272302606627,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.233006807818062,
+      "y": 69.98351056612296,
+      "vx": 4.114854460521325,
+      "vy": -0.5742723026066265,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3625,
+      "t": 2.0813508027055536,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.332021163923052,
+      "y": 69.9669102344958,
+      "vx": 4.162701605411107,
+      "vy": -0.813508027055537,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "70",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.36666666666666664,
+      "t": 2.105274375150445,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.432180194665097,
+      "y": 69.94458652968342,
+      "vx": 4.21054875030089,
+      "vy": -1.052743751504451,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.37083333333333335,
+      "t": 2.129197947595337,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.533483900044195,
+      "y": 69.91653945168576,
+      "vx": 4.258395895190674,
+      "vy": -1.2919794759533687,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.375,
+      "t": 2.1531215200402283,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.635932280060343,
+      "y": 69.88276900050286,
+      "vx": 4.3062430400804566,
+      "vy": -1.5312152004022828,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.37916666666666665,
+      "t": 2.1770450924851197,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.7395253347135435,
+      "y": 69.84327517613468,
+      "vx": 4.354090184970239,
+      "vy": -1.7704509248511968,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.38333333333333336,
+      "t": 2.200968664930011,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.844263064003796,
+      "y": 69.79805797858124,
+      "vx": 4.401937329860022,
+      "vy": -2.009686649300111,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "4.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "4.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3875,
+      "t": 2.2248922373749025,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 4.950145467931099,
+      "y": 69.74711740784255,
+      "vx": 4.449784474749805,
+      "vy": -2.248922373749025,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.39166666666666666,
+      "t": 2.248815809819794,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.057172546495456,
+      "y": 69.6904534639186,
+      "vx": 4.497631619639588,
+      "vy": -2.488158098197939,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.3958333333333333,
+      "t": 2.2727393822646853,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.165344299696863,
+      "y": 69.62806614680939,
+      "vx": 4.545478764529371,
+      "vy": -2.727393822646853,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4,
+      "t": 2.2966629547095767,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.2746607275353234,
+      "y": 69.55995545651491,
+      "vx": 4.593325909419153,
+      "vy": -2.966629547095767,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4041666666666667,
+      "t": 2.320586527154468,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.385121830010835,
+      "y": 69.48612139303519,
+      "vx": 4.641173054308936,
+      "vy": -3.205865271544681,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4083333333333333,
+      "t": 2.3445100995993595,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.496727607123399,
+      "y": 69.4065639563702,
+      "vx": 4.689020199198719,
+      "vy": -3.445100995993595,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "5.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4125,
+      "t": 2.368433672044251,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.609478058873014,
+      "y": 69.32128314651995,
+      "vx": 4.736867344088502,
+      "vy": -3.6843367204425093,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4166666666666667,
+      "t": 2.3923572444891423,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.723373185259682,
+      "y": 69.23027896348444,
+      "vx": 4.784714488978285,
+      "vy": -3.9235724448914233,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.42083333333333334,
+      "t": 2.4162808169340337,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.8384129862834016,
+      "y": 69.13355140726367,
+      "vx": 4.8325616338680675,
+      "vy": -4.162808169340337,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "5.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.425,
+      "t": 2.440204389378925,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 5.954597461944173,
+      "y": 69.03110047785765,
+      "vx": 4.88040877875785,
+      "vy": -4.402043893789251,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "69",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.42916666666666664,
+      "t": 2.4641279618238165,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.071926612241996,
+      "y": 68.92292617526635,
+      "vx": 4.928255923647633,
+      "vy": -4.6412796182381655,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "6.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.43333333333333335,
+      "t": 2.4880515342687084,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.190400437176874,
+      "y": 68.8090284994898,
+      "vx": 4.976103068537417,
+      "vy": -4.880515342687083,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4375,
+      "t": 2.5119751067135994,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.310018936748799,
+      "y": 68.689407450528,
+      "vx": 5.023950213427199,
+      "vy": -5.119751067135994,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.44166666666666665,
+      "t": 2.5358986791584908,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.430782110957778,
+      "y": 68.56406302838093,
+      "vx": 5.0717973583169815,
+      "vy": -5.358986791584908,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.44583333333333336,
+      "t": 2.5598222516033826,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.5526899598038115,
+      "y": 68.4329952330486,
+      "vx": 5.119644503206765,
+      "vy": -5.598222516033825,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.45,
+      "t": 2.583745824048274,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.675742483286895,
+      "y": 68.296204064531,
+      "vx": 5.167491648096548,
+      "vy": -5.837458240482739,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "7.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.45416666666666666,
+      "t": 2.607669396493165,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.799939681407027,
+      "y": 68.15368952282816,
+      "vx": 5.21533879298633,
+      "vy": -6.07669396493165,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4583333333333333,
+      "t": 2.6315929689380564,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 6.925281554164214,
+      "y": 68.00545160794007,
+      "vx": 5.263185937876113,
+      "vy": -6.315929689380564,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "6.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "68",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4625,
+      "t": 2.6555165413829482,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.051768101558455,
+      "y": 67.85149031986668,
+      "vx": 5.3110330827658965,
+      "vy": -6.5551654138294815,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4666666666666667,
+      "t": 2.6794401138278396,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.179399323589746,
+      "y": 67.69180565860806,
+      "vx": 5.358880227655679,
+      "vy": -6.7944011382783955,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4708333333333333,
+      "t": 2.703363686272731,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.308175220258089,
+      "y": 67.52639762416416,
+      "vx": 5.406727372545462,
+      "vy": -7.03363686272731,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "8.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.475,
+      "t": 2.727287258717622,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.438095791563481,
+      "y": 67.35526621653504,
+      "vx": 5.454574517435244,
+      "vy": -7.27287258717622,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4791666666666667,
+      "t": 2.751210831162514,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.56916103750593,
+      "y": 67.17841143572063,
+      "vx": 5.502421662325028,
+      "vy": -7.512108311625138,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.48333333333333334,
+      "t": 2.7751344036074053,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.701370958085429,
+      "y": 66.99583328172096,
+      "vx": 5.5502688072148105,
+      "vy": -7.751344036074052,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "67",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.4875,
+      "t": 2.7990579760522967,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.834725553301979,
+      "y": 66.80753175453603,
+      "vx": 5.598115952104593,
+      "vy": -7.990579760522966,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "7.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "9.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.49166666666666664,
+      "t": 2.822981548497188,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 7.969224823155582,
+      "y": 66.61350685416585,
+      "vx": 5.645963096994376,
+      "vy": -8.22981548497188,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.49583333333333335,
+      "t": 2.8469051209420795,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.104868767646236,
+      "y": 66.41375858061042,
+      "vx": 5.693810241884159,
+      "vy": -8.469051209420794,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5,
+      "t": 2.870828693386971,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.241657386773943,
+      "y": 66.20828693386972,
+      "vx": 5.741657386773942,
+      "vy": -8.708286933869708,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5041666666666667,
+      "t": 2.8947522658318623,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.379590680538701,
+      "y": 65.99709191394373,
+      "vx": 5.789504531663725,
+      "vy": -8.947522658318622,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "66",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5083333333333333,
+      "t": 2.9186758382767537,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.51866864894051,
+      "y": 65.78017352083252,
+      "vx": 5.837351676553507,
+      "vy": -9.186758382767536,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "10.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5125,
+      "t": 2.942599410721645,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.658891291979373,
+      "y": 65.55753175453604,
+      "vx": 5.88519882144329,
+      "vy": -9.42599410721645,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5166666666666667,
+      "t": 2.966522983166537,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.80025860965529,
+      "y": 65.32916661505429,
+      "vx": 5.933045966333074,
+      "vy": -9.665229831665371,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5208333333333334,
+      "t": 2.9904465556114284,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 8.942770601968256,
+      "y": 65.09507810238729,
+      "vx": 5.980893111222857,
+      "vy": -9.904465556114282,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "8.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "65.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.525,
+      "t": 3.0143701280563198,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.086427268918273,
+      "y": 64.85526621653503,
+      "vx": 6.0287402561126395,
+      "vy": -10.1437012805632,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "11.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5291666666666667,
+      "t": 3.0382937005012107,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.23122861050534,
+      "y": 64.60973095749752,
+      "vx": 6.0765874010024215,
+      "vy": -10.382937005012106,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5333333333333333,
+      "t": 3.062217272946102,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.377174626729463,
+      "y": 64.35847232527473,
+      "vx": 6.124434545892204,
+      "vy": -10.62217272946102,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5375,
+      "t": 3.0861408453909935,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.524265317590636,
+      "y": 64.10149031986668,
+      "vx": 6.172281690781987,
+      "vy": -10.861408453909934,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "64.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5416666666666666,
+      "t": 3.110064417835885,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.672500683088861,
+      "y": 63.83878494127339,
+      "vx": 6.22012883567177,
+      "vy": -11.100644178358849,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "12.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5458333333333333,
+      "t": 3.1339879902807763,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.82188072322414,
+      "y": 63.57035618949484,
+      "vx": 6.267975980561553,
+      "vy": -11.339879902807763,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "9.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.55,
+      "t": 3.157911562725668,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 9.972405437996471,
+      "y": 63.296204064531004,
+      "vx": 6.315823125451336,
+      "vy": -11.579115627256684,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5541666666666667,
+      "t": 3.1818351351705596,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.124074827405853,
+      "y": 63.01632856638192,
+      "vx": 6.363670270341119,
+      "vy": -11.818351351705594,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "63",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5583333333333333,
+      "t": 3.205758707615451,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.276888891452288,
+      "y": 62.730729695047586,
+      "vx": 6.411517415230902,
+      "vy": -12.057587076154512,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5625,
+      "t": 3.2296822800603424,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.430847630135773,
+      "y": 62.43940745052799,
+      "vx": 6.459364560120685,
+      "vy": -12.296822800603422,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "13.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5666666666666667,
+      "t": 3.2536058525052334,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.585951043456307,
+      "y": 62.142361832823134,
+      "vx": 6.507211705010467,
+      "vy": -12.536058525052333,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "62.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5708333333333333,
+      "t": 3.277529424950125,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.742199131413896,
+      "y": 61.83959284193302,
+      "vx": 6.55505884990025,
+      "vy": -12.77529424950125,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.575,
+      "t": 3.301452997395016,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 10.899591894008537,
+      "y": 61.53110047785764,
+      "vx": 6.602905994790032,
+      "vy": -13.014529973950161,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "10.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5791666666666667,
+      "t": 3.325376569839908,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.058129331240233,
+      "y": 61.216884740596996,
+      "vx": 6.650753139679816,
+      "vy": -13.253765698399079,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "61.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "14.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5833333333333334,
+      "t": 3.3493001422847994,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.217811443108978,
+      "y": 60.8969456301511,
+      "vx": 6.698600284569599,
+      "vy": -13.493001422847996,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5875,
+      "t": 3.373223714729691,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.378638229614774,
+      "y": 60.571283146519946,
+      "vx": 6.746447429459382,
+      "vy": -13.732237147296907,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5916666666666667,
+      "t": 3.3971472871745823,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.540609690757623,
+      "y": 60.23989728970353,
+      "vx": 6.7942945743491645,
+      "vy": -13.971472871745824,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "60.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.5958333333333333,
+      "t": 3.4210708596194737,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.703725826537525,
+      "y": 59.90278805970185,
+      "vx": 6.842141719238947,
+      "vy": -14.210708596194735,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "15.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6,
+      "t": 3.444994432064365,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 11.867986636954477,
+      "y": 59.55995545651491,
+      "vx": 6.88998886412873,
+      "vy": -14.449944320643652,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "11.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6041666666666666,
+      "t": 3.4689180045092565,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.033392122008483,
+      "y": 59.21139948014272,
+      "vx": 6.937836009018513,
+      "vy": -14.689180045092563,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "59.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6083333333333333,
+      "t": 3.4928415769541474,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.199942281699535,
+      "y": 58.85712013058527,
+      "vx": 6.985683153908295,
+      "vy": -14.928415769541473,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6125,
+      "t": 3.5167651493990397,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.36763711602765,
+      "y": 58.497117407842545,
+      "vx": 7.0335302987980794,
+      "vy": -15.167651493990398,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "16.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6166666666666667,
+      "t": 3.540688721843931,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.53647662499281,
+      "y": 58.13139131191457,
+      "vx": 7.081377443687862,
+      "vy": -15.406887218439309,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "58.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6208333333333333,
+      "t": 3.564612294288822,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.70646080859502,
+      "y": 57.75994184280134,
+      "vx": 7.129224588577644,
+      "vy": -15.64612294288822,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "57.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.625,
+      "t": 3.5885358667337135,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 12.877589666834284,
+      "y": 57.38276900050285,
+      "vx": 7.177071733467427,
+      "vy": -15.885358667337137,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "12.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "57.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6291666666666667,
+      "t": 3.612459439178605,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.0498631997106,
+      "y": 56.99987278501909,
+      "vx": 7.22491887835721,
+      "vy": -16.124594391786047,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "57",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6333333333333333,
+      "t": 3.6363830116234963,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.223281407223968,
+      "y": 56.61125319635008,
+      "vx": 7.272766023246993,
+      "vy": -16.363830116234965,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "56.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "17.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6375,
+      "t": 3.6603065840683877,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.397844289374389,
+      "y": 56.21691023449581,
+      "vx": 7.320613168136775,
+      "vy": -16.603065840683875,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "56.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6416666666666667,
+      "t": 3.6842301565132796,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.573551846161864,
+      "y": 55.81684389945627,
+      "vx": 7.368460313026559,
+      "vy": -16.842301565132793,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "55.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6458333333333334,
+      "t": 3.708153728958171,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.750404077586388,
+      "y": 55.41105419123147,
+      "vx": 7.416307457916342,
+      "vy": -17.08153728958171,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "55.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.65,
+      "t": 3.7320773014030624,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 13.928400983647965,
+      "y": 54.99954110982142,
+      "vx": 7.464154602806125,
+      "vy": -17.32077301403062,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "13.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "55",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "18.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6541666666666667,
+      "t": 3.756000873847954,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 14.107542564346593,
+      "y": 54.58230465522611,
+      "vx": 7.512001747695908,
+      "vy": -17.56000873847954,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "14.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "54.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6583333333333333,
+      "t": 3.7799244462928447,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 14.287828819682268,
+      "y": 54.15934482744555,
+      "vx": 7.5598488925856895,
+      "vy": -17.79924446292845,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "14.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "54.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6625,
+      "t": 3.803848018737736,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 14.469259749655,
+      "y": 53.730661626479716,
+      "vx": 7.607696037475472,
+      "vy": -18.03848018737736,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "14.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "53.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6666666666666666,
+      "t": 3.8277715911826276,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 14.651835354264785,
+      "y": 53.29625505232863,
+      "vx": 7.655543182365255,
+      "vy": -18.277715911826277,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "14.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "53.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "19.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6708333333333333,
+      "t": 3.851695163627519,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 14.83555563351162,
+      "y": 52.85612510499227,
+      "vx": 7.703390327255038,
+      "vy": -18.516951636275188,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "14.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "52.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "20.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.675,
+      "t": 3.875618736072411,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.020420587395511,
+      "y": 52.410271784470666,
+      "vx": 7.751237472144822,
+      "vy": -18.756187360724105,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "15",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "52.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "20.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6791666666666667,
+      "t": 3.899542308517302,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.20643021591645,
+      "y": 51.9586950907638,
+      "vx": 7.799084617034604,
+      "vy": -18.995423085173023,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "15.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "52",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "20.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6833333333333333,
+      "t": 3.9234658809621936,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.393584519074443,
+      "y": 51.501395023871666,
+      "vx": 7.846931761924387,
+      "vy": -19.234658809621934,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "15.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "51.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "20.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6875,
+      "t": 3.947389453407085,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.581883496869485,
+      "y": 51.03837158379427,
+      "vx": 7.89477890681417,
+      "vy": -19.47389453407085,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "15.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "51",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "21",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6916666666666667,
+      "t": 3.9713130258519764,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.77132714930158,
+      "y": 50.569624770531604,
+      "vx": 7.942626051703953,
+      "vy": -19.71313025851976,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "15.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "50.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "21.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.6958333333333333,
+      "t": 3.995236598296868,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 15.961915476370729,
+      "y": 50.0951545840837,
+      "vx": 7.990473196593736,
+      "vy": -19.95236598296868,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "50.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "21.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7,
+      "t": 4.019160170741759,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 16.153648478076924,
+      "y": 49.61496102445055,
+      "vx": 8.038320341483518,
+      "vy": -20.19160170741759,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "49.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "21.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7041666666666667,
+      "t": 4.043083743186651,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 16.346526154420182,
+      "y": 49.12904409163211,
+      "vx": 8.086167486373302,
+      "vy": -20.430837431866507,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "49.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "22",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7083333333333334,
+      "t": 4.0670073156315425,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 16.540548505400483,
+      "y": 48.63740378562842,
+      "vx": 8.134014631263085,
+      "vy": -20.670073156315425,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "48.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "22.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7125,
+      "t": 4.090930888076434,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 16.73571553101784,
+      "y": 48.14004010643947,
+      "vx": 8.181861776152868,
+      "vy": -20.909308880764343,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "48.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "22.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7166666666666667,
+      "t": 4.114854460521325,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 16.932027231272247,
+      "y": 47.63695305406529,
+      "vx": 8.22970892104265,
+      "vy": -21.148544605213253,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "16.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "47.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "22.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7208333333333333,
+      "t": 4.138778032966217,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 17.129483606163706,
+      "y": 47.1281426285058,
+      "vx": 8.277556065932433,
+      "vy": -21.387780329662164,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "17.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "47.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "22.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.725,
+      "t": 4.162701605411107,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 17.32808465569221,
+      "y": 46.61360882976108,
+      "vx": 8.325403210822214,
+      "vy": -21.627016054111074,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "17.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "46.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "23.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7291666666666666,
+      "t": 4.186625177855999,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 17.52783037985777,
+      "y": 46.09335165783111,
+      "vx": 8.373250355711997,
+      "vy": -21.866251778559985,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "17.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "46.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "23.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7333333333333333,
+      "t": 4.21054875030089,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 17.72872077866039,
+      "y": 45.56737111271586,
+      "vx": 8.42109750060178,
+      "vy": -22.105487503008902,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "17.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "45.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "23.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7375,
+      "t": 4.234472322745782,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 17.93075585210006,
+      "y": 45.03566719441534,
+      "vx": 8.468944645491565,
+      "vy": -22.34472322745782,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "17.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "45",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "23.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7416666666666667,
+      "t": 4.258395895190674,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 18.13393560017678,
+      "y": 44.49823990292958,
+      "vx": 8.516791790381347,
+      "vy": -22.583958951906737,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "18.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "44.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "24.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7458333333333333,
+      "t": 4.282319467635565,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 18.33826002289055,
+      "y": 43.95508923825855,
+      "vx": 8.56463893527113,
+      "vy": -22.823194676355655,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "18.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "44",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "24.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.75,
+      "t": 4.3062430400804566,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 18.543729120241373,
+      "y": 43.406215200402286,
+      "vx": 8.612486080160913,
+      "vy": -23.062430400804566,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "18.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "43.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "24.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7541666666666667,
+      "t": 4.330166612525348,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 18.75034289222925,
+      "y": 42.85161778936073,
+      "vx": 8.660333225050696,
+      "vy": -23.301666125253476,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "18.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "42.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "24.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7583333333333333,
+      "t": 4.354090184970239,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 18.958101338854174,
+      "y": 42.29129700513393,
+      "vx": 8.708180369940479,
+      "vy": -23.540901849702394,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "19",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "42.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "25.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7625,
+      "t": 4.378013757415131,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 19.16700446011615,
+      "y": 41.72525284772186,
+      "vx": 8.756027514830262,
+      "vy": -23.78013757415131,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "19.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "41.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "25.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7666666666666667,
+      "t": 4.401937329860022,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 19.377052256015183,
+      "y": 41.15348531712452,
+      "vx": 8.803874659720044,
+      "vy": -24.01937329860022,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "19.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "41.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "25.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7708333333333334,
+      "t": 4.425860902304914,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 19.588244726551263,
+      "y": 40.57599441334196,
+      "vx": 8.851721804609827,
+      "vy": -24.258609023049132,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "19.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "40.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "25.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.775,
+      "t": 4.449784474749805,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 19.800581871724397,
+      "y": 39.99278013637411,
+      "vx": 8.89956894949961,
+      "vy": -24.49784474749805,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "19.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "40",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "26.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7791666666666667,
+      "t": 4.473708047194696,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 20.014063691534584,
+      "y": 39.40384248622101,
+      "vx": 8.947416094389393,
+      "vy": -24.737080471946967,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "20",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "39.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "26.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7833333333333333,
+      "t": 4.497631619639588,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 20.228690185981822,
+      "y": 38.80918146288266,
+      "vx": 8.995263239279176,
+      "vy": -24.976316196395878,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "20.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "38.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "26.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7875,
+      "t": 4.521555192084479,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 20.44446135506611,
+      "y": 38.208797066359026,
+      "vx": 9.043110384168958,
+      "vy": -25.21555192084479,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "20.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "38.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "26.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7916666666666666,
+      "t": 4.545478764529371,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 20.661377198787452,
+      "y": 37.60268929665014,
+      "vx": 9.090957529058741,
+      "vy": -25.454787645293706,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "20.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "37.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "27",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.7958333333333333,
+      "t": 4.569402336974262,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 20.879437717145848,
+      "y": 36.99085815375601,
+      "vx": 9.138804673948524,
+      "vy": -25.694023369742624,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "20.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "37",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "27.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8,
+      "t": 4.593325909419153,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 21.098642910141294,
+      "y": 36.373303637676585,
+      "vx": 9.186651818838307,
+      "vy": -25.933259094191534,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "21.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "36.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "27.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8041666666666667,
+      "t": 4.617249481864045,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 21.31899277777379,
+      "y": 35.75002574841194,
+      "vx": 9.23449896372809,
+      "vy": -26.172494818640445,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "21.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "35.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "27.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8083333333333333,
+      "t": 4.641173054308936,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 21.54048732004334,
+      "y": 35.121024485962025,
+      "vx": 9.282346108617872,
+      "vy": -26.411730543089362,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "21.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "35.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "28",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8125,
+      "t": 4.665096626753828,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 21.76312653694994,
+      "y": 34.486299850326844,
+      "vx": 9.330193253507655,
+      "vy": -26.65096626753828,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "21.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "34.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "28.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8166666666666667,
+      "t": 4.689020199198719,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 21.986910428493594,
+      "y": 33.845851841506416,
+      "vx": 9.378040398397438,
+      "vy": -26.89020199198719,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "22",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "33.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "28.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8208333333333333,
+      "t": 4.7129437716436104,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 22.2118389946743,
+      "y": 33.19968045950071,
+      "vx": 9.425887543287221,
+      "vy": -27.1294377164361,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "22.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "33.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "28.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.825,
+      "t": 4.736867344088502,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 22.437912235492057,
+      "y": 32.547785704309746,
+      "vx": 9.473734688177004,
+      "vy": -27.36867344088502,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "22.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "32.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "29",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8291666666666667,
+      "t": 4.760790916533393,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 22.665130150946865,
+      "y": 31.890167575933532,
+      "vx": 9.521581833066787,
+      "vy": -27.607909165333936,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "22.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "31.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "29.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8333333333333334,
+      "t": 4.784714488978285,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 22.893492741038727,
+      "y": 31.226826074372042,
+      "vx": 9.56942897795657,
+      "vy": -27.847144889782847,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "22.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "31.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "29.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8375,
+      "t": 4.808638061423176,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 23.12300000576764,
+      "y": 30.55776119962532,
+      "vx": 9.617276122846352,
+      "vy": -28.086380614231757,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "23.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "30.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "29.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8416666666666667,
+      "t": 4.8325616338680675,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 23.353651945133606,
+      "y": 29.88297295169332,
+      "vx": 9.665123267736135,
+      "vy": -28.325616338680675,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "23.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "29.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "29.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8458333333333333,
+      "t": 4.856485206312959,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 23.585448559136623,
+      "y": 29.202461330576057,
+      "vx": 9.712970412625918,
+      "vy": -28.564852063129592,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "23.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "29.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "30.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.85,
+      "t": 4.88040877875785,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 23.818389847776693,
+      "y": 28.51622633627356,
+      "vx": 9.7608175575157,
+      "vy": -28.804087787578503,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "23.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "28.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "30.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8541666666666666,
+      "t": 4.904332351202742,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 24.052475811053814,
+      "y": 27.824267968785776,
+      "vx": 9.808664702405483,
+      "vy": -29.043323512027413,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "24.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "27.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "30.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8583333333333333,
+      "t": 4.928255923647633,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 24.287706448967985,
+      "y": 27.126586228112743,
+      "vx": 9.856511847295266,
+      "vy": -29.28255923647633,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "24.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "27.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "30.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8625,
+      "t": 4.952179496092525,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 24.52408176151922,
+      "y": 26.423181114254433,
+      "vx": 9.90435899218505,
+      "vy": -29.521794960925256,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "24.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "26.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "31.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8666666666666667,
+      "t": 4.976103068537417,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 24.761601748707495,
+      "y": 25.71405262721086,
+      "vx": 9.952206137074834,
+      "vy": -29.761030685374166,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "24.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "25.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "31.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8708333333333333,
+      "t": 5.000026640982307,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 25.000266410532817,
+      "y": 24.99920076698207,
+      "vx": 10.000053281964615,
+      "vy": -30.00026640982307,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "25",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "25",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "31.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.875,
+      "t": 5.023950213427199,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 25.240075746995196,
+      "y": 24.27862553356799,
+      "vx": 10.047900426854397,
+      "vy": -30.239502134271987,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "25.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "24.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "31.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8791666666666667,
+      "t": 5.04787378587209,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 25.48102975809463,
+      "y": 23.55232692696866,
+      "vx": 10.09574757174418,
+      "vy": -30.478737858720905,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "25.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "23.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "32.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8833333333333333,
+      "t": 5.0717973583169815,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 25.72312844383111,
+      "y": 22.82030494718407,
+      "vx": 10.143594716633963,
+      "vy": -30.717973583169815,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "25.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "22.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "32.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8875,
+      "t": 5.095720930761873,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 25.96637180420465,
+      "y": 22.082559594214217,
+      "vx": 10.191441861523746,
+      "vy": -30.957209307618726,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "26",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "22.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "32.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8916666666666667,
+      "t": 5.119644503206765,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 26.210759839215246,
+      "y": 21.33909086805909,
+      "vx": 10.23928900641353,
+      "vy": -31.19644503206765,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "26.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "21.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "32.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.8958333333333334,
+      "t": 5.143568075651657,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 26.456292548862887,
+      "y": 20.58989876871871,
+      "vx": 10.287136151303313,
+      "vy": -31.435680756516568,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "26.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "20.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "33.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9,
+      "t": 5.167491648096548,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 26.70296993314758,
+      "y": 19.83498329619306,
+      "vx": 10.334983296193096,
+      "vy": -31.67491648096548,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "26.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "19.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "33.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9041666666666667,
+      "t": 5.1914152205414394,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 26.950791992069323,
+      "y": 19.074344450482187,
+      "vx": 10.382830441082879,
+      "vy": -31.914152205414396,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "27",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "19.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "33.6",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9083333333333333,
+      "t": 5.21533879298633,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 27.199758725628108,
+      "y": 18.307982231586067,
+      "vx": 10.43067758597266,
+      "vy": -32.1533879298633,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "27.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "18.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "33.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9125,
+      "t": 5.239262365431221,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 27.449870133823957,
+      "y": 17.535896639504642,
+      "vx": 10.478524730862443,
+      "vy": -32.39262365431222,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "27.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "17.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "34",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9166666666666666,
+      "t": 5.263185937876113,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 27.701126216656856,
+      "y": 16.758087674238,
+      "vx": 10.526371875752226,
+      "vy": -32.63185937876113,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "27.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "16.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "34.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9208333333333333,
+      "t": 5.287109510321004,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 27.95352697412681,
+      "y": 15.97455533578605,
+      "vx": 10.574219020642008,
+      "vy": -32.87109510321004,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "28",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "16",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "34.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.925,
+      "t": 5.3110330827658965,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 28.20707240623382,
+      "y": 15.185299624148826,
+      "vx": 10.622066165531793,
+      "vy": -33.11033082765896,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "28.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "15.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "34.8",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9291666666666667,
+      "t": 5.334956655210788,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 28.461762512977877,
+      "y": 14.390320539326382,
+      "vx": 10.669913310421576,
+      "vy": -33.34956655210788,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "28.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "14.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "35",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9333333333333333,
+      "t": 5.358880227655679,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 28.717597294358985,
+      "y": 13.589618081318662,
+      "vx": 10.717760455311359,
+      "vy": -33.58880227655679,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "28.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "13.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "35.3",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9375,
+      "t": 5.382803800100571,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 28.974576750377146,
+      "y": 12.783192250125694,
+      "vx": 10.765607600201141,
+      "vy": -33.82803800100571,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "29",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "12.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "35.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9416666666666667,
+      "t": 5.406727372545462,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 29.232700881032358,
+      "y": 11.97104304574745,
+      "vx": 10.813454745090924,
+      "vy": -34.06727372545462,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "29.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "12",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "35.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9458333333333333,
+      "t": 5.4306509449903535,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 29.49196968632462,
+      "y": 11.153170468183959,
+      "vx": 10.861301889980707,
+      "vy": -34.30650944990354,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "29.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "11.2",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "36",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.95,
+      "t": 5.454574517435244,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 29.752383166253924,
+      "y": 10.329574517435276,
+      "vx": 10.909149034870488,
+      "vy": -34.54574517435244,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "29.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "10.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "36.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9541666666666667,
+      "t": 5.478498089880136,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 30.0139413208203,
+      "y": 9.500255193501204,
+      "vx": 10.956996179760273,
+      "vy": -34.784980898801365,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "30",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "9.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "36.5",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9583333333333334,
+      "t": 5.502421662325028,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 30.27664415002372,
+      "y": 8.665212496381969,
+      "vx": 11.004843324650055,
+      "vy": -35.024216623250275,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "30.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "8.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "36.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9625,
+      "t": 5.526345234769919,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 30.540491653864194,
+      "y": 7.824446426077429,
+      "vx": 11.052690469539838,
+      "vy": -35.26345234769919,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "30.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "7.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "37",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9666666666666667,
+      "t": 5.5502688072148105,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 30.805483832341714,
+      "y": 6.977956982587642,
+      "vx": 11.100537614429621,
+      "vy": -35.5026880721481,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "30.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "37.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9708333333333333,
+      "t": 5.574192379659702,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 31.071620685456292,
+      "y": 6.125744165912579,
+      "vx": 11.148384759319404,
+      "vy": -35.74192379659702,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "31.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "6.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "37.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.975,
+      "t": 5.598115952104593,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 31.338902213207916,
+      "y": 5.267807976052268,
+      "vx": 11.196231904209187,
+      "vy": -35.98115952104593,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "31.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "5.3",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "37.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9791666666666666,
+      "t": 5.622039524549485,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 31.607328415596598,
+      "y": 4.404148413006709,
+      "vx": 11.24407904909897,
+      "vy": -36.22039524549485,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "31.6",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "4.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "37.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9833333333333333,
+      "t": 5.645963096994376,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 31.876899292622326,
+      "y": 3.534765476775874,
+      "vx": 11.291926193988752,
+      "vy": -36.45963096994376,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "31.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "3.5",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "38.2",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9875,
+      "t": 5.669886669439268,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 32.14761484428511,
+      "y": 2.6596591673597914,
+      "vx": 11.339773338878535,
+      "vy": -36.69886669439268,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "32.1",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "2.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "38.4",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9916666666666667,
+      "t": 5.693810241884159,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 32.419475070584944,
+      "y": 1.778829484758461,
+      "vx": 11.387620483768318,
+      "vy": -36.93810241884159,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "32.4",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "1.8",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "38.7",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 0.9958333333333333,
+      "t": 5.71773381432905,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 32.692479971521834,
+      "y": 0.8922764289718543,
+      "vx": 11.4354676286581,
+      "vy": -37.177338143290505,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "32.7",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "0.9",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "38.9",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    },
+    {
+      "p": 1,
+      "t": 5.741657386773942,
+      "duration": 5.741657386773942,
+      "clock": "physical",
+      "timeUnit": "s",
+      "x": 32.96662954709577,
+      "y": 0,
+      "vx": 11.483314773547884,
+      "vy": -37.416573867739416,
+      "g": 10,
+      "range": 32.96662954709577,
+      "maxY": 70,
+      "readouts": [
+        {
+          "label": "水平位置 x",
+          "value": "33",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "高度 y",
+          "value": "0",
+          "unit": "m",
+          "tag": "position"
+        },
+        {
+          "label": "速率",
+          "value": "39.1",
+          "unit": "m/s",
+          "tag": "velocity"
+        }
+      ]
+    }
+  ]
+}
