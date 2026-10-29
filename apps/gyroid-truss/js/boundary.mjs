@@ -2,6 +2,7 @@
 // The generated perimeter members are a design addition, not reported Fig. 4 bonds.
 import {mod1,add,sub,norm,mimgDist} from './geom.mjs';
 import {F} from './gyroid.mjs';
+import {addBoundaryBraces} from './boundary-braces.mjs';
 
 export function reinforceBoundary(model, resolution=48) {
  const {vertices,edges,w}=model;
@@ -75,5 +76,6 @@ export function reinforceBoundary(model, resolution=48) {
   if(j.id!==best)emit(j.id,best,p,image,j.layer?'blue':'red','tie');
   maxTie=Math.max(maxTie,dist);
  }
- return {junctionCount:junctions.length,maxTie,railCount:edgeKeys.size,resolution};
+ const webs=addBoundaryBraces(model,junctions);
+ return {junctionCount:junctions.length,maxTie,railCount:edgeKeys.size,resolution,webs};
 }

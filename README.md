@@ -17,3 +17,9 @@ Dotera & Yamamoto, *Hexagulation numbers: symmetry breaking on the gyroid surfac
 Three.js 0.170.0 is vendored under its MIT license (see `apps/gyroid-truss/vendor/THREE-LICENSE.txt`). The supplied figure is displayed for comparison with attribution to the paper (CC BY 4.0).
 
 边界轮廓是每个偏置层 `g=±w` 与单胞面的交线，不是中央参考面 `g=0` 的交线。由于有限采样与直线近似，边界杆只近似等值面；新增短接杆不是论文的球心接触图。周期图的无度一节点和连通性不等同于无自交、完整三角化或力学稳定。
+
+## 边界层间腹杆
+
+在三对周期面上，以红蓝跨面桁架节点为端点，按最短距离及空间间距选择额外白色腹杆，拒绝与非共端点已有杆件发生中心线交叉的候选。腹杆端点及整数偏移属于周期图，平移后两侧对应；新增杆件标记为 `boundary-web`。这是工程近似而非论文原始连杆。
+
+应用分别报告新增腹杆与其他非共端点杆件的周期中心线交叉数和胶囊近距离对数。默认参数存在半径范围内的邻近对，部分发生在离散边界曲线的节点附近；不可将其视作无干涉的制造模型。它没有把非共端点附近的杆件自动合并为节点，也没有排除所有节点连接区，须进一步检查与建模。原有白杆之间和原有白杆与所有其他杆件的完整干涉没有验证。增加腹杆不等于证明结构稳定：必须进行周期约束下的刚度矩阵秩/模态及有限元分析。

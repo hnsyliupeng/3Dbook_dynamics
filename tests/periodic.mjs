@@ -10,5 +10,14 @@ for(const w of [.15,.32,.5]){
  const seam=s.vertices.map((v,i)=>v.role==='seam'?i:-1).filter(i=>i>=0);
  for(const id of seam)assert.ok(s.edges.some(e=>e.role==='tie'&&(e.a===id||e.b===id)),`seam ${id} not tied to contour`);
  assert.ok(s.boundary.maxTie<.04);assert.ok(r.minClearance>0);
+ assert.ok(s.boundary.webs.perAxis.every(n=>n>0));
+ assert.equal(r.boundaryWebs.count,s.boundary.webs.count);
+ assert.equal(r.boundaryWebs.intersectionCount,0);
+ for(const e of s.edges.filter(e=>e.role==='boundary-web')) {
+  assert.equal(s.vertices[e.a].layer,0);assert.equal(s.vertices[e.b].layer,1);
+  assert.equal(s.vertices[e.a].p[e.axis],0);assert.equal(s.vertices[e.b].p[e.axis],0);
+  assert.equal(e.o[e.axis],0);
+ }
+ console.log(`  boundary webs=${r.boundaryWebs.count}, axes=${s.boundary.webs.perAxis}, nonincident capsule close pairs=${r.boundaryWebs.nearCount}`);
  console.log(`w=${w} seam joints=${s.boundary.junctionCount}, rail edges=${s.boundary.railCount}, max tie=${s.boundary.maxTie.toFixed(5)}, clearance=${r.minClearance.toFixed(5)}; both layers connected, no degree-1 joints`);
 }
