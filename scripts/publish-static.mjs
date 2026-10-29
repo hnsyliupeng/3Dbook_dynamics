@@ -1,6 +1,13 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { LESSONS } from '../app/src/lessons.js';
-const html=await readFile('dist/index.html','utf8');
+// Modern WebGL browsers support WOFF2. Keep the 20 self-contained WOFF2 fonts,
+// and drop only KaTeX's redundant WOFF/TTF fallbacks from published copies.
+// This saves over 1 MB per standalone case without adding network requests.
+const built=await readFile('dist/index.html','utf8');
+const legacyFont=/,url\(data:font\/(?:woff|ttf);base64,[^)]+\) format\("(?:woff|truetype)"\)/g;
+const fallbacks=[...built.matchAll(legacyFont)];
+if(fallbacks.length!==40)throw new Error(`Unexpected KaTeX fallback count: ${fallbacks.length}`);
+const html=built.replace(legacyFont,'');
 if(!html.includes('type="module"')||!html.includes('<!doctype html>'))throw new Error('Unexpected Vite output');
 await writeFile('index.html',html);
 await mkdir('cases',{recursive:true});

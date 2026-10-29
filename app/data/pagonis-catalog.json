@@ -1,0 +1,1024 @@
+{
+  "repository": "vpagonis/Classical_Mechanics_2nd_Edition",
+  "commit": "1d60884725baabf901c2a5fc1eee2fd1ee3014da",
+  "notebooks": [
+    {
+      "file": "Chapter1/Python_codes_Chapter_1.ipynb",
+      "cellCount": 10,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        }
+      ]
+    },
+    {
+      "file": "Chapter2/Python_Codes_Chapter_2.ipynb",
+      "cellCount": 21,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter3/Python_Codes_Chapter_3.ipynb",
+      "cellCount": 31,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter4/Python_Codes_Chapter_4.ipynb",
+      "cellCount": 11,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter5/Python_Codes_Chapter_5.ipynb",
+      "cellCount": 13,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter6/Python_Codes_Chapter_6.ipynb",
+      "cellCount": 17,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter7/Python_Codes_Chapter_7.ipynb",
+      "cellCount": 7,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter8/Python_Codes_Chapter_8.ipynb",
+      "cellCount": 11,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+      "cellCount": 13,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter10/Python_Codes_Chapter_10.ipynb",
+      "cellCount": 7,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter11/Python_Codes_Chapter_11.ipynb",
+      "cellCount": 17,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter12/Python_Codes_Chapter_12.ipynb",
+      "cellCount": 13,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Chapter13/Python_Codes_Chapter_13.ipynb",
+      "cellCount": 11,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    },
+    {
+      "file": "Appendix/Appendix_A.ipynb",
+      "cellCount": 37,
+      "cells": [
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        },
+        {
+          "id": null,
+          "type": "markdown"
+        },
+        {
+          "id": null,
+          "type": "code"
+        }
+      ]
+    }
+  ],
+  "mathematica": [
+    {
+      "file": "Chapter1/Chapter-1-MMA-Examples.nb",
+      "bytes": 26985
+    },
+    {
+      "file": "Chapter2/Chapter-2-MMA-Examples.nb",
+      "bytes": 129375
+    },
+    {
+      "file": "Chapter3/Chapter-3-MMA-Examples.nb",
+      "bytes": 322945
+    },
+    {
+      "file": "Chapter4/Chapter-4-MMA-Examples.nb",
+      "bytes": 21427
+    },
+    {
+      "file": "Chapter5/Chapter-5-MMA-Examples.nb",
+      "bytes": 132576
+    },
+    {
+      "file": "Chapter6/Chapter-6-MMA-Examples.nb",
+      "bytes": 1339511
+    },
+    {
+      "file": "Chapter7/Chapter-7-MMA-Examples.nb",
+      "bytes": 543262
+    },
+    {
+      "file": "Chapter8/Chapter-8-MMA-Examples.nb",
+      "bytes": 134209
+    },
+    {
+      "file": "Chapter9/Chapter-9-MMA-Examples.nb",
+      "bytes": 329903
+    },
+    {
+      "file": "Chapter10/Chapter-10-MMA-Examples.nb",
+      "bytes": 79444
+    },
+    {
+      "file": "Chapter11/Chapter-11-MMA-Examples.nb",
+      "bytes": 64166
+    },
+    {
+      "file": "Chapter12/Chapter-12-MMA-Examples.nb",
+      "bytes": 1229109
+    },
+    {
+      "file": "Chapter13/Chapter-13-MMA-Examples.nb",
+      "bytes": 517888
+    },
+    {
+      "file": "Appendix/Mathematica-Appendix-Examples.nb",
+      "bytes": 371104
+    }
+  ]
+}

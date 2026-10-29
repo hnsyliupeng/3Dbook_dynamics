@@ -26,9 +26,29 @@ const browser=await playwright.launch({executablePath:exe,headless:true,args:chr
 const context=await browser.newContext({viewport:{width:1440,height:1080},deviceScaleFactor:1});
 const page=await context.newPage();const errors=[];
 page.on('pageerror',e=>errors.push(`pageerror: ${e.message}`));
-page.on('console',m=>{if(m.type()==='error')errors.push(`console: ${m.text()}`)});
+page.on('console',m=>{if(m.type()==='error'||m.text().includes('Buffer size too small'))errors.push(`console: ${m.text()}`)});
 page.on('requestfailed',r=>{if(!r.url().startsWith('file:')&&!r.url().startsWith('data:'))errors.push(`request failed: ${r.url()} ${r.failure()?.errorText}`)});
 const assert=(cond,msg)=>{if(!cond)throw new Error(msg)};
+const near=(a,b,tol=1e-5)=>Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<=tol;
+function checkGeometry(lesson,s){
+  const g=s.geometry,d=s.state,q=s.parameters,fail=msg=>assert(false,`${lesson.id}: ${msg}`);
+  const trail=(t,x,y,count)=>{if(t?.count!==count||!near(t.x,x)||!near(t.y,y))fail(`轨迹缓冲区/终点不匹配 (${JSON.stringify(t)})`)};
+  switch(lesson.kind){
+    case 'beam':if(!near(g.visualK,d.k)||!near(g.supportBX-g.supportAX,3*(g.load1X-g.supportAX))||!near(g.beamBottomY,g.supportTopY)||!near(g.loadBottomY,g.beamTopY))fail('题图载荷、支座或接触几何不匹配');break;
+    case 'dot-cross':if(g.handedness!==1||!near(g.dot,d.dot)||!near(g.area,d.area))fail('叉积右手系或面积不匹配');break;
+    case 'chord-vector':if(!near(g.circleAError,0)||!near(g.AP/(g.AP+g.PB),d.lambda))fail('圆与分点比例不匹配');break;
+    case 'quad-midpoint':if(!near(g.midpointError,0)||!near(g.equalHalfError,0))fail('中点几何不匹配');break;
+    case 'triangle-centroid':if(!near(g.centroidMedianError,0)||!near(g.sideFraction,d.lambda===2?.5:1))fail('重心/边向量几何不匹配');break;
+    case 'two-balls':if(!near(g.ballContactError,0)||!near(g.wall1Error,0)||!near(g.wall2Error,0)||!near(g.centerDot,-.5))fail('两球与容器接触几何不匹配');break;
+    case 'straight-car':if(!near(g.carX,g.startX+(g.endX-g.startX)*d.x/q.distance)||!near(g.roadY,g.wheelBottomY)||!near(g.vehicleLength,g.expectedLength))fail('汽车与道路、物理位置或尺度不一致');break;
+    case 'level-projectile':if(!near(g.ballX,g.startX+d.x*g.scale)||!near(g.ballY,g.floor+Math.max(0,d.y)*g.scale+g.ballRadius)||(d.hasRunner&&!near(g.runnerX,g.startX+d.runnerX*g.scale)))fail('小球或跑者位置不匹配');trail(g.trail,g.ballX,g.ballY,41);break;
+    case 'projectile-elevation':if(!near(g.ballX,g.startX+d.x*g.scale)||!near(g.ballY,g.floor+Math.max(0,d.y)*g.scale+g.ballRadius))fail('高台抛体位置不匹配');trail(g.trail,g.ballX,g.ballY,41);if(s.progress===1&&(!near(g.ballX,g.targetX)||!near(g.ballY-g.ballRadius,g.platformTop)))fail('小球未到高台顶部');break;
+    case 'projectiles-meet':if(!near(g.ballAX,g.startX+d.xA*g.scale)||!near(g.ballBX,g.startX+d.xB*g.scale)||!near(g.ballAY,g.floor+d.yA*g.scale+g.ballRadius)||!near(g.ballBY,g.floor+d.yB*g.scale+g.ballRadius))fail('两球位置不匹配');trail(g.trailA,g.ballAX,g.ballAY,31);trail(g.trailB,g.ballBX,g.ballBY,31);if(s.progress===1&&(!near(g.ballAX,g.ballBX)||!near(g.ballAY,g.ballBY)))fail('相遇事件未重合');break;
+    case 'atwood':if(!near(g.leftMassY+g.rightMassY,2*g.baseY)||!near(g.ropeLeftX,-g.pulleyRadius)||!near(g.ropeRightX,g.pulleyRadius)||!near(g.pulleyAngle,-d.displacement/g.pulleyRadius))fail('阿特伍德机位移、绳接触或滑轮转动不一致');break;
+    case 'projectile':case 'barrier':trail(g.trail,g.ballX,g.ballY,81);break;
+    case 'wall-bounce':trail(g.trail,g.ballX,g.ballY,31);break;
+  }
+}
 const snap=()=>page.evaluate(()=>window.__MECH__.snapshot());
 const rootUrl=pathToFileURL(join(root,'index.html')).href;
 let entries=[],warnings=[];
@@ -39,9 +59,9 @@ try {
   assert(nav.length===LESSONS.length,'案例目录数量错误');
   assert(JSON.stringify(nav.map(n=>n.id))===JSON.stringify(LESSONS.map(n=>n.id)),'案例顺序错误');
   await page.locator('#openCatalog').click();
-  assert(await page.locator('#modal .source-row').count()===39,'源目录应显示 39 个 Notebook');
+  assert(await page.locator('#modal .source-row').count()===67,'源目录应显示 39 + 14 + 14 个源文件');
   assert(await page.locator('#modal .modal-warning').count()===1,'缺少未完成覆盖提示');
-  assert(await page.locator('#modal a[target="_blank"]').count()===39,'源链接必须在新窗口打开');
+  assert(await page.locator('#modal a[target="_blank"]').count()===67,'源链接必须在新窗口打开');
   await page.locator('#closeModal').click();
 
   for(const [idx,lesson] of LESSONS.entries()){
@@ -68,6 +88,7 @@ try {
       if(gui.overlaps.length)warnings.push(`${lesson.id} step ${step+1}: 标签可能重叠 ${gui.overlaps.join(',')}`);
       if(!gui.cardVisible)warnings.push(`${lesson.id} step ${step+1}: 当前步骤在可滚动区域内未完全可见`);
       assert(s.state.readouts.every((r,i)=>gui.readouts[i]?.includes(r.value)),`${lesson.id}: 仪表与模型不一致`);
+      checkGeometry(lesson,s);
       if(lesson.kind==='energy')assert(step<2?s.state.atRamp:!s.state.atRamp,`${lesson.id}: 推演步骤与坡面/摩擦事件不一致`);
       if(lesson.kind==='wall-bounce')assert(step<2?!s.state.bounced:s.state.bounced,`${lesson.id}: 推演步骤与碰墙事件不一致`);
       if(lesson.kind==='train')assert(step<2?!s.state.observerPassed:(step===2?s.state.observerPassed&&!s.state.headExited:s.state.headExited),`${lesson.id}: 推演步骤与车头/车尾事件不一致`);
@@ -77,7 +98,7 @@ try {
       assert((await snap()).tags.length===1&&(await snap()).tags[0]===tag,`${lesson.id}: 公式标签未驱动场景高亮`);
       await page.locator(`.scene-label[data-tag="${tag}"]`).click();assert((await snap()).tags[0]===tag,`${lesson.id}: 场景标签无法反向定位`);
     }
-    // Presets are source exercises consolidated into the vector lesson. Capture each one,
+    // Presets are source exercises consolidated into lessons. Capture each one,
     // not just the default, and check exact values and preservation of normalized progress.
     const presetScreenshots=[];
     for(const choice of lesson.presets||[]){
@@ -85,15 +106,17 @@ try {
       await page.evaluate(id=>window.__MECH__.changePreset(id),choice.id);const selected=await snap();
       assert(selected.preset===choice.id&&Math.abs(selected.progress-.82)<1e-9,`${lesson.id}/${choice.id}: 预设或进度错误`);
       for(const [key,value] of Object.entries(choice.values))assert(Math.abs(selected.parameters[key]-value)<1e-9,`${lesson.id}/${choice.id}: 原题参数错误`);
+      checkGeometry(lesson,selected);
       const filename=`preset-${choice.id}.png`;await page.screenshot({path:join(folder,filename),fullPage:true});presetScreenshots.push({id:choice.id,label:choice.label,path:`screenshots/${lesson.id}/${filename}`});
     }
     await page.evaluate(id=>window.__MECH__.loadCase(id),lesson.id);
-    const ropeKeys=lesson.kind==='pulley'?['mainRopeLength','lowerRopeLength']:['two-incline','loaded-pulley'].includes(lesson.kind)?['ropeLength']:[];
+    const ropeKeys=lesson.kind==='pulley'?['mainRopeLength','lowerRopeLength']:['two-incline','loaded-pulley','atwood','stacked-pulley'].includes(lesson.kind)?['ropeLength']:[];
     const checkRope=async()=>{
       if(!ropeKeys.length)return;
       await page.evaluate(()=>window.__MECH__.setProgress(0));const start=(await snap()).geometry;
       for(const p of [.25,.5,.75,1]){await page.evaluate(p=>window.__MECH__.setProgress(p),p);const end=(await snap()).geometry;
         for(const key of ropeKeys)assert(Number.isFinite(start[key])&&Math.abs(end[key]-start[key])<1e-4,`${lesson.id}: 场景绳长 ${key} 随进度变化`);
+        checkGeometry(lesson,await snap());
       }
       await page.evaluate(()=>window.__MECH__.setProgress(.53));
     };
@@ -106,6 +129,7 @@ try {
         assert(Math.abs(next.progress-.53)<1e-9,`${lesson.id}/${param.key}: 参数更改丢失进度`);
         assert(Number.isFinite(next.duration)&&next.duration>0,`${lesson.id}/${param.key}: 时长无效`);
         assert(next.tags.every(t=>next.sceneTags.includes(t)),`${lesson.id}/${param.key}: 高亮目标丢失`);
+        checkGeometry(lesson,next);
         if(lesson.kind==='sphere-cylinder'){const g=next.geometry;assert(Math.abs(g.contactError)<1e-8&&Math.abs(g.stringLevelError)<1e-8&&g.ballGroundClearance>=-1e-8,`${lesson.id}/${param.key}: 球、圆柱或地面的几何约束错误`);}
         await checkRope();
       }
@@ -143,7 +167,7 @@ try {
       await page.evaluate(p=>window.__MECH__.setProgress(p),i/16);
       const path=join(frames,`${String(i).padStart(2,'0')}.png`);await page.locator('.book').screenshot({path});paths.push(path);
     }
-    try{execFileSync('convert',['-delay','18','-loop','0',...paths,'-resize','760x','-colors','128','-layers','Optimize',join(gifDir,`${lesson.id}.gif`)],{stdio:'pipe',timeout:120000});}
+    try{execFileSync('convert',['-delay','18','-loop','0',...paths,'-resize','640x','-colors','64','-layers','OptimizePlus',join(gifDir,`${lesson.id}.gif`)],{stdio:'pipe',timeout:120000});}
     catch(e){throw new Error(`${lesson.id}: 无法生成 GIF；请安装 ImageMagick convert。${e.message}`);}
     entries.push({id:lesson.id,title:lesson.title,section:lesson.section,screenshots,presetScreenshots,geometryRopeLengthChecked:ropeKeys.length>0,animation:`animations/${lesson.id}.gif`,frameScan:metrics});
   }
@@ -152,6 +176,19 @@ try {
     const f=pathToFileURL(join(root,'cases',`${lesson.id}.html`)).href;await page.goto(f+'?render',{waitUntil:'load'});await page.waitForFunction(()=>window.__MECH__);
     const s=await snap();assert(s.caseId===lesson.id&&s.webgl,`${lesson.id}: 独立 HTML 默认案例错误`);
   }
+  // Cross-repository provenance and browser JSON export keep the actual source
+  // and missing IDs, rather than assigning the first repository to every entry.
+  await page.goto(rootUrl+'?case=car-constant-acceleration&render',{waitUntil:'load'});await page.waitForFunction(()=>window.__MECH__);
+  await page.locator('#openSource').click();
+  const links=await page.locator('#modal .source-row a').evaluateAll(es=>es.map(e=>e.href));
+  assert(links.length===2&&links[0].includes('aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371')&&links[1].includes('vpagonis/Classical_Mechanics_2nd_Edition/blob/1d608847'),'跨仓库来源链接或固定版本错误');
+  assert((await page.locator('#modalBody').textContent()).includes('源文件无 cell ID'),'第二来源没有披露无 cell ID');
+  await page.evaluate(()=>{const old=URL.createObjectURL.bind(URL);URL.createObjectURL=b=>{window.__qaBlob=b;return old(b);};});
+  await page.locator('#exportData').click();const exported=await page.evaluate(async()=>JSON.parse(await window.__qaBlob.text()));
+  const second=exported.sources.find(s=>s.repo==='pagonis');
+  assert(second?.repository==='vpagonis/Classical_Mechanics_2nd_Edition'&&second.commit==='1d60884725baabf901c2a5fc1eee2fd1ee3014da'&&second.cellIds.every(x=>x===null),'跨仓库导出来源或缺失 cell ID 错误');
+  await page.locator('#closeModal').click();
+
   // Mobile layout, source modal, and no horizontal page overflow.
   await page.setViewportSize({width:390,height:844});await page.goto(rootUrl+'?case=movable-pulley&render',{waitUntil:'load'});await page.waitForFunction(()=>window.__MECH__);
   await page.evaluate(()=>window.__MECH__.setProgress(.6));await page.screenshot({path:join(qa,'mobile-pulley.png'),fullPage:true});
@@ -169,13 +206,13 @@ try {
   await page.locator('#textMode').click();assert(await page.locator('#modal .text-steps li').count()===4,'文字版步骤缺失');await page.locator('#closeModal').click();
   assert(errors.length===0,`浏览器错误：${errors.join(' | ')}`);
 
-  const report={generatedAt:new Date().toISOString(),sourceCommit:'dc05f371ac47fb82f9a00f622a274c5433629018',caseCount:entries.length,stepScreenshotCount:entries.reduce((n,e)=>n+e.screenshots.length,0),animationCount:entries.length,presetScreenshotCount:entries.reduce((n,e)=>n+e.presetScreenshots.length,0),geometryRopeCases:entries.filter(e=>e.geometryRopeLengthChecked).map(e=>e.id),
+  const report={generatedAt:new Date().toISOString(),sourceCommit:'dc05f371ac47fb82f9a00f622a274c5433629018',sourceCommits:{aldotb:'dc05f371ac47fb82f9a00f622a274c5433629018',pagonis:'1d60884725baabf901c2a5fc1eee2fd1ee3014da'},caseCount:entries.length,stepScreenshotCount:entries.reduce((n,e)=>n+e.screenshots.length,0),animationCount:entries.length,presetScreenshotCount:entries.reduce((n,e)=>n+e.presetScreenshots.length,0),crossRepositoryExportChecked:true,geometryRopeCases:entries.filter(e=>e.geometryRopeLengthChecked).map(e=>e.id),
     browser:'Headless Chromium, WebGL/SwiftShader',viewport:'1440×1080; mobile 390×844',offlineFilePagesChecked:LESSONS.length,parameterEndpoints:'min/mid/max; progress preserved',playback:'manual/auto, step boundary, keyboard',
     pixelScan:'141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.',errors,warnings,entries};
   await writeFile(join(qa,'report.json'),JSON.stringify(report,null,2)+'\n');
   const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const gallery=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>逐案例 GUI 与动画验证 · 经典力学图鉴</title><style>body{font:15px/1.6 system-ui,"Microsoft YaHei",sans-serif;margin:0;background:#f2f0e8;color:#294940}header,main{max-width:1200px;margin:auto;padding:28px}header{padding-bottom:0}h1{font:32px Georgia,serif}h2{margin-top:36px;color:#487f70}.note{background:#fff7e7;border:1px solid #e7d6b7;padding:14px;border-radius:8px;color:#886c44}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:18px}.card{background:#fafaf5;border:1px solid #dfe7db;border-radius:8px;padding:14px;overflow:hidden}.card img{width:100%;border:1px solid #e5e8dc;border-radius:5px}.card h3{font-size:16px}.links{display:flex;gap:12px;flex-wrap:wrap;font-size:12px}a{color:#278376}small{color:#84988b}</style></head><body><header><small>MECHANICS ATLAS / VISUAL QA</small><h1>逐案例 GUI 与动态验证</h1><p>${entries.length} 个综合案例，每个案例 4 张步骤中点截图及一段确定性动态预览。</p><div class="note">这些是已实现案例的验证，不表示源仓库所有题目已完成。GIF 为 17 帧压缩预览，完整交互请打开案例 HTML。<a href="report.json">机器可读报告</a> · <a href="mobile-pulley.png">移动端截图</a></div></header><main>${SECTIONS.map(sec=>`<h2>${esc(sec.number)} / ${esc(sec.name)}</h2><div class="cards">${entries.filter(e=>e.section===sec.id).map(e=>`<article class="card"><h3>${esc(e.title)}</h3><a href="${e.animation}"><img src="${e.animation}" alt="${esc(e.title)}的动态验证预览"></a><p class="links">${e.screenshots.map((s,i)=>`<a href="${s}">步骤 ${i+1} 截图</a>`).join('')}${e.presetScreenshots.map((p,i)=>`<a href="${p.path}">原题预设 ${i+1}</a>`).join('')}<a href="../../cases/${e.id}.html">打开案例</a></p><small>帧差扫描 ${e.frameScan.frames} 帧 · ${e.frameScan.spikes.length} 个待复核尖峰</small></article>`).join('')}</div>`).join('')}</main></body></html>`;
   await writeFile(join(qa,'gallery.html'),gallery);
-  await writeFile(join(qa,'README.md'),`# GUI 与动态验证\n\n- [逐案例截图及动态预览](gallery.html)\n- [移动端截图](mobile-pulley.png)\n- [机器可读报告](report.json)\n\n本次针对 ${entries.length} 个已实现综合案例，分别保存 4 个步骤中点截图（共 ${report.stepScreenshotCount} 张）和 17 帧 GIF；另有 ${report.presetScreenshotCount} 张矢量原题预设截图。所有独立 HTML 直接以 file:// 打开；验证源目录、时间轴、参数最小/中间/最大值、高亮标签可见性、仪表、播放/暂停和移动端横向溢出。三个滑轮场景额外检查参数极值及各时刻的可视化绳长保持不变；球圆柱场景检查接触和水平绳，列车与越障案例检查事件及关键点的可视化位置。\n\n每个案例另外以统一时间轴逐 0.1 秒采样 141 个 WebGL 帧，缩至 240×136 比较像素变化；推演步骤边界的有意高亮变化不计尖峰。该启发式不能替代人工逐帧审查，GIF 也不是完整实时视频。\n\n${warnings.length?'需留意：\n'+warnings.map(w=>'- '+w).join('\n'):'自动检查未报告标签越界、标签重叠或帧差尖峰。'}\n\n这些验证只覆盖当前已实现案例，不能视为源 Notebook 的全部题目已复现。\n`);
+  await writeFile(join(qa,'README.md'),`# GUI 与动态验证\n\n- [逐案例截图及动态预览](gallery.html)\n- [移动端截图](mobile-pulley.png)\n- [机器可读报告](report.json)\n\n本次针对 ${entries.length} 个已实现综合案例，分别保存 4 个步骤中点截图（共 ${report.stepScreenshotCount} 张）和 17 帧 GIF；另有 ${report.presetScreenshotCount} 张原题预设截图。所有独立 HTML 直接以 file:// 打开；验证源目录、时间轴、参数最小/中间/最大值、高亮标签可见性、仪表、播放/暂停和移动端横向溢出。五个滑轮/绳索场景额外检查参数极值及各时刻的可视化绳长保持不变；还检查梁、两球、球与圆柱、汽车接触、抛体轨迹缓存/坐标、两个来源的链接与 JSON 导出，以及列车、碰撞和越障事件。\n\n每个案例另外以统一时间轴逐 0.1 秒采样 141 个 WebGL 帧，缩至 240×136 比较像素变化；推演步骤边界的有意高亮变化不计尖峰。该启发式不能替代人工逐帧审查，GIF 也不是完整实时视频。\n\n${warnings.length?'需留意：\n'+warnings.map(w=>'- '+w).join('\n'):'自动检查未报告标签越界、标签重叠或帧差尖峰。'}\n\n这些验证只覆盖当前已实现案例，不能视为源 Notebook 的全部题目已复现。\n`);
   console.log(`GUI PASS: ${entries.length} cases, ${report.stepScreenshotCount} screenshots, ${entries.length} animations. Warnings: ${warnings.length}`);for(const w of warnings)console.log('WARN:',w);
 } finally {await context.close();await browser.close();await rm(temp,{recursive:true,force:true});}

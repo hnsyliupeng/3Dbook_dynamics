@@ -3,12 +3,14 @@ import katex from 'katex';
 import { LESSONS, SECTIONS, TAG_LABELS, TAG_COLORS } from './lessons.js';
 import { createModel, defaultParameters, currentStep, clamp } from './models.js';
 import catalog from '../data/source-catalog.json';
+import pagonis from '../data/pagonis-catalog.json';
 import { MechanicsScene } from './scene.js';
 
 const $=id=>document.getElementById(id);
 const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const sourceBase='https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/'+catalog.commit+'/';
-const sourceUrl=file=>sourceBase+encodeURIComponent(file);
+const sourceRepos={aldotb:{...catalog,repository:'aldotb/Solve-classic-mechanics-problems-with-python'},pagonis};
+const repoOf=source=>sourceRepos[source.repo||'aldotb'];
+const sourceUrl=(file,repo='aldotb')=>`https://github.com/${sourceRepos[repo].repository}/blob/${sourceRepos[repo].commit}/${file.split('/').map(encodeURIComponent).join('/')}`;
 const formatParam=v=>Number.isFinite(v)?String(Number(v.toFixed(3))):String(v);
 const renderMath=tex=>katex.renderToString(tex,{throwOnError:false,displayMode:false,output:'htmlAndMathml'});
 const paramsFromURL=new URLSearchParams(location.search);
@@ -22,6 +24,12 @@ try { mode=localStorage.getItem('mechanics-mode')==='auto'?'auto':'manual'; } ca
 function renderNavigation(){
   $('caseNav').innerHTML=SECTIONS.map(section=>`<div class="nav-section"><div class="nav-section-title"><span>${section.number}</span><b>${section.name}</b><small>${section.en}</small></div>${LESSONS.map((l,i)=>({l,i})).filter(({l})=>l.section===section.id).map(({l,i})=>`<button type="button" class="nav-item ${i===index?'active':''}" data-case="${l.id}" ${i===index?'aria-current="page"':''}><span class="nav-index">${String(i+1).padStart(2,'0')}</span><span class="nav-name">${l.title}</span><span class="nav-chevron">›</span></button>`).join('')}</div>`).join('');
   $('caseNav').querySelectorAll('[data-case]').forEach(btn=>btn.addEventListener('click',()=>loadCase(btn.dataset.case)));
+  // Keep the current lesson visible within the catalogue, without scrolling
+  // the page itself. The same rule works for the horizontal mobile nav.
+  const nav=$('caseNav'),active=nav.querySelector('.nav-item.active');
+  if(active){const n=nav.getBoundingClientRect(),r=active.getBoundingClientRect();
+    if(matchMedia('(max-width:760px)').matches){if(r.right>n.right)nav.scrollLeft+=r.right-n.right+8;else if(r.left<n.left)nav.scrollLeft-=n.left-r.left+8;}
+    else {if(r.bottom>n.bottom)nav.scrollTop+=r.bottom-n.bottom+8;else if(r.top<n.top)nav.scrollTop-=n.top-r.top+8;}}
 }
 function renderParameters(){
   const lesson=LESSONS[index];
@@ -32,7 +40,7 @@ function renderParameters(){
     return `<div class="parameter"><div class="param-top"><label for="parameter-${p.key}">${htmlEscape(p.label)}</label><span class="param-value" id="value-${p.key}">${htmlEscape(formatParam(v))} <small>${htmlEscape(p.unit)}</small></span></div><input id="parameter-${p.key}" data-parameter="${p.key}" type="range" min="${p.min}" max="${p.max}" step="${p.step}" value="${v}" style="--progress:${percentage}%" aria-label="${htmlEscape(p.label)}"></div>`;
   }).join('');
   $('parameters').querySelectorAll('input').forEach(el=>el.addEventListener('input',()=>changeParameter(el.dataset.parameter,Number(el.value))));
-  $('parameterNote').textContent=lesson.kind==='energy'?'质量取 1 kg；场景两段距离分别缩放。修改参数保留当前进度。':lesson.kind==='vector'?'只调整矢量 A；其余分量由所选原题给出。场景按统一比例缩放，修改后保留进度。':lesson.kind==='wall-bounce'?'参数范围确保先撞墙、后落地；球半径仅作示意。修改参数保留进度。':lesson.kind==='two-incline'?'参数范围确保 B 下滑、A 上滑；修改参数保留进度。':'修改参数将重新求解，保留当前进度。';
+  $('parameterNote').textContent=lesson.kind==='straight-car'?'汽车长度按 4 m 与道路同尺度显示，坐标以车中心计。':lesson.kind==='projectiles-meet'?'两球以质点计算，半径仅作示意；相遇后不模拟碰撞。':lesson.kind==='projectile-elevation'||lesson.kind==='level-projectile'?'球半径为示意，位置与轨迹按质点计算；水平和竖直距离同尺度。':lesson.kind==='atwood'?'理想轻绳、无摩擦无质量滑轮；滑块修改保留当前进度。':lesson.kind==='beam'?'无自重梁与单向支承；若反力为负则实际支座会离开。':lesson.kind==='energy'?'质量取 1 kg；场景两段距离分别缩放。修改参数保留当前进度。':lesson.kind==='vector'?'只调整矢量 A；其余分量由所选原题给出。场景按统一比例缩放，修改后保留进度。':lesson.kind==='stacked-pulley'?'超出极限时仅显示静止所需摩擦，不模拟后续滑动。':lesson.kind==='cubic-velocity'?'轨道按最大和最小位置自动缩放；修改参数保留进度。':lesson.kind==='triangle-centroid'?'切换预设可对照题图与源码中 B 的两种定义。':lesson.kind==='wall-bounce'?'参数范围确保先撞墙、后落地；球半径仅作示意。修改参数保留进度。':lesson.kind==='two-incline'?'参数范围确保 B 下滑、A 上滑；修改参数保留进度。':'修改参数将重新求解，保留当前进度。';
 }
 function renderSteps(force=false){
   const lesson=LESSONS[index],active=currentStep(lesson,progress,model);
@@ -93,7 +101,7 @@ function loadCase(id,{replace=true}={}){
   $('crumbNumber').textContent=String(index+1).padStart(2,'0');$('lessonEyebrow').textContent=lesson.eyebrow;
   $('lessonTitle').textContent=lesson.title;$('lessonDescription').textContent=lesson.description;$('lessonQuestion').textContent=lesson.question;$('bigIdea').textContent=lesson.idea;
   $('figureNumber').textContent=String(index+1).padStart(2,'0');$('bookPage').textContent=$('footerPage').textContent=`${String(index+1).padStart(2,'0')} / ${LESSONS.length}`;
-  $('sceneNote').textContent=lesson.kind==='vector'?'各矢量按同一比例缩放 · 可拖动旋转':lesson.kind==='direction'?'平行箭头略微错位便于辨识':lesson.kind==='sphere-cylinder'?'球与圆柱按同一比例缩放':lesson.kind==='train'?'车长与隧道按同一比例缩放':lesson.kind==='barrier'?'点模型 · 球半径仅为示意':lesson.kind==='ships'?'位置按统一比例缩放 · 船只为示意':lesson.kind==='wall-bounce'?'点模型 · 球半径仅为示意':lesson.kind==='energy'?'两段距离分别缩放 · 可拖动旋转':['pulley','loaded-pulley','two-incline'].includes(lesson.kind)?'绳长关系按模型驱动 · 可拖动旋转':'拖动旋转 · 滚轮缩放';
+  $('sceneNote').textContent=lesson.kind==='vector'?'各矢量按同一比例缩放 · 可拖动旋转':lesson.kind==='two-balls'?'两球和圆环同尺度 · 力箭头前移显示':lesson.kind==='chord-vector'?'弦长取 8 · 全图统一缩放':lesson.kind==='cubic-velocity'?'轨道按显示范围缩放 · 物理读数不缩放':lesson.kind==='direction'?'平行箭头略微错位便于辨识':lesson.kind==='sphere-cylinder'?'球与圆柱按同一比例缩放':lesson.kind==='train'?'车长与隧道按同一比例缩放':lesson.kind==='barrier'?'点模型 · 球半径仅为示意':lesson.kind==='ships'?'位置按统一比例缩放 · 船只为示意':lesson.kind==='wall-bounce'?'点模型 · 球半径仅为示意':lesson.kind==='energy'?'两段距离分别缩放 · 可拖动旋转':['pulley','loaded-pulley','two-incline'].includes(lesson.kind)?'绳长关系按模型驱动 · 可拖动旋转':'拖动旋转 · 滚轮缩放';
   $('previousCase').disabled=index===0;$('nextCase').disabled=index===LESSONS.length-1;
   document.title=`${lesson.title} · 经典力学图鉴`;
   renderNavigation();renderParameters();scene?.build(lesson,model,true);renderSteps(true);renderCurrent();
@@ -119,26 +127,29 @@ function selectTag(tag){
   manualTag=tag;renderSteps(true);renderCurrent();
 }
 function sourceDetails(source){
-  const nb=catalog.notebooks.find(n=>n.file===source.file);
-  const cells=source.cells.map(i=>`${i} (${nb?.cells[i]?.id||'无 ID'})`).join('、');
-  return `<div class="source-row"><div><a href="${sourceUrl(source.file)}" target="_blank" rel="noopener noreferrer">${htmlEscape(source.file)} ↗</a><div class="source-cells">单元索引（从 0 开始）及 cell ID：${htmlEscape(cells)}</div>${source.note?`<div class="source-cells">${htmlEscape(source.note)}</div>`:''}</div><small class="linked">已关联</small></div>`;
+  const repo=repoOf(source),nb=repo.notebooks.find(n=>n.file===source.file);
+  const cells=source.cells.map(i=>`${i} (${nb?.cells[i]?.id||'源文件无 cell ID'})`).join('、');
+  return `<div class="source-row"><div><a href="${sourceUrl(source.file,source.repo||'aldotb')}" target="_blank" rel="noopener noreferrer">${htmlEscape(source.file)} ↗</a><div class="source-cells">${htmlEscape(repo.repository)} · ${repo.commit.slice(0,12)}<br>单元索引（从 0 开始）：${htmlEscape(cells)}</div>${source.note?`<div class="source-cells">${htmlEscape(source.note)}</div>`:''}</div><small class="linked">已关联</small></div>`;
 }
 function showModal(title,kicker,body){$('modalTitle').textContent=title;$('modalKicker').textContent=kicker;$('modalBody').innerHTML=body;if(!$('modal').open)$('modal').showModal();}
 function openSource(){
   const l=LESSONS[index];
-  showModal('原题来源与模型说明','SOURCE / PROVENANCE',`<div class="modal-callout">${htmlEscape(l.provenance)}</div><p>以下链接固定到源仓库提交 <code>${catalog.commit.slice(0,12)}</code>。索引是原 Notebook 的零基单元序号，括号内为 cell ID；一个关联案例不代表整个 Notebook 已完成。</p><div class="source-list">${l.sources.map(sourceDetails).join('')}</div><p>演示中的场景是为解释模型而构建，并非源图的逐像素复制。示意尺寸、假设和数值差异以页面说明为准。</p><button class="source-button" type="button" id="exportData">↓ 导出当前模型 JSON</button>`);
+  showModal('原题来源与模型说明','SOURCE / PROVENANCE',`<div class="modal-callout">${htmlEscape(l.provenance)}</div><p>以下链接固定到各自源仓库的提交。索引是原 Notebook 的零基单元序号；未提供 cell ID 的源文件不会人为编造 ID。一个关联案例不代表整个 Notebook 已完成。</p><div class="source-list">${l.sources.map(sourceDetails).join('')}</div><p>演示中的场景是为解释模型而构建，并非源图的逐像素复制。示意尺寸、假设和数值差异以页面说明为准。</p><button class="source-button" type="button" id="exportData">↓ 导出当前模型 JSON</button>`);
   $('exportData').addEventListener('click',exportData);
 }
 function openCatalog(){
-  const mapping=new Map();for(const l of LESSONS)for(const s of l.sources){if(!mapping.has(s.file))mapping.set(s.file,[]);mapping.get(s.file).push(l.title);}
+  const mapping=new Map();for(const l of LESSONS)for(const s of l.sources){const key=`${s.repo||'aldotb'}::${s.file}`;if(!mapping.has(key))mapping.set(key,[]);mapping.get(key).push(l.title);}
+  const row=(nb,repo,format='Notebook')=>{const key=`${repo}::${nb.file}`,names=mapping.get(key);return `<div class="source-row"><div><a href="${sourceUrl(nb.file,repo)}" target="_blank" rel="noopener noreferrer">${htmlEscape(nb.file)} ↗</a><div class="source-cells">${format==='Notebook'?nb.cellCount+' 个单元':format}${names?' · '+htmlEscape(names.join('、')):''}</div></div><small class="${names?'linked':''}">${names?'部分关联':'待核对'}</small></div>`;};
   const groups=[['01','01 / 矢量'],['03','02 / 静力学'],['04','02 / 刚体与摩擦'],['02','03 / 运动学'],['05','03 / 动力学'],['07','03 / 功与能'],['06','04 / 质心与惯量']];
-  const rows=groups.map(([prefix,title])=>`<h3>${title}</h3><div class="source-list">${catalog.notebooks.filter(nb=>nb.file.startsWith(prefix)).map(nb=>`<div class="source-row"><div><a href="${sourceUrl(nb.file)}" target="_blank" rel="noopener noreferrer">${htmlEscape(nb.file)} ↗</a><div class="source-cells">${nb.cellCount} 个单元${mapping.has(nb.file)?' · '+htmlEscape(mapping.get(nb.file).join('、')):''}</div></div><small class="${mapping.has(nb.file)?'linked':''}">${mapping.has(nb.file)?'部分关联':'待核对'}</small></div>`).join('')}</div>`).join('');
-  showModal('源 Notebook 目录','SOURCE INDEX / 39 NOTEBOOKS',`<div class="modal-callout modal-warning"><b>${LESSONS.length} 个综合演示 · ${catalog.notebooks.length} 个源 Notebook。</b> ${mapping.size} 个 Notebook 至少有一个单元与当前案例关联；其他题目尚待逐题核对与实施。关联不等于整本 Notebook 完成。</div><p>按矢量 → 静力学 → 动力学 → 质心与惯量组织，同类题只保留一个综合演示。点击文件可查看原始 Notebook。</p>${rows}`);
+  const rows=groups.map(([prefix,title])=>`<h3>${title}</h3><div class="source-list">${catalog.notebooks.filter(nb=>nb.file.startsWith(prefix)).map(nb=>row(nb,'aldotb')).join('')}</div>`).join('');
+  const second=`<h3>第二来源 / Pagonis · Python / Jupyter</h3><div class="source-list">${pagonis.notebooks.map(nb=>row(nb,'pagonis')).join('')}</div><h3>第二来源 / Mathematica</h3><p>以下 .nb 文件也列入清单；当前尚未逐个解析，不把 Python 文件的关联视作它们已覆盖。</p><div class="source-list">${pagonis.mathematica.map(nb=>row(nb,'pagonis','Mathematica 文件 · 待解析')).join('')}</div>`;
+  const aldoLinked=catalog.notebooks.filter(nb=>mapping.has('aldotb::'+nb.file)).length,pagonisLinked=pagonis.notebooks.filter(nb=>mapping.has('pagonis::'+nb.file)).length;
+  showModal('源文件目录','SOURCE INDEX / TWO REPOSITORIES',`<div class="modal-callout modal-warning"><b>${LESSONS.length} 个综合演示。</b> 第一来源 ${aldoLinked}/${catalog.notebooks.length} 个 Notebook、第二来源 ${pagonisLinked}/${pagonis.notebooks.length} 个 Python Notebook 至少有部分单元关联。其他题目及 Mathematica 文件仍待逐题核对；关联不等于整本完成。</div><p>按照矢量 → 静力学 → 动力学 → 质心与惯量组织；同类题可合并。点击文件查看固定提交中的源文件。</p><h2>第一来源 / aldotb</h2>${rows}${second}`);
 }
 function openText(){const l=LESSONS[index];showModal(l.title,'ACCESSIBLE TEXT / 文字版',`<div class="modal-callout">${htmlEscape(l.question)}<br><b>核心想法：</b>${htmlEscape(l.idea)}</div><ol class="text-steps">${l.steps.map((s,i)=>`<li><b>${i+1}. ${htmlEscape(s.title)}</b><div class="modal-formula">${renderMath(s.formula)}</div><p>${htmlEscape(s.detail)}</p></li>`).join('')}</ol><p>${htmlEscape(l.provenance)}</p>`);}
 function exportData(){
   const l=LESSONS[index],count=l.steps.length;
-  const data={version:1,caseId:l.id,title:l.title,sourceCommit:catalog.commit,sources:l.sources.map(s=>({...s,cellIds:s.cells.map(i=>catalog.notebooks.find(n=>n.file===s.file).cells[i].id)})),parameters:params,preset,duration:model.duration,clock:model.clock,timeUnit:model.timeUnit,events:model.events,colorMap:TAG_COLORS,
+  const data={version:1,caseId:l.id,title:l.title,sourceCommit:catalog.commit,sourceCommits:Object.fromEntries(Object.entries(sourceRepos).map(([key,repo])=>[key,repo.commit])),sources:l.sources.map(s=>({...s,repository:repoOf(s).repository,commit:repoOf(s).commit,cellIds:s.cells.map(i=>repoOf(s).notebooks.find(n=>n.file===s.file).cells[i].id)})),parameters:params,preset,duration:model.duration,clock:model.clock,timeUnit:model.timeUnit,events:model.events,colorMap:TAG_COLORS,
     derivationScript:l.steps.map((s,i)=>({...s,stepId:String(i+1),tStart:model.duration*model.stepBounds[i],tEnd:model.duration*model.stepBounds[i+1],highlight:s.tags,visual:{highlightObjects:s.tags}})),
     timeSeries:Array.from({length:241},(_,i)=>model.sample(i/240))};
   const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`${l.id}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -163,6 +174,7 @@ window.addEventListener('keydown',e=>{
 try{scene=new MechanicsScene($('scenePanel')||document.querySelector('.scene-panel'),$('sceneCanvas'),$('sceneLabels'),selectTag);}catch(e){
   console.error('WebGL initialization failed',e);document.querySelector('.scene-panel').insertAdjacentHTML('beforeend','<div class="webgl-error">此浏览器无法开启 WebGL。可继续使用文字版和数据；请在浏览器设置中启用硬件加速。</div>');
 }
+document.querySelector('.source-count').textContent=catalog.notebooks.length+pagonis.notebooks.length+pagonis.mathematica.length;
 loadCase(LESSONS[index].id,{replace:false});setMode(mode);
 
 // Deterministic recording and acceptance interface. Render mode never starts its own clock.

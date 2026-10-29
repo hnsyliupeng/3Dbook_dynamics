@@ -1,18 +1,25 @@
 {
-  "generatedAt": "2026-10-29T10:40:10.201Z",
+  "generatedAt": "2026-10-29T11:20:20.120Z",
   "sourceCommit": "dc05f371ac47fb82f9a00f622a274c5433629018",
-  "caseCount": 23,
-  "stepScreenshotCount": 92,
-  "animationCount": 23,
-  "presetScreenshotCount": 5,
+  "sourceCommits": {
+    "aldotb": "dc05f371ac47fb82f9a00f622a274c5433629018",
+    "pagonis": "1d60884725baabf901c2a5fc1eee2fd1ee3014da"
+  },
+  "caseCount": 36,
+  "stepScreenshotCount": 144,
+  "animationCount": 36,
+  "presetScreenshotCount": 21,
+  "crossRepositoryExportChecked": true,
   "geometryRopeCases": [
+    "stacked-blocks-pulley",
+    "atwood-machine",
     "two-incline-pulley",
     "movable-pulley",
     "loaded-moving-pulley"
   ],
   "browser": "Headless Chromium, WebGL/SwiftShader",
   "viewport": "1440×1080; mobile 390×844",
-  "offlineFilePagesChecked": 23,
+  "offlineFilePagesChecked": 36,
   "parameterEndpoints": "min/mid/max; progress preserved",
   "playback": "manual/auto, step boundary, keyboard",
   "pixelScan": "141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.",
@@ -54,6 +61,21 @@
           "id": "triangle",
           "label": "01B2 · 三角形（模长 2√7）",
           "path": "screenshots/vector-resultant/preset-triangle.png"
+        },
+        {
+          "id": "plane",
+          "label": "01B1 · 平面合矢量（模长 5）",
+          "path": "screenshots/vector-resultant/preset-plane.png"
+        },
+        {
+          "id": "practice",
+          "label": "01A1 · 加法练习（3, 3）",
+          "path": "screenshots/vector-resultant/preset-practice.png"
+        },
+        {
+          "id": "plot",
+          "label": "01A1 · 绘图示例（3, 3）",
+          "path": "screenshots/vector-resultant/preset-plot.png"
         }
       ],
       "geometryRopeLengthChecked": false,
@@ -92,8 +114,155 @@
       }
     },
     {
+      "id": "vector-magnitude-angle",
+      "title": "矢量模长与夹角",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/vector-magnitude-angle/step-1.png",
+        "screenshots/vector-magnitude-angle/step-2.png",
+        "screenshots/vector-magnitude-angle/step-3.png",
+        "screenshots/vector-magnitude-angle/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "magnitude",
+          "label": "01A1 · 模长练习 u=(3,−4,1)",
+          "path": "screenshots/vector-magnitude-angle/preset-magnitude.png"
+        },
+        {
+          "id": "orthogonal",
+          "label": "01A1 · 正交夹角练习",
+          "path": "screenshots/vector-magnitude-angle/preset-orthogonal.png"
+        },
+        {
+          "id": "components",
+          "label": "01A2 · 分量构造 (1,2,3)",
+          "path": "screenshots/vector-magnitude-angle/preset-components.png"
+        },
+        {
+          "id": "pagonis-1-1",
+          "label": "Pagonis 1.1 · 空间矢量 (1,1,1)",
+          "path": "screenshots/vector-magnitude-angle/preset-pagonis-1-1.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/vector-magnitude-angle.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 16,
+        "distinctColors": 270,
+        "spikes": []
+      }
+    },
+    {
+      "id": "vector-dot-cross",
+      "title": "点积、叉积与空间法向",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/vector-dot-cross/step-1.png",
+        "screenshots/vector-dot-cross/step-2.png",
+        "screenshots/vector-dot-cross/step-3.png",
+        "screenshots/vector-dot-cross/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/vector-dot-cross.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 9,
+        "maxChanged": 464,
+        "distinctColors": 274,
+        "spikes": []
+      }
+    },
+    {
+      "id": "circle-chord-vector",
+      "title": "圆内弦的分点矢量",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/circle-chord-vector/step-1.png",
+        "screenshots/circle-chord-vector/step-2.png",
+        "screenshots/circle-chord-vector/step-3.png",
+        "screenshots/circle-chord-vector/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/circle-chord-vector.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 10,
+        "distinctColors": 285,
+        "spikes": []
+      }
+    },
+    {
+      "id": "quadrilateral-midpoint-vector",
+      "title": "四边形中点与半段矢量",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/quadrilateral-midpoint-vector/step-1.png",
+        "screenshots/quadrilateral-midpoint-vector/step-2.png",
+        "screenshots/quadrilateral-midpoint-vector/step-3.png",
+        "screenshots/quadrilateral-midpoint-vector/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/quadrilateral-midpoint-vector.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 34,
+        "distinctColors": 287,
+        "spikes": []
+      }
+    },
+    {
+      "id": "triangle-centroid-vector",
+      "title": "三角形重心与矢量定义",
+      "section": "vectors",
+      "screenshots": [
+        "screenshots/triangle-centroid-vector/step-1.png",
+        "screenshots/triangle-centroid-vector/step-2.png",
+        "screenshots/triangle-centroid-vector/step-3.png",
+        "screenshots/triangle-centroid-vector/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "half-side",
+          "label": "按题图：B 是半条右边",
+          "path": "screenshots/triangle-centroid-vector/preset-half-side.png"
+        },
+        {
+          "id": "full-side",
+          "label": "按源码输出：B 是整条右边",
+          "path": "screenshots/triangle-centroid-vector/preset-full-side.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/triangle-centroid-vector.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 35,
+        "distinctColors": 274,
+        "spikes": []
+      }
+    },
+    {
       "id": "two-load-beam",
-      "title": "双载荷梁的支座反力",
+      "title": "悬臂梁的双载荷与支座反力",
       "section": "statics",
       "screenshots": [
         "screenshots/two-load-beam/step-1.png",
@@ -101,7 +270,18 @@
         "screenshots/two-load-beam/step-3.png",
         "screenshots/two-load-beam/step-4.png"
       ],
-      "presetScreenshots": [],
+      "presetScreenshots": [
+        {
+          "id": "image",
+          "label": "按题图：6 kg 位于 4b 梁端",
+          "path": "screenshots/two-load-beam/preset-image.png"
+        },
+        {
+          "id": "code",
+          "label": "按源码：6 kg 位于 2b 跨内",
+          "path": "screenshots/two-load-beam/preset-code.png"
+        }
+      ],
       "geometryRopeLengthChecked": false,
       "animation": "animations/two-load-beam.gif",
       "frameScan": {
@@ -109,8 +289,8 @@
         "intervalSeconds": 0.1,
         "downsample": "240×136",
         "medianChanged": 0,
-        "maxChanged": 38,
-        "distinctColors": 296,
+        "maxChanged": 37,
+        "distinctColors": 309,
         "spikes": []
       }
     },
@@ -180,6 +360,91 @@
         "medianChanged": 0,
         "maxChanged": 28,
         "distinctColors": 411,
+        "spikes": []
+      }
+    },
+    {
+      "id": "two-balls-circular-container",
+      "title": "圆环内两球的静力平衡",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/two-balls-circular-container/step-1.png",
+        "screenshots/two-balls-circular-container/step-2.png",
+        "screenshots/two-balls-circular-container/step-3.png",
+        "screenshots/two-balls-circular-container/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/two-balls-circular-container.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 0,
+        "maxChanged": 37,
+        "distinctColors": 556,
+        "spikes": []
+      }
+    },
+    {
+      "id": "stacked-blocks-pulley",
+      "title": "叠块、动滑轮与临界摩擦",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/stacked-blocks-pulley/step-1.png",
+        "screenshots/stacked-blocks-pulley/step-2.png",
+        "screenshots/stacked-blocks-pulley/step-3.png",
+        "screenshots/stacked-blocks-pulley/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/stacked-blocks-pulley.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 2,
+        "maxChanged": 14,
+        "distinctColors": 240,
+        "spikes": []
+      }
+    },
+    {
+      "id": "car-constant-acceleration",
+      "title": "汽车从 A 到 B：匀速与匀加速",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/car-constant-acceleration/step-1.png",
+        "screenshots/car-constant-acceleration/step-2.png",
+        "screenshots/car-constant-acceleration/step-3.png",
+        "screenshots/car-constant-acceleration/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "accelerating",
+          "label": "02B1 · 题图匀加速",
+          "path": "screenshots/car-constant-acceleration/preset-accelerating.png"
+        },
+        {
+          "id": "constant",
+          "label": "02B1 · 匀速通过 20 m",
+          "path": "screenshots/car-constant-acceleration/preset-constant.png"
+        },
+        {
+          "id": "pagonis",
+          "label": "Pagonis 1.4 · 积分至 3 s",
+          "path": "screenshots/car-constant-acceleration/preset-pagonis.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/car-constant-acceleration.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 69,
+        "maxChanged": 114,
+        "distinctColors": 438,
         "spikes": []
       }
     },
@@ -276,6 +541,109 @@
       }
     },
     {
+      "id": "cubic-velocity-initial-condition",
+      "title": "三次速度与给定时刻的位置",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/cubic-velocity-initial-condition/step-1.png",
+        "screenshots/cubic-velocity-initial-condition/step-2.png",
+        "screenshots/cubic-velocity-initial-condition/step-3.png",
+        "screenshots/cubic-velocity-initial-condition/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/cubic-velocity-initial-condition.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 84,
+        "maxChanged": 116,
+        "distinctColors": 253,
+        "spikes": []
+      }
+    },
+    {
+      "id": "level-projectile",
+      "title": "同高度斜抛与跑者接球",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/level-projectile/step-1.png",
+        "screenshots/level-projectile/step-2.png",
+        "screenshots/level-projectile/step-3.png",
+        "screenshots/level-projectile/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "level80",
+          "label": "用户截图 · 80 m/s、30°",
+          "path": "screenshots/level-projectile/preset-level80.png"
+        },
+        {
+          "id": "receiver",
+          "label": "02C1 · 跑者接球",
+          "path": "screenshots/level-projectile/preset-receiver.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/level-projectile.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 32,
+        "maxChanged": 49,
+        "distinctColors": 299,
+        "spikes": []
+      }
+    },
+    {
+      "id": "projectile-to-elevation",
+      "title": "抛体到达高台",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/projectile-to-elevation/step-1.png",
+        "screenshots/projectile-to-elevation/step-2.png",
+        "screenshots/projectile-to-elevation/step-3.png",
+        "screenshots/projectile-to-elevation/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/projectile-to-elevation.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 36,
+        "maxChanged": 51,
+        "distinctColors": 335,
+        "spikes": []
+      }
+    },
+    {
+      "id": "two-projectiles-meet",
+      "title": "水平抛出与竖直上抛相遇",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/two-projectiles-meet/step-1.png",
+        "screenshots/two-projectiles-meet/step-2.png",
+        "screenshots/two-projectiles-meet/step-3.png",
+        "screenshots/two-projectiles-meet/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/two-projectiles-meet.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 16,
+        "maxChanged": 23,
+        "distinctColors": 252,
+        "spikes": []
+      }
+    },
+    {
       "id": "accelerated-projectile",
       "title": "有水平加速度的抛体",
       "section": "dynamics",
@@ -293,8 +661,8 @@
         "intervalSeconds": 0.1,
         "downsample": "240×136",
         "medianChanged": 32,
-        "maxChanged": 70,
-        "distinctColors": 225,
+        "maxChanged": 77,
+        "distinctColors": 229,
         "spikes": []
       }
     },
@@ -315,9 +683,9 @@
         "frames": 141,
         "intervalSeconds": 0.1,
         "downsample": "240×136",
-        "medianChanged": 39,
-        "maxChanged": 61,
-        "distinctColors": 226,
+        "medianChanged": 41,
+        "maxChanged": 72,
+        "distinctColors": 227,
         "spikes": []
       }
     },
@@ -338,9 +706,9 @@
         "frames": 141,
         "intervalSeconds": 0.1,
         "downsample": "240×136",
-        "medianChanged": 51,
+        "medianChanged": 53,
         "maxChanged": 72,
-        "distinctColors": 267,
+        "distinctColors": 269,
         "spikes": []
       }
     },
@@ -387,6 +755,29 @@
         "medianChanged": 70,
         "maxChanged": 94,
         "distinctColors": 224,
+        "spikes": []
+      }
+    },
+    {
+      "id": "atwood-machine",
+      "title": "阿特伍德机：两重物与定滑轮",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/atwood-machine/step-1.png",
+        "screenshots/atwood-machine/step-2.png",
+        "screenshots/atwood-machine/step-3.png",
+        "screenshots/atwood-machine/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/atwood-machine.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 52,
+        "maxChanged": 85,
+        "distinctColors": 427,
         "spikes": []
       }
     },

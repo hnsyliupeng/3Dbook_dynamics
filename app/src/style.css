@@ -5,3 +5,10 @@
 @media(max-width:440px){.brand-copy b{font-size:12px}.brand-mark{width:32px;height:32px}.source-button{font-size:10px}.source-count{display:none}.scene-panel{height:290px}.parameters{grid-template-columns:repeat(2,minmax(0,1fr))}.readouts{flex-wrap:wrap}.playback-buttons{gap:3px}.transport-button{width:26px}.book-page{display:none}.lesson-header p{font-size:11px}}
 .webgl-error{position:absolute;inset:30% 10%;display:grid;place-items:center;text-align:center;background:#fff9;border:1px solid #dbded2;border-radius:8px;padding:20px;color:#6c8276;font-size:13px;line-height:1.7}
 .ui-icon{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}.transport-button{display:grid;place-items:center}.camera-button .ui-icon{width:12px;height:12px}.book-symbol,.scene-compass,.big-idea>span,.sidebar-footer-icon{font-family:Arial,sans-serif;font-weight:600}.scene-compass{font-size:24px;line-height:1}.mini-label,.sidebar-label{color:#82988b}.lesson-header p,.question-heading p,.step-detail p,.param-top label{color:#71877b}.step-footnote,.parameter-note{color:#92a396}
+/* A growing source-ordered catalogue stays usable without making the entire
+   page thousands of pixels tall. The mobile catalogue remains horizontal. */
+@media(min-width:761px){
+  .sidebar{position:sticky;top:0;align-self:flex-start;height:calc(100vh - 67px);max-height:calc(100vh - 67px);overflow:hidden}
+  .case-nav{min-height:0;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c2d3c6 transparent}
+  .sidebar-footer{margin-top:10px}
+}
