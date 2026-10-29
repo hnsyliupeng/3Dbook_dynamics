@@ -14,6 +14,9 @@ const root=resolve('.'),qa=resolve('docs/qa'),shotDir=join(qa,'screenshots'),gif
 await mkdir(shotDir,{recursive:true});await mkdir(gifDir,{recursive:true});
 // A failed run must not leave a previous machine-readable report claiming success.
 await rm(join(qa,'report.json'),{force:true});
+// An equivalence note is only needed when a build changes during a particular
+// QA run. A fresh complete run replaces that historical comparison.
+await rm(join(qa,'render-equivalence.json'),{force:true});
 const temp=await mkdtemp(join(tmpdir(),'mechanics-gui-'));
 // The serverless Chromium package carries NSS/NSPR libraries for Linux. Extract them
 // even on minimal Debian containers where the package does not do so automatically.
@@ -43,9 +46,34 @@ function checkGeometry(lesson,s){
     case 'cubic-drag':if(!near(g.Ay,g.startY-d.xEuler*g.scale)||!near(g.By,g.startY-d.x*g.scale)||g.Ay-g.ballRadius<g.platformTop||g.By-g.ballRadius<g.platformTop||(d.v===0&&g.dragVisible)||(d.vEuler===0&&g.velocityVisible))fail('两种数值解位置不同步、零速度箭头非零或球穿透底座');break;
     case 'peg-flight':if(!near(g.ballX,g.pivotX+d.x*g.scale)||!near(g.ballY,g.floor+g.ballRadius+d.y*g.scale)||g.trajectoryCount!==41||g.cableVisible!==(d.phase!=='flight'))fail('摆球位置、轨迹缓冲区或释放状态不匹配');if(g.cableVisible&&!near(g.cableLength,(d.phase==='long'?2:1)*q.R*g.scale,1e-4))fail('摆绳与摆长不匹配');if(d.phase==='flight'&&(!near(g.trajectoryEndX,g.ballX)||!near(g.trajectoryEndY,g.ballY)))fail('抛物线末端与摆球不同步');break;
     case 'nonlinear-pendulum':if(!near(g.rodLength,g.Lvis)||!near(g.bobX,g.pivotX+g.Lvis*Math.sin(d.theta))||!near(g.bobY,g.pivotY-g.Lvis*Math.cos(d.theta))||g.bobY+g.bobRadius>=g.frameBottom||g.braceFrontZ>=-g.bobRadius)fail('刚杆长度、摆球角度或支架净空不匹配');break;
-    case 'coupled-springs':if(!near(g.Ax,g.eq1+d.x1*g.scale)||!near(g.Bx,g.eq2+d.x2*g.scale)||g.space<=0||g.Ax-.38<=-2.65||g.Bx+.42>=2.65)fail('小车位置或滑块间/墙面间距不匹配');break;
+    case 'coupled-springs':case 'equal-spring-modes':
+      if(!near(g.Ax,g.eq1+d.x1*g.scale)||!near(g.Bx,g.eq2+d.x2*g.scale)||!near(g.space,g.Bx-g.wb/2-(g.Ax+g.wa/2))||g.space<=0||g.Ax-g.wa/2<=-2.65||g.Bx+g.wb/2>=2.65||(lesson.kind==='equal-spring-modes'&&!near(g.wa,g.wb)))fail('小车位置、车体尺寸或滑块间/墙面间距不匹配');break;
     case 'planet-orbits':if(!near(g.earthX,d.earth.x*g.scale)||!near(g.earthY,d.earth.y*g.scale)||!near(g.mercuryX,d.mercury.x*g.scale)||!near(g.mercuryY,d.mercury.y*g.scale)||!near(g.focusX,0)||!near(g.focusY,0))fail('两行星位置或太阳焦点不同步');break;
     case 'moon-orbit':if(!near(g.earthX,0)||!near(g.earthY,0)||!near(g.moonX,d.x*g.scale)||!near(g.moonY,d.y*g.scale))fail('地月相对轨道与数值模型不同步');break;
+    case 'car-ratio':
+      if(!near(g.carX,g.startX+d.x*g.scale)||!near(g.markerAX,g.startX+d.xA*g.scale)||!near(g.endX,g.startX+d.xB*g.scale)||!near(g.carBottomY,g.roadY)||!near(g.wheelAngle,-d.x*g.scale/g.wheelRadius)||(d.v===0&&g.velocityVisible)||d.passedA!==(s.progress>=s.stepBounds[2]))fail('汽车位置、车轮滚动、路面或 A 点事件不同步');break;
+    case 'two-stones':
+      if(!near(g.Ay,g.base+d.yA*g.scale)||!near(g.By,g.base+d.yB*g.scale)||!near(g.verticalGap,d.gap*g.scale)||!near(g.barLength,g.verticalGap)||g.verticalGap<2*g.radius||g.Ay-g.radius<g.ground||g.dropX-g.radius<g.ledgeRight)fail('两石位置、间距尺、建筑台阶或接触净空错误');
+      if(s.progress===1&&!near(d.gap,3))fail('首次达到 3 m 的事件未结束');break;
+    case 'free-wedge':{
+      const a=d.angle,local=d.s0+d.s;
+      if(!near(g.wedgeX,d.X*g.scale)||!near(g.contactX,g.left+local*g.scale*Math.cos(a)+g.wedgeX)||!near(g.contactY,g.floor+(d.L-local)*g.scale*Math.sin(a))||!near(g.contactY,g.floor+g.H-(g.contactX-g.wedgeX-g.left)*Math.tan(a))||!near(g.blockX,g.contactX+g.offset*Math.sin(a))||!near(g.blockY,g.contactY+g.offset*Math.cos(a))||d.N<=0||Math.abs(d.P)>1e-6||Math.abs(d.residualEnergy)>1e-6)fail('可动楔、滑块法向接触、动量或能量不同步');break;
+    }
+    case 'damped-cart':case 'driven-cart':
+      if(!near(g.cartX,d.x*g.scale)||!near(g.left,g.cartX-.39)||!near(g.pistonEnd,g.left)||g.pistonEnd<=g.pistonStart||g.left<=g.springStart||g.cartX+.39>=2.28||g.energyBar<.079||g.energyBar>8.001||g.hasActuator!==(lesson.kind==='driven-cart')||(d.v===0&&g.velocityVisible)||(lesson.kind==='driven-cart'&&Math.abs(d.force)<1e-10&&g.forceVisible))fail('小车、阻尼器连接、墙面间距或驱动/能量指示错误');break;
+    case 'crank-pendulum':
+      if(!near(g.pivotX,g.centerX+d.pivotX*g.scale)||!near(g.pivotY,g.centerY+d.pivotY*g.scale)||!near(g.bobX,g.centerX+d.x*g.scale)||!near(g.bobY,g.centerY+d.y*g.scale)||!near(g.rodLength,d.L*g.scale)||!near(g.crankLength,q.R*g.scale)||g.bobY-g.bobRadius<=g.platformY||g.braceFrontZ>=-g.bobRadius)fail('曲柄支点、摆球、杆长或支架净空错误');break;
+    case 'binary-stars':
+      if(!near(g.Ax,d.A[0]*g.scale)||!near(g.Ay,d.A[1]*g.scale)||!near(g.Bx,d.B[0]*g.scale)||!near(g.By,d.B[1]*g.scale)||!near(g.Ax+q.m2*g.Bx,0)||!near(g.Ay+q.m2*g.By,0)||!near(g.centerX,0)||!near(g.centerY,0)||!near(g.distance,d.r*g.scale)||g.distance<g.radiusA+g.radiusB)fail('双星位置、共同质心或星体相互穿透错误');break;
+    case 'jupiter-moons':
+      if(!near(g.jupiterX,g.cx)||!near(g.jupiterZ,0)||!near(g.fitSlope/d.fit.slope,1)||!near(g.fitIntercept,d.fit.intercept))fail('木星或拟合线未与数据同步');
+      for(let i=0;i<d.moons.length;i++){
+        const [x,y]=g.moonPositions[i],moon=d.moons[i];
+        if(!near(x,g.cx+moon.x*g.scale)||!near(y,moon.y*g.scale)||!near(Math.hypot(x-g.cx,y),moon.a*g.scale)||Math.hypot(x-g.cx,y)<g.jupiterRadius+g.moonRadii[i])fail(`木卫 ${i+1} 的位置、轨道半径或木星净空错误`);
+        for(let j=0;j<i;j++)if(Math.hypot(x-g.moonPositions[j][0],y-g.moonPositions[j][1])<g.moonRadii[i]+g.moonRadii[j])fail('木卫星视觉上相互穿透');
+      }break;
+    case 'triangle-lamina':
+      if(!near(g.scanY,g.base+d.s*g.scale)||!near(g.scanHalf,d.width*g.scale/2)||g.scanVisible!==(d.width*g.scale/2>=1e-5)||!near(g.centroidY,g.base+d.yCenter*g.scale)||g.centroidVisible!==(d.mass>1e-12)||!near(g.finalY,g.base+d.fullY*g.scale)||(d.graded?new Set(g.densityKey).size<2:new Set(g.densityKey).size!==1))fail('三角薄板积分薄条、质心或密度图例不同步');break;
     case 'beam':if(!near(g.visualK,d.k)||!near(g.supportBX-g.supportAX,3*(g.load1X-g.supportAX))||!near(g.beamBottomY,g.supportTopY)||!near(g.loadBottomY,g.beamTopY))fail('题图载荷、支座或接触几何不匹配');break;
     case 'dot-cross':if(g.handedness!==1||!near(g.dot,d.dot)||!near(g.area,d.area))fail('叉积右手系或面积不匹配');break;
     case 'chord-vector':if(!near(g.circleAError,0)||!near(g.AP/(g.AP+g.PB),d.lambda))fail('圆与分点比例不匹配');break;
@@ -170,11 +198,14 @@ try {
     // several physical times and at exact event boundaries, not only one slider.
     if(APPLICATION_LESSONS.some(l=>l.id===lesson.id)){
       let corners=[{}];for(const param of lesson.params)corners=corners.flatMap(c=>[{...c,[param.key]:param.min},{...c,[param.key]:param.max}]);
-      for(const values of corners){
-        await page.evaluate(values=>{for(const [key,value] of Object.entries(values))window.__MECH__.changeParameter(key,value);},values);
-        const bounds=(await snap()).stepBounds;
-        for(const p of [...new Set([0,.25,.5,.75,1,...bounds])]){
-          await page.evaluate(p=>window.__MECH__.setProgress(p),p);const sample=await snap();checkGeometry(lesson,sample);
+      for(const preset of lesson.presets?.length?lesson.presets.map(p=>p.id):[null]){
+        if(preset)await page.evaluate(id=>window.__MECH__.changePreset(id),preset);
+        for(const values of corners){
+          await page.evaluate(values=>{for(const [key,value] of Object.entries(values))window.__MECH__.changeParameter(key,value);},values);
+          const bounds=(await snap()).stepBounds;
+          for(const p of [...new Set([0,.25,.5,.75,1,...bounds])]){
+            await page.evaluate(p=>window.__MECH__.setProgress(p),p);const sample=await snap();checkGeometry(lesson,sample);
+          }
         }
       }
     }
@@ -253,8 +284,23 @@ try {
   assert(mobile.width<=mobile.viewport,`移动端横向溢出: ${mobile.width}/${mobile.viewport}`);assert(mobile.canvas>250,'移动端场景宽度异常');
   await page.locator('#openSource').click();assert((await page.locator('#modalBody').textContent()).includes('05A3 Dynamics Pulley.ipynb'),'来源弹窗未显示对应原题');await page.locator('#closeModal').click();
 
-  for(const id of ['cart-two-strings','elastic-billiards-2d','earth-moon-orbit']){
+  const mobileCases=['cart-two-strings','elastic-billiards-2d','earth-moon-orbit',
+    'car-speed-ratio','two-stones-building','free-wedge-slider','damped-spring-cart','driven-spring-resonance',
+    'crank-driven-pendulum','equal-spring-normal-modes','binary-stars-barycenter','jupiter-moons-mass','triangle-lamina-centroid'];
+  for(const id of mobileCases){
     await page.goto(rootUrl+`?case=${id}&render`,{waitUntil:'load'});await page.waitForFunction(()=>window.__MECH__);
+    const initial=await snap();
+    for(let step=0;step<4;step++){
+      await page.evaluate(p=>window.__MECH__.setProgress(p),(initial.stepBounds[step]+initial.stepBounds[step+1])/2);
+      const mobileGui=await page.evaluate(()=>{
+        const state=window.__MECH__.snapshot(),panel=document.querySelector('.scene-panel').getBoundingClientRect();
+        const labels=[...document.querySelectorAll('.scene-label')].filter(e=>getComputedStyle(e).display!=='none').map(e=>({tag:e.dataset.tag,r:e.getBoundingClientRect()}));
+        const outside=labels.filter(({r})=>r.left<panel.left-1||r.right>panel.right+1||r.top<panel.top-1||r.bottom>panel.bottom+1).map(v=>v.tag),overlap=[];
+        for(let i=0;i<labels.length;i++)for(let j=i+1;j<labels.length;j++){const a=labels[i].r,b=labels[j].r,area=Math.max(0,Math.min(a.right,b.right)-Math.max(a.left,b.left))*Math.max(0,Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top));if(area>12)overlap.push(`${labels[i].tag}/${labels[j].tag}`);}
+        return {tags:state.tags,labels:labels.map(v=>v.tag),outside,overlap};
+      });
+      assert(mobileGui.tags.every(t=>mobileGui.labels.includes(t))&&!mobileGui.outside.length&&!mobileGui.overlap.length,`${id} 移动端 step ${step+1}: 标签缺失、重叠或越界`);
+    }
     await page.evaluate(()=>window.__MECH__.setProgress(.55));await page.screenshot({path:join(qa,`mobile-${id}.png`),fullPage:true});
     const dims=await page.evaluate(()=>({width:document.documentElement.scrollWidth,viewport:innerWidth,canvas:document.querySelector('canvas').getBoundingClientRect().width}));
     assert(dims.width<=dims.viewport&&dims.canvas>250,`${id}: 移动端溢出或画布过窄`);
@@ -272,12 +318,12 @@ try {
   assert(errors.length===0,`浏览器错误：${errors.join(' | ')}`);
 
   const report={generatedAt:new Date().toISOString(),sourceCommit:'dc05f371ac47fb82f9a00f622a274c5433629018',sourceCommits:{aldotb:'dc05f371ac47fb82f9a00f622a274c5433629018',pagonis:'1d60884725baabf901c2a5fc1eee2fd1ee3014da'},caseCount:entries.length,stepScreenshotCount:entries.reduce((n,e)=>n+e.screenshots.length,0),animationCount:entries.length,presetScreenshotCount:entries.reduce((n,e)=>n+e.presetScreenshots.length,0),crossRepositoryExportChecked:true,geometryRopeCases:entries.filter(e=>e.geometryRopeLengthChecked).map(e=>e.id),
-    browser:'Headless Chromium, WebGL/SwiftShader',viewport:'1440×1080; mobile 390×844',offlineFilePagesChecked:LESSONS.length,offlineInteractiveWithoutRender:true,offlineDecompressionFallbackChecked:true,userProblemFiguresChecked:5,applicationCornerGeometryCases:APPLICATION_LESSONS.map(l=>l.id),parameterEndpoints:'min/mid/max; progress preserved; application combinations at boundaries',playback:'manual/auto, step boundary, keyboard',
+    browser:'Headless Chromium, WebGL/SwiftShader',viewport:'1440×1080; mobile 390×844',mobileCasesChecked:['movable-pulley',...mobileCases],mobileStepLabelsChecked:mobileCases,offlineFilePagesChecked:LESSONS.length,offlineInteractiveWithoutRender:true,offlineDecompressionFallbackChecked:true,userProblemFiguresChecked:5,applicationCornerGeometryCases:APPLICATION_LESSONS.map(l=>l.id),parameterEndpoints:'min/mid/max; progress preserved; application combinations and all presets at boundaries',playback:'manual/auto, step boundary, keyboard',
     pixelScan:'141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.',errors,warnings,entries};
   await writeFile(join(qa,'report.json'),JSON.stringify(report,null,2)+'\n');
   const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const gallery=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>逐案例 GUI 与动画验证 · 经典力学图鉴</title><style>body{font:15px/1.6 system-ui,"Microsoft YaHei",sans-serif;margin:0;background:#f2f0e8;color:#294940}header,main{max-width:1200px;margin:auto;padding:28px}header{padding-bottom:0}h1{font:32px Georgia,serif}h2{margin-top:36px;color:#487f70}.note{background:#fff7e7;border:1px solid #e7d6b7;padding:14px;border-radius:8px;color:#886c44}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(350px,1fr));gap:18px}.card{background:#fafaf5;border:1px solid #dfe7db;border-radius:8px;padding:14px;overflow:hidden}.card img{width:100%;border:1px solid #e5e8dc;border-radius:5px}.card h3{font-size:16px}.links{display:flex;gap:12px;flex-wrap:wrap;font-size:12px}a{color:#278376}small{color:#84988b}</style></head><body><header><small>MECHANICS ATLAS / VISUAL QA</small><h1>逐案例 GUI 与动态验证</h1><p>${entries.length} 个综合案例，每个案例 4 张步骤中点截图及一段确定性动态预览。</p><div class="note">这些是已实现案例的验证，不表示源仓库所有题目已完成。GIF 为 17 帧压缩预览，完整交互请打开案例 HTML。<a href="report.json">机器可读报告</a> · <a href="mobile-pulley.png">移动端截图</a></div></header><main>${SECTIONS.map(sec=>`<h2>${esc(sec.number)} / ${esc(sec.name)}</h2><div class="cards">${entries.filter(e=>e.section===sec.id).map(e=>`<article class="card"><h3>${esc(e.title)}</h3><a href="${e.animation}"><img src="${e.animation}" alt="${esc(e.title)}的动态验证预览"></a><p class="links">${e.screenshots.map((s,i)=>`<a href="${s}">步骤 ${i+1} 截图</a>`).join('')}${e.presetScreenshots.map((p,i)=>`<a href="${p.path}">原题预设 ${i+1}</a>`).join('')}<a href="../../cases/${e.id}.html">打开案例</a></p><small>帧差扫描 ${e.frameScan.frames} 帧 · ${e.frameScan.spikes.length} 个待复核尖峰</small></article>`).join('')}</div>`).join('')}</main></body></html>`;
   await writeFile(join(qa,'gallery.html'),gallery);
-  await writeFile(join(qa,'README.md'),`# GUI 与动态验证\n\n- [逐案例截图及动态预览](gallery.html)\n- [移动端截图](mobile-pulley.png)\n- [机器可读报告](report.json)\n\n本次针对 ${entries.length} 个已实现综合案例，分别保存 4 个步骤中点截图（共 ${report.stepScreenshotCount} 张）和 17 帧 GIF；另有 ${report.presetScreenshotCount} 张原题预设截图。所有独立 HTML 直接以 file:// 打开；验证源目录、时间轴、参数最小/中间/最大值、高亮标签可见性、仪表、播放/暂停和移动端横向溢出。七个滑轮/绳索场景额外检查参数极值及各时刻的可视化绳长保持不变；新增 11 个应用装置检查组合极值、运动与接触几何、事件时刻及轨迹端点；五张用户题图检查离线加载；压缩案例逐个测试无 render 参数时的滑块、seek 和解压不可用回退。还检查梁、两球、球与圆柱、汽车接触、抛体轨迹缓存/坐标、两个来源的链接与 JSON 导出，以及列车、碰撞和越障事件。\n\n每个案例另外以统一时间轴逐 0.1 秒采样 141 个 WebGL 帧，缩至 240×136 比较像素变化；推演步骤边界的有意高亮变化不计尖峰。该启发式不能替代人工逐帧审查，GIF 也不是完整实时视频。\n\n${warnings.length?'需留意：\n'+warnings.map(w=>'- '+w).join('\n'):'自动检查未报告标签越界、标签重叠或帧差尖峰。'}\n\n这些验证只覆盖当前已实现案例，不能视为源 Notebook 的全部题目已复现。\n`);
+  await writeFile(join(qa,'README.md'),`# GUI 与动态验证\n\n- [逐案例截图及动态预览](gallery.html)\n- [移动端截图](mobile-pulley.png)\n- [机器可读报告](report.json)\n\n本次针对 ${entries.length} 个已实现综合案例，分别保存 4 个步骤中点截图（共 ${report.stepScreenshotCount} 张）和 17 帧 GIF；另有 ${report.presetScreenshotCount} 张原题预设截图。所有独立 HTML 直接以 file:// 打开；验证源目录、时间轴、参数最小/中间/最大值、高亮标签可见性、仪表、播放/暂停和移动端横向溢出。七个滑轮/绳索场景额外检查参数极值及各时刻的可视化绳长保持不变；${APPLICATION_LESSONS.length} 个应用装置的全部预设检查组合极值、运动与接触几何、事件时刻及轨迹端点；五张用户题图检查离线加载；压缩案例逐个测试无 render 参数时的滑块、seek 和解压不可用回退。还检查梁、两球、球与圆柱、汽车接触、抛体轨迹缓存/坐标、两个来源的链接与 JSON 导出，以及列车、碰撞和越障事件。\n\n每个案例另外以统一时间轴逐 0.1 秒采样 141 个 WebGL 帧，缩至 240×136 比较像素变化；推演步骤边界的有意高亮变化不计尖峰。该启发式不能替代人工逐帧审查，GIF 也不是完整实时视频。\n\n${warnings.length?'需留意：\n'+warnings.map(w=>'- '+w).join('\n'):'自动检查未报告标签越界、标签重叠或帧差尖峰。'}\n\n这些验证只覆盖当前已实现案例，不能视为源 Notebook 的全部题目已复现。\n`);
   console.log(`GUI PASS: ${entries.length} cases, ${report.stepScreenshotCount} screenshots, ${entries.length} animations. Warnings: ${warnings.length}`);for(const w of warnings)console.log('WARN:',w);
 } finally {await context.close();await browser.close();await rm(temp,{recursive:true,force:true});}

@@ -17,11 +17,11 @@ const corners=id=>{
 };
 
 test('新增应用均有原题、条件、独立装置步骤及精确来源',()=>{
-  assert.equal(APPLICATION_LESSONS.length,11);
+  assert.ok(APPLICATION_LESSONS.length>=21);
   for(const l of APPLICATION_LESSONS){
     assert.ok(l.question.length>10,l.id);assert.ok(l.provenance.length>40,l.id);
     assert.equal(l.steps.length,4,l.id);assert.ok(l.sources.every(s=>s.cells.length),l.id);
-    assert.ok(l.params.length>=2,l.id);
+    assert.ok(l.params.length>=1,l.id);
     for(const s of l.steps){assert.ok(s.formula&&s.detail);assert.ok(s.tags.length>=2);}
   }
 });

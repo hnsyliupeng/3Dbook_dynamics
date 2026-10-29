@@ -169,7 +169,7 @@ export class MechanicsScene {
     const label=(tag,anchor,text=TAG_LABELS[tag])=>{const el=document.createElement('button');el.type='button';el.className='scene-label';el.dataset.tag=tag;el.textContent=text;el.style.setProperty('--tag-color',TAG_COLORS[tag]||'#497c7b');el.addEventListener('click',e=>{e.stopPropagation();this.onTag(tag)});this.labels.append(el);this.labelDefs.push({tag,anchor,el});};
     platform(root,lesson.kind==='energy'?8:7,4.8);
     let update=()=>{};
-    const appScene=buildApplicationScene({lesson,model,root,label,h:{C,V,mat,makeBox,makeSphere,cyl,ring,segment,placeSegment,makeLine,setLine,arrow,setArrow,wheel,crate,dynamicRope,polylineLength,isTagActive:tag=>(this.currentTags||[]).includes(tag)}});
+    const appScene=buildApplicationScene({lesson,model,root,label,h:{C,V,mat,makeBox,makeSphere,cyl,ring,segment,placeSegment,makeLine,setLine,arrow,setArrow,wheel,crate,roadCar,dynamicRope,polylineLength,isTagActive:tag=>(this.currentTags||[]).includes(tag)}});
     if(appScene){update=appScene.update;this.inspectGeometry=appScene.inspect;}
     else if(lesson.kind==='vector') {
       grid(root,{extent:3.2});

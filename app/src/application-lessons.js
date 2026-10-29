@@ -1,3 +1,4 @@
+import { DEEP_APPLICATION_LESSONS } from './deep-application-lessons.js';
 // Source-specific application problems. Values below are taken from the cited
 // cells; deliberately added visual/physical assumptions are stated explicitly.
 const S=(title,formula,detail,tags)=>({title,formula,detail,tags});
@@ -184,3 +185,4 @@ export const APPLICATION_LESSONS=[
     ]
   }
 ];
+APPLICATION_LESSONS.push(...DEEP_APPLICATION_LESSONS);

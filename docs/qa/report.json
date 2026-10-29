@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-29T12:58:22.497Z",
+  "generatedAt": "2026-10-29T13:45:34.176Z",
   "sourceCommit": "dc05f371ac47fb82f9a00f622a274c5433629018",
   "sourceCommits": {
     "aldotb": "dc05f371ac47fb82f9a00f622a274c5433629018",
     "pagonis": "1d60884725baabf901c2a5fc1eee2fd1ee3014da"
   },
-  "caseCount": 47,
-  "stepScreenshotCount": 188,
-  "animationCount": 47,
-  "presetScreenshotCount": 23,
+  "caseCount": 57,
+  "stepScreenshotCount": 228,
+  "animationCount": 57,
+  "presetScreenshotCount": 33,
   "crossRepositoryExportChecked": true,
   "geometryRopeCases": [
     "double-pulley-beam",
@@ -21,7 +21,38 @@
   ],
   "browser": "Headless Chromium, WebGL/SwiftShader",
   "viewport": "1440×1080; mobile 390×844",
-  "offlineFilePagesChecked": 47,
+  "mobileCasesChecked": [
+    "movable-pulley",
+    "cart-two-strings",
+    "elastic-billiards-2d",
+    "earth-moon-orbit",
+    "car-speed-ratio",
+    "two-stones-building",
+    "free-wedge-slider",
+    "damped-spring-cart",
+    "driven-spring-resonance",
+    "crank-driven-pendulum",
+    "equal-spring-normal-modes",
+    "binary-stars-barycenter",
+    "jupiter-moons-mass",
+    "triangle-lamina-centroid"
+  ],
+  "mobileStepLabelsChecked": [
+    "cart-two-strings",
+    "elastic-billiards-2d",
+    "earth-moon-orbit",
+    "car-speed-ratio",
+    "two-stones-building",
+    "free-wedge-slider",
+    "damped-spring-cart",
+    "driven-spring-resonance",
+    "crank-driven-pendulum",
+    "equal-spring-normal-modes",
+    "binary-stars-barycenter",
+    "jupiter-moons-mass",
+    "triangle-lamina-centroid"
+  ],
+  "offlineFilePagesChecked": 57,
   "offlineInteractiveWithoutRender": true,
   "offlineDecompressionFallbackChecked": true,
   "userProblemFiguresChecked": 5,
@@ -36,9 +67,19 @@
     "large-angle-pendulum",
     "coupled-spring-carts",
     "earth-mercury-orbits",
-    "earth-moon-orbit"
+    "earth-moon-orbit",
+    "car-speed-ratio",
+    "two-stones-building",
+    "free-wedge-slider",
+    "damped-spring-cart",
+    "driven-spring-resonance",
+    "crank-driven-pendulum",
+    "equal-spring-normal-modes",
+    "binary-stars-barycenter",
+    "jupiter-moons-mass",
+    "triangle-lamina-centroid"
   ],
-  "parameterEndpoints": "min/mid/max; progress preserved; application combinations at boundaries",
+  "parameterEndpoints": "min/mid/max; progress preserved; application combinations and all presets at boundaries",
   "playback": "manual/auto, step boundary, keyboard",
   "pixelScan": "141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.",
   "errors": [],
@@ -490,6 +531,29 @@
       }
     },
     {
+      "id": "car-speed-ratio",
+      "title": "汽车过 A、B：由速度比求出发距离",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/car-speed-ratio/step-1.png",
+        "screenshots/car-speed-ratio/step-2.png",
+        "screenshots/car-speed-ratio/step-3.png",
+        "screenshots/car-speed-ratio/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/car-speed-ratio.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 46,
+        "maxChanged": 115,
+        "distinctColors": 366,
+        "spikes": []
+      }
+    },
+    {
       "id": "car-chase",
       "title": "汽车追上卡车",
       "section": "dynamics",
@@ -685,6 +749,29 @@
       }
     },
     {
+      "id": "two-stones-building",
+      "title": "两层楼同时下落的石块",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/two-stones-building/step-1.png",
+        "screenshots/two-stones-building/step-2.png",
+        "screenshots/two-stones-building/step-3.png",
+        "screenshots/two-stones-building/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/two-stones-building.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 18,
+        "maxChanged": 29,
+        "distinctColors": 473,
+        "spikes": []
+      }
+    },
+    {
       "id": "accelerated-projectile",
       "title": "有水平加速度的抛体",
       "section": "dynamics",
@@ -865,6 +952,29 @@
         "medianChanged": 82,
         "maxChanged": 148,
         "distinctColors": 374,
+        "spikes": []
+      }
+    },
+    {
+      "id": "free-wedge-slider",
+      "title": "滑块下滑与可移动楔块反冲",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/free-wedge-slider/step-1.png",
+        "screenshots/free-wedge-slider/step-2.png",
+        "screenshots/free-wedge-slider/step-3.png",
+        "screenshots/free-wedge-slider/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/free-wedge-slider.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 50,
+        "maxChanged": 105,
+        "distinctColors": 385,
         "spikes": []
       }
     },
@@ -1087,6 +1197,102 @@
       }
     },
     {
+      "id": "damped-spring-cart",
+      "title": "弹簧与阻尼器：欠阻尼到过阻尼",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/damped-spring-cart/step-1.png",
+        "screenshots/damped-spring-cart/step-2.png",
+        "screenshots/damped-spring-cart/step-3.png",
+        "screenshots/damped-spring-cart/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "under",
+          "label": "6.4 · 欠阻尼 b=1",
+          "path": "screenshots/damped-spring-cart/preset-under.png"
+        },
+        {
+          "id": "critical",
+          "label": "6.4 · 临界阻尼 b=2",
+          "path": "screenshots/damped-spring-cart/preset-critical.png"
+        },
+        {
+          "id": "over",
+          "label": "6.4 · 过阻尼 b=3",
+          "path": "screenshots/damped-spring-cart/preset-over.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/damped-spring-cart.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 3,
+        "maxChanged": 140,
+        "distinctColors": 432,
+        "spikes": []
+      }
+    },
+    {
+      "id": "driven-spring-resonance",
+      "title": "周期驱动的减振小车与共振",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/driven-spring-resonance/step-1.png",
+        "screenshots/driven-spring-resonance/step-2.png",
+        "screenshots/driven-spring-resonance/step-3.png",
+        "screenshots/driven-spring-resonance/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "pagonis-6-5",
+          "label": "6.5 · F₀=5，ω=3",
+          "path": "screenshots/driven-spring-resonance/preset-pagonis-6-5.png"
+        },
+        {
+          "id": "pagonis-6-6",
+          "label": "6.6 · 扫频起点 ω=0.1",
+          "path": "screenshots/driven-spring-resonance/preset-pagonis-6-6.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/driven-spring-resonance.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 341,
+        "maxChanged": 636,
+        "distinctColors": 459,
+        "spikes": []
+      }
+    },
+    {
+      "id": "crank-driven-pendulum",
+      "title": "曲柄转动支点驱动摆杆",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/crank-driven-pendulum/step-1.png",
+        "screenshots/crank-driven-pendulum/step-2.png",
+        "screenshots/crank-driven-pendulum/step-3.png",
+        "screenshots/crank-driven-pendulum/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/crank-driven-pendulum.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 191,
+        "maxChanged": 244,
+        "distinctColors": 310,
+        "spikes": []
+      }
+    },
+    {
       "id": "coupled-spring-carts",
       "title": "两辆小车与三根耦合弹簧",
       "section": "dynamics",
@@ -1106,6 +1312,45 @@
         "medianChanged": 360,
         "maxChanged": 502,
         "distinctColors": 459,
+        "spikes": []
+      }
+    },
+    {
+      "id": "equal-spring-normal-modes",
+      "title": "两车三等弹簧：同相、反相与叠加",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/equal-spring-normal-modes/step-1.png",
+        "screenshots/equal-spring-normal-modes/step-2.png",
+        "screenshots/equal-spring-normal-modes/step-3.png",
+        "screenshots/equal-spring-normal-modes/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "anti",
+          "label": "12.2 · 反相初态",
+          "path": "screenshots/equal-spring-normal-modes/preset-anti.png"
+        },
+        {
+          "id": "mixed",
+          "label": "12.3 · 右车初始位移",
+          "path": "screenshots/equal-spring-normal-modes/preset-mixed.png"
+        },
+        {
+          "id": "in-phase",
+          "label": "同相模态 · 扩展",
+          "path": "screenshots/equal-spring-normal-modes/preset-in-phase.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/equal-spring-normal-modes.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 180,
+        "maxChanged": 259,
+        "distinctColors": 464,
         "spikes": []
       }
     },
@@ -1152,6 +1397,52 @@
         "medianChanged": 82,
         "maxChanged": 103,
         "distinctColors": 280,
+        "spikes": []
+      }
+    },
+    {
+      "id": "binary-stars-barycenter",
+      "title": "双星绕共同质心的椭圆运动",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/binary-stars-barycenter/step-1.png",
+        "screenshots/binary-stars-barycenter/step-2.png",
+        "screenshots/binary-stars-barycenter/step-3.png",
+        "screenshots/binary-stars-barycenter/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/binary-stars-barycenter.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 96,
+        "maxChanged": 114,
+        "distinctColors": 232,
+        "spikes": []
+      }
+    },
+    {
+      "id": "jupiter-moons-mass",
+      "title": "四颗木卫星与木星质量估计",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/jupiter-moons-mass/step-1.png",
+        "screenshots/jupiter-moons-mass/step-2.png",
+        "screenshots/jupiter-moons-mass/step-3.png",
+        "screenshots/jupiter-moons-mass/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/jupiter-moons-mass.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 42,
+        "maxChanged": 50,
+        "distinctColors": 324,
         "spikes": []
       }
     },
@@ -1225,6 +1516,40 @@
       }
     },
     {
+      "id": "triangle-lamina-centroid",
+      "title": "三角薄板：均匀与变密度质心",
+      "section": "mass",
+      "screenshots": [
+        "screenshots/triangle-lamina-centroid/step-1.png",
+        "screenshots/triangle-lamina-centroid/step-2.png",
+        "screenshots/triangle-lamina-centroid/step-3.png",
+        "screenshots/triangle-lamina-centroid/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "graded",
+          "label": "4.6 · 密度 σ=2y",
+          "path": "screenshots/triangle-lamina-centroid/preset-graded.png"
+        },
+        {
+          "id": "uniform",
+          "label": "4.4 · 常面密度",
+          "path": "screenshots/triangle-lamina-centroid/preset-uniform.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/triangle-lamina-centroid.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 59,
+        "maxChanged": 147,
+        "distinctColors": 407,
+        "spikes": []
+      }
+    },
+    {
       "id": "disk-inertia",
       "title": "圆盘的转动惯量",
       "section": "mass",
@@ -1249,7 +1574,7 @@
     }
   ],
   "screenshotOptimization": {
-    "fileCount": 216,
+    "fileCount": 276,
     "format": "PNG: up to 256 indexed colors, no dithering",
     "note": "Only generated GUI screenshots are palette-optimized; source figures and animated GIFs are unchanged."
   }

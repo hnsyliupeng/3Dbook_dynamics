@@ -1,8 +1,11 @@
 import * as THREE from 'three';
+import { buildDeepApplicationScene } from './deep-application-scenes.js';
 
 // Programmatic, offline 3D apparatus for the source-specific applications.
 // None of the objects supplies physics: every position comes from model.sample().
 export function buildApplicationScene({lesson,model,root,label,h}) {
+  const deep=buildDeepApplicationScene({lesson,model,root,label,h});
+  if(deep)return deep;
   const {C,V,mat,makeBox,makeSphere,cyl,ring,segment,placeSegment,makeLine,setLine,arrow,setArrow,wheel,crate,dynamicRope,polylineLength}=h;
   const q=model.parameters,kind=lesson.kind;
   let update,inspect=()=>({}),camera={target:[0,1.5,0],position:[8,6.8,10.8]};
@@ -225,9 +228,9 @@ export function buildApplicationScene({lesson,model,root,label,h}) {
       setArrow(ang,pivot.clone().add(V(0,0,.3)),V(Math.sin(s.theta)*.45,-Math.cos(s.theta)*.45,0));
     };
     inspect=()=>({pivotX:pivot.x,pivotY:pivot.y,bobX:bob.position.x,bobY:bob.position.y,rodLength:pivot.distanceTo(bob.position),Lvis,scale,bobRadius:.19,frameBottom:4.08,braceFrontZ:-.32});
-  } else if(kind==='coupled-springs'){
+  } else if(kind==='coupled-springs'||kind==='equal-spring-modes'){
     camera={target:[0,1.05,0],position:[6.0,4.3,9.0]};
-    const floor=.3,scale=.55,eq1=-1.05,eq2=1.05,wa=.76,wb=.84;
+    const floor=.3,scale=kind==='equal-spring-modes'?.40:.55,eq1=-1.05,eq2=1.05,wa=.76,wb=kind==='equal-spring-modes'?.76:.84;
     makeBox(root,6.4,.1,1.45,[0,floor,0],0xa7b7ae,'floor');
     for(const z of [-.53,.53])makeBox(root,6.15,.08,.08,[0,.41,z],0x647d7b);
     for(const x of [-2.75,2.75])makeBox(root,.20,1.4,1.0,[x,1.0,0],0x9bada6);
@@ -247,13 +250,15 @@ export function buildApplicationScene({lesson,model,root,label,h}) {
     }
     const s1=spring('spring1',C.gold),s2=spring('spring2',C.purple),s3=spring('spring3',C.gold);
     const energy=makeSphere(root,.07,[0,1.65,0],C.teal,'energy');
+    if(kind==='equal-spring-modes')makeSphere(root,.06,[0,1.62,-.42],C.purple,'normalMode');
     mark('blockA',()=>V(A.position.x,1.8,0),'滑块 m₁');mark('blockB',()=>V(B.position.x,1.8,0),'滑块 m₂');
     mark('spring1',()=>V((-2.65+A.position.x-wa/2)/2,1.38,0),'弹簧 k₁');
     mark('spring2',()=>V((A.position.x+B.position.x)/2,1.4,.05),'耦合弹簧 k₂');
     mark('spring3',()=>V((2.65+B.position.x+wb/2)/2,1.38,0),'弹簧 k₃');
     mark('energy',()=>V(0,.65,.8),'系统能量');
+    if(kind==='equal-spring-modes')mark('normalMode',()=>V(0,1.95,-.42),'正常模态');
     update=s=>{A.position.x=eq1+s.x1*scale;B.position.x=eq2+s.x2*scale;s1(-2.65,A.position.x-wa/2);s2(A.position.x+wa/2,B.position.x-wb/2);s3(B.position.x+wb/2,2.65);};
-    inspect=()=>({Ax:A.position.x,Bx:B.position.x,eq1,eq2,scale,space:B.position.x-wb/2-(A.position.x+wa/2)});
+    inspect=()=>({Ax:A.position.x,Bx:B.position.x,eq1,eq2,scale,wa,wb,space:B.position.x-wb/2-(A.position.x+wa/2)});
   } else if(kind==='planet-orbits'||kind==='moon-orbit'){
     camera={target:[0,.40,0],position:[.01,10.8,5.4]};
     const y=.36;

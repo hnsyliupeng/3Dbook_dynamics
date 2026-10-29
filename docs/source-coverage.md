@@ -2,7 +2,7 @@
 
 源仓库：[aldotb/Solve-classic-mechanics-problems-with-python](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python)，固定提交 `dc05f371ac47fb82f9a00f622a274c5433629018`。
 
-当前共 **47 个综合演示**，本来源的 **31/39 个 Notebook** 至少有部分单元与演示关联。关联不是整本完成；同一 Notebook 可能还有其他未实施例题。同类原题可共享综合演示，源题与代码不一致时以每个演示的“查看来源”说明为准。第二来源见 [Pagonis 覆盖清单](pagonis-coverage.md)。
+当前共 **57 个综合演示**，本来源的 **31/39 个 Notebook** 至少有部分单元与演示关联。关联不是整本完成；同一 Notebook 可能还有其他未实施例题。同类原题可共享综合演示，源题与代码不一致时以每个演示的“查看来源”说明为准。第二来源见 [Pagonis 覆盖清单](pagonis-coverage.md)。
 
 ## 矢量（01）
 
@@ -42,7 +42,7 @@
 | [02A1 Kinematic Preliminar Teory.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02A1%20Kinematic%20Preliminar%20Teory.ipynb) | 待核对 / 实施 | — |
 | [02A2 Kinematic with mparticle Physic class.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02A2%20Kinematic%20with%20mparticle%20Physic%20class.ipynb) | 待核对 / 实施 | — |
 | [02B1 Basic Examples .ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02B1%20Basic%20Examples%20.ipynb) | 部分关联 | [汽车从 A 到 B：匀速与匀加速](../cases/car-constant-acceleration.html)（单元 13, 14, 15, 16, 17, 20, 21, 22, 23, 24, 25, 26, 27）；[汽车追上卡车](../cases/car-chase.html)（单元 29, 31, 32, 33, 34, 35, 36, 37, 38） |
-| [02B2 Kinematic Rectilinear Move.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02B2%20Kinematic%20Rectilinear%20Move.ipynb) | 部分关联 | [列车通过隧道](../cases/train-through-tunnel.html)（单元 2, 3, 4, 5, 6, 7） |
+| [02B2 Kinematic Rectilinear Move.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02B2%20Kinematic%20Rectilinear%20Move.ipynb) | 部分关联 | [汽车过 A、B：由速度比求出发距离](../cases/car-speed-ratio.html)（单元 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28）；[列车通过隧道](../cases/train-through-tunnel.html)（单元 2, 3, 4, 5, 6, 7）；[两层楼同时下落的石块](../cases/two-stones-building.html)（单元 39, 41, 42, 43, 44） |
 | [02B3 Kinematic Parabolic.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02B3%20Kinematic%20Parabolic.ipynb) | 部分关联 | [两船的最近距离](../cases/ships-closest-approach.html)（单元 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26）；[有水平加速度的抛体](../cases/accelerated-projectile.html)（单元 4, 6, 7, 8）；[抛体与墙面的弹性反射](../cases/projectile-wall-bounce.html)（单元 28, 30, 31, 32） |
 | [02C1 Kinematic Basic Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C1%20Kinematic%20Basic%20Example.ipynb) | 部分关联 | [同高度斜抛与跑者接球](../cases/level-projectile.html)（单元 9, 11, 12, 13, 14, 15, 16, 31, 33, 34, 35, 36）；[抛体到达高台](../cases/projectile-to-elevation.html)（单元 2, 3, 4, 5, 6, 7）；[水平抛出与竖直上抛相遇](../cases/two-projectiles-meet.html)（单元 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29） |
 | [02C2 Kinematic Medium Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C2%20Kinematic%20Medium%20Example.ipynb) | 部分关联 | [抛物线越过障碍物](../cases/projectile-over-barrier.html)（单元 2, 3, 4, 5, 8, 9, 12, 14, 16, 17, 18, 19, 20） |

@@ -1,3 +1,4 @@
+import { createDeepApplicationModel } from './deep-application-models.js';
 /** Source-grounded application models. All 3D state and readouts derive from
  * the same normalized physical time; static equilibrium uses a concept clock. */
 const clamp=(v,lo=0,hi=1)=>Math.max(lo,Math.min(hi,v));
@@ -58,6 +59,8 @@ function pegPre(q){
 }
 
 export function createApplicationModel(lesson,input={},preset='abc'){
+  const deep=createDeepApplicationModel(lesson,input,preset);
+  if(deep)return deep;
   if(!kinds.has(lesson.kind))return null;
   const q={...defaults(lesson),...input};let duration=6,clock='physical',timeUnit='s',stepBounds=[0,.25,.5,.75,1],events=[],pre={};
   switch(lesson.kind){

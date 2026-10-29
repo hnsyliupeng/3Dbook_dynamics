@@ -1,0 +1,10 @@
+{
+  "generatedAt": "2026-10-29T13:48:52.636Z",
+  "description": "For this run, the 57-case deterministic GUI/frame-scan build preceded the requestAnimationFrame cancellation fix. Compare it with the final built HTML at every step midpoint. State, visible derivation/readouts, and PNG-encoded WebGL canvas were exactly equal; real playback and the offline pages were then tested against the final build.",
+  "oldRenderBuildSha256": "225978fd4c153199454f1d7e21ddabb9545b8114904fe2a1cfdc42fc369b2002",
+  "finalBuildSha256": "caea3ccff0407f5cd65aeb904bcdbf5f8b681c57bbaedf95baaa344687f9e181",
+  "cases": 57,
+  "stepMidpoints": 228,
+  "differences": [],
+  "errors": []
+}

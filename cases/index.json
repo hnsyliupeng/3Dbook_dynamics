@@ -385,6 +385,31 @@
     ]
   },
   {
+    "id": "car-speed-ratio",
+    "title": "汽车过 A、B：由速度比求出发距离",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "02B2 Kinematic Rectilinear Move.ipynb",
+        "cells": [
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28
+        ],
+        "note": "原题、图示及匀加速计算；原文“恒速”与条件冲突"
+      }
+    ]
+  },
+  {
     "id": "car-chase",
     "title": "汽车追上卡车",
     "section": "dynamics",
@@ -584,6 +609,24 @@
     ]
   },
   {
+    "id": "two-stones-building",
+    "title": "两层楼同时下落的石块",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "02B2 Kinematic Rectilinear Move.ipynb",
+        "cells": [
+          39,
+          41,
+          42,
+          43,
+          44
+        ],
+        "note": "楼层间距、初速度及首次相距 3 m"
+      }
+    ]
+  },
+  {
     "id": "accelerated-projectile",
     "title": "有水平加速度的抛体",
     "section": "dynamics",
@@ -770,6 +813,22 @@
           43
         ],
         "note": "原图 3m；原代码未把楔块设为 3m"
+      }
+    ]
+  },
+  {
+    "id": "free-wedge-slider",
+    "title": "滑块下滑与可移动楔块反冲",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter8/Python_Codes_Chapter_8.ipynb",
+        "cells": [
+          5,
+          6
+        ],
+        "note": "例 8.5 的楔块—滑块拉格朗日方程；数值为新增假设"
       }
     ]
   },
@@ -990,6 +1049,58 @@
     ]
   },
   {
+    "id": "damped-spring-cart",
+    "title": "弹簧与阻尼器：欠阻尼到过阻尼",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter6/Python_Codes_Chapter_6.ipynb",
+        "cells": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "note": "例 6.3 通解与 6.4 欠、临界、过阻尼参数"
+      }
+    ]
+  },
+  {
+    "id": "driven-spring-resonance",
+    "title": "周期驱动的减振小车与共振",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter6/Python_Codes_Chapter_6.ipynb",
+        "cells": [
+          9,
+          10,
+          11,
+          12
+        ],
+        "note": "例 6.5 的初值问题及例 6.6 的稳态频率响应"
+      }
+    ]
+  },
+  {
+    "id": "crank-driven-pendulum",
+    "title": "曲柄转动支点驱动摆杆",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter8/Python_Codes_Chapter_8.ipynb",
+        "cells": [
+          1,
+          2
+        ],
+        "note": "例 8.3 的移动支点、摆方程及初始数据"
+      }
+    ]
+  },
+  {
     "id": "coupled-spring-carts",
     "title": "两辆小车与三根耦合弹簧",
     "section": "dynamics",
@@ -1002,6 +1113,28 @@
           2
         ],
         "note": "例 12.1 的参数、初始条件和耦合方程"
+      }
+    ]
+  },
+  {
+    "id": "equal-spring-normal-modes",
+    "title": "两车三等弹簧：同相、反相与叠加",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter12/Python_Codes_Chapter_12.ipynb",
+        "cells": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "note": "例 12.2/12.3 的实际初值与 12.5/12.6(a) 的等质量模态"
       }
     ]
   },
@@ -1036,6 +1169,38 @@
           6
         ],
         "note": "例 9.4 的近日点/远日点与轨道形状"
+      }
+    ]
+  },
+  {
+    "id": "binary-stars-barycenter",
+    "title": "双星绕共同质心的椭圆运动",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+        "cells": [
+          1,
+          2
+        ],
+        "note": "例 9.1 的初始条件及相对、质心轨道"
+      }
+    ]
+  },
+  {
+    "id": "jupiter-moons-mass",
+    "title": "四颗木卫星与木星质量估计",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+        "cells": [
+          9,
+          10
+        ],
+        "note": "例 9.7 木卫星轨道数据、线性拟合与木星质量"
       }
     ]
   },
@@ -1108,6 +1273,24 @@
           6
         ],
         "note": "例 4.5 以顶点为 z=0，结果 3h/4，等价于距底面 h/4"
+      }
+    ]
+  },
+  {
+    "id": "triangle-lamina-centroid",
+    "title": "三角薄板：均匀与变密度质心",
+    "section": "mass",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter4/Python_Codes_Chapter_4.ipynb",
+        "cells": [
+          3,
+          4,
+          7,
+          8
+        ],
+        "note": "同一三角区域的均匀与 σ=2y 面密度质心"
       }
     ]
   },

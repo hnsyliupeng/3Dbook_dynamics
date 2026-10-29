@@ -24,7 +24,7 @@ const paramsFromURL=new URLSearchParams(location.search);
 const isRender=paramsFromURL.has('render');
 const initialId=paramsFromURL.get('case')||window.__CASE_ID__||LESSONS[0].id;
 const requested=LESSONS.findIndex(l=>l.id===initialId);
-let index=requested>=0?requested:0,params={},preset='abc',model,scene,progress=0,playing=false,manualTag=null,lastStep=-1,lastStamp=null;
+let index=requested>=0?requested:0,params={},preset='abc',model,scene,progress=0,playing=false,manualTag=null,lastStep=-1,lastStamp=null,frameHandle=null;
 let mode='manual';
 try { mode=localStorage.getItem('mechanics-mode')==='auto'?'auto':'manual'; } catch {}
 
@@ -87,13 +87,20 @@ function renderCurrent(){
   $('previousStep').disabled=progress<=0;$('nextStep').disabled=progress>=1;
 }
 function setProgress(p){progress=clamp(p);renderCurrent();}
-function pause(){playing=false;lastStamp=null;$('play').textContent='▶';$('play').setAttribute('aria-label','播放当前步骤');}
+function pause(){
+  playing=false;lastStamp=null;
+  // A pending callback must not survive a pause and become a second animation
+  // loop if the user resumes before that frame has fired.
+  if(frameHandle!==null)cancelAnimationFrame(frameHandle);
+  frameHandle=null;$('play').textContent='▶';$('play').setAttribute('aria-label','播放当前步骤');
+}
 function play(){
   if(isRender)return;
   if(progress>=1)setProgress(0);
-  if(playing)return;playing=true;lastStamp=null;renderCurrent();requestAnimationFrame(tick);
+  if(playing)return;playing=true;lastStamp=null;renderCurrent();frameHandle=requestAnimationFrame(tick);
 }
 function tick(now){
+  frameHandle=null;
   if(!playing)return;
   if(lastStamp===null)lastStamp=now;
   const dt=Math.min((now-lastStamp)/1000,.1);lastStamp=now;
@@ -102,7 +109,7 @@ function tick(now){
   if(mode==='manual'&&next>=end-1e-9){next=end;pause();}
   if(next>=1){if(mode==='auto')next=0;else{next=1;pause();}}
   setProgress(next);
-  if(playing)requestAnimationFrame(tick);
+  if(playing)frameHandle=requestAnimationFrame(tick);
 }
 function setMode(next){mode=next==='auto'?'auto':'manual';try{localStorage.setItem('mechanics-mode',mode)}catch{};
   $('manualMode').classList.toggle('active',mode==='manual');$('autoMode').classList.toggle('active',mode==='auto');
@@ -130,7 +137,17 @@ function loadCase(id,{replace=true}={}){
     'nonlinear-pendulum':'刚性轻杆 · 虚影为小角度近似',
     'coupled-springs':'线性弹簧 · 物体沿轨道运动',
     'planet-orbits':'天体视觉放大 · 轨道同一比例',
-    'moon-orbit':'地球固定近似 · 天体视觉放大'
+    'moon-orbit':'地球固定近似 · 天体视觉放大',
+    'car-ratio':'汽车视觉放大 · 里程按同一比例',
+    'two-stones':'楼高为假设 · 在首次相距 3 m 停止',
+    'free-wedge':'光滑约束 · 滑块始终接触斜面',
+    'damped-cart':'线性阻尼 · 释放初值为假设',
+    'driven-cart':'理想激振 · 位移视图按极值缩放',
+    'crank-pendulum':'电机恒速 · 摆杆为刚性轻杆',
+    'equal-spring-modes':'等质量等弹簧 · 滑车装置示意',
+    'binary-stars':'G=1 归一化单位 · 星体视觉放大',
+    'jupiter-moons':'圆轨道与相位为示意 · 保留线性拟合截距',
+    'triangle-lamina':'积分进度非物理时间 · 薄板示意'
   };
   $('sceneNote').textContent=applicationSceneNotes[lesson.kind]|| (lesson.kind==='vector'?'各矢量按同一比例缩放 · 可拖动旋转':lesson.kind==='two-balls'?'两球和圆环同尺度 · 力箭头前移显示':lesson.kind==='chord-vector'?'弦长取 8 · 全图统一缩放':lesson.kind==='cubic-velocity'?'轨道按显示范围缩放 · 物理读数不缩放':lesson.kind==='direction'?'平行箭头略微错位便于辨识':lesson.kind==='sphere-cylinder'?'球与圆柱按同一比例缩放':lesson.kind==='train'?'车长与隧道按同一比例缩放':lesson.kind==='barrier'?'点模型 · 球半径仅为示意':lesson.kind==='ships'?'位置按统一比例缩放 · 船只为示意':lesson.kind==='wall-bounce'?'点模型 · 球半径仅为示意':lesson.kind==='energy'?'两段距离分别缩放 · 可拖动旋转':['pulley','loaded-pulley','two-incline'].includes(lesson.kind)?'绳长关系按模型驱动 · 可拖动旋转':'拖动旋转 · 滚轮缩放');
   $('previousCase').disabled=index===0;$('nextCase').disabled=index===LESSONS.length-1;

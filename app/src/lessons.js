@@ -586,6 +586,7 @@ for (const lesson of APPLICATION_LESSONS) {
 }
 
 export const TAG_LABELS = {
+ damper:'阻尼器',actuator:'激振器',pivot:'运动支点',drive:'曲柄驱动',normalMode:'正常模态',barycenter:'共同质心',starA:'天体 m₁',starB:'天体 m₂',jupiter:'木星',io:'木卫一',galilean:'木卫四',fit:'数据拟合',lamina:'三角薄板',density:'面密度',
  hinge:'铰支座 B',ropeUpper:'上方／斜绳',ropeLower:'下方／端绳',wedge:'楔块',guide:'竖直导轨',pendulum:'摆杆／摆绳',spring1:'左弹簧',spring2:'中间弹簧',spring3:'右弹簧',earth:'地球',moon:'月球',sun:'太阳',mercury:'水星',
  dot:'点积',cross:'叉积',area:'张成面积',start:'起点 A',finish:'终点 B',trajectory:'轨迹',landing:'落点',ball:'小球',ballA:'A 球',ballB:'B 球',launch:'发射点',target:'目标 B',runner:'跑者',rope:'轻绳',m1:'质量 m₁',m2:'质量 m₂',weight1:'m₁ 重力',weight2:'m₂ 重力',
  A:'矢量 A',B:'矢量 B',C:'后续矢量',R:'合矢量', W1:'载荷 W₁',W2:'载荷 W₂',RA:'支反力 R_A',RB:'支反力 R_B',moment:'力矩',
@@ -597,6 +598,7 @@ export const TAG_LABELS = {
  ball1:'左球 m₁',ball2:'右球 m₂',D:'底边 d',chord:'弦 AB',division:'弦上分点',angleMarker:'夹角 θ',frictionTop:'层间摩擦',frictionGround:'地面摩擦',direction:'方向',unit:'单位矢量',result:'目标矢量',pointA:'点 A',pointB:'点 B',geometry:'几何关系',contact:'接触点',train:'列车',tunnel:'隧道',observer:'观察者',obstacle:'障碍物',wallSurface:'光滑墙面',appliedForce:'外力 F'
 };
 export const TAG_COLORS = {
+ damper:'#887db4',actuator:'#708e8b',pivot:'#887db4',drive:'#d19c4c',normalMode:'#887db4',barycenter:'#d19c4c',starA:'#d19c4c',starB:'#488baa',jupiter:'#c38d5f',io:'#d19c4c',galilean:'#a99182',fit:'#d19c4c',lamina:'#488baa',density:'#708e8b',
  hinge:'#3b8f86',ropeUpper:'#887db4',ropeLower:'#c77b60',wedge:'#d6a363',guide:'#688ca0',pendulum:'#4d8d89',spring1:'#d29c58',spring2:'#8a80b0',spring3:'#d29c58',earth:'#488baa',moon:'#b9a98d',sun:'#d6a044',mercury:'#a8826c',
  dot:'#668fa5',cross:'#8a80b0',area:'#668fa5',start:'#278f86',finish:'#dc7763',trajectory:'#d19c4c',landing:'#d19c4c',ball:'#dc7763',ballA:'#278f86',ballB:'#dc7763',launch:'#278f86',target:'#668fa5',runner:'#278f86',rope:'#8a80b0',m1:'#278f86',m2:'#dc7763',weight1:'#dc7763',weight2:'#dc7763',
  A:'#278f86',B:'#dc7763',C:'#dda940',R:'#305f83',W1:'#df7863',W2:'#cc6d5e',RA:'#258f86',RB:'#258f86',moment:'#d19c4c',
