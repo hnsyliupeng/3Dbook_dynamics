@@ -1,0 +1,787 @@
+{
+  "repository": "vpagonis/Classical_Mechanics_2nd_Edition",
+  "commit": "1d60884725baabf901c2a5fc1eee2fd1ee3014da",
+  "description": "仅原 Notebook 中明确标注的例号及零基单元索引；不复制代码、题干或输出。",
+  "notebooks": [
+    {
+      "file": "Chapter1/Python_codes_Chapter_1.ipynb",
+      "examples": [
+        {
+          "label": "1.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "1.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "1.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "1.4",
+          "cells": [
+            7,
+            8,
+            9
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter2/Python_Codes_Chapter_2.ipynb",
+      "examples": [
+        {
+          "label": "2.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "2.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "2.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "2.4",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "2.6",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "2.7",
+          "cells": [
+            11,
+            12
+          ]
+        },
+        {
+          "label": "2.8",
+          "cells": [
+            13,
+            14
+          ]
+        },
+        {
+          "label": "2.9",
+          "cells": [
+            15,
+            16
+          ]
+        },
+        {
+          "label": "2.10",
+          "cells": [
+            17,
+            18
+          ]
+        },
+        {
+          "label": "2.11",
+          "cells": [
+            19,
+            20
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter3/Python_Codes_Chapter_3.ipynb",
+      "examples": [
+        {
+          "label": "3.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "3.4",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "3.5",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "3.6",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "3.8",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "3.9",
+          "cells": [
+            11,
+            12
+          ]
+        },
+        {
+          "label": "3.10",
+          "cells": [
+            13,
+            14
+          ]
+        },
+        {
+          "label": "3.11",
+          "cells": [
+            15,
+            16
+          ]
+        },
+        {
+          "label": "3.13a",
+          "cells": [
+            17,
+            18
+          ]
+        },
+        {
+          "label": "3.13b",
+          "cells": [
+            19,
+            20
+          ]
+        },
+        {
+          "label": "3.14",
+          "cells": [
+            21,
+            22
+          ]
+        },
+        {
+          "label": "3.15",
+          "cells": [
+            23,
+            24
+          ]
+        },
+        {
+          "label": "3.16",
+          "cells": [
+            25,
+            26
+          ]
+        },
+        {
+          "label": "3.17",
+          "cells": [
+            27,
+            28
+          ]
+        },
+        {
+          "label": "3.18",
+          "cells": [
+            29,
+            30
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter4/Python_Codes_Chapter_4.ipynb",
+      "examples": [
+        {
+          "label": "4.2",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "4.4",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "4.5",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "4.6",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "4.8",
+          "cells": [
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter5/Python_Codes_Chapter_5.ipynb",
+      "examples": [
+        {
+          "label": "5.3",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "5.4",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "5.5",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "5.6",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "5.7",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "5.8",
+          "cells": [
+            11,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter6/Python_Codes_Chapter_6.ipynb",
+      "examples": [
+        {
+          "label": "6.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "6.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "6.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "6.4",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "6.5",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "6.6",
+          "cells": [
+            11,
+            12
+          ]
+        },
+        {
+          "label": "6.8",
+          "cells": [
+            13,
+            14
+          ]
+        },
+        {
+          "label": "6.9",
+          "cells": [
+            15,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter7/Python_Codes_Chapter_7.ipynb",
+      "examples": [
+        {
+          "label": "7.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "7.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "7.3",
+          "cells": [
+            5,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter8/Python_Codes_Chapter_8.ipynb",
+      "examples": [
+        {
+          "label": "8.3",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "8.4",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "8.5",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "8.7",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "8.9",
+          "cells": [
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+      "examples": [
+        {
+          "label": "9.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "9.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "9.4",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "9.5",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "9.7",
+          "cells": [
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter10/Python_Codes_Chapter_10.ipynb",
+      "examples": [
+        {
+          "label": "10.3",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "10.4",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "10.5",
+          "cells": [
+            5,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter11/Python_Codes_Chapter_11.ipynb",
+      "examples": [
+        {
+          "label": "11.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "11.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "11.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "11.4",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "11.5",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "11.6",
+          "cells": [
+            11,
+            12
+          ]
+        },
+        {
+          "label": "11.7",
+          "cells": [
+            13,
+            14
+          ]
+        },
+        {
+          "label": "11.8",
+          "cells": [
+            15,
+            16
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter12/Python_Codes_Chapter_12.ipynb",
+      "examples": [
+        {
+          "label": "12.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "12.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "12.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "12.5",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "12.6",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "12.7",
+          "cells": [
+            11,
+            12
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chapter13/Python_Codes_Chapter_13.ipynb",
+      "examples": [
+        {
+          "label": "13.2",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "13.3",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "13.4",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "13.5",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "13.6",
+          "cells": [
+            9,
+            10
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Appendix/Appendix_A.ipynb",
+      "examples": [
+        {
+          "label": "A.1",
+          "cells": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "A.2",
+          "cells": [
+            3,
+            4
+          ]
+        },
+        {
+          "label": "A.3",
+          "cells": [
+            5,
+            6
+          ]
+        },
+        {
+          "label": "A.4",
+          "cells": [
+            7,
+            8
+          ]
+        },
+        {
+          "label": "A.5",
+          "cells": [
+            9,
+            10
+          ]
+        },
+        {
+          "label": "A.6",
+          "cells": [
+            11,
+            12
+          ]
+        },
+        {
+          "label": "A.7",
+          "cells": [
+            13,
+            14
+          ]
+        },
+        {
+          "label": "A.8",
+          "cells": [
+            15,
+            16
+          ]
+        },
+        {
+          "label": "A.9",
+          "cells": [
+            17,
+            18
+          ]
+        },
+        {
+          "label": "A.10",
+          "cells": [
+            19,
+            20
+          ]
+        },
+        {
+          "label": "A.11",
+          "cells": [
+            21,
+            22
+          ]
+        },
+        {
+          "label": "A.12",
+          "cells": [
+            23,
+            24
+          ]
+        },
+        {
+          "label": "A.13",
+          "cells": [
+            25,
+            26
+          ]
+        },
+        {
+          "label": "A.14",
+          "cells": [
+            27,
+            28
+          ]
+        },
+        {
+          "label": "A.15",
+          "cells": [
+            29,
+            30
+          ]
+        },
+        {
+          "label": "A.16",
+          "cells": [
+            31,
+            32
+          ]
+        },
+        {
+          "label": "A.17",
+          "cells": [
+            33,
+            34
+          ]
+        },
+        {
+          "label": "A.18",
+          "cells": [
+            35,
+            36
+          ]
+        }
+      ]
+    }
+  ]
+}

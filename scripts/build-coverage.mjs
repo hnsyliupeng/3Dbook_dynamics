@@ -2,6 +2,8 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {LESSONS} from '../app/src/lessons.js';
 const catalog=JSON.parse(await readFile('app/data/source-catalog.json','utf8'));
 const pagonis=JSON.parse(await readFile('app/data/pagonis-catalog.json','utf8'));
+const examples=JSON.parse(await readFile('data/source-examples/pagonis.json','utf8'));
+if(examples.commit!==pagonis.commit)throw new Error('Pagonis example index uses a different revision');
 const repositories={aldotb:{...catalog,repository:'aldotb/Solve-classic-mechanics-problems-with-python'},pagonis};
 const mapping=new Map();
 for(const lesson of LESSONS)for(const source of lesson.sources){
@@ -23,9 +25,19 @@ for(const prefix of order){
 await writeFile('docs/source-coverage.md',out.trimEnd()+'\n');
 const lookupP=nb=>mapping.get(`pagonis::${nb.file}`)||[];
 const linkedP=pagonis.notebooks.filter(nb=>lookupP(nb).length).length;
-let outP=`# 第二来源覆盖清单（Pagonis）\n\n源仓库：[${pagonis.repository}](https://github.com/${pagonis.repository})，固定提交 \`${pagonis.commit}\`。该仓库是 *Classical Mechanics: A Computational Approach* 第二版的配套代码；GitHub 元数据和仓库根目录未显示许可证。这里仅保存文件/单元元数据和指向固定提交的链接，并未复制 Notebook 内容。\n\n**${pagonis.notebooks.length} 个 Python / Jupyter Notebook、${pagonis.mathematica.length} 个 Mathematica 文件**均列出。当前 **${linkedP}/${pagonis.notebooks.length} 个 Python Notebook** 至少部分关联；覆盖的是列出的单元，**不是整章或整库**。这些 Notebook 的 cell 未提供 ID，所以下列索引均为从 0 开始的原始序号，JSON 中 cell ID 为 null，不会伪造。许多示例只有编号和代码、没有完整书面题干；页面明确标注哪些条件可由代码确认、哪些场景是教学示意。\n\n## Python / Jupyter\n\n| 原文件 | 状态 | 已关联的演示与零基单元索引 |\n|---|---|---|\n`;
+let outP=`# 第二来源覆盖清单（Pagonis）\n\n源仓库：[${pagonis.repository}](https://github.com/${pagonis.repository})，固定提交 \`${pagonis.commit}\`。该仓库是 *Classical Mechanics: A Computational Approach* 第二版的配套代码；GitHub 元数据和仓库根目录未显示许可证。这里仅保存文件/单元元数据和指向固定提交的链接，并未复制 Notebook 内容。\n\n**${pagonis.notebooks.length} 个 Python / Jupyter Notebook、${pagonis.mathematica.length} 个 Mathematica 文件**均列出。当前 **${linkedP}/${pagonis.notebooks.length} 个 Python Notebook** 至少部分关联；覆盖的是列出的单元，**不是整章或整库**。每个已标注例号的状态另见[例号级目录](pagonis-examples.md)。这些 Notebook 的 cell 未提供 ID，所以下列索引均为从 0 开始的原始序号，JSON 中 cell ID 为 null，不会伪造。许多示例只有编号和代码、没有完整书面题干；页面明确标注哪些条件可由代码确认、哪些场景是教学示意。\n\n## Python / Jupyter\n\n| 原文件 | 状态 | 已关联的演示与零基单元索引 |\n|---|---|---|\n`;
 for(const nb of pagonis.notebooks){const m=lookupP(nb);outP+=`| [${nb.file}](${link(pagonis,nb.file)}) | ${m.length?'部分关联':'待核对 / 实施'} | ${m.length?lessonList(m):'—'} |\n`;}
 outP+=`\n## Mathematica（待解析）\n\n以下文件目前仅列为来源，不因 Python 同章节有链接而标记为已覆盖。\n\n| 原文件 | 状态 |\n|---|---|\n`;
 for(const nb of pagonis.mathematica)outP+=`| [${nb.file}](${link(pagonis,nb.file)}) | 待解析 / 核对 |\n`;
 await writeFile('docs/pagonis-coverage.md',outP.trimEnd()+'\n');
-console.log(`Coverage: aldotb ${linked}/${catalog.notebooks.length}; Pagonis Python ${linkedP}/${pagonis.notebooks.length}; Mathematica ${pagonis.mathematica.length} unparsed`);
+const relevant=(file,example)=>LESSONS.filter(l=>l.sources.some(s=>s.repo==='pagonis'&&s.file===file&&s.cells.some(c=>example.cells.includes(c))));
+const totalExamples=examples.notebooks.reduce((n,nb)=>n+nb.examples.length,0);
+const mappedExamples=examples.notebooks.reduce((n,nb)=>n+nb.examples.filter(e=>relevant(nb.file,e).length).length,0);
+let exampleDoc=`# Pagonis Python 示例逐例目录\n\n固定来源提交 \`${pagonis.commit}\`。只列原 Notebook 中明确标注的 ${totalExamples} 个 Example 标题和所属零基单元范围；不复制题干、代码或输出。当前 **${mappedExamples}/${totalExamples} 个例号有至少部分单元关联**，其余仍待逐题核对和实施。关联可能只覆盖其中的公式或一个特例，不等于完整复现；只有实际构建的页面才会链接到演示。没有 Example 标题的内容、书中未出现在代码里的题目以及 14 个 Mathematica 文件不在此计数内。\n\n源代码未给 cell ID，因此索引是零基序号，不捏造 ID。章节级清单及许可证说明见 [Pagonis 来源覆盖清单](pagonis-coverage.md)。\n\n`;
+for(const nb of examples.notebooks){
+  exampleDoc+=`## [${nb.file}](${link(pagonis,nb.file)})\n\n| 源例号 | 零基单元 | 状态 | 已关联的演示 |\n|---|---|---|---|\n`;
+  for(const example of nb.examples){const items=relevant(nb.file,example);exampleDoc+=`| ${example.label} | ${example.cells.join(', ')} | ${items.length?'部分关联':'待核对 / 实施'} | ${items.length?items.map(l=>`[${l.title}](../cases/${l.id}.html)`).join('；'):'—'} |\n`;}
+  exampleDoc+='\n';
+}
+await writeFile('docs/pagonis-examples.md',exampleDoc.trimEnd()+'\n');
+console.log(`Coverage: aldotb ${linked}/${catalog.notebooks.length}; Pagonis Python ${linkedP}/${pagonis.notebooks.length}, examples ${mappedExamples}/${totalExamples}; Mathematica ${pagonis.mathematica.length} unparsed`);

@@ -1,3 +1,4 @@
+import { createApplicationModel } from './application-models.js';
 /** Pure, deterministic mechanics models. A normalized progress maps to exactly one state. */
 export const G = 9.8;
 export const clamp = (x, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, x));
@@ -29,6 +30,8 @@ function rodSamples(q) {
 }
 
 export function createModel(lesson, input, preset='abc') {
+  const application=createApplicationModel(lesson,input,preset);
+  if(application)return application;
   const q = {...defaultParameters(lesson),...input};
   let duration=6, clock='concept', timeUnit='s', stepBounds=[0,.25,.5,.75,1], events=[];
   let pre;

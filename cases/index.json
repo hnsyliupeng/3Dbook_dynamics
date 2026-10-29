@@ -172,6 +172,24 @@
     ]
   },
   {
+    "id": "double-pulley-beam",
+    "title": "500 N 梁与两组滑轮配重",
+    "section": "statics",
+    "sources": [
+      {
+        "file": "03B1 Static Rigig Body.ipynb",
+        "cells": [
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "note": "题图与对铰点力矩"
+      }
+    ]
+  },
+  {
     "id": "two-load-beam",
     "title": "悬臂梁的双载荷与支座反力",
     "section": "statics",
@@ -626,6 +644,22 @@
     ]
   },
   {
+    "id": "elastic-billiards-2d",
+    "title": "台球平面弹性碰撞",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter4/Python_Codes_Chapter_4.ipynb",
+        "cells": [
+          1,
+          2
+        ],
+        "note": "例 4.2 的三个守恒方程与数值解"
+      }
+    ]
+  },
+  {
     "id": "friction-block",
     "title": "推力、摩擦与加速度",
     "section": "dynamics",
@@ -656,6 +690,86 @@
           23
         ],
         "note": "同类水平受力"
+      }
+    ]
+  },
+  {
+    "id": "pushing-two-blocks",
+    "title": "水平推力推动 4m 与 m 两块",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "03C2 Example Torque.ipynb",
+        "cells": [
+          22,
+          24,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "note": "同题图及正确的整体方程"
+      },
+      {
+        "file": "03B1 Static Rigig Body.ipynb",
+        "cells": [
+          200,
+          202,
+          204,
+          205,
+          206,
+          207,
+          208,
+          209,
+          210
+        ],
+        "note": "旧源码输出符号与题图不一致"
+      }
+    ]
+  },
+  {
+    "id": "cart-two-strings",
+    "title": "加速小车中的双绳拉力",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "05A2 Dynamics Forze by Acceleration.ipynb",
+        "cells": [
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35
+        ],
+        "note": "完整题干及源结果：比值为 3"
+      }
+    ]
+  },
+  {
+    "id": "guided-block-wedge",
+    "title": "竖直导轨滑块与 3m 楔块",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "05A2 Dynamics Forze by Acceleration.ipynb",
+        "cells": [
+          37,
+          39,
+          40,
+          41,
+          42,
+          43
+        ],
+        "note": "原图 3m；原代码未把楔块设为 3m"
       }
     ]
   },
@@ -708,6 +822,24 @@
           2
         ],
         "note": "例 2.1 的两体方程及符号解；质量数值为示意"
+      }
+    ]
+  },
+  {
+    "id": "cubic-drag-fall",
+    "title": "立方阻力下落：欧拉法与数值解",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter2/Python_Codes_Chapter_2.ipynb",
+        "cells": [
+          13,
+          14,
+          15,
+          16
+        ],
+        "note": "例 2.8 欧拉法与例 2.9 ODE 积分"
       }
     ]
   },
@@ -813,6 +945,67 @@
     ]
   },
   {
+    "id": "peg-pendulum-flight",
+    "title": "摆球碰钉后释放并飞出",
+    "section": "dynamics",
+    "sources": [
+      {
+        "file": "02C3 Kinematic Advance Example.ipynb",
+        "cells": [
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "note": "源图/能量公式；脱离速度角按切线修正"
+      }
+    ]
+  },
+  {
+    "id": "large-angle-pendulum",
+    "title": "大角度摆：非线性运动",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter6/Python_Codes_Chapter_6.ipynb",
+        "cells": [
+          3,
+          4
+        ],
+        "note": "例 6.2 非线性摆"
+      },
+      {
+        "repo": "pagonis",
+        "file": "Chapter8/Python_Codes_Chapter_8.ipynb",
+        "cells": [
+          7,
+          8
+        ],
+        "note": "例 8.7 同一摆的 Hamilton 表述"
+      }
+    ]
+  },
+  {
+    "id": "coupled-spring-carts",
+    "title": "两辆小车与三根耦合弹簧",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter12/Python_Codes_Chapter_12.ipynb",
+        "cells": [
+          1,
+          2
+        ],
+        "note": "例 12.1 的参数、初始条件和耦合方程"
+      }
+    ]
+  },
+  {
     "id": "falling-rod",
     "title": "从水平释放的均匀杆",
     "section": "dynamics",
@@ -827,6 +1020,38 @@
           25
         ],
         "note": ""
+      }
+    ]
+  },
+  {
+    "id": "earth-mercury-orbits",
+    "title": "地球与水星绕太阳运行",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+        "cells": [
+          5,
+          6
+        ],
+        "note": "例 9.4 的近日点/远日点与轨道形状"
+      }
+    ]
+  },
+  {
+    "id": "earth-moon-orbit",
+    "title": "月球近地点、远地点与周期",
+    "section": "dynamics",
+    "sources": [
+      {
+        "repo": "pagonis",
+        "file": "Chapter9/Python_Codes_Chapter_9.ipynb",
+        "cells": [
+          7,
+          8
+        ],
+        "note": "例 9.5 地月距离、两体质量与周期"
       }
     ]
   },

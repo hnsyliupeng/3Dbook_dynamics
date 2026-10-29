@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { TAG_LABELS, TAG_COLORS } from './lessons.js';
 import { clamp } from './models.js';
+import { buildApplicationScene } from './application-scenes.js';
 
 const C={ink:0x25434b,cream:0xf6f2e8,paper:0xe8e3d7,base:0xd8ddd2,teal:0x3f9d92,coral:0xdb806d,gold:0xdab16b,blue:0x7ca5b2,wood:0xc99160,woodLight:0xe6bc86,steel:0x879da0,white:0xfbf8ee,purple:0x9b91b7};
 const V=(x=0,y=0,z=0)=>new THREE.Vector3(x,y,z);
@@ -168,7 +169,9 @@ export class MechanicsScene {
     const label=(tag,anchor,text=TAG_LABELS[tag])=>{const el=document.createElement('button');el.type='button';el.className='scene-label';el.dataset.tag=tag;el.textContent=text;el.style.setProperty('--tag-color',TAG_COLORS[tag]||'#497c7b');el.addEventListener('click',e=>{e.stopPropagation();this.onTag(tag)});this.labels.append(el);this.labelDefs.push({tag,anchor,el});};
     platform(root,lesson.kind==='energy'?8:7,4.8);
     let update=()=>{};
-    if(lesson.kind==='vector') {
+    const appScene=buildApplicationScene({lesson,model,root,label,h:{C,V,mat,makeBox,makeSphere,cyl,ring,segment,placeSegment,makeLine,setLine,arrow,setArrow,wheel,crate,dynamicRope,polylineLength,isTagActive:tag=>(this.currentTags||[]).includes(tag)}});
+    if(appScene){update=appScene.update;this.inspectGeometry=appScene.inspect;}
+    else if(lesson.kind==='vector') {
       grid(root,{extent:3.2});
       // Use one uniform scale for every arrow, fitted to the entire cumulative path.
       // Negative z-components remain above the platform, without changing the vector math.
@@ -641,7 +644,8 @@ export class MechanicsScene {
       update=s=>{filled.scale.set(Math.max(.001,R*s.u),1,Math.max(.001,R*s.u));scan.scale.setScalar(Math.max(.001,R*s.u));};
     }
     this.updateScene=update;
-    if(resetCamera){const targetY=lesson.kind==='ships'?.28:['chord-vector','two-balls','atwood','projectiles-meet','dot-cross'].includes(lesson.kind)?2.15:['pulley','loaded-pulley','rod','quad-midpoint','triangle-centroid'].includes(lesson.kind)?2.1:lesson.kind==='ladder'?1.8:1.4;this.controls.target.set(0,targetY,0);if(lesson.kind==='ships')this.camera.position.set(.01,13,6);else if(lesson.kind==='atwood'||lesson.kind==='projectiles-meet')this.camera.position.set(6,5.4,8.2);else if(['straight-car','level-projectile','projectile-elevation','dot-cross'].includes(lesson.kind))this.camera.position.set(7,5.6,8.9);else if(lesson.kind==='direction')this.camera.position.set(8,6.8,-10.2);else if(lesson.kind==='vector')this.camera.position.set(8,6.8,-10.2);else if(lesson.kind==='vector-metric')this.camera.position.set(8,7.2,10.4);else if(['pulley','loaded-pulley','rod','ladder','equilibrium','wall-bounce','two-incline','sphere-cylinder','barrier','train','chord-vector','quad-midpoint','triangle-centroid','stacked-pulley','two-balls','atwood','dot-cross','straight-car','level-projectile','projectile-elevation','projectiles-meet'].includes(lesson.kind))this.camera.position.set(8.2,6.8,10.6);else this.camera.position.set(8,6.6,10.2);this.controls.update();}
+    if(resetCamera&&appScene?.camera){this.controls.target.set(...appScene.camera.target);this.camera.position.set(...appScene.camera.position);this.controls.update();}
+    else if(resetCamera){const targetY=lesson.kind==='ships'?.28:['chord-vector','two-balls','atwood','projectiles-meet','dot-cross'].includes(lesson.kind)?2.15:['pulley','loaded-pulley','rod','quad-midpoint','triangle-centroid'].includes(lesson.kind)?2.1:lesson.kind==='ladder'?1.8:1.4;this.controls.target.set(0,targetY,0);if(lesson.kind==='ships')this.camera.position.set(.01,13,6);else if(lesson.kind==='atwood'||lesson.kind==='projectiles-meet')this.camera.position.set(6,5.4,8.2);else if(['straight-car','level-projectile','projectile-elevation','dot-cross'].includes(lesson.kind))this.camera.position.set(7,5.6,8.9);else if(lesson.kind==='direction')this.camera.position.set(8,6.8,-10.2);else if(lesson.kind==='vector')this.camera.position.set(8,6.8,-10.2);else if(lesson.kind==='vector-metric')this.camera.position.set(8,7.2,10.4);else if(['pulley','loaded-pulley','rod','ladder','equilibrium','wall-bounce','two-incline','sphere-cylinder','barrier','train','chord-vector','quad-midpoint','triangle-centroid','stacked-pulley','two-balls','atwood','dot-cross','straight-car','level-projectile','projectile-elevation','projectiles-meet'].includes(lesson.kind))this.camera.position.set(8.2,6.8,10.6);else this.camera.position.set(8,6.6,10.2);this.controls.update();}
   }
   update(state,tags=[]){
     if(!this.root)return;this.currentState=state;this.currentTags=tags;this.updateScene(state);const active=new Set(tags);

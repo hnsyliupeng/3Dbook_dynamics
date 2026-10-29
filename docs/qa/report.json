@@ -1,17 +1,19 @@
 {
-  "generatedAt": "2026-10-29T11:20:20.120Z",
+  "generatedAt": "2026-10-29T12:58:22.497Z",
   "sourceCommit": "dc05f371ac47fb82f9a00f622a274c5433629018",
   "sourceCommits": {
     "aldotb": "dc05f371ac47fb82f9a00f622a274c5433629018",
     "pagonis": "1d60884725baabf901c2a5fc1eee2fd1ee3014da"
   },
-  "caseCount": 36,
-  "stepScreenshotCount": 144,
-  "animationCount": 36,
-  "presetScreenshotCount": 21,
+  "caseCount": 47,
+  "stepScreenshotCount": 188,
+  "animationCount": 47,
+  "presetScreenshotCount": 23,
   "crossRepositoryExportChecked": true,
   "geometryRopeCases": [
+    "double-pulley-beam",
     "stacked-blocks-pulley",
+    "cart-two-strings",
     "atwood-machine",
     "two-incline-pulley",
     "movable-pulley",
@@ -19,8 +21,24 @@
   ],
   "browser": "Headless Chromium, WebGL/SwiftShader",
   "viewport": "1440×1080; mobile 390×844",
-  "offlineFilePagesChecked": 36,
-  "parameterEndpoints": "min/mid/max; progress preserved",
+  "offlineFilePagesChecked": 47,
+  "offlineInteractiveWithoutRender": true,
+  "offlineDecompressionFallbackChecked": true,
+  "userProblemFiguresChecked": 5,
+  "applicationCornerGeometryCases": [
+    "double-pulley-beam",
+    "pushing-two-blocks",
+    "cart-two-strings",
+    "guided-block-wedge",
+    "elastic-billiards-2d",
+    "cubic-drag-fall",
+    "peg-pendulum-flight",
+    "large-angle-pendulum",
+    "coupled-spring-carts",
+    "earth-mercury-orbits",
+    "earth-moon-orbit"
+  ],
+  "parameterEndpoints": "min/mid/max; progress preserved; application combinations at boundaries",
   "playback": "manual/auto, step boundary, keyboard",
   "pixelScan": "141 deterministic WebGL frames per case at 0.1 s of the 14 s presentation; 240×136 downsample. Step boundaries excluded from spike heuristic.",
   "errors": [],
@@ -257,6 +275,29 @@
         "medianChanged": 0,
         "maxChanged": 35,
         "distinctColors": 274,
+        "spikes": []
+      }
+    },
+    {
+      "id": "double-pulley-beam",
+      "title": "500 N 梁与两组滑轮配重",
+      "section": "statics",
+      "screenshots": [
+        "screenshots/double-pulley-beam/step-1.png",
+        "screenshots/double-pulley-beam/step-2.png",
+        "screenshots/double-pulley-beam/step-3.png",
+        "screenshots/double-pulley-beam/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/double-pulley-beam.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 8,
+        "maxChanged": 50,
+        "distinctColors": 558,
         "spikes": []
       }
     },
@@ -713,6 +754,29 @@
       }
     },
     {
+      "id": "elastic-billiards-2d",
+      "title": "台球平面弹性碰撞",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/elastic-billiards-2d/step-1.png",
+        "screenshots/elastic-billiards-2d/step-2.png",
+        "screenshots/elastic-billiards-2d/step-3.png",
+        "screenshots/elastic-billiards-2d/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/elastic-billiards-2d.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 24,
+        "maxChanged": 45,
+        "distinctColors": 436,
+        "spikes": []
+      }
+    },
+    {
       "id": "friction-block",
       "title": "推力、摩擦与加速度",
       "section": "dynamics",
@@ -732,6 +796,75 @@
         "medianChanged": 81,
         "maxChanged": 151,
         "distinctColors": 272,
+        "spikes": []
+      }
+    },
+    {
+      "id": "pushing-two-blocks",
+      "title": "水平推力推动 4m 与 m 两块",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/pushing-two-blocks/step-1.png",
+        "screenshots/pushing-two-blocks/step-2.png",
+        "screenshots/pushing-two-blocks/step-3.png",
+        "screenshots/pushing-two-blocks/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/pushing-two-blocks.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 183,
+        "maxChanged": 331,
+        "distinctColors": 450,
+        "spikes": []
+      }
+    },
+    {
+      "id": "cart-two-strings",
+      "title": "加速小车中的双绳拉力",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/cart-two-strings/step-1.png",
+        "screenshots/cart-two-strings/step-2.png",
+        "screenshots/cart-two-strings/step-3.png",
+        "screenshots/cart-two-strings/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": true,
+      "animation": "animations/cart-two-strings.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 271,
+        "maxChanged": 487,
+        "distinctColors": 447,
+        "spikes": []
+      }
+    },
+    {
+      "id": "guided-block-wedge",
+      "title": "竖直导轨滑块与 3m 楔块",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/guided-block-wedge/step-1.png",
+        "screenshots/guided-block-wedge/step-2.png",
+        "screenshots/guided-block-wedge/step-3.png",
+        "screenshots/guided-block-wedge/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/guided-block-wedge.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 82,
+        "maxChanged": 148,
+        "distinctColors": 374,
         "spikes": []
       }
     },
@@ -778,6 +911,29 @@
         "medianChanged": 52,
         "maxChanged": 85,
         "distinctColors": 427,
+        "spikes": []
+      }
+    },
+    {
+      "id": "cubic-drag-fall",
+      "title": "立方阻力下落：欧拉法与数值解",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/cubic-drag-fall/step-1.png",
+        "screenshots/cubic-drag-fall/step-2.png",
+        "screenshots/cubic-drag-fall/step-3.png",
+        "screenshots/cubic-drag-fall/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/cubic-drag-fall.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 64,
+        "maxChanged": 78,
+        "distinctColors": 476,
         "spikes": []
       }
     },
@@ -874,6 +1030,86 @@
       }
     },
     {
+      "id": "peg-pendulum-flight",
+      "title": "摆球碰钉后释放并飞出",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/peg-pendulum-flight/step-1.png",
+        "screenshots/peg-pendulum-flight/step-2.png",
+        "screenshots/peg-pendulum-flight/step-3.png",
+        "screenshots/peg-pendulum-flight/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/peg-pendulum-flight.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 74,
+        "maxChanged": 107,
+        "distinctColors": 351,
+        "spikes": []
+      }
+    },
+    {
+      "id": "large-angle-pendulum",
+      "title": "大角度摆：非线性运动",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/large-angle-pendulum/step-1.png",
+        "screenshots/large-angle-pendulum/step-2.png",
+        "screenshots/large-angle-pendulum/step-3.png",
+        "screenshots/large-angle-pendulum/step-4.png"
+      ],
+      "presetScreenshots": [
+        {
+          "id": "pagonis-6-2",
+          "label": "Pagonis 6.2 · 0.5 m / 10 s",
+          "path": "screenshots/large-angle-pendulum/preset-pagonis-6-2.png"
+        },
+        {
+          "id": "pagonis-8-7",
+          "label": "Pagonis 8.7 · 1 m / 20 s",
+          "path": "screenshots/large-angle-pendulum/preset-pagonis-8-7.png"
+        }
+      ],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/large-angle-pendulum.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 280,
+        "maxChanged": 411,
+        "distinctColors": 471,
+        "spikes": []
+      }
+    },
+    {
+      "id": "coupled-spring-carts",
+      "title": "两辆小车与三根耦合弹簧",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/coupled-spring-carts/step-1.png",
+        "screenshots/coupled-spring-carts/step-2.png",
+        "screenshots/coupled-spring-carts/step-3.png",
+        "screenshots/coupled-spring-carts/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/coupled-spring-carts.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 360,
+        "maxChanged": 502,
+        "distinctColors": 459,
+        "spikes": []
+      }
+    },
+    {
       "id": "falling-rod",
       "title": "从水平释放的均匀杆",
       "section": "dynamics",
@@ -893,6 +1129,52 @@
         "medianChanged": 161,
         "maxChanged": 217,
         "distinctColors": 281,
+        "spikes": []
+      }
+    },
+    {
+      "id": "earth-mercury-orbits",
+      "title": "地球与水星绕太阳运行",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/earth-mercury-orbits/step-1.png",
+        "screenshots/earth-mercury-orbits/step-2.png",
+        "screenshots/earth-mercury-orbits/step-3.png",
+        "screenshots/earth-mercury-orbits/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/earth-mercury-orbits.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 82,
+        "maxChanged": 103,
+        "distinctColors": 280,
+        "spikes": []
+      }
+    },
+    {
+      "id": "earth-moon-orbit",
+      "title": "月球近地点、远地点与周期",
+      "section": "dynamics",
+      "screenshots": [
+        "screenshots/earth-moon-orbit/step-1.png",
+        "screenshots/earth-moon-orbit/step-2.png",
+        "screenshots/earth-moon-orbit/step-3.png",
+        "screenshots/earth-moon-orbit/step-4.png"
+      ],
+      "presetScreenshots": [],
+      "geometryRopeLengthChecked": false,
+      "animation": "animations/earth-moon-orbit.gif",
+      "frameScan": {
+        "frames": 141,
+        "intervalSeconds": 0.1,
+        "downsample": "240×136",
+        "medianChanged": 96,
+        "maxChanged": 116,
+        "distinctColors": 262,
         "spikes": []
       }
     },
@@ -965,5 +1247,10 @@
         "spikes": []
       }
     }
-  ]
+  ],
+  "screenshotOptimization": {
+    "fileCount": 216,
+    "format": "PNG: up to 256 indexed colors, no dithering",
+    "note": "Only generated GUI screenshots are palette-optimized; source figures and animated GIFs are unchanged."
+  }
 }

@@ -2,7 +2,7 @@
 
 源仓库：[aldotb/Solve-classic-mechanics-problems-with-python](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python)，固定提交 `dc05f371ac47fb82f9a00f622a274c5433629018`。
 
-当前共 **36 个综合演示**，本来源的 **30/39 个 Notebook** 至少有部分单元与演示关联。关联不是整本完成；同一 Notebook 可能还有其他未实施例题。同类原题可共享综合演示，源题与代码不一致时以每个演示的“查看来源”说明为准。第二来源见 [Pagonis 覆盖清单](pagonis-coverage.md)。
+当前共 **47 个综合演示**，本来源的 **31/39 个 Notebook** 至少有部分单元与演示关联。关联不是整本完成；同一 Notebook 可能还有其他未实施例题。同类原题可共享综合演示，源题与代码不一致时以每个演示的“查看来源”说明为准。第二来源见 [Pagonis 覆盖清单](pagonis-coverage.md)。
 
 ## 矢量（01）
 
@@ -19,13 +19,13 @@
 |---|---|---|
 | [03A1 Static Theory.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03A1%20Static%20Theory.ipynb) | 待核对 / 实施 | — |
 | [03A2 Static with mparticle.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03A2%20Static%20with%20mparticle.ipynb) | 待核对 / 实施 | — |
-| [03B1 Static Rigig Body.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B1%20Static%20Rigig%20Body.ipynb) | 部分关联 | [悬臂梁的双载荷与支座反力](../cases/two-load-beam.html)（单元 35, 37, 38, 39, 40, 41）；[斜拉绳与临界摩擦](../cases/block-equilibrium.html)（单元 10, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24） |
+| [03B1 Static Rigig Body.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B1%20Static%20Rigig%20Body.ipynb) | 部分关联 | [500 N 梁与两组滑轮配重](../cases/double-pulley-beam.html)（单元 28, 29, 30, 31, 32）；[悬臂梁的双载荷与支座反力](../cases/two-load-beam.html)（单元 35, 37, 38, 39, 40, 41）；[斜拉绳与临界摩擦](../cases/block-equilibrium.html)（单元 10, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24）；[水平推力推动 4m 与 m 两块](../cases/pushing-two-blocks.html)（单元 200, 202, 204, 205, 206, 207, 208, 209, 210） |
 | [03B2 Static Blocks and Tension.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B2%20Static%20Blocks%20and%20Tension.ipynb) | 部分关联 | [叠块、动滑轮与临界摩擦](../cases/stacked-blocks-pulley.html)（单元 9, 10, 11, 12, 13, 14, 15, 16, 17）；[三次速度与给定时刻的位置](../cases/cubic-velocity-initial-condition.html)（单元 1, 4, 5, 6） |
 | [03B3 Static Rigid Balls.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B3%20Static%20Rigid%20Balls.ipynb) | 部分关联 | [圆环内两球的静力平衡](../cases/two-balls-circular-container.html)（单元 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28） |
 | [03B4 Static Bars and Ladders.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B4%20Static%20Bars%20and%20Ladders.ipynb) | 部分关联 | [三次速度与给定时刻的位置](../cases/cubic-velocity-initial-condition.html)（单元 1, 3, 4, 5, 6） |
 | [03B5 Static Pulleys and Tension.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B5%20Static%20Pulleys%20and%20Tension.ipynb) | 部分关联 | [三次速度与给定时刻的位置](../cases/cubic-velocity-initial-condition.html)（单元 1, 3, 4, 5, 6） |
 | [03B6 Static Equilibrium.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03B6%20Static%20Equilibrium.ipynb) | 部分关联 | [靠墙梯子的平衡](../cases/ladder-equilibrium.html)（单元 11, 12, 13, 14, 15, 16, 17） |
-| [03C2 Example Torque.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03C2%20Example%20Torque.ipynb) | 部分关联 | [悬臂梁的双载荷与支座反力](../cases/two-load-beam.html)（单元 6, 7, 8, 9） |
+| [03C2 Example Torque.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03C2%20Example%20Torque.ipynb) | 部分关联 | [悬臂梁的双载荷与支座反力](../cases/two-load-beam.html)（单元 6, 7, 8, 9）；[水平推力推动 4m 与 m 两块](../cases/pushing-two-blocks.html)（单元 22, 24, 26, 27, 28, 29, 30, 31, 32） |
 | [03D1 Rigid Boddy Tension.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/03D1%20Rigid%20Boddy%20Tension.ipynb) | 待核对 / 实施 | — |
 
 ## 刚体与摩擦（04）
@@ -46,7 +46,7 @@
 | [02B3 Kinematic Parabolic.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02B3%20Kinematic%20Parabolic.ipynb) | 部分关联 | [两船的最近距离](../cases/ships-closest-approach.html)（单元 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26）；[有水平加速度的抛体](../cases/accelerated-projectile.html)（单元 4, 6, 7, 8）；[抛体与墙面的弹性反射](../cases/projectile-wall-bounce.html)（单元 28, 30, 31, 32） |
 | [02C1 Kinematic Basic Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C1%20Kinematic%20Basic%20Example.ipynb) | 部分关联 | [同高度斜抛与跑者接球](../cases/level-projectile.html)（单元 9, 11, 12, 13, 14, 15, 16, 31, 33, 34, 35, 36）；[抛体到达高台](../cases/projectile-to-elevation.html)（单元 2, 3, 4, 5, 6, 7）；[水平抛出与竖直上抛相遇](../cases/two-projectiles-meet.html)（单元 18, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29） |
 | [02C2 Kinematic Medium Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C2%20Kinematic%20Medium%20Example.ipynb) | 部分关联 | [抛物线越过障碍物](../cases/projectile-over-barrier.html)（单元 2, 3, 4, 5, 8, 9, 12, 14, 16, 17, 18, 19, 20） |
-| [02C3 Kinematic Advance Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C3%20Kinematic%20Advance%20Example.ipynb) | 待核对 / 实施 | — |
+| [02C3 Kinematic Advance Example.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C3%20Kinematic%20Advance%20Example.ipynb) | 部分关联 | [摆球碰钉后释放并飞出](../cases/peg-pendulum-flight.html)（单元 2, 3, 4, 5, 6, 7, 8） |
 | [02C4 Kinematic Diferential.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/02C4%20Kinematic%20Diferential.ipynb) | 部分关联 | [变速运动与折返](../cases/velocity-integration.html)（单元 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30） |
 
 ## 动力学（05）
@@ -55,7 +55,7 @@
 |---|---|---|
 | [05A1 Dynamics Basic.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05A1%20Dynamics%20Basic.ipynb) | 部分关联 | [推力、摩擦与加速度](../cases/friction-block.html)（单元 19, 21, 22, 25, 26, 28, 29, 31, 32） |
 | [05A1 Dynamics Preliminar.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05A1%20Dynamics%20Preliminar.ipynb) | 待核对 / 实施 | — |
-| [05A2 Dynamics Forze by Acceleration.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05A2%20Dynamics%20Forze%20by%20Acceleration.ipynb) | 部分关联 | [推力、摩擦与加速度](../cases/friction-block.html)（单元 18, 19, 20, 21, 22, 23） |
+| [05A2 Dynamics Forze by Acceleration.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05A2%20Dynamics%20Forze%20by%20Acceleration.ipynb) | 部分关联 | [推力、摩擦与加速度](../cases/friction-block.html)（单元 18, 19, 20, 21, 22, 23）；[加速小车中的双绳拉力](../cases/cart-two-strings.html)（单元 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35）；[竖直导轨滑块与 3m 楔块](../cases/guided-block-wedge.html)（单元 37, 39, 40, 41, 42, 43） |
 | [05A3 Dynamics Pulley.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05A3%20Dynamics%20Pulley.ipynb) | 部分关联 | [双斜面与滑轮约束](../cases/two-incline-pulley.html)（单元 25, 27, 28, 29, 30, 31, 32, 34, 35, 36, 37, 38, 39, 40, 41）；[定滑轮与动滑轮](../cases/movable-pulley.html)（单元 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13）；[外力作用下的动滑轮](../cases/loaded-moving-pulley.html)（单元 16, 17, 18, 19, 20, 21, 22, 23） |
 | [05B1 Dynamics Torque.ipynb](https://github.com/aldotb/Solve-classic-mechanics-problems-with-python/blob/dc05f371ac47fb82f9a00f622a274c5433629018/05B1%20Dynamics%20Torque.ipynb) | 部分关联 | [从水平释放的均匀杆](../cases/falling-rod.html)（单元 21, 22, 23, 24, 25） |
 

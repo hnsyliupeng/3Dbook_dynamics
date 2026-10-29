@@ -12,7 +12,7 @@ for(const lesson of LESSONS){
     derivationScript:lesson.steps.map((s,i)=>({...s,stepId:String(i+1),tStart:model.duration*model.stepBounds[i],tEnd:model.duration*model.stepBounds[i+1],highlight:s.tags,visual:{highlightObjects:s.tags}})),
     timeSeries:Array.from({length:241},(_,i)=>model.sample(i/240))};
   // Keep the metadata readable while storing each deterministic sample on one
-  // line. This avoids duplicating megabytes of indentation across 36 files.
+  // line. This avoids duplicating megabytes of indentation across all case files.
   const {timeSeries,...metadata}=result;
   const json=JSON.stringify(metadata,null,2).replace(/\n}$/, '')+',\n  "timeSeries": [\n'+timeSeries.map(state=>'    '+JSON.stringify(state)).join(',\n')+'\n  ]\n}\n';
   await writeFile(`data/cases/${lesson.id}.json`,json);

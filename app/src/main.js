@@ -1,10 +1,17 @@
 import './style.css';
 import katex from 'katex';
 import { LESSONS, SECTIONS, TAG_LABELS, TAG_COLORS } from './lessons.js';
+import { APPLICATION_LESSONS } from './application-lessons.js';
 import { createModel, defaultParameters, currentStep, clamp } from './models.js';
 import catalog from '../data/source-catalog.json';
 import pagonis from '../data/pagonis-catalog.json';
 import { MechanicsScene } from './scene.js';
+import beamFigure from '../assets/problem-figures/double-pulley-beam.jpg';
+import blocksFigure from '../assets/problem-figures/pushing-blocks.jpg';
+import cartFigure from '../assets/problem-figures/trolley-strings.jpg';
+import wedgeFigure from '../assets/problem-figures/wedge-guide.jpg';
+import pegFigure from '../assets/problem-figures/peg-projectile.jpg';
+const figures={'double-pulley-beam':beamFigure,'pushing-blocks':blocksFigure,'trolley-strings':cartFigure,'wedge-guide':wedgeFigure,'peg-projectile':pegFigure};
 
 const $=id=>document.getElementById(id);
 const htmlEscape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -45,7 +52,8 @@ function renderParameters(){
 function renderSteps(force=false){
   const lesson=LESSONS[index],active=currentStep(lesson,progress,model);
   if(active===lastStep&&!force)return;
-  if(active!==lastStep)manualTag=null;
+  const stepChanged=active!==lastStep;
+  if(stepChanged)manualTag=null;
   lastStep=active;
   $('stepCounter').textContent=`${String(active+1).padStart(2,'0')} / ${String(lesson.steps.length).padStart(2,'0')}`;
   $('stepList').innerHTML=lesson.steps.map((s,i)=>{
@@ -56,6 +64,14 @@ function renderSteps(force=false){
     const n=Number(el.dataset.step);pause();setProgress(model.stepBounds[n]);play();
   }));
   $('stepList').querySelectorAll('[data-tag]').forEach(el=>el.addEventListener('click',()=>{manualTag=el.dataset.tag;renderSteps(true);renderCurrent();}));
+  // Scroll only the derivation panel, not the page, so the complete current
+  // formula and its tags remain visible when moving between timeline steps.
+  if(stepChanged){
+    const panel=document.querySelector('.derivation'),card=$('stepList').querySelector('.step-card.active');
+    const p=panel.getBoundingClientRect(),c=card.getBoundingClientRect();
+    if(c.bottom>p.bottom-8)panel.scrollTop+=c.bottom-p.bottom+8;
+    else if(c.top<p.top+8)panel.scrollTop-=p.top-c.top+8;
+  }
 }
 function renderCurrent(){
   const lesson=LESSONS[index],step=currentStep(lesson,progress,model),s=model.sample(progress);
@@ -66,7 +82,7 @@ function renderCurrent(){
   $('timeline').value=Math.round(progress*1000);$('timeline').style.setProperty('--progress',`${progress*100}%`);
   $('timeText').textContent=model.clock==='physical'?`${s.t.toFixed(2)} / ${model.duration.toFixed(2)} ${model.timeUnit}`:`${Math.round(progress*100)}%`;
   $('timelineHint').textContent=lesson.steps[step].title;
-  $('speedBadge').textContent=model.clock==='physical'?(model.timeUnit==='h'?`物理时间 ${(model.duration/14).toFixed(2)} h / 秒`:`物理时间 ×${(model.duration/14).toFixed(2)}`):'步骤演示';
+  $('speedBadge').textContent=model.clock==='physical'?(model.timeUnit!=='s'?`物理时间 ${(model.duration/14).toFixed(2)} ${model.timeUnit} / 秒`:`物理时间 ×${(model.duration/14).toFixed(2)}`):'步骤演示';
   $('play').textContent=playing?'Ⅱ':'▶';$('play').setAttribute('aria-label',playing?'暂停':'播放当前步骤');
   $('previousStep').disabled=progress<=0;$('nextStep').disabled=progress>=1;
 }
@@ -96,12 +112,27 @@ function setMode(next){mode=next==='auto'?'auto':'manual';try{localStorage.setIt
 function loadCase(id,{replace=true}={}){
   const next=LESSONS.findIndex(l=>l.id===id);if(next<0)return;
   pause();index=next;const lesson=LESSONS[index];params=defaultParameters(lesson);preset=lesson.presets?.[0].id||'abc';progress=0;manualTag=null;lastStep=-1;
+  document.querySelector('.derivation').scrollTop=0;
   model=createModel(lesson,params,preset);
   $('crumbSection').textContent=SECTIONS.find(s=>s.id===lesson.section).name;
   $('crumbNumber').textContent=String(index+1).padStart(2,'0');$('lessonEyebrow').textContent=lesson.eyebrow;
   $('lessonTitle').textContent=lesson.title;$('lessonDescription').textContent=lesson.description;$('lessonQuestion').textContent=lesson.question;$('bigIdea').textContent=lesson.idea;
+  $('openFigure').hidden=!lesson.figure||!figures[lesson.figure];
   $('figureNumber').textContent=String(index+1).padStart(2,'0');$('bookPage').textContent=$('footerPage').textContent=`${String(index+1).padStart(2,'0')} / ${LESSONS.length}`;
-  $('sceneNote').textContent=lesson.kind==='vector'?'各矢量按同一比例缩放 · 可拖动旋转':lesson.kind==='two-balls'?'两球和圆环同尺度 · 力箭头前移显示':lesson.kind==='chord-vector'?'弦长取 8 · 全图统一缩放':lesson.kind==='cubic-velocity'?'轨道按显示范围缩放 · 物理读数不缩放':lesson.kind==='direction'?'平行箭头略微错位便于辨识':lesson.kind==='sphere-cylinder'?'球与圆柱按同一比例缩放':lesson.kind==='train'?'车长与隧道按同一比例缩放':lesson.kind==='barrier'?'点模型 · 球半径仅为示意':lesson.kind==='ships'?'位置按统一比例缩放 · 船只为示意':lesson.kind==='wall-bounce'?'点模型 · 球半径仅为示意':lesson.kind==='energy'?'两段距离分别缩放 · 可拖动旋转':['pulley','loaded-pulley','two-incline'].includes(lesson.kind)?'绳长关系按模型驱动 · 可拖动旋转':'拖动旋转 · 滚轮缩放';
+  const applicationSceneNotes={
+    'cabled-beam':'理想定滑轮 · 两条绳均为示意',
+    'pushing-blocks':'两块保持接触 · 地面动摩擦',
+    'cart-strings':'车体、绳与重物同步加速',
+    'guided-wedge':'楔面与导轨光滑 · 不考虑转动',
+    'billiards':'球半径示意 · 不模拟桌边碰撞',
+    'cubic-drag':'离散 Euler 与连续 RK4 同步比较',
+    'peg-flight':'碰钉后指定 C 点释放 · 质量点近似',
+    'nonlinear-pendulum':'刚性轻杆 · 虚影为小角度近似',
+    'coupled-springs':'线性弹簧 · 物体沿轨道运动',
+    'planet-orbits':'天体视觉放大 · 轨道同一比例',
+    'moon-orbit':'地球固定近似 · 天体视觉放大'
+  };
+  $('sceneNote').textContent=applicationSceneNotes[lesson.kind]|| (lesson.kind==='vector'?'各矢量按同一比例缩放 · 可拖动旋转':lesson.kind==='two-balls'?'两球和圆环同尺度 · 力箭头前移显示':lesson.kind==='chord-vector'?'弦长取 8 · 全图统一缩放':lesson.kind==='cubic-velocity'?'轨道按显示范围缩放 · 物理读数不缩放':lesson.kind==='direction'?'平行箭头略微错位便于辨识':lesson.kind==='sphere-cylinder'?'球与圆柱按同一比例缩放':lesson.kind==='train'?'车长与隧道按同一比例缩放':lesson.kind==='barrier'?'点模型 · 球半径仅为示意':lesson.kind==='ships'?'位置按统一比例缩放 · 船只为示意':lesson.kind==='wall-bounce'?'点模型 · 球半径仅为示意':lesson.kind==='energy'?'两段距离分别缩放 · 可拖动旋转':['pulley','loaded-pulley','two-incline'].includes(lesson.kind)?'绳长关系按模型驱动 · 可拖动旋转':'拖动旋转 · 滚轮缩放');
   $('previousCase').disabled=index===0;$('nextCase').disabled=index===LESSONS.length-1;
   document.title=`${lesson.title} · 经典力学图鉴`;
   renderNavigation();renderParameters();scene?.build(lesson,model,true);renderSteps(true);renderCurrent();
@@ -137,6 +168,17 @@ function openSource(){
   showModal('原题来源与模型说明','SOURCE / PROVENANCE',`<div class="modal-callout">${htmlEscape(l.provenance)}</div><p>以下链接固定到各自源仓库的提交。索引是原 Notebook 的零基单元序号；未提供 cell ID 的源文件不会人为编造 ID。一个关联案例不代表整个 Notebook 已完成。</p><div class="source-list">${l.sources.map(sourceDetails).join('')}</div><p>演示中的场景是为解释模型而构建，并非源图的逐像素复制。示意尺寸、假设和数值差异以页面说明为准。</p><button class="source-button" type="button" id="exportData">↓ 导出当前模型 JSON</button>`);
   $('exportData').addEventListener('click',exportData);
 }
+function openApplications(){
+  const ids=new Set(APPLICATION_LESSONS.map(l=>l.id));
+  const applications=LESSONS.filter(l=>ids.has(l.id));
+  const groups=SECTIONS.map(section=>({section,items:applications.filter(l=>l.section===section.id)})).filter(g=>g.items.length);
+  const html=`<div class="modal-callout">每项都有独立题目、可调模型、推导与同步 3D 装置。点击直接打开；源题与新增假设请查看各页说明。</div>${groups.map(({section,items})=>`<h3>${htmlEscape(section.name)} · ${items.length} 例</h3><div class="application-grid">${items.map(l=>{const first=l.sources[0];return `<button class="application-card" type="button" data-open-application="${htmlEscape(l.id)}"><b>${htmlEscape(l.title)}</b><small>${first.repo==='pagonis'?'Pagonis':'aldotb'} · ${htmlEscape(first.file.replace(/\.ipynb$/,''))} · 单元 ${first.cells.join(', ')}</small><span>打开案例 ↗</span></button>`;}).join('')}</div>`).join('')}`;
+  showModal(`新增应用算例 · ${applications.length} 例`,'SOURCE-BASED APPLICATIONS',html);
+}
+function openFigure(){
+  const l=LESSONS[index],image=figures[l.figure];if(!image)return;
+  showModal('用户提供的题图','ORIGINAL PROBLEM / 截图局部',`<div class="modal-callout modal-warning">下图是用户提供截图的局部，可能包含手写批注或不完整信息。具体条件及与源 Notebook 的差异以说明为准。</div><img class="problem-figure" src="${image}" alt="${htmlEscape(l.title)}的用户题图局部"><p>${htmlEscape(l.provenance)}</p><div class="source-list">${l.sources.map(sourceDetails).join('')}</div>`);
+}
 function openCatalog(){
   const mapping=new Map();for(const l of LESSONS)for(const s of l.sources){const key=`${s.repo||'aldotb'}::${s.file}`;if(!mapping.has(key))mapping.set(key,[]);mapping.get(key).push(l.title);}
   const row=(nb,repo,format='Notebook')=>{const key=`${repo}::${nb.file}`,names=mapping.get(key);return `<div class="source-row"><div><a href="${sourceUrl(nb.file,repo)}" target="_blank" rel="noopener noreferrer">${htmlEscape(nb.file)} ↗</a><div class="source-cells">${format==='Notebook'?nb.cellCount+' 个单元':format}${names?' · '+htmlEscape(names.join('、')):''}</div></div><small class="${names?'linked':''}">${names?'部分关联':'待核对'}</small></div>`;};
@@ -149,13 +191,14 @@ function openCatalog(){
 function openText(){const l=LESSONS[index];showModal(l.title,'ACCESSIBLE TEXT / 文字版',`<div class="modal-callout">${htmlEscape(l.question)}<br><b>核心想法：</b>${htmlEscape(l.idea)}</div><ol class="text-steps">${l.steps.map((s,i)=>`<li><b>${i+1}. ${htmlEscape(s.title)}</b><div class="modal-formula">${renderMath(s.formula)}</div><p>${htmlEscape(s.detail)}</p></li>`).join('')}</ol><p>${htmlEscape(l.provenance)}</p>`);}
 function exportData(){
   const l=LESSONS[index],count=l.steps.length;
-  const data={version:1,caseId:l.id,title:l.title,sourceCommit:catalog.commit,sourceCommits:Object.fromEntries(Object.entries(sourceRepos).map(([key,repo])=>[key,repo.commit])),sources:l.sources.map(s=>({...s,repository:repoOf(s).repository,commit:repoOf(s).commit,cellIds:s.cells.map(i=>repoOf(s).notebooks.find(n=>n.file===s.file).cells[i].id)})),parameters:params,preset,duration:model.duration,clock:model.clock,timeUnit:model.timeUnit,events:model.events,colorMap:TAG_COLORS,
+  const data={version:1,caseId:l.id,title:l.title,question:l.question,assumptions:l.provenance,sourceCommit:catalog.commit,sourceCommits:Object.fromEntries(Object.entries(sourceRepos).map(([key,repo])=>[key,repo.commit])),sources:l.sources.map(s=>({...s,repository:repoOf(s).repository,commit:repoOf(s).commit,cellIds:s.cells.map(i=>repoOf(s).notebooks.find(n=>n.file===s.file).cells[i].id)})),parameters:params,preset,duration:model.duration,clock:model.clock,timeUnit:model.timeUnit,events:model.events,colorMap:TAG_COLORS,
     derivationScript:l.steps.map((s,i)=>({...s,stepId:String(i+1),tStart:model.duration*model.stepBounds[i],tEnd:model.duration*model.stepBounds[i+1],highlight:s.tags,visual:{highlightObjects:s.tags}})),
     timeSeries:Array.from({length:241},(_,i)=>model.sample(i/240))};
   const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download=`${l.id}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
-$('openCatalog').addEventListener('click',openCatalog);$('openSource').addEventListener('click',openSource);$('textMode').addEventListener('click',openText);
+$('openApplications').addEventListener('click',openApplications);$('modalBody').addEventListener('click',event=>{const card=event.target.closest('[data-open-application]');if(card){$('modal').close();loadCase(card.dataset.openApplication);}});
+$('openFigure').addEventListener('click',openFigure);$('openCatalog').addEventListener('click',openCatalog);$('openSource').addEventListener('click',openSource);$('textMode').addEventListener('click',openText);
 $('closeModal').addEventListener('click',()=>$('modal').close());$('modal').addEventListener('click',e=>{if(e.target===$('modal'))$('modal').close();});
 $('manualMode').addEventListener('click',()=>setMode('manual'));$('autoMode').addEventListener('click',()=>setMode('auto'));
 $('preset').addEventListener('change',e=>changePreset(e.target.value));
@@ -174,7 +217,8 @@ window.addEventListener('keydown',e=>{
 try{scene=new MechanicsScene($('scenePanel')||document.querySelector('.scene-panel'),$('sceneCanvas'),$('sceneLabels'),selectTag);}catch(e){
   console.error('WebGL initialization failed',e);document.querySelector('.scene-panel').insertAdjacentHTML('beforeend','<div class="webgl-error">此浏览器无法开启 WebGL。可继续使用文字版和数据；请在浏览器设置中启用硬件加速。</div>');
 }
-document.querySelector('.source-count').textContent=catalog.notebooks.length+pagonis.notebooks.length+pagonis.mathematica.length;
+document.querySelector('#openCatalog .source-count').textContent=catalog.notebooks.length+pagonis.notebooks.length+pagonis.mathematica.length;
+document.querySelector('#openApplications .source-count').textContent=APPLICATION_LESSONS.length;
 loadCase(LESSONS[index].id,{replace:false});setMode(mode);
 
 // Deterministic recording and acceptance interface. Render mode never starts its own clock.
