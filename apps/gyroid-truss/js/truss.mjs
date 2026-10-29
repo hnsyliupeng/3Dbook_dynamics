@@ -2,7 +2,8 @@
 import {mod1,mimgDist,add,norm,sub,segSegDist,segCellTranslations} from './geom.mjs';
 import {projectToLevel,gyroidSymmetryOps,orbit,WYCKOFF,F} from './gyroid.mjs';
 import {reinforceBoundary} from './boundary.mjs';
-import {inspectBoundaryBraces} from './boundary-braces.mjs';
+import {inspectBoundaryBraces,analyzeBoundaryProximity} from './boundary-braces.mjs';
+import {rigidityBound} from './rigidity.mjs';
 
 function offset(a,b) { return a.map((v,i)=>Math.round(v-b[i])); }
 export function buildBilayer(w=.32) {
@@ -61,7 +62,9 @@ export function validate(s,radius) {
   connectivity[kind]={components,degreeOne};
  }
  const boundaryWebs=inspectBoundaryBraces(s,radius);
- return {boundaryWebs,connectivity,residual,minNode,minClearance:min-2*radius,intersections,error,crossing,red:reds.length,blue:blues.length,cross:edges.filter(e=>e.kind==='cross'&&e.role==='original').length, boundary:modelBoundary(s)};
+ const proximity=analyzeBoundaryProximity(s,radius);
+ const rigidity=rigidityBound(s);
+ return {boundaryWebs,proximity,rigidity,connectivity,residual,minNode,minClearance:min-2*radius,intersections,error,crossing,red:reds.length,blue:blues.length,cross:edges.filter(e=>e.kind==='cross'&&e.role==='original').length, boundary:modelBoundary(s)};
 }
 
 function modelBoundary(s){return s.boundary;}

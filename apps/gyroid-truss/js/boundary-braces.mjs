@@ -66,3 +66,30 @@ export function inspectBoundaryBraces(model,radius) {
  }
  return {count:webs.length,intersectionCount,nearCount,clearance:min-2*radius};
 }
+
+// Diagnostic classification of nonincident boundary-web capsule proximity.
+// A one-hop neighbour shares a joint with an endpoint, but does NOT imply the
+// overlap is physically acceptable; the actual joint solid is unspecified.
+export function analyzeBoundaryProximity(model,radius) {
+ const {vertices,edges}=model;
+ const adj=Array.from({length:vertices.length},()=>new Set());
+ for(const e of edges){adj[e.a].add(e.b);adj[e.b].add(e.a);}
+ const webs=edges.filter(e=>e.role==='boundary-web');
+ const rods=edges.map(e=>({e,s:segment(vertices,e)}));
+ const byRole={}, sample=[];let nearCount=0,oneHop=0,other=0;
+ for(let wi=0;wi<webs.length;wi++){
+  const web=webs[wi],s=segment(vertices,web);
+  for(const {e,s:t} of rods){
+   if(e===web||e.a===web.a||e.a===web.b||e.b===web.a||e.b===web.b)continue;
+   if(e.role==='boundary-web' && webs.indexOf(e)<wi)continue;
+   const d=imageDistance(s,t,2*radius);
+   if(d>=2*radius-1e-9)continue;
+   nearCount++;
+   const role=e.role||'original';byRole[role]=(byRole[role]||0)+1;
+   const neighbor=[e.a,e.b].some(v=>adj[web.a].has(v)||adj[web.b].has(v));
+   if(neighbor)oneHop++;else other++;
+   if(sample.length<8)sample.push({web:[web.a,web.b],other:[e.a,e.b],role,distance:d,oneHop:neighbor});
+  }
+ }
+ return {radius,nearCount,byRole,oneHop,other,sample};
+}

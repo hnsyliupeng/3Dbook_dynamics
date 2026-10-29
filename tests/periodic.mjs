@@ -10,6 +10,8 @@ for(const w of [.15,.32,.5]){
  const seam=s.vertices.map((v,i)=>v.role==='seam'?i:-1).filter(i=>i>=0);
  for(const id of seam)assert.ok(s.edges.some(e=>e.role==='tie'&&(e.a===id||e.b===id)),`seam ${id} not tied to contour`);
  assert.ok(s.boundary.maxTie<.04);assert.ok(r.minClearance>0);
+ assert.ok(r.rigidity.maxwellLowerBound>0);assert.ok(r.rigidity.degreeTwo>0);
+ assert.equal(r.proximity.nearCount,r.boundaryWebs.nearCount);
  assert.ok(s.boundary.webs.perAxis.every(n=>n>0));
  assert.equal(r.boundaryWebs.count,s.boundary.webs.count);
  assert.equal(r.boundaryWebs.intersectionCount,0);
@@ -21,3 +23,9 @@ for(const w of [.15,.32,.5]){
  console.log(`  boundary webs=${r.boundaryWebs.count}, axes=${s.boundary.webs.perAxis}, nonincident capsule close pairs=${r.boundaryWebs.nearCount}`);
  console.log(`w=${w} seam joints=${s.boundary.junctionCount}, rail edges=${s.boundary.railCount}, max tie=${s.boundary.maxTie.toFixed(5)}, clearance=${r.minClearance.toFixed(5)}; both layers connected, no degree-1 joints`);
 }
+
+// Count bounds also work for a single triangle: 9 DOF, 3 bars, minus 3 translations.
+import {rigidityBound} from '../apps/gyroid-truss/js/rigidity.mjs';
+const triangle={vertices:[{},{},{}],edges:[{a:0,b:1},{a:1,b:2},{a:2,b:0}]};
+assert.equal(rigidityBound(triangle).maxwellLowerBound,3);
+assert.equal(rigidityBound(triangle).degreeTwo,3);
