@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {buildBilayer,validate} from '../apps/gyroid-truss/js/truss.mjs';
+import {F} from '../apps/gyroid-truss/js/gyroid.mjs';
+for(const w of [.15,.32,.5]){
+ const s=buildBilayer(w); assert.equal(s.n,192);
+ for(const v of s.vertices)assert.ok(v.p.every(x=>x>=0&&x<1));
+ for(const v of s.vertices.slice(0,2*s.n)) assert.ok(Math.abs(F(v.p)-(v.layer?-w:w))<1e-9);
+ const r=validate(s,.006);assert.ok(r.error<1e-8);assert.ok(r.crossing>0);assert.equal(r.cross,576);
+ for(const layer of ['red','blue']){assert.equal(r.connectivity[layer].components,1);assert.equal(r.connectivity[layer].degreeOne,0)}
+ const seam=s.vertices.map((v,i)=>v.role==='seam'?i:-1).filter(i=>i>=0);
+ for(const id of seam)assert.ok(s.edges.some(e=>e.role==='tie'&&(e.a===id||e.b===id)),`seam ${id} not tied to contour`);
+ assert.ok(s.boundary.maxTie<.04);assert.ok(r.minClearance>0);
+ console.log(`w=${w} seam joints=${s.boundary.junctionCount}, rail edges=${s.boundary.railCount}, max tie=${s.boundary.maxTie.toFixed(5)}, clearance=${r.minClearance.toFixed(5)}; both layers connected, no degree-1 joints`);
+}

@@ -1,0 +1,1 @@
+{"name":"gyroid-truss-lab","private":true,"type":"module","scripts":{"dev":"vite --host 0.0.0.0","test":"node tests/periodic.mjs"},"devDependencies":{"vite":"^6.1.0"},"dependencies":{"@fontsource/noto-sans-sc":"^5.3.1"}}
