@@ -1,0 +1,4766 @@
+[
+  {
+    "notebook": "01Vector/vectorKinematics.ipynb",
+    "title": "Vector Kinematics",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/01Vector/vectorKinematics.ipynb",
+    "sourceExtraction": "content/lessons/source/01Vector__vectorKinematics.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "b057635b-bb80-42b5-a809-35acfa47862e",
+        "codeExcerpt": "a_x, a_y, a_z = sym.symbols('a_x, a_y, a_z') # we have to declare what symbols will be used\na= a_x* E.x+ a_y* E.y+ a_z* E.z\na"
+      },
+      {
+        "cell": "bade6838-0856-45cf-843d-897de54074bd",
+        "codeExcerpt": "b_x, b_y, b_z = sym.symbols('b_x, b_y, b_z')\nb= b_x* E.x+ b_y* E.y+ b_z* E.z\nb"
+      },
+      {
+        "cell": "93e8ebd9-34b2-4246-9999-acaa31778042",
+        "codeExcerpt": "mech.init_vprinting() # notation using dot for velocity and dot dot for acceleration\nx, y, z = mech.dynamicsymbols('x, y, z') # every symbol that has a dependency with time\nr = x* E.x+ y* E.y+ z* E.z\nv = r.dt(E) # dt: calculates the derivative of a vector respect to time in the corresponding frame\nv"
+      },
+      {
+        "cell": "a0fe9b78-1059-48bb-85a4-3df4e1673298",
+        "codeExcerpt": "suelo = mech.ReferenceFrame('o') # cartesian frame of reference fixed to the ground\nx, y = mech.dynamicsymbols('x, y')\nr_f_o = x* suelo.x + y* suelo.y # frisbee's position vector\nr_f_o"
+      },
+      {
+        "cell": "273e2e56-7d3a-4d4b-a69e-eae25d6c3be3",
+        "codeExcerpt": "phi = mech.dynamicsymbols('varphi')\nfrisbee = suelo.orientnew('f', 'Axis', (phi, suelo.z),\n                         indices=('i','j','k')\n                         ) # frame of reference rotated phi on the z axis of the ground's freme of reference, with three unit vectors calles i,j,k"
+      },
+      {
+        "cell": "9aa5f1c0-0ef9-4520-972a-4823950ac6f4",
+        "codeExcerpt": "rho = mech.dynamicsymbols('rho') # radial position for the spider\nr_a_f = rho* frisbee.x # in mechanics, the triplets are always x,y,z but it will use the names we gave them with indices\nr_a_f"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "37d6b109-7fd9-42e8-97f0-ac9f468505a5",
+        "candidates": 2
+      },
+      {
+        "cell": "307d6e3e-e8fa-473b-9c99-8f82b4562c07",
+        "candidates": 5
+      },
+      {
+        "cell": "b1a8ca54-8619-4977-bc7a-688561ff2d73",
+        "candidates": 2
+      },
+      {
+        "cell": "d9f2a574-b878-463f-9a1a-606102d9f200",
+        "candidates": 2
+      },
+      {
+        "cell": "2ee9c068-1b39-448e-bafc-860567491bcf",
+        "candidates": 1
+      },
+      {
+        "cell": "7dc384d7-0bbb-47be-b672-2f2463696d03",
+        "candidates": 1
+      },
+      {
+        "cell": "4d96d31f-232f-4d8b-abae-b44c54115f43",
+        "candidates": 5
+      },
+      {
+        "cell": "7eb1ca34-3c95-40ea-95cd-b103ed3ee60b",
+        "candidates": 4
+      },
+      {
+        "cell": "c3580068-381a-4b38-a96e-6d6a9844434f",
+        "candidates": 1
+      },
+      {
+        "cell": "96bafc29-af97-474a-b049-31afd5ad19af",
+        "candidates": 3
+      },
+      {
+        "cell": "57c10250-2c62-458a-916f-70775c40ba79",
+        "candidates": 2
+      },
+      {
+        "cell": "27532f42-7ddb-4fb5-baad-d0f60450ff88",
+        "candidates": 10
+      },
+      {
+        "cell": "0a5485ee-10d5-4871-bae3-a34a9a81b9e0",
+        "candidates": 2
+      },
+      {
+        "cell": "cbed2d54-4f77-43d8-973a-c7a9fa36824e",
+        "candidates": 4
+      },
+      {
+        "cell": "fcfcd38a-c02d-444f-b7c4-15c1bf705ae1",
+        "candidates": 6
+      },
+      {
+        "cell": "c72a9186-d0f4-409d-bbd7-1006b8c02d4f",
+        "candidates": 4
+      },
+      {
+        "cell": "75d76ae2-6e03-4937-a16c-bb546e2b66f9",
+        "candidates": 6
+      },
+      {
+        "cell": "5ec0e0b9-e6dd-4fdf-a798-9c3f0a692bb6",
+        "candidates": 15
+      },
+      {
+        "cell": "5bb769da-f11e-4752-b2b8-c194289d802f",
+        "candidates": 5
+      },
+      {
+        "cell": "9bf297ee-167e-414a-a84d-6d0942cf05cc",
+        "candidates": 1
+      },
+      {
+        "cell": "83b209b5-9a52-4af4-b52d-4d3afec1ac34",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "93e8ebd9-34b2-4246-9999-acaa31778042",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "55703b7f-a35b-4a95-9ea8-5ecfdb686161",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "a0fe9b78-1059-48bb-85a4-3df4e1673298",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "9aa5f1c0-0ef9-4520-972a-4823950ac6f4",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "9b929039-7c0a-4d0e-b706-95ac2f953c08",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "eb2b2884-6828-403d-b36b-e16dab4f390c",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "fb6834d0-f14f-4be8-aa47-ba2e96503d3e",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "02Energy/gravitationalPotentialEnergy.ipynb",
+    "title": "Pendulum with free point of support",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/02Energy/gravitationalPotentialEnergy.ipynb",
+    "sourceExtraction": "content/lessons/source/02Energy__gravitationalPotentialEnergy.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:14",
+        "codeExcerpt": "# Parameters for this system\ng, m1, m2, l = sym.symbols('g, m_1, m_2, \\ell', positive=True)"
+      },
+      {
+        "cell": "index:16",
+        "codeExcerpt": "# position of particle 1\nx = mech.dynamicsymbols('x') # x changes with time, thus it is a dynamic variable\nm1_r = x* e.x # position of particle of mass m1\nm1_r"
+      },
+      {
+        "cell": "index:17",
+        "codeExcerpt": "# position of second particle\nphi = mech.dynamicsymbols('phi')\nm2_r = m1_r + l*( sym.sin(phi)* e.x + sym.cos(phi)* (-e.y) )  # y unit vector points upward\nm2_r"
+      },
+      {
+        "cell": "index:48",
+        "codeExcerpt": "t = sym.symbols('t') # time\nfixedSupport_T = T.subs(x.diff(t), 0) # subs: substitution\nfixedSupport_T"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:34",
+        "name": "m1_V",
+        "literal": 0
+      }
+    ],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 1
+      },
+      {
+        "cell": "index:5",
+        "candidates": 10
+      },
+      {
+        "cell": "index:7",
+        "candidates": 1
+      },
+      {
+        "cell": "index:8",
+        "candidates": 16
+      },
+      {
+        "cell": "index:9",
+        "candidates": 5
+      },
+      {
+        "cell": "index:23",
+        "candidates": 6
+      },
+      {
+        "cell": "index:24",
+        "candidates": 5
+      },
+      {
+        "cell": "index:25",
+        "candidates": 3
+      },
+      {
+        "cell": "index:26",
+        "candidates": 14
+      },
+      {
+        "cell": "index:27",
+        "candidates": 7
+      },
+      {
+        "cell": "index:29",
+        "candidates": 7
+      },
+      {
+        "cell": "index:32",
+        "candidates": 1
+      },
+      {
+        "cell": "index:35",
+        "candidates": 1
+      },
+      {
+        "cell": "index:43",
+        "candidates": 4
+      },
+      {
+        "cell": "index:44",
+        "candidates": 2
+      },
+      {
+        "cell": "index:46",
+        "candidates": 1
+      },
+      {
+        "cell": "index:47",
+        "candidates": 2
+      },
+      {
+        "cell": "index:49",
+        "candidates": 1
+      },
+      {
+        "cell": "index:51",
+        "candidates": 1
+      },
+      {
+        "cell": "index:53",
+        "candidates": 5
+      },
+      {
+        "cell": "index:54",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:17",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:33",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:45",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:48",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:50",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "02Energy/kineticEnergy.ipynb",
+    "title": "Translational kinetic energy",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/02Energy/kineticEnergy.ipynb",
+    "sourceExtraction": "content/lessons/source/02Energy__kineticEnergy.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "5d7261af-66df-424a-82d8-092f246cfa78",
+        "codeExcerpt": "m1 = sym.symbols('m_1', positive=True) # masses are always positive\ne = mech.ReferenceFrame('e') # Cartesian frame of reference\nx = mech.dynamicsymbols('x') # x changes with time, thus it is a dynamic variable"
+      },
+      {
+        "cell": "cc7d8439-12de-4323-bd1d-e6485aaf4f38",
+        "codeExcerpt": "# Parameters for this system, i.e. the masses\nm1, m2 = sym.symbols('m_1, m_2', positive=True)"
+      },
+      {
+        "cell": "1706ab65-bdeb-4f18-a7e5-9d4f18563d8d",
+        "codeExcerpt": "# Positions\nE = mech.ReferenceFrame('e')\nx1, x2 = mech.dynamicsymbols('x_1, x_2')\nm1_r = x1* e.x # m1_r : for mass 1 and its position r\nm2_r = x2* e.x \n\n# Velocities\nm1_v= m1_r.dt(e)\nm2_v= m2_r.dt(e)\n\n# Kinetic energy\noneHalf = sym.Rational(1,2) # Rational: a fraction. We could also use 0.5 \nm1_T = oneHalf* m1* m1_v.dot(m1_v)\nm2_T = oneHalf* m2* m2_v.dot(m2_v)\nT = sym.Eq(sym.Symbol('T'), m1_T + m2_T )\nT"
+      },
+      {
+        "cell": "0c6cbf57-3982-42a4-a44c-20f1ad70bee4",
+        "codeExcerpt": "# position of particle 1\nx = mech.dynamicsymbols('x')\nm1_r = x* e.x\nm1_r"
+      },
+      {
+        "cell": "a629911f-3f6d-4416-9ade-547888e70e8f",
+        "codeExcerpt": "# We define the parameters for this system\nm1, m2, l = sym.symbols('m_1, m_2, \\ell', positive=True) "
+      },
+      {
+        "cell": "14e93017-b53f-44de-93ac-9861487f4328",
+        "codeExcerpt": "# position of particle 2\nphi = mech.dynamicsymbols('phi')\nm2_r = m1_r + l*( sym.sin(phi)* e.x + sym.cos(phi)* (-e.y) )  # y unit vector points upward"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "684b219c-04a8-4f69-86bd-245f28d376b1",
+        "candidates": 3
+      },
+      {
+        "cell": "1d3bd0ee-e17a-4914-b016-c64aeab00d8c",
+        "candidates": 4
+      },
+      {
+        "cell": "4dc82844-5261-45ba-a840-12e98cf9a82a",
+        "candidates": 2
+      },
+      {
+        "cell": "d48cf997-cff6-4e24-961b-f1dcc05ebcdf",
+        "candidates": 1
+      },
+      {
+        "cell": "2696164d-cf8f-426f-b86b-96e31f0be2c8",
+        "candidates": 4
+      },
+      {
+        "cell": "bb261596-1bd8-480e-b0b7-9dc9bb3a9440",
+        "candidates": 2
+      },
+      {
+        "cell": "55774455-62e4-4d74-acc0-729dad06b225",
+        "candidates": 1
+      },
+      {
+        "cell": "b69f55eb-1ec9-4d24-a43a-431243982a7c",
+        "candidates": 1
+      },
+      {
+        "cell": "08bab882-7fb5-45f2-8984-13c2569bf199",
+        "candidates": 8
+      },
+      {
+        "cell": "b4a56c19-8041-43c1-bbc9-1f41bb277f0a",
+        "candidates": 2
+      },
+      {
+        "cell": "54fb7ef3-3248-414c-82e3-76d9e12c42c1",
+        "candidates": 5
+      },
+      {
+        "cell": "eb13d0ee-2700-4fa4-bd85-b96f8ad47864",
+        "candidates": 2
+      },
+      {
+        "cell": "dfee0dbd-c2b5-4067-833f-9efecb0bb3ec",
+        "candidates": 2
+      },
+      {
+        "cell": "390be093-33c9-4d70-98b5-34b0cfd92e5e",
+        "candidates": 2
+      },
+      {
+        "cell": "5870f1ba-7246-4353-ad30-f1312883add1",
+        "candidates": 5
+      },
+      {
+        "cell": "48530f4d-4a0f-4817-a196-7a5a2b00f1a2",
+        "candidates": 1
+      },
+      {
+        "cell": "ec0d4e97-309c-4931-a205-6469c2e505d9",
+        "candidates": 1
+      },
+      {
+        "cell": "0ca8e9e4-166e-42ca-be9e-443951973b8a",
+        "candidates": 1
+      },
+      {
+        "cell": "7ed8424c-b802-4963-8e15-592a2fb6891e",
+        "candidates": 1
+      },
+      {
+        "cell": "c280cede-491a-4a0d-8544-1b33f30ab890",
+        "candidates": 1
+      },
+      {
+        "cell": "e9313d96-0c65-444c-8a5c-35f32e309ac8",
+        "candidates": 1
+      },
+      {
+        "cell": "77b0e4ee-9625-4832-8c0f-0c8f2ff181fd",
+        "candidates": 1
+      },
+      {
+        "cell": "b458f91f-9305-4655-9fd5-c6ad56a4fb3b",
+        "candidates": 3
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "b28f0d23-60a5-4530-babd-e50feba08287",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "b41a5e27-078e-41ef-9bd6-3573e1d7dc7f",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "b96e0e8d-a69f-44c4-8556-d9a8022896eb",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "1706ab65-bdeb-4f18-a7e5-9d4f18563d8d",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "0c6cbf57-3982-42a4-a44c-20f1ad70bee4",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "0433856d-0181-4af6-92d0-28dc8bb18e89",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "259a43e3-4f60-4d74-8b92-ed38fe09a5aa",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "8da0551f-645a-4b5f-ab67-d5908c80c717",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "21699ad4-f777-40ed-9b3b-2e1f83613cba",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "5ccfcb0e-f449-4d72-94f9-deea2f7fb470",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "c4db8d51-7c5f-46b0-aee9-66318303fc9b",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "0e7c4718-fff9-4879-9ec2-d18b144793e2",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "4bb1f603-4de4-4c96-b55e-aaa8622c8ec5",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "544c805a-0ee7-46a2-863f-4582619493a1",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "1b21d147-0477-487e-96f7-951fbe84feab",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "51e1a66c-bd40-40a1-80f5-147049518a4a",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "a320fbe4-aec2-4091-a3c4-5794c6359b4b",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "f1bd5bda-ea78-415d-9a08-e5fb86db71a3",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "282d60d5-2f2d-40e1-98e7-dbdf0f473d81",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "03EulerLagrange/elasticPotentialEnergy.ipynb",
+    "title": "Elastic potential energy",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/elasticPotentialEnergy.ipynb",
+    "sourceExtraction": "content/lessons/source/03EulerLagrange__elasticPotentialEnergy.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "4681a541",
+        "codeExcerpt": "m, k, omega, l, lo = sm.symbols('m, k, \\omega, \\ell, \\ell_o', positive=True) # system's parameters. The \\ell is a pretty l.\n\n# We define the generalized coordinates.\ne = me.ReferenceFrame('e') # frame of reference in cartesian coordinates\nt = sm.symbols('t') # time"
+      },
+      {
+        "cell": "16027c6b",
+        "codeExcerpt": "oneHalf = sm.Rational(1,2)\nstretching = spring_r - spring_rEquilibrium\nspring_V = sm.Eq(\n  sm.symbols('V_\\mathrm{spring}'),\n  oneHalf * spring_constant * (stretching).dot(stretching)\n)# elastic potential energy in the spring\nspring_V"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "20fe642f-c8d0-4c7a-a204-1fc7ad59c4b0",
+        "candidates": 6
+      },
+      {
+        "cell": "b3340b09-e412-40de-8a12-4c5d12195794",
+        "candidates": 7
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "b5c99fb4",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "0f33ea8f",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "16027c6b",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "03EulerLagrange/eulerLagrangePendulums.ipynb",
+    "title": "Euler-Lagrange | Pendulums",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/eulerLagrangePendulums.ipynb",
+    "sourceExtraction": "content/lessons/source/03EulerLagrange__eulerLagrangePendulums.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:12",
+        "codeExcerpt": "# Parameters for the system\nm, g, l = sm.symbols('m, g, \\ell', positive=True)\n\ne = me.ReferenceFrame('e') # Cartesian frame of reference\nphi = me.dynamicsymbols(r'\\varphi')"
+      },
+      {
+        "cell": "index:20",
+        "codeExcerpt": "t = sm.Symbol('t') # we will differentiate with respect to time, so it is declared as symbol\nL_ideal = sm.Eq(sm.Function('\\mathcal{L}')(phi, sm.diff(phi,t) ) , particle_T.rhs - particle_V.rhs ) \nL_ideal"
+      },
+      {
+        "cell": "index:32",
+        "codeExcerpt": "# Parameters for the system\nm1, m2, g, l = sm.symbols('m_1, m_2, g, \\ell', positive=True)\n\n# Generalized coordinates\nt = sm.symbols('t') # time\nx, phi = me.dynamicsymbols('x, varphi')\n\n# positions\nparticle1_r = x* e.x\nparticle2_r = particle1_r + l* (sm.cos(phi)* (-e.y) + sm.sin(phi)* (e.x)) # recall that y is directed upward\n\n# masses\nparticle1_m = m1\nparticle2_m = m2"
+      },
+      {
+        "cell": "index:37",
+        "codeExcerpt": "free_L = sm.Eq(\n  sm.Function('\\mathcal{L}')(x.diff(t), phi, phi.diff(t) ),\n  free_T.rhs - free_V.rhs\n  ).simplify()\nfree_L"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "index:29",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:53",
+        "calls": [
+          "sm.solveset"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:3",
+        "candidates": 4
+      },
+      {
+        "cell": "index:4",
+        "candidates": 4
+      },
+      {
+        "cell": "index:6",
+        "candidates": 7
+      },
+      {
+        "cell": "index:7",
+        "candidates": 1
+      },
+      {
+        "cell": "index:8",
+        "candidates": 1
+      },
+      {
+        "cell": "index:10",
+        "candidates": 2
+      },
+      {
+        "cell": "index:16",
+        "candidates": 3
+      },
+      {
+        "cell": "index:19",
+        "candidates": 3
+      },
+      {
+        "cell": "index:21",
+        "candidates": 2
+      },
+      {
+        "cell": "index:22",
+        "candidates": 1
+      },
+      {
+        "cell": "index:24",
+        "candidates": 1
+      },
+      {
+        "cell": "index:28",
+        "candidates": 1
+      },
+      {
+        "cell": "index:30",
+        "candidates": 1
+      },
+      {
+        "cell": "index:36",
+        "candidates": 3
+      },
+      {
+        "cell": "index:39",
+        "candidates": 4
+      },
+      {
+        "cell": "index:40",
+        "candidates": 5
+      },
+      {
+        "cell": "index:42",
+        "candidates": 2
+      },
+      {
+        "cell": "index:46",
+        "candidates": 1
+      },
+      {
+        "cell": "index:48",
+        "candidates": 3
+      },
+      {
+        "cell": "index:50",
+        "candidates": 1
+      },
+      {
+        "cell": "index:59",
+        "candidates": 1
+      },
+      {
+        "cell": "index:61",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:15",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:33",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:41",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:43",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:45",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:49",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:51",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:53",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:58",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:60",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "03EulerLagrange/euler_lagrange_base.ipynb",
+    "title": "Template for Euler-Lagrange exercises",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/euler_lagrange_base.ipynb",
+    "sourceExtraction": "content/lessons/source/03EulerLagrange__euler_lagrange_base.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "fe1bd661-78ab-4186-bd87-a82663faad94",
+        "codeExcerpt": "m1, m2, g, l1, l2 = sym.symbols('m1, m2, g, \\ell_1, \\ell_2', positive=True) # Parameters for the system\nt = sym.Symbol('t') # Declared on its own so we don't impose it to be positive"
+      },
+      {
+        "cell": "c027ed18-9b97-4ba7-b4c2-8baf0089e482",
+        "codeExcerpt": "e = mech.ReferenceFrame('e') # Cartesian frame of reference\nphi1, phi2 = mech.dynamicsymbols(r'\\varphi_1, \\varphi_2') # variables that will change with time, dynamic variables\n# the r is needed for this to be considered as string"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [],
+    "imageOutputCells": [
+      {
+        "cell": "9cd04aaa-328d-4028-b9fe-6e3317a4b803",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "24bac896-169c-4356-977b-cb6311943f97",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "DtGW_u5TBPcc",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "934a38f6-d087-49d9-be7c-9ca818ea2a84",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "2548d96c-a159-4f68-ba2d-7fdcd231f3a2",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "03EulerLagrange/rotatingParts.ipynb",
+    "title": "Position in a system with rotating parts",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/rotatingParts.ipynb",
+    "sourceExtraction": "content/lessons/source/03EulerLagrange__rotatingParts.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "39a1dc07-1e6d-40e7-adb2-bbff7408a1f7",
+        "codeExcerpt": "m, k, omega, l = sm.symbols('m, k, \\omega, \\ell', positive=True) # Parameters for this system\n\n# We define the generalized coordinates\ne = me.ReferenceFrame('e') # Cartesian frame of reference\nt = sm.symbols('t') # time"
+      },
+      {
+        "cell": "e727c4cc",
+        "codeExcerpt": "d = me.dynamicsymbols('d') # the only generalized coordinate | distance from particle to joint\nparticle_r = vertex_r + d* (-sm.sin(omega * t) * e.x + sm.cos(omega * t) * e.y) # particles's position\nparticle_r"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "f3266b95-dfe5-498b-96db-5a7a4dc4041f",
+        "candidates": 8
+      },
+      {
+        "cell": "cf0ae20b",
+        "candidates": 5
+      },
+      {
+        "cell": "e12c3a8c-f87c-4528-8ed1-adae8a69cfd7",
+        "candidates": 4
+      },
+      {
+        "cell": "8a119e0a-8d90-4805-a5f8-e8a510e99397",
+        "candidates": 3
+      },
+      {
+        "cell": "98c9b995-d550-4d35-93c0-f484d6e4fa32",
+        "candidates": 3
+      },
+      {
+        "cell": "2dd52a8b-b579-4625-a8ad-636f4d1f5099",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "e727c4cc",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "84c21f6e-b909-497f-94f1-13ee07549265",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "9a642034-4d86-48e8-acee-898a44d33a74",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "04Constraints/atwoodConstraint.ipynb",
+    "title": "Atwood's machine | Constraints",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/atwoodConstraint.ipynb",
+    "sourceExtraction": "content/lessons/source/04Constraints__atwoodConstraint.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:5",
+        "codeExcerpt": "# Parameters for the system\npulley_m, pulley_R, m1, m2, g, l = sm.symbols('m_{pulley}, R_{pulley}, m_1, m_2, g, \\ell', positive=True)"
+      },
+      {
+        "cell": "index:8",
+        "codeExcerpt": "y1, y2 = me.dynamicsymbols('y_1, y_2')\nconstraint_lengthString = sm.Eq(y1+ y2 + sm.pi* pulley_R - l, 0 ) # constraint l as an homogeneous equation\nconstraint_lengthString"
+      },
+      {
+        "cell": "index:42",
+        "codeExcerpt": "theta = me.dynamicsymbols(r'\\theta')\nconstraintNoSlide = sm.Eq(y1 - pulley_R* theta, 0)\nconstraintNoSlide"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "index:18",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:49",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:61",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 10
+      },
+      {
+        "cell": "index:7",
+        "candidates": 6
+      },
+      {
+        "cell": "index:9",
+        "candidates": 1
+      },
+      {
+        "cell": "index:11",
+        "candidates": 2
+      },
+      {
+        "cell": "index:14",
+        "candidates": 1
+      },
+      {
+        "cell": "index:27",
+        "candidates": 4
+      },
+      {
+        "cell": "index:31",
+        "candidates": 1
+      },
+      {
+        "cell": "index:34",
+        "candidates": 1
+      },
+      {
+        "cell": "index:36",
+        "candidates": 2
+      },
+      {
+        "cell": "index:41",
+        "candidates": 3
+      },
+      {
+        "cell": "index:44",
+        "candidates": 6
+      },
+      {
+        "cell": "index:46",
+        "candidates": 4
+      },
+      {
+        "cell": "index:48",
+        "candidates": 2
+      },
+      {
+        "cell": "index:51",
+        "candidates": 3
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:8",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:26",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:33",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:39",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:42",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:47",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:49",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:52",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:57",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:59",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:61",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:62",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "reviewed for Atwood ideal adaptation"
+  },
+  {
+    "notebook": "04Constraints/constraintsFunction.ipynb",
+    "title": "Constraint function",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/constraintsFunction.ipynb",
+    "sourceExtraction": "content/lessons/source/04Constraints__constraintsFunction.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:7",
+        "codeExcerpt": "m1, m2, l = sm.symbols('m_1, m_2, \\ell', positive=True) # Parameters for the system\ne = me.ReferenceFrame('e') # Cartesian frame of reference\nx1, y2 = me.dynamicsymbols('x_1, y_2')"
+      },
+      {
+        "cell": "index:12",
+        "codeExcerpt": "t = sm.symbols('t') # time\ny2_f1.diff(t), y2_f1.diff(t, 2) # velocity and acceleration of y2"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "index:10",
+        "calls": [
+          "sm.solveset"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 14
+      },
+      {
+        "cell": "index:9",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:8",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "04Constraints/solvingLinearSystems.ipynb",
+    "title": "System of linear equations | Solving using SymPy",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/solvingLinearSystems.ipynb",
+    "sourceExtraction": "content/lessons/source/04Constraints__solvingLinearSystems.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "52aa449e-2a47-4ba2-8732-214b8731135f",
+        "codeExcerpt": "t = sm.Symbol('t')\nm1, m2, m3, g = sm.symbols('m_1, m_2, m_3, g')\ny1, y2 = me.dynamicsymbols('y_1, y_2')"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "83cee49f-8dc7-46e5-b439-90f5b9fce2b3",
+        "calls": [
+          "sm.linsolve"
+        ]
+      },
+      {
+        "cell": "e28d63d4-5317-4d8b-b9af-97dd7d8cabb0",
+        "calls": [
+          "sm.linsolve"
+        ]
+      },
+      {
+        "cell": "b2f617ff-e315-42cb-9698-54669b211649",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [],
+    "imageOutputCells": [
+      {
+        "cell": "2e0b7005-46a1-4db0-9722-5080e89bcc9e",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "e01d7415-fccf-4d43-a761-3fef9999abd2",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "83cee49f-8dc7-46e5-b439-90f5b9fce2b3",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "b62f7f38-5cba-4795-817c-7c3d0c9115cc",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "e28d63d4-5317-4d8b-b9af-97dd7d8cabb0",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "bf4fcd2e-019c-4177-8adc-90e9b75d9b61",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "e2d2f11e-cfd5-4863-abd0-8c75e933d821",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "b2f617ff-e315-42cb-9698-54669b211649",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "831910a3-88fc-4180-a527-3cb5a9a12473",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "6d56e58c-063a-416b-8de7-338da8136fe9",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "7a6f0316-008d-47f5-97c3-7f46e0be3883",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "05Simulation/atwoodSimulationSolved.ipynb",
+    "title": "Numerical simulation | Atwood machine",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/05Simulation/atwoodSimulationSolved.ipynb",
+    "sourceExtraction": "content/lessons/source/05Simulation__atwoodSimulationSolved.json",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": true,
+      "matplotlib": true,
+      "solveIvp": true
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:6",
+        "codeExcerpt": "e = me.ReferenceFrame('e') # Cartesian frame of reference\nt = sm.symbols('t') # time\nM, R, m1, m2, g, l = sm.symbols(r'M, R, m_1, m_2, g, \\ell', positive=True) # Physical parameters"
+      },
+      {
+        "cell": "index:8",
+        "codeExcerpt": "x1, xp, theta = me.dynamicsymbols(r'x_1, x_p, \\theta') # Generalized coordinates"
+      },
+      {
+        "cell": "index:40",
+        "codeExcerpt": "x_0, v_0 = sm.symbols('x_0 v_0')\nsm.Eq(x1, oneHalf* x_pp.rhs* t**2+ v_0* t + x_0)"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:53",
+        "name": "g_magnitude",
+        "literal": 9.81
+      },
+      {
+        "cell": "index:53",
+        "name": "m_1_magnitude",
+        "literal": 8
+      },
+      {
+        "cell": "index:53",
+        "name": "m_2_magnitude",
+        "literal": 1
+      },
+      {
+        "cell": "index:53",
+        "name": "M_magnitude",
+        "literal": 4
+      },
+      {
+        "cell": "index:56",
+        "name": "y_initial",
+        "literal": [
+          25,
+          -10
+        ]
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:10",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:24",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:60",
+        "calls": [
+          "solve_ivp"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:36",
+        "candidates": 1
+      },
+      {
+        "cell": "index:39",
+        "candidates": 2
+      },
+      {
+        "cell": "index:43",
+        "candidates": 10
+      },
+      {
+        "cell": "index:44",
+        "candidates": 1
+      },
+      {
+        "cell": "index:45",
+        "candidates": 6
+      },
+      {
+        "cell": "index:47",
+        "candidates": 9
+      },
+      {
+        "cell": "index:49",
+        "candidates": 18
+      },
+      {
+        "cell": "index:50",
+        "candidates": 6
+      },
+      {
+        "cell": "index:52",
+        "candidates": 1
+      },
+      {
+        "cell": "index:61",
+        "candidates": 3
+      },
+      {
+        "cell": "index:68",
+        "candidates": 1
+      },
+      {
+        "cell": "index:72",
+        "candidates": 3
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:9",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:11",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:17",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:24",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:32",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:40",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:53",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:66",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:71",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "reviewed for Atwood ideal adaptation"
+  },
+  {
+    "notebook": "05Simulation/pendulumFreeSimulSolved.ipynb",
+    "title": "Numerical simulation | Pendulum with free point of support",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/05Simulation/pendulumFreeSimulSolved.ipynb",
+    "sourceExtraction": "content/lessons/source/05Simulation__pendulumFreeSimulSolved.json",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": true,
+      "matplotlib": true,
+      "solveIvp": true
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:8",
+        "codeExcerpt": "# physical parameters\nm1, m2, l, g = sm.symbols(r'm_1, m_2, \\ell, g', positive=True)\n\n# positions as functions of the generalized coordinates\nt = sm.symbols('t') # time\nx, phi = me.dynamicsymbols('x, phi')"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:41",
+        "name": "g_magnitude",
+        "literal": 9.81
+      },
+      {
+        "cell": "index:41",
+        "name": "m1_magnitude",
+        "literal": 3
+      },
+      {
+        "cell": "index:41",
+        "name": "m2_magnitude",
+        "literal": 1
+      },
+      {
+        "cell": "index:41",
+        "name": "l_magnitude",
+        "literal": 2
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:25",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:30",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "calls": [
+          "solve_ivp"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:3",
+        "candidates": 9
+      },
+      {
+        "cell": "index:6",
+        "candidates": 4
+      },
+      {
+        "cell": "index:11",
+        "candidates": 1
+      },
+      {
+        "cell": "index:22",
+        "candidates": 1
+      },
+      {
+        "cell": "index:24",
+        "candidates": 1
+      },
+      {
+        "cell": "index:26",
+        "candidates": 1
+      },
+      {
+        "cell": "index:27",
+        "candidates": 1
+      },
+      {
+        "cell": "index:31",
+        "candidates": 1
+      },
+      {
+        "cell": "index:42",
+        "candidates": 4
+      },
+      {
+        "cell": "index:44",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:15",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:30",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:39",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:41",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:45",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:59",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:60",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "06ConstraintForces/constraintIdealPendulum.ipynb",
+    "title": "Constraint forces | Ideal pendulum",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/constraintIdealPendulum.ipynb",
+    "sourceExtraction": "content/lessons/source/06ConstraintForces__constraintIdealPendulum.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:6",
+        "codeExcerpt": "# Physical parameters\nm, g, l = sm.symbols('m, g, \\ell', positive=True)\nt = sm.symbols('t') # time\n\n# Generalized coordinates\nphi, rho = me.dynamicsymbols('phi, rho')\nphi, rho"
+      },
+      {
+        "cell": "index:10",
+        "codeExcerpt": "lambda1 = sm.symbols('lambda_1') # As many lambdas as constraints\nf1 = sm.Eq(sm.Function('f_1')(rho), rho- l)\nf1"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "index:37",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:46",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:48",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 2
+      },
+      {
+        "cell": "index:18",
+        "candidates": 1
+      },
+      {
+        "cell": "index:20",
+        "candidates": 1
+      },
+      {
+        "cell": "index:22",
+        "candidates": 2
+      },
+      {
+        "cell": "index:24",
+        "candidates": 1
+      },
+      {
+        "cell": "index:30",
+        "candidates": 1
+      },
+      {
+        "cell": "index:33",
+        "candidates": 1
+      },
+      {
+        "cell": "index:36",
+        "candidates": 2
+      },
+      {
+        "cell": "index:38",
+        "candidates": 3
+      },
+      {
+        "cell": "index:45",
+        "candidates": 1
+      },
+      {
+        "cell": "index:47",
+        "candidates": 1
+      },
+      {
+        "cell": "index:49",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:6",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:32",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:39",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:40",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:43",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:44",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:46",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:48",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:50",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "06ConstraintForces/forcesConstraint.ipynb",
+    "title": "Constraint forces",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/forcesConstraint.ipynb",
+    "sourceExtraction": "content/lessons/source/06ConstraintForces__forcesConstraint.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 2
+      },
+      {
+        "cell": "index:4",
+        "candidates": 1
+      },
+      {
+        "cell": "index:5",
+        "candidates": 17
+      },
+      {
+        "cell": "index:6",
+        "candidates": 20
+      },
+      {
+        "cell": "index:7",
+        "candidates": 15
+      },
+      {
+        "cell": "index:8",
+        "candidates": 1
+      },
+      {
+        "cell": "index:9",
+        "candidates": 3
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "06ConstraintForces/nonHolonomicSystems.ipynb",
+    "title": "Constraint forces | Nonholonomic systems",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/nonHolonomicSystems.ipynb",
+    "sourceExtraction": "content/lessons/source/06ConstraintForces__nonHolonomicSystems.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 17
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "06ConstraintForces/rollingForcesConstraint.ipynb",
+    "title": "Constraint forces | Rolling",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/rollingForcesConstraint.ipynb",
+    "sourceExtraction": "content/lessons/source/06ConstraintForces__rollingForcesConstraint.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:7",
+        "codeExcerpt": "# Physical parameters\nm1, alpha, R, g = sm.symbols('m, alpha, R, g', positive=True)"
+      },
+      {
+        "cell": "index:8",
+        "codeExcerpt": "e = me.ReferenceFrame('e') # Cartesian frame of reference\ng_vector = g* e.y # vector for acceleration due to gravity in this frame of reference\ny, zeta = me.dynamicsymbols('y, theta')"
+      },
+      {
+        "cell": "index:10",
+        "codeExcerpt": "f1 = sm.Eq(sm.Function('f_1')(y, zeta), y- R* zeta) # Constraint 1 as an homogeneous function\nf1"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:9",
+        "candidates": 2
+      },
+      {
+        "cell": "index:11",
+        "candidates": 2
+      },
+      {
+        "cell": "index:12",
+        "candidates": 4
+      },
+      {
+        "cell": "index:13",
+        "candidates": 3
+      },
+      {
+        "cell": "index:14",
+        "candidates": 8
+      },
+      {
+        "cell": "index:15",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "07Nonconservative/linkedCylinders_Help.ipynb",
+    "title": "Nonconservative forces | Help for the problem with the fixed cylinders",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/07Nonconservative/linkedCylinders_Help.ipynb",
+    "sourceExtraction": "content/lessons/source/07Nonconservative__linkedCylinders_Help.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 1
+      },
+      {
+        "cell": "index:5",
+        "candidates": 4
+      },
+      {
+        "cell": "index:7",
+        "candidates": 5
+      },
+      {
+        "cell": "index:8",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "07Nonconservative/nonconservative.ipynb",
+    "title": "Euler-Lagrange | Nonconservative forces",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/07Nonconservative/nonconservative.ipynb",
+    "sourceExtraction": "content/lessons/source/07Nonconservative__nonconservative.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:20",
+        "codeExcerpt": "l0, zeta = sm.symbols('l_0, theta')\nx = me.dynamicsymbols('x')\nC_r = (l0 + x)* (sm.sin(zeta)* e.x + sm.cos(zeta)*e.y)\nC_r"
+      },
+      {
+        "cell": "index:21",
+        "codeExcerpt": "x_Q = sm.Eq(\n  sm.symbols('Q_x'),\n  F_vec.dot(C_r.diff(x,e))\n)\nx_Q"
+      },
+      {
+        "cell": "index:22",
+        "codeExcerpt": "zeta_Q = sm.Eq(\n  sm.symbols('Q_theta'),\n  F_vec.dot(C_r.diff(zeta,e))\n)\nzeta_Q"
+      },
+      {
+        "cell": "index:25",
+        "codeExcerpt": "# Physical parameters\nm1, m2, k, g, l = sm.symbols('m_1, m_2, k, g, l', positive=True)"
+      },
+      {
+        "cell": "index:26",
+        "codeExcerpt": "# positions of the center of gravity of each object\ne = me.ReferenceFrame('e')\nx, zeta = me.dynamicsymbols('x, theta')\nm1_r = x* e.x\nm2_r = m1_r + (l/2)* (sm.sin(zeta)* e.x + sm.cos(zeta)* (-e.y) )"
+      },
+      {
+        "cell": "index:30",
+        "codeExcerpt": "oneHalf = sm.Rational(1, 2)\nt = sm.symbols('t') # time\nrod_T_rotational = sm.Eq(\n  sm.Symbol('T_{rotational}'),\n  oneHalf * rod_I.rhs* zeta.diff(t)**2\n)\nrod_T_rotational"
+      },
+      {
+        "cell": "index:54",
+        "codeExcerpt": "b = sm.Symbol('b', positive= True)\nF = sm.Function('F')(t)\nforces_m1_r = (-b* x.diff(t)+ F)* e.x # sum of all forces axerted upon (vector)\nx_Q = forces_m1_r.dot(m1_r.diff(x, e))\nzeta_Q = forces_m1_r.dot(m1_r.diff(zeta, e))\nx_Q, zeta_Q "
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 15
+      },
+      {
+        "cell": "index:3",
+        "candidates": 5
+      },
+      {
+        "cell": "index:4",
+        "candidates": 9
+      },
+      {
+        "cell": "index:5",
+        "candidates": 18
+      },
+      {
+        "cell": "index:6",
+        "candidates": 6
+      },
+      {
+        "cell": "index:8",
+        "candidates": 6
+      },
+      {
+        "cell": "index:9",
+        "candidates": 1
+      },
+      {
+        "cell": "index:10",
+        "candidates": 6
+      },
+      {
+        "cell": "index:11",
+        "candidates": 7
+      },
+      {
+        "cell": "index:12",
+        "candidates": 1
+      },
+      {
+        "cell": "index:13",
+        "candidates": 4
+      },
+      {
+        "cell": "index:14",
+        "candidates": 2
+      },
+      {
+        "cell": "index:16",
+        "candidates": 5
+      },
+      {
+        "cell": "index:17",
+        "candidates": 5
+      },
+      {
+        "cell": "index:23",
+        "candidates": 4
+      },
+      {
+        "cell": "index:28",
+        "candidates": 7
+      },
+      {
+        "cell": "index:47",
+        "candidates": 1
+      },
+      {
+        "cell": "index:49",
+        "candidates": 1
+      },
+      {
+        "cell": "index:51",
+        "candidates": 3
+      },
+      {
+        "cell": "index:53",
+        "candidates": 10
+      },
+      {
+        "cell": "index:55",
+        "candidates": 1
+      },
+      {
+        "cell": "index:57",
+        "candidates": 1
+      },
+      {
+        "cell": "index:59",
+        "candidates": 1
+      },
+      {
+        "cell": "index:60",
+        "candidates": 3
+      },
+      {
+        "cell": "index:61",
+        "candidates": 7
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:30",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:38",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:41",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:43",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:48",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:50",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:56",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:58",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "08InertiaTensor/angular_momentum_torque.ipynb",
+    "title": "Notes about angular momentum and torque",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/angular_momentum_torque.ipynb",
+    "sourceExtraction": "content/lessons/source/08InertiaTensor__angular_momentum_torque.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 8
+      },
+      {
+        "cell": "index:4",
+        "candidates": 9
+      },
+      {
+        "cell": "index:7",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+    "title": "Inertia tensor | Carbon monoxide",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+    "sourceExtraction": "content/lessons/source/08InertiaTensor__carbonMonoxide_inertiaTensor.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:3",
+        "codeExcerpt": "O_m, C_m, d = sm.symbols('m_O, m_C, d', positive=True)"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:25",
+        "name": "d_magnitude",
+        "literal": 1.1282
+      },
+      {
+        "cell": "index:25",
+        "name": "constantAvogadro",
+        "literal": 6.02214076e+23
+      },
+      {
+        "cell": "index:25",
+        "name": "O_m_magnitude",
+        "literal": 15.999
+      },
+      {
+        "cell": "index:25",
+        "name": "C_m_magnitude",
+        "literal": 12
+      }
+    ],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 1
+      },
+      {
+        "cell": "index:7",
+        "candidates": 2
+      },
+      {
+        "cell": "index:16",
+        "candidates": 6
+      },
+      {
+        "cell": "index:18",
+        "candidates": 1
+      },
+      {
+        "cell": "index:24",
+        "candidates": 1
+      },
+      {
+        "cell": "index:30",
+        "candidates": 7
+      },
+      {
+        "cell": "index:32",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:17",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:26",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:31",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:33",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:35",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "08InertiaTensor/inertiaTensor.ipynb",
+    "title": "Rigid body dynamics | Inertia tensor",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/inertiaTensor.ipynb",
+    "sourceExtraction": "content/lessons/source/08InertiaTensor__inertiaTensor.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 3
+      },
+      {
+        "cell": "index:3",
+        "candidates": 6
+      },
+      {
+        "cell": "index:4",
+        "candidates": 2
+      },
+      {
+        "cell": "index:7",
+        "candidates": 3
+      },
+      {
+        "cell": "index:9",
+        "candidates": 5
+      },
+      {
+        "cell": "index:10",
+        "candidates": 11
+      },
+      {
+        "cell": "index:11",
+        "candidates": 4
+      },
+      {
+        "cell": "index:12",
+        "candidates": 27
+      },
+      {
+        "cell": "index:13",
+        "candidates": 5
+      },
+      {
+        "cell": "index:14",
+        "candidates": 16
+      },
+      {
+        "cell": "index:15",
+        "candidates": 5
+      },
+      {
+        "cell": "index:16",
+        "candidates": 1
+      },
+      {
+        "cell": "index:17",
+        "candidates": 6
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "09DistributedMass/distributedMass.ipynb",
+    "title": "Rigid Body Dynamics | Continuous Mass Distributions",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/09DistributedMass/distributedMass.ipynb",
+    "sourceExtraction": "content/lessons/source/09DistributedMass__distributedMass.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:8",
+        "codeExcerpt": "ro, z, fi = sm.symbols('rho z varphi') # variables in a cylindrical coordinate system\nr, h = sm.symbols('r h') # we define the symbols for density, radius of the base and height\njacobian_cylindrical = ro # jacobian for the transformation from cylindrical to cartesian\n\ncylinder_volume = sm.Eq(\n  sm.Symbol('Volume_{cylinder}'),\n  sm.Integral(\n    jacobian_cylindrical,\n    (ro, 0, r), (fi, 0, 2 * sm.pi), (z, -h/2, h/2)\n    )\n)\ncylinder_volume"
+      },
+      {
+        "cell": "index:25",
+        "codeExcerpt": "ro, fi, zeta = sm.symbols(r'\\rho \\varphi theta') # spherical coordinate system\njacobian_spherical = ro**2 * sm.sin(zeta)\n\nsphere_volume = sm.Eq(\n  sm.Symbol('Volume_{sphere}'),\n  sm.Integral(\n    jacobian_spherical,\n    (ro, 0, r), (zeta, 0, sm.pi), (fi, 0, 2* sm.pi)\n    )\n)\nsphere_volume"
+      },
+      {
+        "cell": "index:32",
+        "codeExcerpt": "r1, r2 = sm.symbols('r_1 r_2') # we define the symbols for the radii\nIzz = sm.Eq(\n  sm.Symbol('I_{zz}'),\n  sm.Integral(\n    jacobian_spherical * shell_density.lhs* ro**2,\n    (ro, r1, r2), (zeta, 0, sm.pi), (fi, 0, 2* sm.pi)\n  )\n)\nIzz"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 5
+      },
+      {
+        "cell": "index:3",
+        "candidates": 4
+      },
+      {
+        "cell": "index:5",
+        "candidates": 2
+      },
+      {
+        "cell": "index:10",
+        "candidates": 2
+      },
+      {
+        "cell": "index:12",
+        "candidates": 10
+      },
+      {
+        "cell": "index:15",
+        "candidates": 1
+      },
+      {
+        "cell": "index:17",
+        "candidates": 4
+      },
+      {
+        "cell": "index:21",
+        "candidates": 8
+      },
+      {
+        "cell": "index:22",
+        "candidates": 4
+      },
+      {
+        "cell": "index:24",
+        "candidates": 6
+      },
+      {
+        "cell": "index:27",
+        "candidates": 1
+      },
+      {
+        "cell": "index:31",
+        "candidates": 4
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "09DistributedMass/inertiaTensorcube.ipynb",
+    "title": "Inertia tensor | Cube",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/09DistributedMass/inertiaTensorcube.ipynb",
+    "sourceExtraction": "content/lessons/source/09DistributedMass__inertiaTensorcube.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:7",
+        "codeExcerpt": "Ixx, Ixy, Ixz = sm.symbols('I_{xx} I_{xy} I_{xz}')\nIyx, Iyy, Iyz = sm.symbols('I_{yx} I_{yy} I_{yz}')\nIzx, Izy, Izz = sm.symbols('I_{zx} I_{zy} I_{zz}')"
+      },
+      {
+        "cell": "index:10",
+        "codeExcerpt": "x, y, z, b, m = sm.symbols('x y z b m')\nf_xx = y**2 + z**2\nrho_density = m/ b**3\nIxx_exp = rho_density* sm.integrate(f_xx, (x, -b/2, b/2), (y, -b/2, b/2), (z,-b/2, b/2) )\nsm.Eq( Ixx , Ixx_exp )"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:5",
+        "candidates": 1
+      },
+      {
+        "cell": "index:9",
+        "candidates": 6
+      },
+      {
+        "cell": "index:11",
+        "candidates": 2
+      },
+      {
+        "cell": "index:13",
+        "candidates": 3
+      },
+      {
+        "cell": "index:17",
+        "candidates": 1
+      },
+      {
+        "cell": "index:19",
+        "candidates": 2
+      },
+      {
+        "cell": "index:20",
+        "candidates": 12
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:8",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:14",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "10EulerRotation/flywheel.ipynb",
+    "title": "To be fixed.",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/flywheel.ipynb",
+    "sourceExtraction": "content/lessons/source/10EulerRotation__flywheel.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "10EulerRotation/misalignedGear.ipynb",
+    "title": "Misaligned gear",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/misalignedGear.ipynb",
+    "sourceExtraction": "content/lessons/source/10EulerRotation__misalignedGear.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:11",
+        "codeExcerpt": "I_x, I_y, I_z = sm.symbols('I_x I_y I_z')\nOmega_x, Omega_y, Omega_z = sm.symbols('Omega_x Omega_y Omega_z')\nOmega_p_x, Omega_p_y, Omega_p_z = sm.symbols('\\dot{\\Omega}_x \\dot{\\Omega}_y \\dot{\\Omega}_z')\ntau_x, tau_y, tau_z = sm.symbols('tau_x tau_y tau_z')"
+      },
+      {
+        "cell": "index:18",
+        "codeExcerpt": "# Cartesian system\nM = sm.physics.vector.ReferenceFrame('M')\ntheta, omega =  sm.symbols('theta omega')\nm = M.orientnew('m', 'Axis', [theta, M.x]) # this is the new system rotating about x of system M (old)."
+      },
+      {
+        "cell": "index:29",
+        "codeExcerpt": "Omega_p_x, Omega_p_y, Omega_p_z = sm.symbols('\\dot{\\Omega}_x \\dot{\\Omega}_y \\dot{\\Omega}_z')\nangularAcceleration_xyz = sm.Eq(\n  sm.Symbol(r'\\dot{\\vec{\\Omega}}_{xyz}'),\n  sm.Matrix([Omega_p_x, Omega_p_y, Omega_p_z]),\n  evaluate = False\n  )\nangularAcceleration_xyz"
+      },
+      {
+        "cell": "index:37",
+        "codeExcerpt": "# reaction  forces at the bearings\nA_X, A_Y, A_Z = sm.symbols('A_X A_Y A_Z')\nF_A = A_X* M.x + A_Y* M.y + A_Z* M.z\nF_A"
+      },
+      {
+        "cell": "index:38",
+        "codeExcerpt": "B_X, B_Y = sm.symbols('B_X B_Y')\nF_B = B_X* M.x + B_Y* M.y\nF_B"
+      },
+      {
+        "cell": "index:40",
+        "codeExcerpt": "# distances between gear and bearings\nd_GA, d_GB = sm.symbols('d_{GA} d_{GB}')\nr_GA = d_GA* M.z\nr_GB = d_GB* (-M.z)"
+      },
+      {
+        "cell": "index:63",
+        "codeExcerpt": "m, g = sm.symbols('m, g')\nnewton_X = sm.Eq(A_X + B_X, 0)\nnewton_Y = sm.Eq(A_Y + B_Y - m* g, 0)\nnewton_Z = sm.Eq(A_Z, 0)\nsystem_Newton = [newton_X, newton_Y, newton_Z]\nsystem_Newton"
+      }
+    ],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [
+      {
+        "cell": "index:67",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 6
+      },
+      {
+        "cell": "index:6",
+        "candidates": 3
+      },
+      {
+        "cell": "index:9",
+        "candidates": 3
+      },
+      {
+        "cell": "index:10",
+        "candidates": 1
+      },
+      {
+        "cell": "index:13",
+        "candidates": 4
+      },
+      {
+        "cell": "index:15",
+        "candidates": 4
+      },
+      {
+        "cell": "index:16",
+        "candidates": 3
+      },
+      {
+        "cell": "index:17",
+        "candidates": 2
+      },
+      {
+        "cell": "index:19",
+        "candidates": 2
+      },
+      {
+        "cell": "index:24",
+        "candidates": 1
+      },
+      {
+        "cell": "index:28",
+        "candidates": 2
+      },
+      {
+        "cell": "index:30",
+        "candidates": 4
+      },
+      {
+        "cell": "index:34",
+        "candidates": 5
+      },
+      {
+        "cell": "index:36",
+        "candidates": 4
+      },
+      {
+        "cell": "index:39",
+        "candidates": 7
+      },
+      {
+        "cell": "index:41",
+        "candidates": 1
+      },
+      {
+        "cell": "index:43",
+        "candidates": 1
+      },
+      {
+        "cell": "index:45",
+        "candidates": 1
+      },
+      {
+        "cell": "index:47",
+        "candidates": 3
+      },
+      {
+        "cell": "index:56",
+        "candidates": 1
+      },
+      {
+        "cell": "index:62",
+        "candidates": 4
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:7",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:32",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:38",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:42",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:46",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:52",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:57",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:59",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:63",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:65",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:67",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:70",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "10EulerRotation/rotationEuler.ipynb",
+    "title": "Euler equations for rotations",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/rotationEuler.ipynb",
+    "sourceExtraction": "content/lessons/source/10EulerRotation__rotationEuler.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 1
+      },
+      {
+        "cell": "index:4",
+        "candidates": 25
+      },
+      {
+        "cell": "index:5",
+        "candidates": 1
+      },
+      {
+        "cell": "index:6",
+        "candidates": 5
+      },
+      {
+        "cell": "index:7",
+        "candidates": 12
+      },
+      {
+        "cell": "index:8",
+        "candidates": 10
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "12OscillationsSDOF/arbitrarySDOF.ipynb",
+    "title": "Arbitrary forcing of a single degree of freedom system",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/arbitrarySDOF.ipynb",
+    "sourceExtraction": "content/lessons/source/12OscillationsSDOF__arbitrarySDOF.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:11",
+        "codeExcerpt": "t = sm.symbols('t') # time\nm, k1, k2, l1, l2, c, omega0, r1, r2 = sm.symbols('m, k_1, k_2, l_1, l_2, c, omega_0, r_1, r_2', positive = True)\nF2_symbol, y, x = me.dynamicsymbols('F_2 y x')"
+      },
+      {
+        "cell": "index:29",
+        "codeExcerpt": "omega, zeta = sm.symbols('omega zeta', real = True)\nx_EL_ing = sm.Eq(x_EL_forced.lhs/m, x_EL_forced.rhs/m).expand()\nx_EL_ing = x_EL_ing.subs([(k1/m, omega**2), (c/m, 2* zeta* omega) ]).simplify()\nx_EL_ing.expand()"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:15",
+        "name": "m_magnitude",
+        "literal": 10
+      },
+      {
+        "cell": "index:15",
+        "name": "k1_magnitude",
+        "literal": 1000.0
+      },
+      {
+        "cell": "index:15",
+        "name": "k2_magnitude",
+        "literal": 8000.0
+      },
+      {
+        "cell": "index:15",
+        "name": "r1_magnitude",
+        "literal": 0.1
+      },
+      {
+        "cell": "index:15",
+        "name": "r2_magnitude",
+        "literal": 0.15
+      },
+      {
+        "cell": "index:15",
+        "name": "l1_magnitude",
+        "literal": 0.5
+      },
+      {
+        "cell": "index:15",
+        "name": "c_magnitude",
+        "literal": 40
+      },
+      {
+        "cell": "index:15",
+        "name": "omega0_rmp",
+        "literal": 6
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:32",
+        "calls": [
+          "sm.dsolve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 4
+      },
+      {
+        "cell": "index:6",
+        "candidates": 1
+      },
+      {
+        "cell": "index:9",
+        "candidates": 4
+      },
+      {
+        "cell": "index:12",
+        "candidates": 2
+      },
+      {
+        "cell": "index:14",
+        "candidates": 1
+      },
+      {
+        "cell": "index:21",
+        "candidates": 1
+      },
+      {
+        "cell": "index:24",
+        "candidates": 2
+      },
+      {
+        "cell": "index:27",
+        "candidates": 1
+      },
+      {
+        "cell": "index:30",
+        "candidates": 1
+      },
+      {
+        "cell": "index:33",
+        "candidates": 1
+      },
+      {
+        "cell": "index:35",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:31",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:32",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:36",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:38",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:39",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "12OscillationsSDOF/harmonicSDOF.ipynb",
+    "title": "Harmonic forcing of a single degree of freedom system",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/harmonicSDOF.ipynb",
+    "sourceExtraction": "content/lessons/source/12OscillationsSDOF__harmonicSDOF.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:5",
+        "codeExcerpt": "t = sm.symbols('t') # time\nm, k, c = sm.symbols('m, k, c', positive = True)\nx, F = me.dynamicsymbols('x F')"
+      },
+      {
+        "cell": "index:9",
+        "codeExcerpt": "omega, zeta = sm.symbols('omega zeta', real = True)\nx_EL_ing = sm.Eq(x_EL_forced.lhs/m, x_EL_forced.rhs/m).expand()\nx_EL_ing = x_EL_ing.subs([(k/m, omega**2), (c/m, 2* zeta* omega) ]).simplify()\nx_EL_ing.expand()"
+      },
+      {
+        "cell": "index:12",
+        "codeExcerpt": "F_0, omega_f = sm.symbols('F_0 omega_f', positive = True)\nF_harmonic = F_0* sm.sin(omega_f* t)\nsm.Eq(F, F_harmonic)"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:21",
+        "name": "k_magnitude",
+        "literal": 100
+      },
+      {
+        "cell": "index:21",
+        "name": "m_magnitude",
+        "literal": 1
+      },
+      {
+        "cell": "index:21",
+        "name": "zeta_magnitude",
+        "literal": 0.2
+      },
+      {
+        "cell": "index:23",
+        "name": "F_0_magnitude",
+        "literal": 100
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:16",
+        "calls": [
+          "sm.dsolve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:3",
+        "candidates": 1
+      },
+      {
+        "cell": "index:10",
+        "candidates": 3
+      },
+      {
+        "cell": "index:15",
+        "candidates": 3
+      },
+      {
+        "cell": "index:17",
+        "candidates": 4
+      },
+      {
+        "cell": "index:20",
+        "candidates": 1
+      },
+      {
+        "cell": "index:22",
+        "candidates": 2
+      },
+      {
+        "cell": "index:24",
+        "candidates": 4
+      },
+      {
+        "cell": "index:28",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:7",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:9",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:14",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:26",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "12OscillationsSDOF/oscillationsSDOF.ipynb",
+    "title": "Damped oscillations of a single degree of freedom system",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/oscillationsSDOF.ipynb",
+    "sourceExtraction": "content/lessons/source/12OscillationsSDOF__oscillationsSDOF.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:7",
+        "codeExcerpt": "t = sm.symbols('t') # time\nm, k, c = sm.symbols('m, k, c', positive = True)\nx, F = me.dynamicsymbols('x F')\nN = sm.physics.vector.ReferenceFrame('N') # frame of reference N using cartesian coordinates\nr_m = x* N.x\n\noneHalf = sm.Rational(1,2) # we can use 0.5 \nv_m = r_m.diff(t,N)\nT = oneHalf* m* v_m.dot(v_m)\n\nV = oneHalf* k* r_m.dot(r_m)\n\nL = sm.Eq(sm.Symbol('\\mathcal{L}'), T - V).simplify()\nL"
+      },
+      {
+        "cell": "index:25",
+        "codeExcerpt": "omega, zeta = sm.symbols('omega zeta', real = True)\nx_EL_ing = x_EL_mass.subs([(k/m, omega**2), (c/m, 2* zeta* omega) ]).simplify()\nsm.Eq((x_EL_ing).expand(), 0)"
+      },
+      {
+        "cell": "index:34",
+        "codeExcerpt": "x_0, dx_0 = sm.symbols('x_0 \\dot{x}_0', real=True)\ncrit_condInit = [sm.Eq(x_0, x_crit.args[1].subs(t, 0) ), sm.Eq(dx_0, x_crit.args[1].diff(t).subs(t, 0) ) ]\ncrit_condInit"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:39",
+        "name": "k",
+        "literal": 100
+      },
+      {
+        "cell": "index:39",
+        "name": "m",
+        "literal": 1
+      },
+      {
+        "cell": "index:39",
+        "name": "x_0_magnitude",
+        "literal": 1
+      },
+      {
+        "cell": "index:39",
+        "name": "dx_0_magnitude",
+        "literal": -100
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:16",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "calls": [
+          "sm.dsolve"
+        ]
+      },
+      {
+        "cell": "index:36",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:44",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:50",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:5",
+        "candidates": 2
+      },
+      {
+        "cell": "index:11",
+        "candidates": 1
+      },
+      {
+        "cell": "index:13",
+        "candidates": 1
+      },
+      {
+        "cell": "index:17",
+        "candidates": 7
+      },
+      {
+        "cell": "index:20",
+        "candidates": 1
+      },
+      {
+        "cell": "index:24",
+        "candidates": 5
+      },
+      {
+        "cell": "index:28",
+        "candidates": 1
+      },
+      {
+        "cell": "index:29",
+        "candidates": 8
+      },
+      {
+        "cell": "index:30",
+        "candidates": 2
+      },
+      {
+        "cell": "index:33",
+        "candidates": 7
+      },
+      {
+        "cell": "index:35",
+        "candidates": 1
+      },
+      {
+        "cell": "index:41",
+        "candidates": 2
+      },
+      {
+        "cell": "index:43",
+        "candidates": 1
+      },
+      {
+        "cell": "index:47",
+        "candidates": 1
+      },
+      {
+        "cell": "index:49",
+        "candidates": 3
+      },
+      {
+        "cell": "index:52",
+        "candidates": 1
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:7",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:12",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:14",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:31",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:34",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:36",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:37",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:39",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:40",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:42",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:44",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:46",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:48",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:50",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:51",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:53",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "13OscillationsMDOF/oscillationsMDOF.ipynb",
+    "title": "Discrete system with multiple degrees of freedom",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/13OscillationsMDOF/oscillationsMDOF.ipynb",
+    "sourceExtraction": "content/lessons/source/13OscillationsMDOF__oscillationsMDOF.json",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:6",
+        "codeExcerpt": "t = sm.symbols('t') # time\nm, k, c = sm.symbols('m, k, c', positive = True)\nx, F = me.dynamicsymbols('x F')\nN = sm.physics.vector.ReferenceFrame('N') # frame of reference N using cartesian coordinates\nr_m = x* N.x\n\noneHalf = sm.Rational(1,2) # we can use 0.5 \nv_m = r_m.diff(t,N)\nT = oneHalf* m* v_m.dot(v_m)\nV = oneHalf* k* r_m.dot(r_m)\n\nL = T- V\nsm.Eq( sm.Symbol('\\mathcal{L}') , L.simplify())"
+      },
+      {
+        "cell": "index:19",
+        "codeExcerpt": "t = sm.symbols('t') # time\nm1, m2, k1, k2, c1, c2 = sm.symbols('m_1 m_2 k_1 k_2 c_1 c_2', positive = True)\nx1, x2, F1, F2 = me.dynamicsymbols('x_1 x_2 F_1 F_2')\nN = sm.physics.vector.ReferenceFrame('N') # frame of reference N using cartesian coordinates\nr_m1 = x1* N.x\nr_m2 = x2* N.x\n\nunMedio = sm.Rational(1,2) # we can use 0.5 \nv_m1 = r_m1.diff(t,N)\nv_m2 = r_m2.diff(t,N)\nT = oneHalf* (m1* v_m1.dot(v_m1) + m2* v_m2.dot(v_m2) )\nl_spring2 = r_m2 - r_m1\nV = oneHalf* (k1* r_m1.dot(r_m1) + k2* l_sprin"
+      },
+      {
+        "cell": "index:41",
+        "codeExcerpt": "omega, a_1, a_2 = sm.symbols('omega a_1 a_2')\nparenthesis = K - omega**2* M\nvecA = sm.Eq(sm.Symbol(r'\\vec{A}'), sm.Matrix([[a_1],[a_2]]), evaluate=False)\nsm.Eq(sm.MatMul(parenthesis, vecA.rhs), 0, evaluate=False)"
+      },
+      {
+        "cell": "index:49",
+        "codeExcerpt": "omega_i, a_i1, a_i2 = sm.symbols('omega_i a_{i1} a_{i2}')\nveca_i = sm.Matrix([[a_i1],[a_i2]])\nsm.Eq(sm.MatMul(K - omega_i**2* M, veca_i), 0, evaluate=False)"
+      },
+      {
+        "cell": "index:51",
+        "codeExcerpt": "zeros = sm.Matrix([[0],[0]])\na_11, a_12 = sm.symbols('a_{11} a_{12}')\nvecA1 = sm.Matrix([[a_11],[a_12]])\nsm.Eq(sm.MatMul(parenthesis.subs(omega, omega_1.lhs), vecA1), zeros, evaluate=False)"
+      },
+      {
+        "cell": "index:63",
+        "codeExcerpt": "a_21, a_22 = sm.symbols('a_{21} a_{22}')\nvecA2 = sm.Matrix([[a_21],[a_22]])\nsystem_2 = parenthesis.subs(omega, omega_2.rhs)* vecA2\nsystem_2_list = [fila.expand() for fila in system_2]\na_22_sol2 = sm.solveset(system_2_list[1], a_22)\na_22_sol2"
+      },
+      {
+        "cell": "index:69",
+        "codeExcerpt": "phi_1, phi_2 = sm.symbols(r'phi_1 phi_2')\nvecX_sol_lhs = sm.Eq(vecq, A_1.lhs * sm.cos(omega_1.lhs* t + phi_1 ) + A_2.lhs * sm.cos(omega_2.lhs* t + phi_2), evaluate=False)\nvecX_sol_lhs"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:31",
+        "name": "row_invert",
+        "literal": 1
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:15",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:24",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:43",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:63",
+        "calls": [
+          "sm.solveset"
+        ]
+      },
+      {
+        "cell": "index:75",
+        "calls": [
+          "sm.solve"
+        ]
+      },
+      {
+        "cell": "index:80",
+        "calls": [
+          "sm.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:4",
+        "candidates": 2
+      },
+      {
+        "cell": "index:10",
+        "candidates": 1
+      },
+      {
+        "cell": "index:12",
+        "candidates": 1
+      },
+      {
+        "cell": "index:18",
+        "candidates": 2
+      },
+      {
+        "cell": "index:20",
+        "candidates": 1
+      },
+      {
+        "cell": "index:25",
+        "candidates": 3
+      },
+      {
+        "cell": "index:26",
+        "candidates": 3
+      },
+      {
+        "cell": "index:28",
+        "candidates": 3
+      },
+      {
+        "cell": "index:30",
+        "candidates": 3
+      },
+      {
+        "cell": "index:35",
+        "candidates": 13
+      },
+      {
+        "cell": "index:36",
+        "candidates": 15
+      },
+      {
+        "cell": "index:37",
+        "candidates": 2
+      },
+      {
+        "cell": "index:39",
+        "candidates": 1
+      },
+      {
+        "cell": "index:42",
+        "candidates": 1
+      },
+      {
+        "cell": "index:44",
+        "candidates": 2
+      },
+      {
+        "cell": "index:47",
+        "candidates": 1
+      },
+      {
+        "cell": "index:48",
+        "candidates": 3
+      },
+      {
+        "cell": "index:50",
+        "candidates": 1
+      },
+      {
+        "cell": "index:53",
+        "candidates": 2
+      },
+      {
+        "cell": "index:60",
+        "candidates": 1
+      },
+      {
+        "cell": "index:62",
+        "candidates": 1
+      },
+      {
+        "cell": "index:66",
+        "candidates": 1
+      },
+      {
+        "cell": "index:68",
+        "candidates": 7
+      },
+      {
+        "cell": "index:70",
+        "candidates": 1
+      },
+      {
+        "cell": "index:73",
+        "candidates": 1
+      },
+      {
+        "cell": "index:76",
+        "candidates": 2
+      },
+      {
+        "cell": "index:78",
+        "candidates": 3
+      },
+      {
+        "cell": "index:84",
+        "candidates": 1
+      },
+      {
+        "cell": "index:89",
+        "candidates": 2
+      },
+      {
+        "cell": "index:93",
+        "candidates": 1
+      },
+      {
+        "cell": "index:95",
+        "candidates": 2
+      },
+      {
+        "cell": "index:99",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:6",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:9",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:11",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:15",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:24",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:31",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:32",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:33",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:38",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:41",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:43",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:45",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:46",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:49",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:51",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:52",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:54",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:55",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:58",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:59",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:61",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:63",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:64",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:67",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:69",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:71",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:74",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:75",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:79",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:80",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:81",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:85",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:86",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:88",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:90",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:92",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:94",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:96",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:97",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:98",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "13OscillationsMDOF/vieux/transverseOscillations.ipynb",
+    "title": "transverseOscillations",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/13OscillationsMDOF/vieux/transverseOscillations.ipynb",
+    "sourceExtraction": "content/lessons/source/13OscillationsMDOF__vieux__transverseOscillations.json",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": false,
+      "matplotlib": true,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [
+      {
+        "cell": "index:5",
+        "codeExcerpt": "import sympy as sp\nfrom sympy.physics.mechanics import init_vprinting\ninit_vprinting()\n\nm,k1,k2,l1,l2,a=sp.symbols(\"m K_1 K_2 ell_1 ell_2 a\",positive=True)\nla,lb,lc=sp.symbols(\"L_a, L_b, L_c\", positive=True)\nalpha,beta,gamma=sp.symbols(\"alpha beta gamma\",positive=True)\nt=sp.symbols(\"t\")\npsi1=sp.Function(\"psi_1\")(t)\npsi2=sp.Function(\"psi_2\")(t)"
+      },
+      {
+        "cell": "index:19",
+        "codeExcerpt": "omega1,omega2=sp.symbols(\"omega_1,omega_2\",positive=True)\nfrequencies=[sp.Eq(omega1**2,-ma.eigenvects()[0][0]),\n             sp.Eq(omega2**2,-ma.eigenvects()[1][0])]\n\nfrequencies"
+      },
+      {
+        "cell": "index:20",
+        "codeExcerpt": "a1,b1=sp.symbols(\"A_1 B_1\")\n\nmode1=sp.Eq(sp.Matrix([psi1,psi2]),ma.eigenvects()[0][2][0]*(a1*sp.cos(omega1*t)+b1*sp.sin(omega1*t)))\nmode1"
+      },
+      {
+        "cell": "index:21",
+        "codeExcerpt": "a2,b2=sp.symbols(\"A_2 B_2\")\nmode2=sp.Eq(sp.Matrix([psi1,psi2]),ma.eigenvects()[1][2][0]*(a2*sp.cos(omega2*t)+b2*sp.sin(omega2*t)))\nmode2"
+      },
+      {
+        "cell": "index:23",
+        "codeExcerpt": "phi1,phi2=sp.symbols(\"phi_1 phi_2\")\nvel=sp.Eq(sp.Matrix([phi1,phi2]),sp.diff(sol.rhs,t))\nvel"
+      },
+      {
+        "cell": "index:24",
+        "codeExcerpt": "p01,p02,v01,v02=sp.symbols(\"psi_1(0) psi_2(0) phi_1(0) phi_2(0)\")\nsubstitution=[(psi1,p01),(psi2,p02),(phi1,v01),(phi2,v02),(t,0)]\nsist_init=sol.subs(substitution),vel.subs(substitution)\nsist_init"
+      }
+    ],
+    "numericLiteralCandidates": [
+      {
+        "cell": "index:13",
+        "name": "pythagorean_lin",
+        "literal": []
+      }
+    ],
+    "solverCallCandidates": [
+      {
+        "cell": "index:7",
+        "calls": [
+          "sp.solve"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "calls": [
+          "sp.solve"
+        ]
+      }
+    ],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:2",
+        "candidates": 2
+      }
+    ],
+    "imageOutputCells": [
+      {
+        "cell": "index:6",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:7",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:8",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:9",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:10",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:11",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:13",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:14",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:15",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:16",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:17",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:18",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:19",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:20",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:21",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:22",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:23",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:24",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:25",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:26",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:27",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:28",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:29",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:31",
+        "mimeTypes": [
+          "image/png"
+        ]
+      },
+      {
+        "cell": "index:36",
+        "mimeTypes": [
+          "image/png"
+        ]
+      }
+    ],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "15FinalProject/projectRigid.ipynb",
+    "title": "Motion of an industrial robotic arm",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/15FinalProject/projectRigid.ipynb",
+    "sourceExtraction": "content/lessons/source/15FinalProject__projectRigid.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "index:3",
+        "candidates": 2
+      },
+      {
+        "cell": "index:11",
+        "candidates": 3
+      },
+      {
+        "cell": "index:13",
+        "candidates": 1
+      },
+      {
+        "cell": "index:14",
+        "candidates": 16
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "reference/academical/methodology.ipynb",
+    "title": "Course methodology & tools",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/reference/academical/methodology.ipynb",
+    "sourceExtraction": "content/lessons/source/reference__academical__methodology.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [
+      {
+        "cell": "471150b0",
+        "candidates": 1
+      },
+      {
+        "cell": "fa6bd085-ec22-4bb3-8f25-cfeeb019d341",
+        "candidates": 4
+      },
+      {
+        "cell": "c917d974-64e6-4d5a-877c-2bcc58f26e1a",
+        "candidates": 3
+      }
+    ],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  },
+  {
+    "notebook": "reference/academical/subjectMatter.ipynb",
+    "title": "Course subject",
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/reference/academical/subjectMatter.ipynb",
+    "sourceExtraction": "content/lessons/source/reference__academical__subjectMatter.json",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "candidateStatus": "raw AST, literal and TeX candidates; NOT reviewed parameter meanings or governing equations",
+    "symbolDeclarationCandidates": [],
+    "numericLiteralCandidates": [],
+    "solverCallCandidates": [],
+    "markdownMathCandidateCells": [],
+    "imageOutputCells": [],
+    "status": "unreviewed: no inferred equations"
+  }
+]

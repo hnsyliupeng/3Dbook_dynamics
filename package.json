@@ -1,0 +1,45 @@
+{
+  "name": "computational-mechanics-3d-book",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "node scripts/run-e2e.mjs",
+    "audit": "python scripts/scan_repository.py",
+    "validate:python": "python scripts/validate_physics.py",
+    "execute:source": "python scripts/execute_source_notebooks.py",
+    "build:lessons": "python scripts/build_lessons.py",
+    "extract:equations": "python scripts/extract_equations.py",
+    "build:machine": "node scripts/build-machine-standalone.mjs"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.6",
+    "@fontsource/ibm-plex-mono": "^5.2.6",
+    "@fontsource/instrument-serif": "^5.2.6",
+    "@fontsource/noto-sans-sc": "^5.3.1",
+    "katex": "^0.19.1",
+    "lucide-react": "^0.468.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "0.170.0"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^143.0.4",
+    "@types/katex": "^0.16.7",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/three": "^0.170.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "esbuild": "^0.28.2",
+    "playwright-core": "^1.57.0",
+    "typescript": "~5.7.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}

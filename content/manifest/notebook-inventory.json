@@ -1,0 +1,802 @@
+[
+  {
+    "chapterId": "01Vector",
+    "notebookPath": "01Vector/vectorKinematics.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Vector Kinematics",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/01Vector/vectorKinematics.ipynb",
+    "cellCount": 64,
+    "extraction": "content/lessons/source/01Vector__vectorKinematics.json"
+  },
+  {
+    "chapterId": "02Energy",
+    "notebookPath": "02Energy/gravitationalPotentialEnergy.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Pendulum with free point of support",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/02Energy/gravitationalPotentialEnergy.ipynb",
+    "cellCount": 56,
+    "extraction": "content/lessons/source/02Energy__gravitationalPotentialEnergy.json"
+  },
+  {
+    "chapterId": "02Energy",
+    "notebookPath": "02Energy/kineticEnergy.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Translational kinetic energy",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/02Energy/kineticEnergy.ipynb",
+    "cellCount": 73,
+    "extraction": "content/lessons/source/02Energy__kineticEnergy.json"
+  },
+  {
+    "chapterId": "03EulerLagrange",
+    "notebookPath": "03EulerLagrange/elasticPotentialEnergy.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Elastic potential energy",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/elasticPotentialEnergy.ipynb",
+    "cellCount": 15,
+    "extraction": "content/lessons/source/03EulerLagrange__elasticPotentialEnergy.json"
+  },
+  {
+    "chapterId": "03EulerLagrange",
+    "notebookPath": "03EulerLagrange/eulerLagrangePendulums.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Euler-Lagrange | Pendulums",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/eulerLagrangePendulums.ipynb",
+    "cellCount": 62,
+    "extraction": "content/lessons/source/03EulerLagrange__eulerLagrangePendulums.json"
+  },
+  {
+    "chapterId": "03EulerLagrange",
+    "notebookPath": "03EulerLagrange/euler_lagrange_base.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Template for Euler-Lagrange exercises",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics",
+      "warnings"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/euler_lagrange_base.ipynb",
+    "cellCount": 23,
+    "extraction": "content/lessons/source/03EulerLagrange__euler_lagrange_base.json"
+  },
+  {
+    "chapterId": "03EulerLagrange",
+    "notebookPath": "03EulerLagrange/rotatingParts.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Position in a system with rotating parts",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/03EulerLagrange/rotatingParts.ipynb",
+    "cellCount": 29,
+    "extraction": "content/lessons/source/03EulerLagrange__rotatingParts.json"
+  },
+  {
+    "chapterId": "04Constraints",
+    "notebookPath": "04Constraints/atwoodConstraint.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Atwood's machine | Constraints",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/atwoodConstraint.ipynb",
+    "cellCount": 63,
+    "extraction": "content/lessons/source/04Constraints__atwoodConstraint.json"
+  },
+  {
+    "chapterId": "04Constraints",
+    "notebookPath": "04Constraints/constraintsFunction.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Constraint function",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/constraintsFunction.ipynb",
+    "cellCount": 13,
+    "extraction": "content/lessons/source/04Constraints__constraintsFunction.json"
+  },
+  {
+    "chapterId": "04Constraints",
+    "notebookPath": "04Constraints/solvingLinearSystems.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "System of linear equations | Solving using SymPy",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/04Constraints/solvingLinearSystems.ipynb",
+    "cellCount": 30,
+    "extraction": "content/lessons/source/04Constraints__solvingLinearSystems.json"
+  },
+  {
+    "chapterId": "05Simulation",
+    "notebookPath": "05Simulation/atwoodSimulationSolved.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Numerical simulation | Atwood machine",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": true,
+      "matplotlib": true,
+      "solveIvp": true
+    },
+    "imports": [
+      "matplotlib.pyplot",
+      "numpy",
+      "scipy.integrate",
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/05Simulation/atwoodSimulationSolved.ipynb",
+    "cellCount": 73,
+    "extraction": "content/lessons/source/05Simulation__atwoodSimulationSolved.json"
+  },
+  {
+    "chapterId": "05Simulation",
+    "notebookPath": "05Simulation/pendulumFreeSimulSolved.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Numerical simulation | Pendulum with free point of support",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": true,
+      "matplotlib": true,
+      "solveIvp": true
+    },
+    "imports": [
+      "matplotlib.pyplot",
+      "numpy",
+      "scipy.integrate",
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/05Simulation/pendulumFreeSimulSolved.ipynb",
+    "cellCount": 62,
+    "extraction": "content/lessons/source/05Simulation__pendulumFreeSimulSolved.json"
+  },
+  {
+    "chapterId": "06ConstraintForces",
+    "notebookPath": "06ConstraintForces/constraintIdealPendulum.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Constraint forces | Ideal pendulum",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/constraintIdealPendulum.ipynb",
+    "cellCount": 51,
+    "extraction": "content/lessons/source/06ConstraintForces__constraintIdealPendulum.json"
+  },
+  {
+    "chapterId": "06ConstraintForces",
+    "notebookPath": "06ConstraintForces/forcesConstraint.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Constraint forces",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/forcesConstraint.ipynb",
+    "cellCount": 11,
+    "extraction": "content/lessons/source/06ConstraintForces__forcesConstraint.json"
+  },
+  {
+    "chapterId": "06ConstraintForces",
+    "notebookPath": "06ConstraintForces/nonHolonomicSystems.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Constraint forces | Nonholonomic systems",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/nonHolonomicSystems.ipynb",
+    "cellCount": 3,
+    "extraction": "content/lessons/source/06ConstraintForces__nonHolonomicSystems.json"
+  },
+  {
+    "chapterId": "06ConstraintForces",
+    "notebookPath": "06ConstraintForces/rollingForcesConstraint.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Constraint forces | Rolling",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/06ConstraintForces/rollingForcesConstraint.ipynb",
+    "cellCount": 16,
+    "extraction": "content/lessons/source/06ConstraintForces__rollingForcesConstraint.json"
+  },
+  {
+    "chapterId": "07Nonconservative",
+    "notebookPath": "07Nonconservative/linkedCylinders_Help.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Nonconservative forces | Help for the problem with the fixed cylinders",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/07Nonconservative/linkedCylinders_Help.ipynb",
+    "cellCount": 9,
+    "extraction": "content/lessons/source/07Nonconservative__linkedCylinders_Help.json"
+  },
+  {
+    "chapterId": "07Nonconservative",
+    "notebookPath": "07Nonconservative/nonconservative.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Euler-Lagrange | Nonconservative forces",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/07Nonconservative/nonconservative.ipynb",
+    "cellCount": 63,
+    "extraction": "content/lessons/source/07Nonconservative__nonconservative.json"
+  },
+  {
+    "chapterId": "08InertiaTensor",
+    "notebookPath": "08InertiaTensor/angular_momentum_torque.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Notes about angular momentum and torque",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/angular_momentum_torque.ipynb",
+    "cellCount": 8,
+    "extraction": "content/lessons/source/08InertiaTensor__angular_momentum_torque.json"
+  },
+  {
+    "chapterId": "08InertiaTensor",
+    "notebookPath": "08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Inertia tensor | Carbon monoxide",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics.mechanics",
+      "sympy.physics.vector"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+    "cellCount": 37,
+    "extraction": "content/lessons/source/08InertiaTensor__carbonMonoxide_inertiaTensor.json"
+  },
+  {
+    "chapterId": "08InertiaTensor",
+    "notebookPath": "08InertiaTensor/inertiaTensor.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Rigid body dynamics | Inertia tensor",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/08InertiaTensor/inertiaTensor.ipynb",
+    "cellCount": 18,
+    "extraction": "content/lessons/source/08InertiaTensor__inertiaTensor.json"
+  },
+  {
+    "chapterId": "09DistributedMass",
+    "notebookPath": "09DistributedMass/distributedMass.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Rigid Body Dynamics | Continuous Mass Distributions",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/09DistributedMass/distributedMass.ipynb",
+    "cellCount": 35,
+    "extraction": "content/lessons/source/09DistributedMass__distributedMass.json"
+  },
+  {
+    "chapterId": "09DistributedMass",
+    "notebookPath": "09DistributedMass/inertiaTensorcube.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Inertia tensor | Cube",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics",
+      "warnings"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/09DistributedMass/inertiaTensorcube.ipynb",
+    "cellCount": 23,
+    "extraction": "content/lessons/source/09DistributedMass__inertiaTensorcube.json"
+  },
+  {
+    "chapterId": "10EulerRotation",
+    "notebookPath": "10EulerRotation/flywheel.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "To be fixed.",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/flywheel.ipynb",
+    "cellCount": 2,
+    "extraction": "content/lessons/source/10EulerRotation__flywheel.json"
+  },
+  {
+    "chapterId": "10EulerRotation",
+    "notebookPath": "10EulerRotation/misalignedGear.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Misaligned gear",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/misalignedGear.ipynb",
+    "cellCount": 72,
+    "extraction": "content/lessons/source/10EulerRotation__misalignedGear.json"
+  },
+  {
+    "chapterId": "10EulerRotation",
+    "notebookPath": "10EulerRotation/rotationEuler.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Euler equations for rotations",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/10EulerRotation/rotationEuler.ipynb",
+    "cellCount": 10,
+    "extraction": "content/lessons/source/10EulerRotation__rotationEuler.json"
+  },
+  {
+    "chapterId": "12OscillationsSDOF",
+    "notebookPath": "12OscillationsSDOF/arbitrarySDOF.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Arbitrary forcing of a single degree of freedom system",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/arbitrarySDOF.ipynb",
+    "cellCount": 40,
+    "extraction": "content/lessons/source/12OscillationsSDOF__arbitrarySDOF.json"
+  },
+  {
+    "chapterId": "12OscillationsSDOF",
+    "notebookPath": "12OscillationsSDOF/harmonicSDOF.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Harmonic forcing of a single degree of freedom system",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics",
+      "warnings"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/harmonicSDOF.ipynb",
+    "cellCount": 31,
+    "extraction": "content/lessons/source/12OscillationsSDOF__harmonicSDOF.json"
+  },
+  {
+    "chapterId": "12OscillationsSDOF",
+    "notebookPath": "12OscillationsSDOF/oscillationsSDOF.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Damped oscillations of a single degree of freedom system",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics",
+      "warnings"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/12OscillationsSDOF/oscillationsSDOF.ipynb",
+    "cellCount": 56,
+    "extraction": "content/lessons/source/12OscillationsSDOF__oscillationsSDOF.json"
+  },
+  {
+    "chapterId": "13OscillationsMDOF",
+    "notebookPath": "13OscillationsMDOF/oscillationsMDOF.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Discrete system with multiple degrees of freedom",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [
+      "sympy",
+      "sympy.physics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/13OscillationsMDOF/oscillationsMDOF.ipynb",
+    "cellCount": 100,
+    "extraction": "content/lessons/source/13OscillationsMDOF__oscillationsMDOF.json"
+  },
+  {
+    "chapterId": "13OscillationsMDOF",
+    "notebookPath": "13OscillationsMDOF/vieux/transverseOscillations.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "transverseOscillations",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": true,
+      "numpy": true,
+      "scipy": false,
+      "matplotlib": true,
+      "solveIvp": false
+    },
+    "imports": [
+      "IPython.display",
+      "matplotlib",
+      "matplotlib.pyplot",
+      "numpy",
+      "sympy",
+      "sympy.physics.mechanics"
+    ],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/13OscillationsMDOF/vieux/transverseOscillations.ipynb",
+    "cellCount": 40,
+    "extraction": "content/lessons/source/13OscillationsMDOF__vieux__transverseOscillations.json"
+  },
+  {
+    "chapterId": "15FinalProject",
+    "notebookPath": "15FinalProject/projectRigid.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Motion of an industrial robotic arm",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/15FinalProject/projectRigid.ipynb",
+    "cellCount": 15,
+    "extraction": "content/lessons/source/15FinalProject__projectRigid.json"
+  },
+  {
+    "chapterId": "reference",
+    "notebookPath": "reference/academical/methodology.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Course methodology & tools",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/reference/academical/methodology.ipynb",
+    "cellCount": 26,
+    "extraction": "content/lessons/source/reference__academical__methodology.json"
+  },
+  {
+    "chapterId": "reference",
+    "notebookPath": "reference/academical/subjectMatter.ipynb",
+    "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+    "originalLanguage": "unclassified; English-dominant course",
+    "codeLanguage": "python",
+    "title": "Course subject",
+    "nbformat": 4,
+    "validation": "valid",
+    "features": {
+      "sympy": false,
+      "numpy": false,
+      "scipy": false,
+      "matplotlib": false,
+      "solveIvp": false
+    },
+    "imports": [],
+    "citation": "https://github.com/unlam/ComputationalAnalyticalMechanics/blob/387f2df07e70ba3bdff2c66460c04f6ae6ba2055/reference/academical/subjectMatter.ipynb",
+    "cellCount": 31,
+    "extraction": "content/lessons/source/reference__academical__subjectMatter.json"
+  }
+]

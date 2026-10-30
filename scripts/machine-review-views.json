@@ -1,0 +1,6 @@
+[
+  {"js":"lab.toggle('cut', true); lab.state.cut=1; lab.toggle('labels', true); lab.state.labels=1", "wait":0.7, "out":"screenshots/12-machine-skill-cutaway.png"},
+  {"js":"lab.toggle('cut', false); lab.state.cut=0; lab.toggle('explode', true); lab.state.explode=1; lab.toggle('labels', false); lab.state.labels=0", "wait":0.7, "out":"screenshots/13-machine-skill-exploded.png"},
+  {"js":"lab.toggle('explode', false); lab.state.explode=0; lab.setView({az:45, el:8, dist:1.0, target:[0,1.75,0]})", "wait":0.7, "out":"screenshots/14-machine-skill-axle-detail.png"},
+  {"js":"lab.setView({az:42, el:10, dist:1.0, target:[-.22,.89,.128]})", "wait":0.7, "out":"screenshots/15-machine-skill-mass-detail.png"}
+]

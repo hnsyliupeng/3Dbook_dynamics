@@ -1,0 +1,1514 @@
+{
+  "repository": "https://github.com/unlam/ComputationalAnalyticalMechanics",
+  "commit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+  "license": "CC BY-NC-SA 4.0",
+  "chapters": [
+    "01Vector",
+    "02Energy",
+    "03EulerLagrange",
+    "04Constraints",
+    "05Simulation",
+    "06ConstraintForces",
+    "07Nonconservative",
+    "08InertiaTensor",
+    "09DistributedMass",
+    "10EulerRotation",
+    "12OscillationsSDOF",
+    "13OscillationsMDOF",
+    "15FinalProject"
+  ],
+  "fileCount": 213,
+  "notebookCount": 34,
+  "files": [
+    {
+      "path": ".README.md.swp",
+      "bytes": 45056,
+      "sha256": "707a06aa415075210e76cd956cd08a31e8dfd7de59eeef1f13a684b82a8a556b",
+      "kind": ".swp"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 639,
+      "sha256": "bd9a1154517b0e4afed8aa881d2f1a0a48f6fbad4989c63e0602d450bc975eb2",
+      "kind": "other"
+    },
+    {
+      "path": "01Vector/exercisesVector.pdf",
+      "bytes": 117152,
+      "sha256": "28de7cc40967168c6b96297a3bd397d947567a4de8e318e6663c151be0a92548",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 1765,
+        "textSha256": "cac43d64d68c1cc3905d7a07dcaf44ea29dd2dd72995826d2ba36b6f87c6e9c5",
+        "textPreview": "Computational Analytical Mechanics\nVectorial kinematics\nIf you are able to solve these problems on your own, then you can assume that you have the minimum knowledge\nabout these topics.\nThe problems marked with (*) have additional di\u001eculties. Don't hesitate about seeking help from teachers and\nyour classmates if you are not able to complete them.\nFo"
+      }
+    },
+    {
+      "path": "01Vector/exercisesVector.tex",
+      "bytes": 5310,
+      "sha256": "075cd8bbf816ecf4c9388c8b44e21c1b74688a35d2774b43202411e534679eba",
+      "kind": ".tex",
+      "textChars": 5309,
+      "mathCandidates": 30
+    },
+    {
+      "path": "01Vector/figures/analyticalmechanicsLink.png",
+      "bytes": 63262,
+      "sha256": "455287bf9ab7a37a1d33d0e62d70f0512bb90f3490f0fe26f1bff8e675c0ee19",
+      "kind": ".png"
+    },
+    {
+      "path": "01Vector/figures/analyticalmechanicsLink.svg",
+      "bytes": 185327,
+      "sha256": "3f10925cdf18bf9d3a3de71d4434d67fc2137a0582021533065fb6562fd2eee9",
+      "kind": ".svg"
+    },
+    {
+      "path": "01Vector/figures/analyticalmechanicsLink.tex",
+      "bytes": 2738,
+      "sha256": "0190ca4e6d105d1dd9b79689c1c13304edee4991d5f8ea7f11f1e1dd66617a07",
+      "kind": ".tex",
+      "textChars": 2738,
+      "mathCandidates": 1
+    },
+    {
+      "path": "01Vector/figures/good_code.png",
+      "bytes": 39097,
+      "sha256": "804f95a961ba57b311d6895ee1f09606c53f6ff2b0a3ab1c5a04d0c981660899",
+      "kind": ".png"
+    },
+    {
+      "path": "01Vector/figures/timeFlowchart.png",
+      "bytes": 118843,
+      "sha256": "c89f762feef6812f2696ea0d9e87661add1ec8ae1686055f75ea54e9edc823c8",
+      "kind": ".png"
+    },
+    {
+      "path": "01Vector/figures/timeFlowchart.svg",
+      "bytes": 388784,
+      "sha256": "9d6e00686cc1d3a34b61b01a137ecf54b6e0e194624776f4248d8b8560c8fbba",
+      "kind": ".svg"
+    },
+    {
+      "path": "01Vector/vectorKinematics.ipynb",
+      "bytes": 230656,
+      "sha256": "3cbcc90e9a288e0d446ab0a06b7343f2ad8bb1c3a1037f2aded6bef73861c857",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "02Energy/exercisesEnergy.pdf",
+      "bytes": 875077,
+      "sha256": "cd213abbebf2ed833249ab6e4ac91f6d9e80e925bf6368779d7db629cc50c54f",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 3,
+        "extractedTextChars": 3812,
+        "textSha256": "a158640d26878532c660567b6ccced7a6c27a7941d8f23840ff3172b49948e71",
+        "textPreview": "Computational Analytical Mechanics\nGeneralized coordinates | Constraints | Kinetic and potential energies\nExercises marked with (*) have extra di\u001eculty, don't hesitate to ask for help.\n1. Pendulum with free point of support [Landau 5 ex. 2]\nParticle of mass m2 is hanging from a rigid bar of length ℓ and negligible mass.\nOn the other end there is a"
+      }
+    },
+    {
+      "path": "02Energy/exercisesEnergy.tex",
+      "bytes": 6002,
+      "sha256": "c34fcfb1806a831888cd1ae73a90aab985b1b5390540aa67d6aefd5c9f77c383",
+      "kind": ".tex",
+      "textChars": 6002,
+      "mathCandidates": 45
+    },
+    {
+      "path": "02Energy/figures/landauS52_fig1.png",
+      "bytes": 14258,
+      "sha256": "437e99d6e43a52473ecb8301d428ef9871fa1c8b25590c50d800734d3f6d169d",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/landauS52_fig2.png",
+      "bytes": 9059,
+      "sha256": "d7a15a0f2307ae7235b590520e4f14ce85d1cbff2343c54321473e35a7017222",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/landauS52_fig4.png",
+      "bytes": 13540,
+      "sha256": "1024aca58184dba65d8942a64aa4c9622e3e13069d75affffe83df1297b053ed",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/marion_fig7_3.png",
+      "bytes": 23714,
+      "sha256": "cc303a6bd06c5dd5e693d55cd725f73e40a34d9faab576cc89706091ba94d10d",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/rotantesAcopladas1.png",
+      "bytes": 254959,
+      "sha256": "d5547fd6f7a5a4029ccb2e1fc9540bd00d42dfbfef00e2d955e2ff6c2bec92c7",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/rotantesAcopladas2.png",
+      "bytes": 216838,
+      "sha256": "b6b25e9832cdd4ca7a28bbb7c4e37b5f952e9cbd00a712282846ae9d58b54591",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/rotantesAcopladas3.png",
+      "bytes": 308837,
+      "sha256": "f25af0317981ad36d0b8278f5196154726cee2f65bc4436327aec9405b1b4374",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/figures/rotantesAcopladas4.png",
+      "bytes": 336259,
+      "sha256": "2748bc2a146e46489402144d502d6c53e6f208b294cecb31135cfd5cfbb73364",
+      "kind": ".png"
+    },
+    {
+      "path": "02Energy/gravitationalPotentialEnergy.ipynb",
+      "bytes": 113128,
+      "sha256": "0f3983ce7b50a2203c6c42fc68aeb820580395d3180c2f3c1e9f9867b9ec213d",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "02Energy/kineticEnergy.ipynb",
+      "bytes": 117688,
+      "sha256": "8503bb3bd8abf599f2941604361c7231a71c728ab9923bd76d9c97974eef8ff5",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "02Energy/notesLanczos.pdf",
+      "bytes": 352718,
+      "sha256": "848ff752386c92eab9e6d75d4b0224e6fa6a47702beb3e031dae612f350a43e9",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 15,
+        "extractedTextChars": 40799,
+        "textSha256": "40b9c428cd045952869fe0124bd6df4aa2b3cfa182bce51edf5c6a3a12c60cd7",
+        "textPreview": "A few notes extracted fromThe Variational Principles of\nMechanicsby Cornelius Lanczos\nV ´ ıctor A. Bettachini\nAbstract\nThe bookThe variational principles of mechanics i uses a historical approach for addressing\nthe principles of analytical mechanics. This helped me understand the foundations of the tools\ntaught in each course on classical mechanics"
+      }
+    },
+    {
+      "path": "03EulerLagrange/elasticPotentialEnergy.ipynb",
+      "bytes": 28221,
+      "sha256": "b34140216e96f4d60d5573633bef285bfb4902acaf3feeaff92627d3b95e3de9",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "03EulerLagrange/eulerLagrangePendulums.ipynb",
+      "bytes": 160016,
+      "sha256": "fbce43e4aa18a309273a319430fdce557afc3eff56c3f6bf21e316cc268e6ec7",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "03EulerLagrange/euler_lagrange_base.ipynb",
+      "bytes": 63680,
+      "sha256": "e98aa306d932f34e824964318d73e8e42ad2eb57c0251c1dd40b93d85d3e6ca0",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "03EulerLagrange/exercisesEulerLagrange.pdf",
+      "bytes": 189688,
+      "sha256": "8f8db8dce63f1fa4213e094ddad97d6f3cfedc5c63980ab990a9f8e7b779dae3",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 2639,
+        "textSha256": "0f7d6ee45b1c661135776f551d03a5e60c40e97fd0de63dd46c52387c85fcc71",
+        "textPreview": "Computational Analytical Mechanics\nEuler-Lagrange equation\nExercises marked with (*) have extra difficulty, don’t hesitate to ask for help.\n1.Ideal physical pendulum[Marion ex. 7.2]\nPendulum with free point of support and double pendulum[Landau §5 exs. 1 y 2]\nApply the Euler-Lagrange equation to obtain the equations that describe the dynamics of th"
+      }
+    },
+    {
+      "path": "03EulerLagrange/exercisesEulerLagrange.tex",
+      "bytes": 4567,
+      "sha256": "3c1e06dd3dea66131ec3582c8828174b89325a427d54ca0360a40130791e8e18",
+      "kind": ".tex",
+      "textChars": 4567,
+      "mathCandidates": 23
+    },
+    {
+      "path": "03EulerLagrange/figures/cmchap6_fig6_18.png",
+      "bytes": 4405,
+      "sha256": "ec0b5f1e290a48cc76cc04ca83134def4a4a65d5ee8b27568de1c95b773ed3ca",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/figures/cmchap6_fig6_27.png",
+      "bytes": 5222,
+      "sha256": "98488cce3d2a8a09a4e4e4a80d965d00eb8b1a2fe545c085647df091d6244035",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/figures/cmchap6_fig6_8.png",
+      "bytes": 3698,
+      "sha256": "3e39cafa98f4fecb820911cacaf229382d48b46708f25c3a4d871d3901260f4c",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/figures/coil.tikz",
+      "bytes": 787,
+      "sha256": "b5a295add4b315a68913565aad54600b541c63df90510652f8ab24cee79fa863",
+      "kind": ".tikz"
+    },
+    {
+      "path": "03EulerLagrange/figures/landauS52_fig1.png",
+      "bytes": 14258,
+      "sha256": "437e99d6e43a52473ecb8301d428ef9871fa1c8b25590c50d800734d3f6d169d",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/figures/landauS52_fig2.png",
+      "bytes": 9059,
+      "sha256": "d7a15a0f2307ae7235b590520e4f14ce85d1cbff2343c54321473e35a7017222",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/figures/mobilePendulum.tikz",
+      "bytes": 1126,
+      "sha256": "7af6228428c1a93b890f27fdc8ff673bc00729199e0d40c6f7c3aeaafa189d2c",
+      "kind": ".tikz"
+    },
+    {
+      "path": "03EulerLagrange/figures/mobileSlide.tikz",
+      "bytes": 746,
+      "sha256": "e3f86eaa8008717ac5900e0f7a35fcb2d7548796bcafa1420276aa02e1194c88",
+      "kind": ".tikz"
+    },
+    {
+      "path": "03EulerLagrange/figures/pendulum.tikz",
+      "bytes": 746,
+      "sha256": "bafc504ce489e9937a5fea866e6c387d7f3c1ac0ef7f4c2ba856ce9cf237dede",
+      "kind": ".tikz"
+    },
+    {
+      "path": "03EulerLagrange/figures/pendulumHorizontal.png",
+      "bytes": 10385,
+      "sha256": "2761b8cd59ceafca6ecf39061957dbe46900dfe497e36b5b1c5a8aa42995db02",
+      "kind": ".png"
+    },
+    {
+      "path": "03EulerLagrange/rotatingParts.ipynb",
+      "bytes": 48121,
+      "sha256": "11e9c59d5951b0f19583d6cc3df431da55b19cde7f57e160213fa10551eb5011",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "04Constraints/atwoodConstraint.ipynb",
+      "bytes": 165104,
+      "sha256": "2d3cbca38595c254e201ea425e729b7b51a9e825419589e4033587c2062ee27f",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "04Constraints/constraintsFunction.ipynb",
+      "bytes": 40017,
+      "sha256": "d67f1e523fc74a14b98f2208e952e4f8f7982496bd5363391b49d904380d8d71",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "04Constraints/exercisesConstraints.pdf",
+      "bytes": 147715,
+      "sha256": "505365d37cb683564a51641243e81af587a1b0a23a2555d2549992cccac4ce97",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 3969,
+        "textSha256": "d21c8732f8ad35266669bd43fafcdb37f75257a83ad541b1900650e2dd184ca1",
+        "textPreview": "Computational Analytical Mechanics\nConstraints\nExercises marked with (*) have extra di\u001eculty, don't hesitate to ask for help.\n1. Atwood machine\nThe \u001cgure shows a string of length ℓ and a pulley of radius Rp and mass mp. Find\nthe acceleration of the masses attached at each end of the string.\nmp\nR\nm1\nm2\ny1\ny2\nθ\n(a) The string is inextensible, so it e"
+      }
+    },
+    {
+      "path": "04Constraints/exercisesConstraints.tex",
+      "bytes": 6775,
+      "sha256": "df3632d879d98e10123cb9a5398c49d77d43043c0667c968931f49f3b0ea7758",
+      "kind": ".tex",
+      "textChars": 6775,
+      "mathCandidates": 46
+    },
+    {
+      "path": "04Constraints/figures/atwood.pdf",
+      "bytes": 28393,
+      "sha256": "ccdff6e93eeff1331287fe6ac4f4d8a9b9ab2b632c82731f49c3ab7e4c9a6a9e",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 18,
+        "textSha256": "d6e6878f8082186f5dfddb67362722ee17b26ec348391bf739f7e1ab29759c15",
+        "textPreview": "mp\nR\nm1\nm2\ny1\ny2\nθ"
+      }
+    },
+    {
+      "path": "04Constraints/figures/atwood.tex",
+      "bytes": 234,
+      "sha256": "56d4d9be7ab57b22a6cdaf8b828703389f3a3f178fae0f72643ca54d6595781a",
+      "kind": ".tex",
+      "textChars": 234,
+      "mathCandidates": 0
+    },
+    {
+      "path": "04Constraints/figures/atwood.tikz",
+      "bytes": 2244,
+      "sha256": "6f03ef71f4b6cb153a03cdbfd5942831d8c3e8fb2f2bc92e664f70799bb85156",
+      "kind": ".tikz"
+    },
+    {
+      "path": "04Constraints/figures/atwoodMachine.png",
+      "bytes": 35962,
+      "sha256": "a63debd5bffec17a3daebf7b9717a984eda5f2adabd658fcbbbcf699c4c5de67",
+      "kind": ".png"
+    },
+    {
+      "path": "04Constraints/figures/cmchap6_fig6_14.png",
+      "bytes": 5060,
+      "sha256": "b83c473b65a4cf75a31eb43eabc60042a37bbb863eb08c11673c8204967bb080",
+      "kind": ".png"
+    },
+    {
+      "path": "04Constraints/figures/compoundAtwood.pdf",
+      "bytes": 29594,
+      "sha256": "2b305592d47aa3c4797cc9a6f0b9987ccd7e0006bc7e3482880c4db529527913",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 42,
+        "textSha256": "45a815232cc1ac4846a6f1c22e04eeb1cdb2b13c3d45dff8a1c45712e5e657bb",
+        "textPreview": "mp\nθ1\nR\nm1\nmp\nR\nθ2\nℓ1\nℓ2\nm3\nm2\ny1\nyp\ny2\ny3"
+      }
+    },
+    {
+      "path": "04Constraints/figures/compoundAtwood.tex",
+      "bytes": 242,
+      "sha256": "50689de84275b7eea78687a651d2938648bf5ada921824d8fef8c75755d97ea0",
+      "kind": ".tex",
+      "textChars": 242,
+      "mathCandidates": 0
+    },
+    {
+      "path": "04Constraints/figures/compoundAtwood.tikz",
+      "bytes": 4030,
+      "sha256": "17f8e2ae1cf6faeb72e5698976a39795f841c7abddad3bb2084ec0a6e5e5a7f7",
+      "kind": ".tikz"
+    },
+    {
+      "path": "04Constraints/figures/fcen1-004.jpg",
+      "bytes": 3692,
+      "sha256": "a72ec60668be1d4e6151b566d574714538fab27d6a1b285f61be27e8f2be55a9",
+      "kind": ".jpg"
+    },
+    {
+      "path": "04Constraints/figures/marion_fig2_11a.png",
+      "bytes": 13975,
+      "sha256": "2dc5540634510702818e19997b27177c4ebf6c0be15f59feb455c9dc27a7a766",
+      "kind": ".png"
+    },
+    {
+      "path": "04Constraints/figures/marion_fig7_6.png",
+      "bytes": 78798,
+      "sha256": "edc4e7f7da4333b5aadd9eb15707141f2bd72e2412cf4d41a885a9e616a8209b",
+      "kind": ".png"
+    },
+    {
+      "path": "04Constraints/figures/ringPulley.pdf",
+      "bytes": 28867,
+      "sha256": "1892cb3643645a963914459f9232f02e8f44ecd67c4b5e43c01dd5e7c650752c",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 15,
+        "textSha256": "1400e778d5721d25a9383b9339b4d991e0b5a46b26c91e1da5d6e4ba011b2e1b",
+        "textPreview": "θ\nm1\nℓ\nhp\ny2\nm2"
+      }
+    },
+    {
+      "path": "04Constraints/figures/ringPulley.tex",
+      "bytes": 238,
+      "sha256": "4ee6dc2e07d86a33c6e510ff3def7161a3a6817509da2084c6cde3e58a5f1279",
+      "kind": ".tex",
+      "textChars": 238,
+      "mathCandidates": 0
+    },
+    {
+      "path": "04Constraints/figures/ringPulley.tikz",
+      "bytes": 3482,
+      "sha256": "c3c0bbc39d5e8aca6dadc3cc8d9eadb6657d6a73e52011fe4a7ebd56db76e396",
+      "kind": ".tikz"
+    },
+    {
+      "path": "04Constraints/figures/slidingWeights.pdf",
+      "bytes": 19608,
+      "sha256": "47ce83c3165318278c25c0df601692fbdde8eabbbd8bedf7b494a46e489f28f4",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 13,
+        "textSha256": "0bea127ae5f9d11041301dff6ea464496fae2e9e3e257623e6c42fdc2c90fea3",
+        "textPreview": "x\ny\nℓ\nm1\nm2\nθ"
+      }
+    },
+    {
+      "path": "04Constraints/figures/slidingWeights.tex",
+      "bytes": 242,
+      "sha256": "6310707141b7fe334d8fa1bcc558cc27efb6addf2ec57c2f6abf378ad0f5d541",
+      "kind": ".tex",
+      "textChars": 242,
+      "mathCandidates": 0
+    },
+    {
+      "path": "04Constraints/figures/slidingWeights.tikz",
+      "bytes": 1642,
+      "sha256": "8ece03c154fffb219dc90eed7d7d56fda8beb15b5f804cf00b01334d97a04da3",
+      "kind": ".tikz"
+    },
+    {
+      "path": "04Constraints/solvingLinearSystems.ipynb",
+      "bytes": 87108,
+      "sha256": "1012dcdb3d179a85fcb23329c27cc2012a97d8c96ad0c1211b216e58403bd05e",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "05Simulation/atwoodSimulationSolved.ipynb",
+      "bytes": 418585,
+      "sha256": "ca2940076666efe9614514a9f0af14f2c0932f2f0388f162107b95991b04f954",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "05Simulation/exercisesSimulation.pdf",
+      "bytes": 200714,
+      "sha256": "b5c53227c25bb66500bd6132ec17ca313dccabfd69023dcc3f10f08068de210d",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 1806,
+        "textSha256": "d8f527b3e61ca8279b8cc3ea0f714c600e88aca522d9d6446f97f0ef018e273c",
+        "textPreview": "Computational Analytical Mechanics\nSimulation | Numerical solutions for the Euler-Lagrange equation\nIn the following exercises, you will solve numerically the Euler-Lagrange equation for each generalized coordinate.\nPlotting these solutions, using the given initial conditions and within the given time ranges, you will be simulating\nthe dynamics of "
+      }
+    },
+    {
+      "path": "05Simulation/exercisesSimulation.tex",
+      "bytes": 3930,
+      "sha256": "3b6707faadd4ed8e690f6b86a2ad8d13682541a889c215b090a517c426bd4b14",
+      "kind": ".tex",
+      "textChars": 3930,
+      "mathCandidates": 52
+    },
+    {
+      "path": "05Simulation/figures/atwood.tikz",
+      "bytes": 2244,
+      "sha256": "91ee20d523a90698bf6fd43e8405ee3caa548bdb42f0916883fc4f3a8ec20c94",
+      "kind": ".tikz"
+    },
+    {
+      "path": "05Simulation/figures/atwoodSimple.png",
+      "bytes": 72795,
+      "sha256": "a6daa4238ba1b2ad5dfba34f944fb323fc810cd1e00a8f8e794ff0498cc5e8d2",
+      "kind": ".png"
+    },
+    {
+      "path": "05Simulation/figures/compoundAtwood.tikz",
+      "bytes": 4030,
+      "sha256": "17f8e2ae1cf6faeb72e5698976a39795f841c7abddad3bb2084ec0a6e5e5a7f7",
+      "kind": ".tikz"
+    },
+    {
+      "path": "05Simulation/figures/fcen1-004.jpg",
+      "bytes": 3692,
+      "sha256": "a72ec60668be1d4e6151b566d574714538fab27d6a1b285f61be27e8f2be55a9",
+      "kind": ".jpg"
+    },
+    {
+      "path": "05Simulation/figures/landauS52_fig1.png",
+      "bytes": 14258,
+      "sha256": "437e99d6e43a52473ecb8301d428ef9871fa1c8b25590c50d800734d3f6d169d",
+      "kind": ".png"
+    },
+    {
+      "path": "05Simulation/figures/landauS52_fig2.png",
+      "bytes": 9059,
+      "sha256": "d7a15a0f2307ae7235b590520e4f14ce85d1cbff2343c54321473e35a7017222",
+      "kind": ".png"
+    },
+    {
+      "path": "05Simulation/figures/marion_fig2_1a.png",
+      "bytes": 7738,
+      "sha256": "38c528032610d649d40af89d9e555ef5f1748dfb879226740307d91c5b768e75",
+      "kind": ".png"
+    },
+    {
+      "path": "05Simulation/figures/marion_fig7_6.png",
+      "bytes": 78798,
+      "sha256": "edc4e7f7da4333b5aadd9eb15707141f2bd72e2412cf4d41a885a9e616a8209b",
+      "kind": ".png"
+    },
+    {
+      "path": "05Simulation/figures/pendulum.tikz",
+      "bytes": 746,
+      "sha256": "bafc504ce489e9937a5fea866e6c387d7f3c1ac0ef7f4c2ba856ce9cf237dede",
+      "kind": ".tikz"
+    },
+    {
+      "path": "05Simulation/figures/slidingWeights.tikz",
+      "bytes": 1637,
+      "sha256": "e32aa60851417cc7551f664fd571dcff8457a37c60508d1bcee04c4239b60103",
+      "kind": ".tikz"
+    },
+    {
+      "path": "05Simulation/pendulumFreeSimulSolved.ipynb",
+      "bytes": 295826,
+      "sha256": "ad140c62937d0af5e098df08d43c92ba1998df7090f0ed2c791ec8d02da182d1",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "06ConstraintForces/constraintIdealPendulum.ipynb",
+      "bytes": 110351,
+      "sha256": "19a1397a379931f939484ca8c8abf936aaf95118d7a297101e93cec3208f26e7",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "06ConstraintForces/exercisesConstraintForces.pdf",
+      "bytes": 217612,
+      "sha256": "21d9c3d14d80bf361dd556f219158b4ba291b8270cf22db746971ec710e11e2f",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 2973,
+        "textSha256": "1972af0b849304f1cb6619a7dcee6ef9d64e3bdf4dcfe3686d2eed0dab071506",
+        "textPreview": "Computational Analytical Mechanics\nConstraint forces | Lagrange multipliers\n1.Ideal pendulum\nCalculate the tension in the string using the method of Lagrange multipliers. The\nconstraint is that the bead is always at⃗ r=ℓˆρ, ergo, the function expressing this is\nf(ρ) =ρ−ℓ= 0.\n⃗ g\nℓ\nm\nφ\n2.Cylinder rolling over an inclined plane[Marion\nex. 7.5]\n(a) Wr"
+      }
+    },
+    {
+      "path": "06ConstraintForces/exercisesConstraintForces.tex",
+      "bytes": 5732,
+      "sha256": "9d03017e3e43ad17098f5764e4b8d3a2e8e8f483fa41816207e962fc6b4f636d",
+      "kind": ".tex",
+      "textChars": 5732,
+      "mathCandidates": 29
+    },
+    {
+      "path": "06ConstraintForces/figures/cmchap6_fig6_5.png",
+      "bytes": 4849,
+      "sha256": "6071d75e7abfe392527e1d970085e2fc7072422187f2f3f58728074da14be1f3",
+      "kind": ".png"
+    },
+    {
+      "path": "06ConstraintForces/figures/compoundAtwood.tikz",
+      "bytes": 4030,
+      "sha256": "17f8e2ae1cf6faeb72e5698976a39795f841c7abddad3bb2084ec0a6e5e5a7f7",
+      "kind": ".tikz"
+    },
+    {
+      "path": "06ConstraintForces/figures/linkedWeights.tikz",
+      "bytes": 1958,
+      "sha256": "9178076c519aa50e2beb45bc8c2d04428593dc5653067f964adb3a5af089f680",
+      "kind": ".tikz"
+    },
+    {
+      "path": "06ConstraintForces/figures/marion_fig6_7.png",
+      "bytes": 24102,
+      "sha256": "177307838bd1512333f09293131482a01c0f2711a95d1ac117d020abdfb9bde7",
+      "kind": ".png"
+    },
+    {
+      "path": "06ConstraintForces/figures/marion_fig7_6.png",
+      "bytes": 34416,
+      "sha256": "8f0f89edaf363cab8013fbf7f521bfdaf8939d7be198becf47deb69066484da3",
+      "kind": ".png"
+    },
+    {
+      "path": "06ConstraintForces/figures/pendulum.tikz",
+      "bytes": 746,
+      "sha256": "bafc504ce489e9937a5fea866e6c387d7f3c1ac0ef7f4c2ba856ce9cf237dede",
+      "kind": ".tikz"
+    },
+    {
+      "path": "06ConstraintForces/figures/pendulumHorizontal.png",
+      "bytes": 10385,
+      "sha256": "2761b8cd59ceafca6ecf39061957dbe46900dfe497e36b5b1c5a8aa42995db02",
+      "kind": ".png"
+    },
+    {
+      "path": "06ConstraintForces/figures/semiSphere.tikz",
+      "bytes": 1284,
+      "sha256": "db6ff51844f0b48a0f893a16e92b13da16cb951ee6b761449fbdfd8a030e8382",
+      "kind": ".tikz"
+    },
+    {
+      "path": "06ConstraintForces/forcesConstraint.ipynb",
+      "bytes": 42934,
+      "sha256": "94e9a38fc6a88adafae22f7911c8260464b8b343be4cddf83001905a4b18f958",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "06ConstraintForces/nonHolonomicSystems.ipynb",
+      "bytes": 19480,
+      "sha256": "58aa17981c2cf81f9c0066b73fbc1cfe2fed7e0de7e2bb2ec1ef21e5afc8709e",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "06ConstraintForces/rollingForcesConstraint.ipynb",
+      "bytes": 57965,
+      "sha256": "267c57876d282129d2ffcf5921c702663351ec1fbeb4c16147a1593043dd2786",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "07Nonconservative/exercisesNonconservative.pdf",
+      "bytes": 486987,
+      "sha256": "e3c17e50efb196a0d2f72ff02aae1806789a885229de9b6f09cebaa168c0cddf",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 2643,
+        "textSha256": "58ff346f8e9bbd192fe2fe30c0bf863d653302bd63ac07ec50fa472bac7c41e0",
+        "textPreview": "Computational Analytical Mechanics\nExternal forces in the Lagrangian formulation\n1.Rod hanging from a cart\nFind the dynamics equations for the system. The moment of\ninertia for a rod of massmand lengthlabout an axis passing\nthrough one end of the rod ism12 l2.\n(a) Write the Lagrangian.\n(b) Write the nonconservative forces as generalized forces:\n•th"
+      }
+    },
+    {
+      "path": "07Nonconservative/exercisesNonconservative.tex",
+      "bytes": 4245,
+      "sha256": "72e55f3d2baca58a07d261cbafb21564dab71ce50f724becb6eb5e36e9ce8da4",
+      "kind": ".tex",
+      "textChars": 4245,
+      "mathCandidates": 37
+    },
+    {
+      "path": "07Nonconservative/figures/erste.png",
+      "bytes": 25904,
+      "sha256": "8de321150bd069efbd1729402fa33d28a1881f4d3598c087561ce4da12004d5d",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/erste.svg",
+      "bytes": 231040,
+      "sha256": "ab6e3db80108b8152c2e5e1a059b20807182390f9e2da812604eeb8c7e952a86",
+      "kind": ".svg"
+    },
+    {
+      "path": "07Nonconservative/figures/hingeA.png",
+      "bytes": 65170,
+      "sha256": "ca20f04e754a3ac9bc4bb02e156f0f33eea9fcf64d31606f3786e289c7bb2d69",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/hingeB.png",
+      "bytes": 28302,
+      "sha256": "9cd4fd9e6335ea0bd0e5170e32d5e852ef3ba8f44543a8d41270c2d836371254",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/linked.png",
+      "bytes": 131167,
+      "sha256": "bd20c32744cc74d45020d90cb14bc498bf4a56a469cd0b709dbc7f4c80d13bd3",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/penduloElastico.png",
+      "bytes": 91311,
+      "sha256": "9064c606ffac0fe5ce4822c477a1a25d615560e9d0f4e3b3b1b05cd74d8efc9d",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/penduloElastico.svg",
+      "bytes": 159273,
+      "sha256": "748954aaf6aa6c8c6083260d1a5bec1c539ce54bae7a6b74d9d989aa15c3fcb8",
+      "kind": ".svg"
+    },
+    {
+      "path": "07Nonconservative/figures/pset7ex2.png",
+      "bytes": 83086,
+      "sha256": "6162dd36d380b41bf85d8c86468d80cb30447d159066dc944b07d59cd098db06",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/pset7ex4.png",
+      "bytes": 139266,
+      "sha256": "e995440c4f6b87fbcbfc7de2ec2779da07d2d9f2939adf7b208114f44ae2411e",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/pset7ex6.png",
+      "bytes": 97248,
+      "sha256": "9649ea5890eba6d513e14e85adef6b49da46bfdb9b31b311d4c72d5f32d5ac3e",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/zweite.png",
+      "bytes": 1609924,
+      "sha256": "2d4f7887db63eff6cf554847e8febaeddbad8b5b1393ae452cecfbefeabccf69",
+      "kind": ".png"
+    },
+    {
+      "path": "07Nonconservative/figures/zweite.svg",
+      "bytes": 214777,
+      "sha256": "bd8b6e1d8bb9c3b88b8bdfd811db1be0fb02bcd05761c98de25ab43cc7ec05a6",
+      "kind": ".svg"
+    },
+    {
+      "path": "07Nonconservative/linkedCylinders_Help.ipynb",
+      "bytes": 244113,
+      "sha256": "5b0415d8d3535c94a608c33671b48604ccf9a79976e77bb6b1b59b273a956b6b",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "07Nonconservative/nonconservative.ipynb",
+      "bytes": 2418377,
+      "sha256": "66f1bf9abad0b592b1dc3be26cad41f1bcc302d467a644fa76d1d795282ac2f3",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "08InertiaTensor/angular_momentum_torque.ipynb",
+      "bytes": 89134,
+      "sha256": "87d9fd35f62a6eb9e41b48f66e1aa084d8b31ff886ae5b9c2c327856f4236d67",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+      "bytes": 97719,
+      "sha256": "7da92f7dd49d0f6761058dc4ac4c8a2786344d3c7cac76f79b1852d74c4fc32a",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "08InertiaTensor/exercisesInertiaTensor.pdf",
+      "bytes": 278505,
+      "sha256": "51e4ef44556577352b5257c96075716f2084fdbddc1392f7fbfcbab0a40a91fd",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 2359,
+        "textSha256": "3dbb5fab5f8ee5906e8a1fe73d1ed44381a8718295335a8c68b2f3c6fa5902d0",
+        "textPreview": "Computational Analytical Mechanics\nRigid body | Inertia tensors\n1.Carbon monoxide\nCalculating the inertia tensor of a molecule requires knowing the distance between the atoms and their\nmasses.\nThe distance, or bodn length, can be found at the Computational Chemistry Comparison and Benchmark\nDataBase of the National Institute of Standards and Techno"
+      }
+    },
+    {
+      "path": "08InertiaTensor/exercisesInertiaTensor.tex",
+      "bytes": 5148,
+      "sha256": "ba22c7eb7933ff586b375bb20c86a763f046cafb3ac9d90e63b588dae936878c",
+      "kind": ".tex",
+      "textChars": 5148,
+      "mathCandidates": 13
+    },
+    {
+      "path": "08InertiaTensor/figures/Dichloromethane_molecular_structure.pdf",
+      "bytes": 8436,
+      "sha256": "d5dc056d385e515cce09c307cc83fba9e65cf7bfb798766f7b91ead505b966ae",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 0,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "textPreview": ""
+      }
+    },
+    {
+      "path": "08InertiaTensor/figures/Dichloromethane_molecular_structure.svg",
+      "bytes": 991,
+      "sha256": "caf00583709a9866708698902b4cca1c6b5337ec4949462b430a384727c4f8b9",
+      "kind": ".svg"
+    },
+    {
+      "path": "08InertiaTensor/figures/aranaFrisbee.png",
+      "bytes": 10050,
+      "sha256": "fd0e6baa2af30ed375a808414da84df51206c583c116540dce71042c5ab35622",
+      "kind": ".png"
+    },
+    {
+      "path": "08InertiaTensor/figures/lFig5.png",
+      "bytes": 8645,
+      "sha256": "e43699233f2efc513cacd1bc382e9f1315328faee5fade765d27bc879dcb216b",
+      "kind": ".png"
+    },
+    {
+      "path": "08InertiaTensor/figures/moleculaH2O.png",
+      "bytes": 46974,
+      "sha256": "acf1648fe97b1c1b8d885bfbde21ab9eb2fb21cf3075fac89ade87366c9ffabe",
+      "kind": ".png"
+    },
+    {
+      "path": "08InertiaTensor/figures/o-021.png",
+      "bytes": 43772,
+      "sha256": "95507339a2f8b23897fca882a7a36e25e0a22ae8b2d1f86709656324b7224f51",
+      "kind": ".png"
+    },
+    {
+      "path": "08InertiaTensor/inertiaTensor.ipynb",
+      "bytes": 57888,
+      "sha256": "160ecd1047e69debdde481a1101eac95813f70db7a8505dc1c4ab9c57dc2a5d7",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "09DistributedMass/distributedMass.ipynb",
+      "bytes": 88358,
+      "sha256": "05957c19cd20d08778130a181c7f9e49f5bb548cc6ea71667145931e992f37de",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "09DistributedMass/exercisesDistributedMass.pdf",
+      "bytes": 602048,
+      "sha256": "bd35b26b14d4ab295b1b35a6d5423ee42ce18213ab3eb0c11b4c9c9272302328",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 3,
+        "extractedTextChars": 3116,
+        "textSha256": "2a5274843ee599e125d07ee9ba00afe2a16e47580f76f48fde126487cf8e8294",
+        "textPreview": "Computational Analytical Mechanics\nRigid Body | Continuous Mass Distributions\n1.Moment of Inertia T ensor of a Rod\nA rod of massm= 1 kgand negligible cross-section compared to its lengthl= 1 mis given. Align an axis\n(ˆz) with it.\nCalculate its moments of inertia. a) Show what happens with the products of inertia. b)\n2.Convenient Axes for Calculatin"
+      }
+    },
+    {
+      "path": "09DistributedMass/exercisesDistributedMass.tex",
+      "bytes": 5467,
+      "sha256": "a67cb438792a8ff5df25753effaab42a7411d45d07b90f3e769ed3409840ae4f",
+      "kind": ".tex",
+      "textChars": 5467,
+      "mathCandidates": 42
+    },
+    {
+      "path": "09DistributedMass/figures/240px-Moment_of_inertia_rod_end.svg.png",
+      "bytes": 7591,
+      "sha256": "486bbe1c161e28fdef6ce00d57736d9b0440c0359c8acd8d3f9c5b180fa5e835",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/261px-Spherical_shell_moment_of_inertia.png",
+      "bytes": 17876,
+      "sha256": "cdcbe98d233d92460d7b63cb888ffc25b1b1d58b1498fe82af2a306c37a65758",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/Moment_of_inertia_rod_center.svg.png",
+      "bytes": 7359,
+      "sha256": "a648765dc9cd88985dc2bbb258b14e44070b0da5ff33e359459f4e8dafbd18e8",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/Moment_of_inertia_solid_cylinder.svg.png",
+      "bytes": 5979,
+      "sha256": "fb154d8c8dbf4f476c49500183877e65016bba2f796371ab6d0bf57013b20a27",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/lFig41.png",
+      "bytes": 64265,
+      "sha256": "6937249976e36486f1230ffcc372a5c37ca3ac579c9c91da55b4b334c11d9e35",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/lFig42.png",
+      "bytes": 53633,
+      "sha256": "5c92268b2f39ed89bac285cc032fb390c50dd6f661b0f2772cb73162798b2c7e",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/landauFig38.png",
+      "bytes": 23561,
+      "sha256": "1a19c6110c4a3b5e9bb72119c10dbbdbbd189212357c62150213fe16946b9119",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/mFig11-8.png",
+      "bytes": 17634,
+      "sha256": "547ff86973d6c5dd4a563f8d0217f06dc6a549b7ff7c8997897782b3b7b37fd2",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/o-000.png",
+      "bytes": 49768,
+      "sha256": "f8aeb6f0a357bb41094b57e35bad7e42f9982f54df93b093bfaa2d2400d2b5f3",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/o-001.png",
+      "bytes": 45695,
+      "sha256": "5253f939bcf7a56000dfadbc3c470a1acbea7d8b9e0d9bf5c52c66d541ac3c0e",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/o-002.png",
+      "bytes": 51093,
+      "sha256": "48d2624d97551291d5294c541f8ca6764d9ca84b246a7f26fee3ff79c063d117",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/o-003.png",
+      "bytes": 23329,
+      "sha256": "d8e32704364fa90f57396d2ff78e35dc9941bd31397e0b43c3d07110124d71e1",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/figures/o-023.png",
+      "bytes": 126445,
+      "sha256": "03786325d154e35e64f9c735bba70780c3d9a239958d53e44310b0724d78990c",
+      "kind": ".png"
+    },
+    {
+      "path": "09DistributedMass/inertiaTensorcube.ipynb",
+      "bytes": 197081,
+      "sha256": "5aa83db2eb6e4cba611c5d025da08bfddfed8cacf57ab8728e49f6132a59e724",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "10EulerRotation/exercisesEulerRotation.pdf",
+      "bytes": 1022560,
+      "sha256": "057c132537d167a21db7d3faeaba17c2b85a7af581c6a1a1ac3271b57a010d0f",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 2,
+        "extractedTextChars": 4249,
+        "textSha256": "426d9722c54c51311b3eae752901a695ffdc916bdbd42e5e5d5bf28531d2c7e5",
+        "textPreview": "Computational Analytical Mechanics\nRigid Body | Euler's Equations\n1. Inclined Gear A gear with a mass of 10 kgis mounted with an\ninclination of 10◦ on a shaft of negligible mass. Bearings A and\nB support the shaft which rotates at constant angular velocity.\nBearing A is a thrust bearing, so it provides reaction also in the\nlongitudinal direction of"
+      }
+    },
+    {
+      "path": "10EulerRotation/exercisesEulerRotation.tex",
+      "bytes": 6674,
+      "sha256": "5c4292d5a41e1ba06fb5edac2517ad518421d48e90e676ab910afd0336dd7bc1",
+      "kind": ".tex",
+      "textChars": 6674,
+      "mathCandidates": 45
+    },
+    {
+      "path": "10EulerRotation/figures/Ex3_17.png",
+      "bytes": 4204,
+      "sha256": "88910e90207ebd418c38437df198bf5974ce66ef97ae2e9d0b0bb60223096496",
+      "kind": ".png"
+    },
+    {
+      "path": "10EulerRotation/figures/LandauFig47.png",
+      "bytes": 29149,
+      "sha256": "6368dcc9984f1f7744b684b41be3738ddc88ebbf76e960a2ae01ed79fe5db2bb",
+      "kind": ".png"
+    },
+    {
+      "path": "10EulerRotation/figures/cilindroDesbalanceado.pdf",
+      "bytes": 8760,
+      "sha256": "6411f27a0b2b6f46921bcf35a82adf8397cc1862b293d93c2090098c6453d8f8",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 7,
+        "textSha256": "d93677050a9e263e2524a3b9ee73074ffec51ee89ea77fa4b9711bbd1681af32",
+        "textPreview": "P Q\nm\nm"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/cilindroDesbalanceado.svg",
+      "bytes": 32224,
+      "sha256": "3c7452cd3140c3146b6bf2c49e08fa4f91d93a4fbd3bf09b272f9c6c87bcf4ef",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibbEng_21-58.pdf",
+      "bytes": 63876,
+      "sha256": "92aac942400679d08ba7df32826cca4ac7bb2e2ea7b9fbe00d39d0ff61dd0e36",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 0,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "textPreview": ""
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibbEng_21-58.svg",
+      "bytes": 112325,
+      "sha256": "cf3908a60dba02a170234035d58817a5546d628789bb0b34db6e26debfbeee36",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-4.pdf",
+      "bytes": 155718,
+      "sha256": "1d0bca4c171640668d2b6f299cf805aa7f2ab5d1fc3d293645ecc7c1bb51bc1b",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 55,
+        "textSha256": "65ad0f6025530d4fb4fb35691c8fce362730e50cdfeceb43e37d23415bea7a38",
+        "textPreview": "yy\nYY\nz 10°\n10°\nB\nA ω = 30 rad/s\nZZ\nX , x\n0.2 m\n0.25 m\n"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-4.svg",
+      "bytes": 219797,
+      "sha256": "37bf063705636d5862463e8f8497ccb79c2c71e123b6646518b7d751852a2b44",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-45.pdf",
+      "bytes": 57202,
+      "sha256": "834205ca98db558eea33441e92615f1fbbf2b769191a792b72c15e0c76dc2795",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 13,
+        "textSha256": "57b5431de98c1592a15caf5539871081fc62b412fe6ccaaa554717fd78529916",
+        "textPreview": "A\nB\nL\nL\n3\nω\nθ"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-45.svg",
+      "bytes": 402211,
+      "sha256": "06648e76993673c044fdb5aadabbcbe4857e7b420f37ef1a5f6d8425d240df73",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-48.pdf",
+      "bytes": 39617,
+      "sha256": "fc9a9af8a95b62744c65c987c7dfd7173f43cda9d9bd772386498b4ef995ac1a",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 55,
+        "textSha256": "810a3cf64186ba657de32aa5c0074cea8b29f834b1b9b8965de2b506747615ff",
+        "textPreview": "x\n0.6 m\n0.6 m\n0.2 m\nz\ny\nB\nO\nA\n0.2 m\n0.1 m\nω = 30 rad/s\n"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-48.svg",
+      "bytes": 53292,
+      "sha256": "6d81f58f134b85435149150d774d414f3f16f300a3470cf35687fbcd5636c8fd",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-4_res.png",
+      "bytes": 36811,
+      "sha256": "be5e154d9206fed54310234de11d973966b5bdffe890cd227962b4cc3743c86a",
+      "kind": ".png"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-56.pdf",
+      "bytes": 62374,
+      "sha256": "2f40184bcb55565c002cceb69a3c4743919740bab1bd58776e49abac901aa586",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 20,
+        "textSha256": "3d652b43c8145877b51c4b9f8af34c71614541d0d1ba4f232bc74dc4c20950a1",
+        "textPreview": "0.8 m\n0.2 m\n8 rad /s"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-56.svg",
+      "bytes": 280060,
+      "sha256": "5716daaf5b3c43c883aa08931d06698df16dad353c2534c8bce0d89062f55187",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-6.pdf",
+      "bytes": 145325,
+      "sha256": "120c56bf504a400ac296beed459cfc4ed344aafb899d50ca18f43c63b2ce1ecc",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 47,
+        "textSha256": "72ffca7f5520d1d5e63bbdeae7ae421450b5f31aa2d6dd7b638fb54bd1fcb0a1",
+        "textPreview": "ωs = 6 rad/s\nωp = 3 rad/s\n0.5 m\n0.5 m\n0.2 m\nAA\n"
+      }
+    },
+    {
+      "path": "10EulerRotation/figures/hibb_21-6.svg",
+      "bytes": 207966,
+      "sha256": "c6476714bd6cc3d247a5cbfcdd616362ea94c9b5a57e7642297fa0a78163f6ee",
+      "kind": ".svg"
+    },
+    {
+      "path": "10EulerRotation/flywheel.ipynb",
+      "bytes": 16742,
+      "sha256": "dbb941ab6969c666d4d4c01737bd769f2589a60561d4eda40dbdd17c25065926",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "10EulerRotation/misalignedGear.ipynb",
+      "bytes": 418072,
+      "sha256": "4d56d707e84c789303a86b7bd1a24ec2b5358ef50d0507d2d8e49898aac10c32",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "10EulerRotation/rotationEuler.ipynb",
+      "bytes": 62297,
+      "sha256": "cd4691b4f2ca7530e2b918a8bf85c36c970715e0c2d30dc9c491198b8e8db861",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "12OscillationsSDOF/arbitrarySDOF.ipynb",
+      "bytes": 1067785,
+      "sha256": "696ce733f882031dc087cbd6bb43815b3bc72c0794f481c77d3a7a435ffc4a0a",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "12OscillationsSDOF/exercisesSDOF.pdf",
+      "bytes": 376523,
+      "sha256": "2a54232435f7f19b13436ae1a17825a1ad5b2f145a95fef481b663fd2dd31e18",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 2213,
+        "textSha256": "943c34b2a3241a36875e77c97daee38ef091c11f011495209cd0402efce80c14",
+        "textPreview": "Computational Analytical Mechanics\nVibrations | Single degree of freedom\n1.Constrained pendulumThe system shown in the figure consists of a\nmassmand a rigid bar of lengthl, whose mass is neglected. The system is\nconstrained by two springs with stiffness coefficientsk1 andk 2. Obtain the\ndynamics equation assuming small oscillations and the natural "
+      }
+    },
+    {
+      "path": "12OscillationsSDOF/exercisesSDOF.tex",
+      "bytes": 3505,
+      "sha256": "147ffbb7e7ac826c06c4041e065e29b07d8c937f05009b6d067c9d2cfb6fd798",
+      "kind": ".tex",
+      "textChars": 3503,
+      "mathCandidates": 9
+    },
+    {
+      "path": "12OscillationsSDOF/figures/amortiguadores_AudiCoupeTT.jpg",
+      "bytes": 109154,
+      "sha256": "5a1e6b2b5cf6c3f3c8e2ec33e857b42250db723e5aeaa84ac71f87d665320f08",
+      "kind": ".jpg"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/beer_fig_P19_144.png",
+      "bytes": 35375,
+      "sha256": "59443226516219889848e0a07f96cbccee4565820a21ec59abce2dc383a502f2",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/fig_3_22.png",
+      "bytes": 49887,
+      "sha256": "2c883952f728daf192557a21b3c978f8922f3131e30fac1951e5ccbe8b1a60de",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/fig_3_22_rectorte.png",
+      "bytes": 20263,
+      "sha256": "07d668fc6f30940c2e35e9bc8ec108f823da2252fc45db3002691d0ca9f35627",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/fig_3_23.png",
+      "bytes": 9895,
+      "sha256": "d8f7914824aec0ed8d33ca79ccd29ebe7e77da542bf4074837e97ca7b9e2891c",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/nok_wikkelmachine.gif",
+      "bytes": 41797,
+      "sha256": "bc79f62cf32d6a49921c9bcfaa3b46f0e201594343e7837cf12be1791d6e591f",
+      "kind": ".gif"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/nok_wikkelmachine.png",
+      "bytes": 40527,
+      "sha256": "2f4a27bace9f07df6de7f30016dbf80c1a5c16271e5d6b698d162012d122a3a3",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/shabana_fig_1_11.png",
+      "bytes": 32028,
+      "sha256": "8d2af7cea000d9ff4a0bc174c350e24b663b99bf68eaa11261364cf1fef1a4fa",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/shabana_fig_1_11_recorte.png",
+      "bytes": 31851,
+      "sha256": "67bf82e28bbbd66ec0547ce0882f7380b121010934c4410ff0b721b6096aa847",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/shabana_fig_1_11b.png",
+      "bytes": 13940,
+      "sha256": "815c051afbe4350f0629607f80d175716643c91076e3331c4f4a083b2762547e",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/figures/shabana_fig_P1_1.png",
+      "bytes": 27517,
+      "sha256": "6f496a2fd0c0fb8840ee3ba6ffd02926d086cb27598d590be124ebf1b3b195b2",
+      "kind": ".png"
+    },
+    {
+      "path": "12OscillationsSDOF/harmonicSDOF.ipynb",
+      "bytes": 180990,
+      "sha256": "e4e5ea40938affe0837f42d8a171ffc692f5ceb07af8352eb522a9fc0900e3a7",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "12OscillationsSDOF/oscillationsSDOF.ipynb",
+      "bytes": 345019,
+      "sha256": "73a52455cb4e5b8df7780ddcc5443c440ece9581dfd87777ceaf38b1b3f89cc6",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "13OscillationsMDOF/exercisesMDOF.pdf",
+      "bytes": 276919,
+      "sha256": "dd632bf8811eadf6632155e5c5a3b6845f1411af0e501c2498e1e69523f242ce",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 2073,
+        "textSha256": "bfec36d5e1e4d64050fedc0f342bc0b6e5d174774f2730c7535b8f996222a9a1",
+        "textPreview": "Computational Analytical Mechanics\nOscillations in discrete systems | Multiple degrees of freedom\n1.Multiple cartsIn the system shown in the figurel= 0,5 m,k 1 =k 2 =\nk= 2×10 3 N m−1 andm 1 =m 2 =m 3 =m= 1 kg. Assuming small\noscillations around zero of the indicated coordinates:\nobtain the Euler-Lagrange equations, a)\nwrite them in matrix form (mat"
+      }
+    },
+    {
+      "path": "13OscillationsMDOF/exercisesMDOF.tex",
+      "bytes": 3649,
+      "sha256": "b986d56545cf21a8ba9637f2431ac7388896b9279784fdeeadcfc72f3efccd6c",
+      "kind": ".tex",
+      "textChars": 3649,
+      "mathCandidates": 23
+    },
+    {
+      "path": "13OscillationsMDOF/figures/shabana_fig_1_11.png",
+      "bytes": 32028,
+      "sha256": "8d2af7cea000d9ff4a0bc174c350e24b663b99bf68eaa11261364cf1fef1a4fa",
+      "kind": ".png"
+    },
+    {
+      "path": "13OscillationsMDOF/figures/shabana_fig_1_11b.png",
+      "bytes": 13940,
+      "sha256": "815c051afbe4350f0629607f80d175716643c91076e3331c4f4a083b2762547e",
+      "kind": ".png"
+    },
+    {
+      "path": "13OscillationsMDOF/figures/shabana_fig_2_1b.png",
+      "bytes": 58673,
+      "sha256": "5bfaf067a36389b91af3e66cbd70c2f7863d240e694f2885dfbb244d1a662241",
+      "kind": ".png"
+    },
+    {
+      "path": "13OscillationsMDOF/figures/shabana_fig_P3_5.png",
+      "bytes": 38378,
+      "sha256": "3cf439b9a0eb881a1397fcf040c500d69e3f34b760fda3753797c0f043338538",
+      "kind": ".png"
+    },
+    {
+      "path": "13OscillationsMDOF/figures/shabana_fig_P3_6.png",
+      "bytes": 56789,
+      "sha256": "ee2b85b735de2e2bbee0adfd0e79d48e2435dbfd549aa527f9463ed2455af6b2",
+      "kind": ".png"
+    },
+    {
+      "path": "13OscillationsMDOF/oscillationsMDOF.ipynb",
+      "bytes": 1612043,
+      "sha256": "901dcfb687335d724d07538cfe2990386a7c3c97314b7c60d736a7c9abbd43aa",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "13OscillationsMDOF/vieux/transverseOscillations.ipynb",
+      "bytes": 12297270,
+      "sha256": "9aded2c8f7dbf8bab0b6e780d21411cb4df36747cdcfe1bd2b25d4ae9c28ad4f",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "15FinalProject/figures/CylindricalExample.png",
+      "bytes": 36061,
+      "sha256": "ab977394afdfc662d5cf3ca681214b61cfdbd9a1b46c79c3f1fed19ab069de08",
+      "kind": ".png"
+    },
+    {
+      "path": "15FinalProject/figures/l01-03-l-joint-types-and-degrees-of-freedom-01.png",
+      "bytes": 129463,
+      "sha256": "9629e487f7aebef25ff2e0d8ae66b39d3feda3f947f70dbd1e4e7cde2bca16b1",
+      "kind": ".png"
+    },
+    {
+      "path": "15FinalProject/projectRigid.ipynb",
+      "bytes": 617181,
+      "sha256": "74caac9643db4cf98a13a67faa20fc3fcbaa7145cf4bf80bb887a5e8e197f0ad",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 20850,
+      "sha256": "e66c269d4819aaab34b49ef5220c4ddab6756f21bb5180761a4eb8561f2b7bbd",
+      "kind": "other"
+    },
+    {
+      "path": "README.md",
+      "bytes": 30762,
+      "sha256": "c4f2a3042db82ce295f7b5b054da7826313f56ec1c8bec5619310fe93d489f1e",
+      "kind": ".md"
+    },
+    {
+      "path": "docs.tgz",
+      "bytes": 71931,
+      "sha256": "914cb9f9944d9f25aba8f77398e54fcd85c11d59c616b90bf5d961aa1fc3f53e",
+      "kind": ".tgz"
+    },
+    {
+      "path": "old_README.md",
+      "bytes": 18299,
+      "sha256": "f0d9851fc1687c606dde0d8560e73d30f4ec688d1657604d8c6d9194720e2615",
+      "kind": ".md"
+    },
+    {
+      "path": "paper/10.21105.jose.00293.pdf",
+      "bytes": 257582,
+      "sha256": "03057d4f9e46d8a5e4c190f0278f053870906a0d263e90e7ac128dbc04867f06",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 4,
+        "extractedTextChars": 15305,
+        "textSha256": "0ce4b4319f6cc3f1eeecc8b951f53f11726d5e3d1ae7a2277ae67d97dcbcc9ba",
+        "textPreview": "DRAFT\nPython-based Lagrange analytical mechanics course1\nVíctor A. Bettachini 1,2, Mariano A. Real3,4, and Edgardo Palazzo52\n1 Universidad Nacional de La Matanza - UNLaM, Buenos Aires, Argentina. 2 Instituto Geográfico Nacional3\n- IGN, Buenos Aires, Argentina. 3 Instituto Nacional de Tecnología Industrial - INTI, Buenos Aires,4\nArgentina. 4 INCALIN"
+      }
+    },
+    {
+      "path": "paper/paper.bib",
+      "bytes": 20081,
+      "sha256": "5517813ff79be5904f13c7f048550451ddc93dedf3771e60241938728ef8f336",
+      "kind": ".bib"
+    },
+    {
+      "path": "paper/paper.md",
+      "bytes": 20121,
+      "sha256": "0f29d13e365b71b33ca497f1a17f3de672ff32cd1932f4ee9f890cd849bc153e",
+      "kind": ".md"
+    },
+    {
+      "path": "reference/academical/methodology.ipynb",
+      "bytes": 722048,
+      "sha256": "ac0d6e5778b5a1ca56089139d8f09bdb64b828f9f5853a07c377f964b9cbc496",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "reference/academical/subjectMatter.ipynb",
+      "bytes": 1571105,
+      "sha256": "eec8e168ed2eed016752aee92a60044ba423017894d7974f2c61238826895806",
+      "kind": ".ipynb"
+    },
+    {
+      "path": "reference/figuresLaTeX/Cc-by-nc-sa_icon.svg",
+      "bytes": 19431,
+      "sha256": "6060d963b8594dd4443bc2628874664c9054ba1c2db9af3fc23c7017018505aa",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/Icon_pdf-20.svg",
+      "bytes": 967,
+      "sha256": "7a1f6cdd73f0c1dbf92c04f2e4a2dca7e47c30333fbd335aeb286085b08af2b4",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/Icon_pdf_file.svg",
+      "bytes": 603,
+      "sha256": "3a3e3cbb71784491178cd6108a023c474ff77855a1c6090102b948eaaccd4552",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/PDF.svg",
+      "bytes": 856,
+      "sha256": "504f5ef48cd9cb4347e349b7561a1915f57e045ec06852c661ffd3f27fa258d3",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/ambos.pdf",
+      "bytes": 8831,
+      "sha256": "f7a75c7e55d610b16787130ed803603fac4415e297e16fa0d15ea534bc00ba66",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 0,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "textPreview": ""
+      }
+    },
+    {
+      "path": "reference/figuresLaTeX/ambos.svg",
+      "bytes": 29945,
+      "sha256": "69399cfc9f6936b466ccc0a7c1b3470f57ce2750e076db38ef4ae497c81951b2",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/by-nc-sa_80x15.pdf",
+      "bytes": 3589,
+      "sha256": "4ac067c4ecc766dfcec9db894101507c213b4ef6e55164904f00905d3bbac38b",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 1,
+        "extractedTextChars": 0,
+        "textSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "textPreview": ""
+      }
+    },
+    {
+      "path": "reference/figuresLaTeX/by-nc-sa_80x15.svg",
+      "bytes": 9887,
+      "sha256": "61eb904a26ed83067a8fd9f7b5f30abe30441892d0b103486b993927253d559f",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/colab-badge.svg",
+      "bytes": 2369,
+      "sha256": "a590b05e22690c59d120ad562fa6bd74f9e2e8e5f5a8c88381e1bebc99ad0f22",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/figuresLaTeX/figureSources.md",
+      "bytes": 74,
+      "sha256": "5f7fb9db525b38412e4334f993f4d306ac5a4ad3e82493e70669d1a6cbf62ff0",
+      "kind": ".md"
+    },
+    {
+      "path": "reference/figuresLaTeX/ingenieria_logo.png",
+      "bytes": 16180,
+      "sha256": "9d2ba7774a652530b0acab61d5351809cc3639b2f4fda62281fa38435735a933",
+      "kind": ".png"
+    },
+    {
+      "path": "reference/figuresLaTeX/ingenieria_logo_schwarz.png",
+      "bytes": 19124,
+      "sha256": "7481a99b635511458dcf69c49953ffd640dbf2598cfbda18720f314cd3cb34cf",
+      "kind": ".png"
+    },
+    {
+      "path": "reference/figuresLaTeX/introUNLaM.tex",
+      "bytes": 1926,
+      "sha256": "37b0058bf13ec70f137e2dcd64ae85acb473f0bf8c1401273b26050d61c65496",
+      "kind": ".tex",
+      "textChars": 1924,
+      "mathCandidates": 2
+    },
+    {
+      "path": "reference/figuresLaTeX/pdf2png.sh",
+      "bytes": 135,
+      "sha256": "608c02124fac70a26f22229b5e4b61b7bf997e1ceaefde29272b392b095c3fc2",
+      "kind": ".sh"
+    },
+    {
+      "path": "reference/figuresLaTeX/youtube.svg",
+      "bytes": 1667,
+      "sha256": "2ed7fc99ea3c3d69153fac3c5dff32520aa2ae45a1a42b160771235db6870f93",
+      "kind": ".svg"
+    },
+    {
+      "path": "reference/notes/notesLanczos.loc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "kind": ".loc"
+    },
+    {
+      "path": "reference/notes/notesLanczos.pdf",
+      "bytes": 343914,
+      "sha256": "34803bddc755fd7efe5c4ba8f2bf58121f510b0e99b8547a01542814dd0bf877",
+      "kind": ".pdf",
+      "pdf": {
+        "pages": 15,
+        "extractedTextChars": 41554,
+        "textSha256": "546644ddecb66ccefbe916b970ecbf4c2a32962b75a1831fefbd93dfcb12117c",
+        "textPreview": "Essentials from Lanczos’The Variational Principles of\nMechanics\nV ´ ıctor A. Bettachini\nAbstract\nThe book The variational principles of mechanics i uses a historical approach for addressing\nthe principles of analytical mechanics. This helped me understand the foundations of the tools\ntaught in each course on classical mechanics. In this document, I"
+      }
+    },
+    {
+      "path": "reference/notes/notesLanczos.soc",
+      "bytes": 17,
+      "sha256": "24b8fe280b378e576e7c6c49d78680e72919abc4474acea3eb961866bbc339f5",
+      "kind": ".soc"
+    },
+    {
+      "path": "reference/notes/notesLanczos.tex",
+      "bytes": 53429,
+      "sha256": "9276e0780e4eae8fbd304f43999427a0a016b72f0ca6eca726942cff3b054d67",
+      "kind": ".tex",
+      "textChars": 53421,
+      "mathCandidates": 216
+    },
+    {
+      "path": "todo.txt",
+      "bytes": 858,
+      "sha256": "26523a2d3f0d012a98ca62703d07ab3bf396f631496d29546d0deb63728f6a85",
+      "kind": ".txt"
+    }
+  ]
+}

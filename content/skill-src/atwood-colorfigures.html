@@ -1,0 +1,135 @@
+<!doctype html>
+<!--
+Adapted educational content: Víctor A. Bettachini / Universidad Nacional de La Matanza.
+Source: https://github.com/unlam/ComputationalAnalyticalMechanics at 387f2df07e70ba3bdff2c66460c04f6ae6ba2055.
+Adapted to an ideal Atwood model; CC BY-NC-SA 4.0: https://creativecommons.org/licenses/by-nc-sa/4.0/.
+
+MIT License
+
+Copyright (c) 2026 April Zhu (Colorfigures: colour, hand-drawn style, 3D props, template, examples)
+Copyright (c) 2026 April Zhu (iso-glow, on which Colorfigures is based)
+Copyright (c) 2026 Tolga Cohce (iso-figure, on which iso-glow is based)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+-->
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Atwood machine · Colorfigures</title></head><body>
+<script src="core.js"></script>
+<script>
+/* Colorfigures workflow: one unit is 1 cm. R=22 cm, nominal straight hanging
+ * lengths 75 cm, mass blocks 22 cm high, frame ~207 cm high. The parent supplies
+ * q in metres; neither this figure nor its view has a simulation clock.
+ * Palette, projection, solids, tags and hand-ink are the Colorfigures core API. */
+const atwoodState = { pal:'mint', q:0, velocity:0, acceleration:3.27, m1:1, m2:2, g:9.81, tension:13.08,
+  forces:true, constraint:true, selected:'' };
+const tealMass = matOf('#629c92'), coralMass = matOf('#ce7a61');
+const frameMat = matOf('#aeb5a9'), brassMat = matOf('#d2ae63'), ropeMat = matOf('#eee0bb');
+const atwoodUI = mountFigure({
+  fig:'04', title:'Atwood machine', hint:'A single coordinate moves both masses.',
+  size:[44, 115, 213], palette:'mint', state:atwoodState,
+  scene: function(st) {
+    const depth=23, left=79.5, right=35.5, centre=57.5, cy=175, radius=22;
+    const lTop=100 + 100*st.q, rTop=100 - 100*st.q;
+    let s = board(1, 2, 43, 113, 5, 3, BOARD);
+    // Support and pulley: back to front in the fixed isometric painter's order.
+    s += box(8, 5, 5, 17, 11, 206, frameMat);
+    s += box(8, 104, 5, 17, 110, 206, frameMat);
+    s += box(8, 5, 201, 17, 110, 208, frameMat);
+    s += rod([12,centre,201], [12,centre,cy], 2.4, METAL);
+    s += cylX(12, 27, centre, cy, radius, brassMat, toneI, 1.3, 36);
+    s += cylX(27, 29, centre, cy, radius-3, matOf('#efe1b6'), toneI, .8, 36);
+    // This angle is no-slip: q/R. It is derived from the supplied q, never a timer.
+    const turn = st.q/.22; // +y points screen-left: positive angle lifts the left tangent
+    for (let i=0; i<5; i++) {
+      const a = turn+i*2*Math.PI/5;
+      s += rod([30,centre+Math.cos(a)*5,cy+Math.sin(a)*5], [30,centre+Math.cos(a)*17,cy+Math.sin(a)*17], 1.3, brassMat);
+    }
+    s += cylX(29, 33, centre, cy, 4.2, METAL);
+    // Two vertical spans and the upper semicircle: total length is constant.
+    s += rod([32,left,lTop], [32,left,cy], 1.0, ropeMat, toneI, 0.8);
+    s += rod([32,right,rTop], [32,right,cy], 1.0, ropeMat, toneI, 0.8);
+    for (let i=0; i<20; i++) {
+      const a=Math.PI*i/20, b=Math.PI*(i+1)/20;
+      s += rod([32,centre+radius*Math.cos(a),cy+radius*Math.sin(a)], [32,centre+radius*Math.cos(b),cy+radius*Math.sin(b)], 1.0, ropeMat, toneI, .45);
+    }
+    function mass(y, top, material, name) {
+      let block = box(25,y-9,top-22,39,y+9,top,material,toneI,1.1);
+      block += cylX(39,40,y,top-10.5,2.8, METAL);
+      return act(name, block);
+    }
+    s += mass(left,lTop,tealMass,'m1') + mass(right,rTop,coralMass,'m2');
+    if(st.forces || st.selected==='qdot' || st.selected==='a'){
+      function arrow(from, to, color) {
+        const p=P(...from), e=P(...to), dx=e[0]-p[0], dy=e[1]-p[1], len=Math.hypot(dx,dy)||1, ux=dx/len, uy=dy/len, z=4*INK_K;
+        return `<path d="M${p[0]} ${p[1]} L${e[0]} ${e[1]}" stroke="${color}" stroke-width="${2*INK_K}" fill="none"/><path d="M${e[0]} ${e[1]} l${-ux*z-uy*z*.55} ${-uy*z+ux*z*.55} l${uy*z*1.1} ${-ux*z*1.1} Z" fill="${color}"/>`;
+      }
+      // Equal scale for each force: 0.5 cm / N.
+      for(const [y,top,m] of [[left,lTop,st.m1],[right,rTop,st.m2]]){
+        if(st.forces){
+          s += arrow([42,y,top-11],[42,y,top-11-m*st.g*.5], '#b75d49');
+          s += arrow([42,y,top-6],[42,y,top-6+st.tension*.5], '#457c76');
+        }
+        const sign = y===left ? 1 : -1;
+        if((st.forces || st.selected==='qdot') && Math.abs(st.velocity)>.015)
+          s += arrow([42,y+12,top-11],[42,y+12,top-11+sign*st.velocity*15], '#577daa');
+        if(st.selected==='a' && Math.abs(st.acceleration)>.015)
+          s += arrow([42,y-12,top-11],[42,y-12,top-11+sign*st.acceleration*5], '#c79a4b');
+      }
+    }
+    if(st.constraint) s += tag([32,centre,cy+radius], -38, -25, 'ROPE', st.selected==='rope' || st.selected==='q');
+    s += tag([39,left,lTop-10], -38, 6, 'M1', st.selected==='m1');
+    s += tag([39,right,rTop-10], 36, 6, 'M2', st.selected==='m2');
+    return s;
+  },
+  readout: st => `q = ${st.q.toFixed(3)} m; this is a pose, not a separate simulation.`,
+  buttons: [
+    {label:'Reset pose', onClick: st => { st.q=0; }},
+    {label:'Move to +0.2 m', onClick: st => { st.q=.2; }}
+  ],
+  acts: {
+    m1: () => sendToParent('SELECT_PART', {part:'m1'}),
+    m2: () => sendToParent('SELECT_PART', {part:'m2'})
+  },
+  params: (st, query) => { if (query.has('q')) st.q = Math.max(-.5,Math.min(.5,Number(query.get('q'))||0)); }
+});
+const channel = 'mechanics-book', version = 1;
+function sendToParent(type, payload={}) {
+  if (window.parent !== window) window.parent.postMessage({channel,version,type,...payload}, location.origin);
+}
+window.addEventListener('message', e => {
+  if(e.origin !== location.origin || e.source !== window.parent || !e.data || e.data.channel !== channel || e.data.version !== version) return;
+  if(e.data.type === 'SET_STATE') {
+    const x=e.data.snapshot, p=e.data.parameters;
+    if(!x || !p || ![x.q,x.velocity,x.acceleration,x.tension,p.m1,p.m2,p.g].every(Number.isFinite) || Math.abs(x.q)>.500001) return;
+    Object.assign(atwoodState, {q:x.q, velocity:x.velocity, acceleration:x.acceleration, tension:x.tension, m1:p.m1, m2:p.m2, g:p.g,
+      forces:!!e.data.showForces, constraint:!!e.data.showConstraint, selected:e.data.selected||''});
+    atwoodUI.render();
+    sendToParent('STATE_UPDATED', {time:x.t, q:x.q});
+  }
+});
+if (new URLSearchParams(location.search).has('embed')) {
+  const embedStyle=document.createElement('style');
+  embedStyle.textContent=`html,body{margin:0!important;overflow:hidden!important;background:transparent!important;height:100%!important}
+    body>header, body>.controls,body>#readout,body>.made-with,body>.idea,.actions{display:none!important}
+    body .stage{margin:0!important;width:100%!important;height:100%!important;min-height:0!important;max-width:none!important}
+    body #fig{width:100%!important;height:100%!important;max-height:none!important}`;
+  document.head.appendChild(embedStyle);
+}
+sendToParent('VIEW_READY');
+</script></body></html>

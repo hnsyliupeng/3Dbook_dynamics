@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-30T16:36:09.814Z",
+  "environment": "Playwright + @sparticuz/chromium software WebGL",
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "name": "Default model and visible WebGL assembly",
+      "status": "passed"
+    },
+    {
+      "name": "Twelve-step derivation and bound variables are interactive",
+      "status": "passed"
+    },
+    {
+      "name": "Play, pause and scrub keep physics, formula and timeline aligned",
+      "status": "passed"
+    },
+    {
+      "name": "A closed cover unloads the visible lab and reopening preserves the paused state",
+      "status": "passed"
+    },
+    {
+      "name": "Source and licence dialog pauses the simulation",
+      "status": "passed"
+    },
+    {
+      "name": "Colorfigures artifact receives the exact shared state and rejects a wrong origin",
+      "status": "passed"
+    },
+    {
+      "name": "Reverse masses reverse acceleration and displacement",
+      "status": "passed"
+    },
+    {
+      "name": "Equal masses with zero initial speed stay still",
+      "status": "passed"
+    },
+    {
+      "name": "Travel event clamps the physical state; cutaway does not reset it",
+      "status": "passed"
+    },
+    {
+      "name": "Page turn pauses the old simulation; exercise gives real feedback",
+      "status": "passed"
+    },
+    {
+      "name": "Chapter catalog contains only the actual 13 directories",
+      "status": "passed"
+    },
+    {
+      "name": "Mobile layout has no horizontal overflow",
+      "status": "passed"
+    },
+    {
+      "name": "Colorfigures standalone build has no script errors or NaN geometry",
+      "status": "passed"
+    },
+    {
+      "name": "Machine Skill bundled prototype runs from file without a network request",
+      "status": "passed"
+    },
+    {
+      "name": "No browser script or console errors",
+      "status": "passed"
+    },
+    {
+      "name": "Headless software-rendered rAF measurement (not a GPU performance guarantee)",
+      "status": "measured",
+      "fps": 56
+    }
+  ],
+  "failures": [],
+  "consoleErrors": []
+}

@@ -1,0 +1,201 @@
+{
+  "method": "SymPy differentiation and scipy.integrate.solve_ivp (RK45); SI units",
+  "idealEulerLagrange": "a*(m1 + m2) + g*(m1 - m2)",
+  "idealAcceleration": "g*(-m1 + m2)/(m1 + m2)",
+  "idealTension": "2*g*m1*m2/(m1 + m2)",
+  "cases": [
+    {
+      "name": "default",
+      "parameters": {
+        "m1": 1,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0
+      },
+      "acceleration": 3.27,
+      "tension": 13.08,
+      "endTime": 0.5530012636093311,
+      "stop": true,
+      "maxPositionError": 1.6653345369377348e-16,
+      "maxVelocityError": 1.5543122344752192e-15,
+      "maxEnergyDrift": 7.105427357601002e-15,
+      "samples": [
+        {
+          "t": 0.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 0.13825031590233278,
+          "q": 0.03125,
+          "velocity": 0.45207853300062806
+        },
+        {
+          "t": 0.27650063180466555,
+          "q": 0.12500000000000003,
+          "velocity": 0.9041570660012566
+        },
+        {
+          "t": 0.41475094770699833,
+          "q": 0.28125000000000006,
+          "velocity": 1.356235599001884
+        },
+        {
+          "t": 0.5530012636093311,
+          "q": 0.49999999999999994,
+          "velocity": 1.8083141320025111
+        }
+      ]
+    },
+    {
+      "name": "equal masses",
+      "parameters": {
+        "m1": 2,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0
+      },
+      "acceleration": 0.0,
+      "tension": 19.62,
+      "endTime": 4.0,
+      "stop": false,
+      "maxPositionError": 0.0,
+      "maxVelocityError": 0.0,
+      "maxEnergyDrift": 0.0,
+      "samples": [
+        {
+          "t": 0.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 1.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 2.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 3.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 4.0,
+          "q": 0.0,
+          "velocity": 0.0
+        }
+      ]
+    },
+    {
+      "name": "reversed masses",
+      "parameters": {
+        "m1": 2,
+        "m2": 1,
+        "g": 9.81,
+        "v0": 0
+      },
+      "acceleration": -3.27,
+      "tension": 13.08,
+      "endTime": 0.5530012636093311,
+      "stop": true,
+      "maxPositionError": 1.6653345369377348e-16,
+      "maxVelocityError": 1.5543122344752192e-15,
+      "maxEnergyDrift": 7.105427357601002e-15,
+      "samples": [
+        {
+          "t": 0.0,
+          "q": 0.0,
+          "velocity": 0.0
+        },
+        {
+          "t": 0.13825031590233278,
+          "q": -0.03125,
+          "velocity": -0.45207853300062806
+        },
+        {
+          "t": 0.27650063180466555,
+          "q": -0.12500000000000003,
+          "velocity": -0.9041570660012566
+        },
+        {
+          "t": 0.41475094770699833,
+          "q": -0.28125000000000006,
+          "velocity": -1.356235599001884
+        },
+        {
+          "t": 0.5530012636093311,
+          "q": -0.49999999999999994,
+          "velocity": -1.8083141320025111
+        }
+      ]
+    },
+    {
+      "name": "initial velocity with reversal",
+      "parameters": {
+        "m1": 1,
+        "m2": 2,
+        "g": 9.81,
+        "v0": -1
+      },
+      "acceleration": 3.27,
+      "tension": 13.08,
+      "endTime": 0.9377363400541848,
+      "stop": true,
+      "maxPositionError": 7.216449660063518e-16,
+      "maxVelocityError": 2.4424906541753444e-15,
+      "maxEnergyDrift": 7.993605777301127e-15,
+      "samples": [
+        {
+          "t": 0.0,
+          "q": 0.0,
+          "velocity": -1.0
+        },
+        {
+          "t": 0.2344340850135462,
+          "q": -0.14457556376015968,
+          "velocity": -0.23340054200570443
+        },
+        {
+          "t": 0.4688681700270924,
+          "q": -0.10943408501354611,
+          "velocity": 0.5331989159885916
+        },
+        {
+          "t": 0.7033022550406386,
+          "q": 0.10542443623984069,
+          "velocity": 1.2997983739828873
+        },
+        {
+          "t": 0.9377363400541848,
+          "q": 0.5000000000000006,
+          "velocity": 2.066397831977182
+        }
+      ]
+    }
+  ],
+  "source05Reproduction": {
+    "notebook": "05Simulation/atwoodSimulationSolved.ipynb",
+    "cells": [
+      "index:11",
+      "index:20",
+      "index:24",
+      "index:37",
+      "index:53",
+      "index:56",
+      "index:60"
+    ],
+    "modelNote": "Reproduces the source cell 11 pi factor and pulley inertia; this is NOT the ideal browser model.",
+    "acceleration_m_s2": 2.389418597870173,
+    "initialState": [
+      25,
+      -10
+    ],
+    "t_s": 10,
+    "position_m": 44.470929893508604,
+    "velocity_m_s": 13.894185978701724
+  }
+}

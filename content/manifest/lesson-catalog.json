@@ -1,0 +1,164 @@
+[
+  {
+    "chapterId": "01Vector",
+    "number": "01",
+    "title": "向量运动学",
+    "englishTitle": "Vector kinematics",
+    "notebooks": [
+      "01Vector/vectorKinematics.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "02Energy",
+    "number": "02",
+    "title": "能量",
+    "englishTitle": "Energy",
+    "notebooks": [
+      "02Energy/gravitationalPotentialEnergy.ipynb",
+      "02Energy/kineticEnergy.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "03EulerLagrange",
+    "number": "03",
+    "title": "欧拉–拉格朗日方程",
+    "englishTitle": "Euler–Lagrange",
+    "notebooks": [
+      "03EulerLagrange/elasticPotentialEnergy.ipynb",
+      "03EulerLagrange/eulerLagrangePendulums.ipynb",
+      "03EulerLagrange/euler_lagrange_base.ipynb",
+      "03EulerLagrange/rotatingParts.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "04Constraints",
+    "number": "04",
+    "title": "约束 · 阿特伍德机",
+    "englishTitle": "Constraints",
+    "notebooks": [
+      "04Constraints/atwoodConstraint.ipynb",
+      "04Constraints/constraintsFunction.ipynb",
+      "04Constraints/solvingLinearSystems.ipynb"
+    ],
+    "interactiveLessonId": "atwood-ideal",
+    "status": "reviewed interactive adaptation"
+  },
+  {
+    "chapterId": "05Simulation",
+    "number": "05",
+    "title": "数值仿真",
+    "englishTitle": "Simulation",
+    "notebooks": [
+      "05Simulation/atwoodSimulationSolved.ipynb",
+      "05Simulation/pendulumFreeSimulSolved.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "06ConstraintForces",
+    "number": "06",
+    "title": "约束反力",
+    "englishTitle": "Constraint forces",
+    "notebooks": [
+      "06ConstraintForces/constraintIdealPendulum.ipynb",
+      "06ConstraintForces/forcesConstraint.ipynb",
+      "06ConstraintForces/nonHolonomicSystems.ipynb",
+      "06ConstraintForces/rollingForcesConstraint.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "07Nonconservative",
+    "number": "07",
+    "title": "非保守力",
+    "englishTitle": "Nonconservative",
+    "notebooks": [
+      "07Nonconservative/linkedCylinders_Help.ipynb",
+      "07Nonconservative/nonconservative.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "08InertiaTensor",
+    "number": "08",
+    "title": "惯性张量",
+    "englishTitle": "Inertia tensor",
+    "notebooks": [
+      "08InertiaTensor/angular_momentum_torque.ipynb",
+      "08InertiaTensor/carbonMonoxide_inertiaTensor.ipynb",
+      "08InertiaTensor/inertiaTensor.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "09DistributedMass",
+    "number": "09",
+    "title": "分布质量",
+    "englishTitle": "Distributed mass",
+    "notebooks": [
+      "09DistributedMass/distributedMass.ipynb",
+      "09DistributedMass/inertiaTensorcube.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "10EulerRotation",
+    "number": "10",
+    "title": "刚体旋转",
+    "englishTitle": "Euler rotation",
+    "notebooks": [
+      "10EulerRotation/flywheel.ipynb",
+      "10EulerRotation/misalignedGear.ipynb",
+      "10EulerRotation/rotationEuler.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "12OscillationsSDOF",
+    "number": "12",
+    "title": "单自由度振动",
+    "englishTitle": "Single DOF",
+    "notebooks": [
+      "12OscillationsSDOF/arbitrarySDOF.ipynb",
+      "12OscillationsSDOF/harmonicSDOF.ipynb",
+      "12OscillationsSDOF/oscillationsSDOF.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "13OscillationsMDOF",
+    "number": "13",
+    "title": "多自由度振动",
+    "englishTitle": "Multiple DOF",
+    "notebooks": [
+      "13OscillationsMDOF/oscillationsMDOF.ipynb",
+      "13OscillationsMDOF/vieux/transverseOscillations.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  },
+  {
+    "chapterId": "15FinalProject",
+    "number": "15",
+    "title": "期末项目",
+    "englishTitle": "Final project",
+    "notebooks": [
+      "15FinalProject/projectRigid.ipynb"
+    ],
+    "interactiveLessonId": null,
+    "status": "source indexed; interactive lesson not implemented"
+  }
+]

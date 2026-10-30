@@ -1,0 +1,89 @@
+{
+  "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+  "environment": "local nbclient, ipykernel, Agg; source files not changed",
+  "runs": [
+    {
+      "notebook": "04Constraints/atwoodConstraint.ipynb",
+      "sourceSha256": "2d3cbca38595c254e201ea425e729b7b51a9e825419589e4033587c2062ee27f",
+      "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+      "status": "passed",
+      "codeCells": 27,
+      "executedCells": 27,
+      "imageOutputs": 20,
+      "selectedOutputs": [
+        {
+          "cellRef": "index:35",
+          "outputs": [
+            {
+              "mime": "text/latex",
+              "value": "$\\displaystyle \\ddot{y}_{1} = \\frac{g \\left(m_{1} - m_{2}\\right)}{m_{1} + m_{2}}$"
+            },
+            {
+              "mime": "text/plain",
+              "value": "     g⋅(m₁ - m₂)\ny₁̈ = ───────────\n       m₁ + m₂  "
+            }
+          ]
+        },
+        {
+          "cellRef": "index:61",
+          "outputs": [
+            {
+              "mime": "text/latex",
+              "value": "$\\displaystyle \\ddot{y}_{1} = \\frac{2 g \\left(m_{1} - m_{2}\\right)}{2 m_{1} + 2 m_{2} + m_{pulley}}$"
+            },
+            {
+              "mime": "text/plain",
+              "value": "          2⋅g⋅(m₁ - m₂)      \ny₁̈ = ────────────────────────\n     2⋅m₁ + 2⋅m₂ + m_{pulley}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "notebook": "05Simulation/atwoodSimulationSolved.ipynb",
+      "sourceSha256": "ca2940076666efe9614514a9f0af14f2c0932f2f0388f162107b95991b04f954",
+      "sourceCommit": "387f2df07e70ba3bdff2c66460c04f6ae6ba2055",
+      "status": "passed",
+      "codeCells": 34,
+      "executedCells": 34,
+      "imageOutputs": 16,
+      "selectedOutputs": [
+        {
+          "cellRef": "index:37",
+          "outputs": [
+            {
+              "mime": "text/latex",
+              "value": "$\\displaystyle \\ddot{x}_{1} = \\frac{2 g \\left(m_{1} - m_{2}\\right)}{\\pi^{2} M + 2 m_{1} + 2 m_{2}}$"
+            },
+            {
+              "mime": "text/plain",
+              "value": "       2⋅g⋅(m₁ - m₂)   \nx₁̈ = ──────────────────\n      2                \n     π ⋅M + 2⋅m₁ + 2⋅m₂"
+            }
+          ]
+        },
+        {
+          "cellRef": "index:53",
+          "outputs": [
+            {
+              "mime": "text/latex",
+              "value": "$\\displaystyle \\ddot{x}_{1} = \\frac{137.34}{18 + 4 \\pi^{2}}$"
+            },
+            {
+              "mime": "text/plain",
+              "value": "      137.34  \nx₁̈ = ─────────\n             2\n     18 + 4⋅π "
+            }
+          ]
+        },
+        {
+          "cellRef": "index:60",
+          "outputs": [
+            {
+              "mime": "text/plain",
+              "value": "  message: The solver successfully reached the end of the integration interval.\n  success: True\n   status: 0\n        t: [ 0.000e+00  1.010e-01 ...  9.899e+00  1.000e+01]\n        y: [[ 2.500e+01  2.400e+01 ...  4.308e+01  4.447e+01]\n            [-1.000e+01 -9.759e+00 ...  1.365e+01  1.389e+01]]\n      sol: None\n t_events: None\n y_events: None\n     nfev: 20\n     njev: 0\n      nlu: 0"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
