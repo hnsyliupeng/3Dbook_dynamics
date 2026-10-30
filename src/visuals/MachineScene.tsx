@@ -4,10 +4,11 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import type { AtwoodParameters } from '../physics/atwood'
 import type { PhysicsSnapshot } from '../physics/PhysicsModel'
 import { createMachineAssembly } from '../integrations/MachineSkillAdapter'
+import type { DerivationStep } from '../lessons/atwood/lesson'
 
 interface Props {
   snapshot: PhysicsSnapshot; parameters: AtwoodParameters; showForces: boolean; showConstraint: boolean
-  cut: boolean; selected: string; onSelect: (part: string) => void; cameraReset: number; rising: boolean
+  cut: boolean; selected: string; onSelect: (part: string) => void; cameraReset: number; rising: boolean; activeStep: DerivationStep | null
 }
 export function MachineScene(props: Props) {
   const container=useRef<HTMLDivElement>(null), leftLabel=useRef<HTMLDivElement>(null), rightLabel=useRef<HTMLDivElement>(null)
@@ -60,10 +61,23 @@ export function MachineScene(props: Props) {
     let frame=0, first=performance.now()
     const render=(now:number)=>{
       const p=latest.current
-      assembly.update(p.snapshot,p.parameters,{forces:p.showForces,constraint:p.showConstraint,cut:p.cut,selected:p.selected})
+      assembly.update(p.snapshot,p.parameters,{forces:p.showForces,constraint:p.showConstraint,cut:p.cut,selected:p.selected,activeParts:p.activeStep?.physicalObjectBindings,activeVariables:p.activeStep?.variableBindings})
+      renderer.domElement.dataset.activeStep=p.activeStep?.id || ''
+      renderer.domElement.dataset.highlightedM1=String(assembly.materials.m1.emissive.getHex()!==0)
+      renderer.domElement.dataset.highlightedM2=String(assembly.materials.m2.emissive.getHex()!==0)
+      renderer.domElement.dataset.velocityVisible=String(assembly.arrows[0].velocity.visible)
+      renderer.domElement.dataset.accelerationVisible=String(assembly.arrows[0].acceleration.visible)
+      renderer.domElement.dataset.ropeColor=assembly.materials.rope.color.getHexString()
+      renderer.domElement.dataset.time=String(p.snapshot.t)
+      renderer.domElement.dataset.q=String(p.snapshot.q)
+      renderer.domElement.dataset.velocity=String(p.snapshot.velocity)
+      renderer.domElement.dataset.acceleration=String(p.snapshot.acceleration)
+      renderer.domElement.dataset.tension=String(p.snapshot.tension)
       renderer.domElement.dataset.wheelAngle=String(assembly.wheel.rotation.z)
       renderer.domElement.dataset.m1Height=String(assembly.massLeft.position.y)
       renderer.domElement.dataset.m2Height=String(assembly.massRight.position.y)
+      renderer.domElement.dataset.leftRopeLength=String(assembly.ropeL.scale.y)
+      renderer.domElement.dataset.rightRopeLength=String(assembly.ropeR.scale.y)
       renderer.domElement.dataset.straightRopeLength=String(assembly.ropeL.scale.y+assembly.ropeR.scale.y)
       // Only the paper pop-up presentation is eased. Physics is never advanced here.
       const progress=p.rising ? Math.min(1,(now-first)/1100) : 1

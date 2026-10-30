@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-30T17:54:28.242Z",
+  "environment": "Playwright Chromium; external network blocked; HTTP server serves only dist files",
+  "checks": [
+    {
+      "name": "源码 index.html 直接 file://",
+      "url": "file:///home/user/3Dbook_dynamics/index.html",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [],
+      "errors": [
+        "Access to script at 'file:///src/main.tsx' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "生产 dist/index.html 直接 file://",
+      "url": "file:///home/user/3Dbook_dynamics/dist/index.html",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [],
+      "errors": [
+        "Access to script at 'file:///home/user/3Dbook_dynamics/dist/assets/book-PMVOV166.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to CSS stylesheet at 'file:///home/user/3Dbook_dynamics/dist/assets/book-vCmHJLeA.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to script at 'file:///home/user/3Dbook_dynamics/dist/assets/BufferGeometryUtils-DU4b05K-.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "离线静态根目录",
+      "url": "http://127.0.0.1:43891/",
+      "rendered": true,
+      "details": {
+        "acceleration": "3.27 m/s²",
+        "illustration": true,
+        "sharedQ": 0.0654,
+        "sharedVelocity": 0.654,
+        "sharedTension": 13.08,
+        "derivationStep": "partials",
+        "geometryChanged": true,
+        "massDirectionsCorrect": true,
+        "pulleySpokesTurn": true,
+        "stepHighlightChanged": true,
+        "forgedMessagesRejected": true,
+        "bidirectionalSelection": true
+      },
+      "blockedExternalRequests": [],
+      "errors": []
+    },
+    {
+      "name": "离线静态子目录",
+      "url": "http://127.0.0.1:43131/nested/course/",
+      "rendered": true,
+      "details": {
+        "acceleration": "3.27 m/s²",
+        "illustration": true,
+        "sharedQ": 0.0654,
+        "sharedVelocity": 0.654,
+        "sharedTension": 13.08,
+        "derivationStep": "partials",
+        "geometryChanged": true,
+        "massDirectionsCorrect": true,
+        "pulleySpokesTurn": true,
+        "stepHighlightChanged": true,
+        "forgedMessagesRejected": true,
+        "bidirectionalSelection": true
+      },
+      "blockedExternalRequests": [],
+      "errors": []
+    },
+    {
+      "name": "完整自包含单文件 file://",
+      "url": "file:///home/user/3Dbook_dynamics/standalone/atwood-book.html",
+      "rendered": true,
+      "details": {
+        "acceleration": "3.27 m/s²",
+        "illustration": true,
+        "sharedQ": 0.0654,
+        "sharedVelocity": 0.654,
+        "sharedTension": 13.08,
+        "derivationStep": "partials",
+        "geometryChanged": true,
+        "massDirectionsCorrect": true,
+        "pulleySpokesTurn": true,
+        "stepHighlightChanged": true,
+        "forgedMessagesRejected": true,
+        "bidirectionalSelection": true
+      },
+      "blockedExternalRequests": [],
+      "errors": []
+    },
+    {
+      "name": "独立 Colorfigures file://",
+      "url": "file:///home/user/3Dbook_dynamics/public/skill-artifacts/atwood-colorfigures.html?q=0.2",
+      "rendered": true,
+      "details": {
+        "poseControls": true,
+        "noNaN": true,
+        "simulationClock": false
+      },
+      "blockedExternalRequests": [],
+      "errors": []
+    }
+  ]
+}

@@ -15,7 +15,8 @@ const port=Number(process.env.E2E_PORT || 4174)
 const base=`http://127.0.0.1:${port}`
 const screenshotDir=join(root,'screenshots'), reportDir=join(root,'reports')
 mkdirSync(screenshotDir,{recursive:true});mkdirSync(reportDir,{recursive:true})
-const results=[], failures=[], consoleErrors=[]
+const results=[], failures=[], consoleErrors=[], caseAudits=[]
+const independent=JSON.parse(readFileSync(join(root,'content/references/deep-physics-reference.json'),'utf8'))
 const server=spawn(process.execPath,[join(root,'node_modules/vite/bin/vite.js'),'--host','0.0.0.0','--port',String(port),'--strictPort'],{cwd:root,stdio:['ignore','pipe','pipe']})
 let serverLog='';server.stdout.on('data',c=>serverLog+=c);server.stderr.on('data',c=>serverLog+=c)
 let browser
@@ -54,7 +55,14 @@ try {
   }
   const number=async(id)=>parseFloat((await page.getByTestId(id).innerText()).replace(/−/g,'-'))
   const getFrame=()=>page.frame({url:/atwood-colorfigures\.html/})
-  await page.goto(base,{waitUntil:'networkidle',timeout:60000});await page.waitForTimeout(2000)
+  await page.goto(base,{waitUntil:'domcontentloaded',timeout:60000});await page.waitForSelector('[data-testid=machine-canvas]')
+  await check('Opening animation blocks physics controls until the model is ready',async()=>{
+    assert.equal(await page.getByTestId('timeline').isDisabled(),true)
+    assert.equal(await page.getByRole('button',{name:'开始模拟'}).isDisabled(),true)
+    assert.equal(await page.getByTestId('param-m1').isDisabled(),true)
+    await page.waitForFunction(()=>!document.querySelector('[data-testid=timeline]')?.disabled,null,{timeout:15000})
+    assert.equal(await page.getByTestId('time-value').innerText(),'0.00')
+  })
   await check('Default model and visible WebGL assembly',async()=>{
     assert.equal(await number('acceleration'),3.27);assert.equal(await number('tension'),13.08)
     assert.equal(await page.locator('.machine-canvas').count(),1)
@@ -66,13 +74,45 @@ try {
     assert.ok(pixels>2,`WebGL canvas appears empty (${pixels})`)
     await snap('01-atwood-default-engineering.png')
   })
-  await check('Twelve-step derivation and bound variables are interactive',async()=>{
-    await page.getByRole('button',{name:'推导步骤 7：计算偏导与全导数'}).click()
-    assert.match(await page.locator('.formula-card').innerText(),/9.810 N/)
-    await page.getByRole('button',{name:'q̇',exact:true}).click()
-    assert.equal(await page.getByRole('button',{name:'q̇',exact:true}).getAttribute('aria-pressed'),'true')
-    await snap('01b-atwood-derivation.png')
-    await page.getByRole('button',{name:'推导步骤 1：一条绳，一种运动'}).click()
+  await check('All 12 displayed substitutions and physical step bindings follow the same frozen time',async()=>{
+    await setRange('timeline',.2)
+    await page.getByRole('button',{name:'受力矢量'}).click()
+    const steps=[
+      ['constraint','0.685 + 0.815 + π × 0.22 = 2.191 m',true,true,false,false,true],
+      ['coordinate','q = 0.065 m · 左侧变化 -0.065 m',true,true,false,false,true],
+      ['velocity','ẏ₁ = 0.654 m/s · ẏ₂ = -0.654 m/s',true,true,true,false,false],
+      ['kinetic','Tkin = 0.642 J',true,true,true,false,false],
+      ['potential','V = -0.642 J',true,true,false,false,false],
+      ['lagrangian','L = 0.642 − (-0.642) = 1.283 J',true,true,true,false,false],
+      ['partials','∂L/∂q = 9.810 N · d/dt(∂L/∂q̇) = 9.810 N',true,true,true,true,false],
+      ['euler','3.00 × 3.270 = 9.810 N',true,true,true,true,false],
+      ['acceleration','a = 3.270 m/s²',true,true,false,true,false],
+      ['tension','T₍rope₎ = 13.080 N',true,false,false,true,true],
+      ['solution','t = 0.200 s · q = 0.065 m · q̇ = 0.654 m/s',true,true,true,true,false],
+      ['validation','E = 0.000 J · E₀ = 0.000 J',true,true,true,false,true],
+    ]
+    for(let i=0;i<steps.length;i++){
+      const [id,text,m1,m2,v,a,rope]=steps[i]
+      await page.getByRole('button',{name:new RegExp(`^推导步骤 ${i+1}：`)}).click()
+      await page.waitForFunction(id=>document.querySelector('[data-testid=machine-canvas]')?.dataset.activeStep===id,id,{timeout:15000})
+      const actual=await page.getByTestId('machine-canvas').evaluate(el=>({...el.dataset}))
+      assert.ok((await page.locator('.live-substitution').innerText()).includes(text),`${id}: substitution`)
+      assert.equal(actual.highlightedM1,String(m1),`${id}: m1 highlight`)
+      assert.equal(actual.highlightedM2,String(m2),`${id}: m2 highlight`)
+      assert.equal(actual.velocityVisible,String(v),`${id}: velocity arrow`)
+      assert.equal(actual.accelerationVisible,String(a),`${id}: acceleration arrow`)
+      assert.equal(actual.ropeColor==='b65d38',rope,`${id}: rope highlight`)
+      assert.ok(Math.abs(Number(actual.time)-.2)<1e-10,`${id}: step changed time`)
+      assert.match(await page.getByTestId('active-derivation').innerText(),new RegExp(`推导 ${String(i+1).padStart(2,'0')}`))
+      if(id==='partials')await snap('01b-atwood-derivation.png')
+    }
+    // Manual selection overrides step emphasis; changing step restores auto emphasis.
+    await page.getByRole('button',{name:/^推导步骤 10：/}).click()
+    await page.getByRole('button',{name:'m₂',exact:true}).click()
+    await page.waitForFunction(()=>document.querySelector('[data-testid=machine-canvas]')?.dataset.highlightedM1==='false'&&document.querySelector('[data-testid=machine-canvas]')?.dataset.highlightedM2==='true',null,{timeout:15000})
+    await page.getByRole('button',{name:/^推导步骤 1：/}).click()
+    await page.waitForFunction(()=>document.querySelector('button[title^="m₂ ="]')?.getAttribute('aria-pressed')==='false',null,{timeout:15000})
+    await page.getByRole('button',{name:'受力矢量'}).click()
   })
   await check('Play, pause and scrub keep physics, formula and timeline aligned',async()=>{
     await page.getByRole('button',{name:'开始模拟'}).click()
@@ -109,6 +149,7 @@ try {
     await page.getByRole('button',{name:'打开书'}).click();await page.waitForSelector('.machine-canvas')
     const stopped=await page.getByTestId('time-value').innerText();await page.waitForTimeout(300)
     assert.equal(await page.getByTestId('time-value').innerText(),stopped)
+    await page.waitForFunction(()=>!document.querySelector('[data-testid=timeline]')?.disabled,null,{timeout:15000})
     await setRange('timeline',.2)
   })
   await check('Source and licence dialog pauses the simulation',async()=>{
@@ -158,6 +199,68 @@ try {
     const time=await page.getByTestId('time-value').innerText();await page.getByRole('button',{name:'剖视',exact:true}).click()
     assert.equal(await page.getByTestId('time-value').innerText(),time);assert.equal(await number('displacement'),.5)
     await snap('06-atwood-stop-and-cutaway.png')
+  })
+  await check('Step, graph cursor, forecast styling, CSV export and replay are synchronized',async()=>{
+    await page.getByRole('button',{name:'重置模拟'}).click()
+    await page.getByRole('button',{name:'前进一步'}).click()
+    await page.waitForFunction(()=>Math.abs(Number(document.querySelector('[data-testid=machine-canvas]')?.dataset.time)-1/120)<1e-12,null,{timeout:15000})
+    await page.getByRole('button',{name:'后退一步'}).click()
+    await page.waitForFunction(()=>Number(document.querySelector('[data-testid=machine-canvas]')?.dataset.time)===0,null,{timeout:15000})
+    await setRange('timeline',.2)
+    const end=Number(await page.getByTestId('timeline').getAttribute('max'))
+    const cursor=Number(await page.locator('.chart-cursor').getAttribute('x1'))
+    const clip=Number(await page.locator('.chart-svg clipPath rect').getAttribute('width'))
+    assert.ok(Math.abs(cursor-(34+334*.2/end))<1e-7)
+    assert.ok(Math.abs(clip-334*.2/end)<1e-7)
+    for(const [kind,count] of [['q',1],['velocity',1],['energy',3],['error',1]]){
+      await page.getByRole('combobox',{name:'图表数据'}).selectOption(kind)
+      assert.equal(await page.locator('.chart-svg path[stroke-dasharray]').count(),count)
+      assert.equal(await page.locator('.chart-svg path[clip-path]').count(),count)
+    }
+    const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'导出 CSV 数据'}).click()])
+    const rows=readFileSync(await download.path(),'utf8').trim().split('\n')
+    assert.equal(rows.length,74);assert.match(rows[0],/^t_s,q_m,qdot_m_s/)
+    assert.ok(Math.abs(Number(rows.at(-1).split(',')[0])-end)<1e-12)
+    await page.getByRole('combobox',{name:'图表数据'}).selectOption('q')
+    await setRange('timeline',end);await page.getByRole('button',{name:'从头播放'}).click()
+    await page.waitForFunction(()=>Number(document.querySelector('[data-testid=machine-canvas]')?.dataset.time)<.15,null,{timeout:15000})
+    await page.getByRole('button',{name:'暂停模拟'}).click()
+    await page.getByRole('button',{name:'剖视',exact:true}).click()
+  })
+  await check('Every UI-reproducible named parameter branch matches its independent reference and has a screenshot',async()=>{
+    const names=independent.cases.slice(0,independent.namedCases)
+    for(const [i,c] of names.entries()){
+      if(c.name==='near equal masses, cancellation stress')continue // below the UI slider resolution; tested programmatically
+      for(const key of ['m1','m2','g','v0'])await setRange(`param-${key}`,c.parameters[key])
+      await page.getByRole('button',{name:'重置模拟'}).click()
+      assert.equal(await page.getByTestId('time-value').innerText(),'0.00',`${c.name}: parameter reset`)
+      assert.ok(Math.abs((await number('acceleration'))-c.acceleration)<.0051,`${c.name}: a`)
+      assert.ok(Math.abs((await number('tension'))-c.tension)<.0051,`${c.name}: T`)
+      if(c.parameters.v0===.05)assert.match(await page.getByTestId('value-v0').innerText(),/^0\.05/)
+      const end=Number(await page.getByTestId('timeline').getAttribute('max'))
+      assert.ok(Math.abs(end-c.endTime)<1e-8,`${c.name}: end ${end} vs ${c.endTime}`)
+      const mid=c.samples[4];await setRange('timeline',mid.t)
+      await page.waitForFunction(q=>Math.abs(Number(document.querySelector('[data-testid=machine-canvas]')?.dataset.q)-q)<1e-8,mid.q,{timeout:15000})
+      const actual=await page.getByTestId('machine-canvas').evaluate(el=>({...el.dataset}))
+      assert.ok(Math.abs(Number(actual.velocity)-mid.velocity)<1e-8,`${c.name}: v`)
+      assert.ok(Math.abs(Number(actual.wheelAngle)+mid.q/.22)<1e-8,`${c.name}: wheel`)
+      assert.ok(Math.abs(Number(actual.m1Height)-(.89+mid.q))<1e-8,`${c.name}: left block`)
+      assert.ok(Math.abs(Number(actual.m2Height)-(.89-mid.q))<1e-8,`${c.name}: right block`)
+      assert.ok(Math.abs(Number(actual.leftRopeLength)-(.75-mid.q))<1e-8,`${c.name}: left rope`)
+      assert.ok(Math.abs(Number(actual.rightRopeLength)-(.75+mid.q))<1e-8,`${c.name}: right rope`)
+      await setRange('timeline',end)
+      assert.ok(Math.abs((await number('displacement'))-c.samples[8].q)<.00051,`${c.name}: terminal q`)
+      assert.match(await page.locator('.timeline-note').innerText(),c.stop?/已到达行程端点/:/观察窗口结束/)
+      // Boundary/tangency cases show the event; others show a mid-trajectory pose.
+      if(!/tangen|near tangent|horizon/i.test(c.name))await setRange('timeline',mid.t)
+      await page.waitForTimeout(130)
+      const slug=c.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')
+      const screenshot=`20-${String(i+1).padStart(2,'0')}-${slug}.png`
+      await snap(screenshot)
+      caseAudits.push({name:c.name,parameters:c.parameters,reference:c.samples[4],endTime:end,stop:c.stop,screenshot})
+    }
+    assert.equal(caseAudits.length,17)
+    await page.getByRole('button',{name:'恢复初始实验'}).click()
   })
   await check('Page turn pauses the old simulation; exercise gives real feedback',async()=>{
     await setRange('param-m1',2);await setRange('param-m2',2)
@@ -211,7 +314,7 @@ try {
 } finally {
   if(browser)await browser.close()
   server.kill('SIGTERM')
-  const report={date:new Date().toISOString(),environment:'Playwright + @sparticuz/chromium software WebGL',passed:results.filter(x=>x.status==='passed').length,failed:failures.length,results,failures,consoleErrors}
+  const report={date:new Date().toISOString(),environment:'Playwright + @sparticuz/chromium software WebGL',caseAudits,passed:results.filter(x=>x.status==='passed').length,failed:failures.length,results,failures,consoleErrors}
   writeFileSync(join(reportDir,'e2e-results.json'),JSON.stringify(report,null,2)+'\n')
   console.log(`E2E: ${report.passed} passed, ${report.failed} failed. Report: reports/e2e-results.json`)
   if(failures.length)process.exitCode=1

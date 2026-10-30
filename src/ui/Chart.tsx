@@ -39,16 +39,17 @@ export function Chart({store, snapshot}: {store: SnapshotStore; snapshot: Physic
     <div className="chart-heading"><div><span className="section-kicker">LIVE DATA / 03</span><h3>运动记录 <span>Motion study</span></h3></div>
       <div className="chart-actions"><label className="sr-only" htmlFor={`chart-${id}`}>图表数据</label><select id={`chart-${id}`} aria-label="图表数据" value={kind} onChange={e=>setKind(e.target.value as ChartKind)}>{Object.entries(labels).map(([k,v])=><option key={k} value={k}>{v}</option>)}</select><button className="icon-button download" aria-label="导出 CSV 数据" title="导出 CSV 数据" onClick={download}><Download size={14}/></button></div>
     </div>
-    <svg className="chart-svg" viewBox="0 0 390 96" role="img" aria-label={`${labels[kind]}随时间变化，光标与仿真同步`}>
+    <svg className="chart-svg" viewBox="0 0 390 96" role="img" aria-label={`${labels[kind]}随时间变化；实线为已观察轨迹，虚线为预计算预测，光标与仿真同步`}>
       <line x1="34" y1="18" x2="368" y2="18" className="chart-grid"/><line x1="34" y1="47" x2="368" y2="47" className="chart-grid"/><line x1="34" y1="77" x2="368" y2="77" className="chart-axis"/>
       <text x="1" y="21">{compact(max-pad,kind)}</text><text x="1" y="79">{compact(min+pad,kind)}</text>
-      {Array.from({length:n},(_,i)=><path key={i} d={path(i)} fill="none" stroke={colors[i]} strokeWidth="2" vectorEffect="non-scaling-stroke"/>)}
+      {Array.from({length:n},(_,i)=><path key={`forecast-${i}`} d={path(i)} fill="none" stroke={colors[i]} strokeWidth="1.5" strokeDasharray="4 3" opacity=".45" vectorEffect="non-scaling-stroke"/>)}
+      {Array.from({length:n},(_,i)=><path key={`observed-${i}`} d={path(i)} fill="none" stroke={colors[i]} strokeWidth="2" clipPath={`url(#clip-${id})`} vectorEffect="non-scaling-stroke"/>)}
       <line x1={x(snapshot.t)} y1="12" x2={x(snapshot.t)} y2="77" className="chart-cursor"/>
       {values(snapshot,kind).map((v,i)=><circle key={i} cx={x(snapshot.t)} cy={y(v)} r="3.4" fill={colors[i]} stroke="#faf8ef" strokeWidth="1.4"/>)}
       <text x="34" y="92">0 s</text><text x="368" y="92" textAnchor="end">{store.endTime.toFixed(2)} s</text>
-      <defs><clipPath id={`clip-${id}`}><rect x="34" y="12" width="334" height="65"/></clipPath></defs>
+      <defs><clipPath id={`clip-${id}`}><rect x="34" y="12" width={Math.max(0,x(snapshot.t)-34)} height="65"/></clipPath></defs>
     </svg>
     <div className="numerical-compare" data-testid="solver-comparison"><span>解析 q <b>{formatFixed(snapshot.analyticalQ,4)} m</b></span><span>RK4 q <b>{formatFixed(snapshot.q,4)} m</b></span><span>Δq <b>{snapshot.numericalError===0?'0':snapshot.numericalError.toExponential(1)} m</b></span></div>
-    <div className="chart-caption">{kind==='energy'?<><span><i style={{background:colors[0]}}/>动能</span><span><i style={{background:colors[1]}}/>势能</span><span><i style={{background:colors[2]}}/>总能量</span></>:<span>固定步长 RK4 · 解析解对照</span>}<b>t = {snapshot.t.toFixed(2)} s</b></div>
+    <div className="chart-caption" title="虚线为预计算完整轨迹，实线仅显示当前时间之前的轨迹">{kind==='energy'?<><span><i style={{background:colors[0]}}/>动能</span><span><i style={{background:colors[1]}}/>势能</span><span><i style={{background:colors[2]}}/>总能量</span></>:<span>实线：已观察 · 虚线：预计算预测</span>}<b>t = {snapshot.t.toFixed(2)} s</b></div>
   </div>
 }

@@ -16,12 +16,13 @@
 | `src/simulation/` | `SnapshotStore` 固定步长检查点 + 末端分数步、`TimelineController`、墙钟转换和 React hook。 |
 | `src/book/`, `src/app/` | 可交互封面、展示状态、页面切换与 UI 组合；封面/书页是 CSS，不是仿真的物体。 |
 | `src/integrations/MachineSkillAdapter.ts`, `src/visuals/MachineScene.tsx` | 真实 Machine kit 建模，Three 场景、OrbitControls、选取及简化剖视；每帧读快照，不自己积分。 |
-| `src/integrations/ColorfiguresAdapter.tsx` | 自包含 Skill iframe 的安全消息桥；图形状态来自相同宿主快照。 |
+| `src/integrations/ColorfiguresAdapter.tsx` | 自包含 Skill iframe 的版本化消息桥；图形状态与推导绑定来自相同宿主快照。 |
+| `scripts/build-standalone.mjs` | 将主书 JS/CSS/字体、已构建插画及许可合并为可离线双击的单 HTML。 |
 | `src/ui/` | 公式、参数、时间轴、图表/CSV、来源与章节对话框。 |
 
 ## 单一时钟
 
-`SimulationClock` 将帧间墙钟时间转为固定 `1/120 s` 的仿真步数；长时间后台暂停的单帧被限制在 0.1 s，**不会假装补算全部墙钟时间**。`SnapshotStore` 在参数变化时重新生成 RK4 检查点；任意时刻用最近检查点加一个分数 RK4 步，因此可以精确定位非整数步长的行程端点。`TimelineController` 负责播放、暂停、重置、±一步和 seek。曲线、数值显示、轮角 `−q/R`、直绳长度和两种视觉模式读取同一份快照。渲染帧只更新表现，纸雕升起动画不驱动物理。
+`SimulationClock` 将帧间墙钟时间转为固定 `1/120 s` 的仿真步数；长时间后台暂停的单帧被限制在 0.1 s，**不会假装补算全部墙钟时间**。`SnapshotStore` 在参数变化时重新生成 RK4 检查点；任意时刻用最近检查点加一个分数 RK4 步，因此可以精确定位非整数步长的行程端点。`TimelineController` 负责播放、暂停、重置、±一步和 seek。曲线、数值显示、轮角 `−q/R`、直绳长度和两种视觉模式读取同一份快照。渲染帧只更新表现，纸雕升起动画不驱动物理；展开期间参数、时间轴和播放控件禁用。推导步变化将物体和变量绑定同时送到工程与插画视图，手动选择覆盖自动高亮；切步不修改仿真时间。
 
 求解区间从 0 到首次触碰 `q=±0.5 m`，或未触碰时到 4 s。端点是观察事件，显示碰前状态，**不是冲量/碰撞求解器**。暂停、关闭书和切换页面会停止时钟；重开书保留所处时间。修改参数重建 `SnapshotStore` 并回到 `t=0`。背景标签页可能减速，不做实时保证。
 
@@ -31,12 +32,12 @@
 
 ## iframe 消息协议 v1
 
-主书与 `public/skill-artifacts/atwood-colorfigures.html` 同源通信，`channel="mechanics-book"`，`version=1`。双方校验 `event.origin`、发送窗口、channel 和 version；插画对参数、数值有限性和 q 边界进行检查。
+主书与 `public/skill-artifacts/atwood-colorfigures.html` 通过 `channel="mechanics-book"`、`version=1` 通信。HTTP 部署使用同源 target；完整单文件使用内嵌 `srcdoc`。Chromium 的 `file://` 文档 `location.origin` 显示 `file://`、消息来源却序列化成不透明的 `null`，因此仅在该模式 target 使用 `*`，双方仍同时校验 `event.origin === 'null'`、准确的对端 Window、channel 和 version。不能单独依赖 `null` 识别身份；不要把此协议用于不受信任的父子页面。插画还检查参数有限性和 q 边界。
 
 | 方向 | 消息 | 作用 |
 |---|---|---|
 | 图 → 主书 | `VIEW_READY` | iframe 就绪后请求最近快照，父窗口也会在 `onLoad` 发送。 |
-| 主书 → 图 | `SET_STATE` | 快照、参数、力/约束显示和选择状态；播放由主书单独负责。 |
+| 主书 → 图 | `SET_STATE` | 快照、参数、力/约束显示、选择状态和当前推导步物体/变量绑定；播放由主书单独负责。 |
 | 图 → 主书 | `STATE_UPDATED` | 图形已应用状态的确认；现用于测试/可观察性，不影响主时钟。 |
 | 图 → 主书 | `SELECT_PART` | 仅允许 `m1`/`m2` 选择，触发父侧公式绑定。 |
 

@@ -1,0 +1,373 @@
+{
+  "date": "2026-10-30T17:53:17.900Z",
+  "method": "Rendered UI strings compared with independent SciPy sample states at fixed time",
+  "casesChecked": 3,
+  "stepsChecked": 36,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "initial reversal",
+      "parameters": {
+        "m1": 1,
+        "m2": 2,
+        "g": 9.81,
+        "v0": -1
+      },
+      "time": 0.46886817002709213,
+      "steps": [
+        {
+          "number": 1,
+          "independentValues": [
+            0.859434085013546,
+            0.640565914986454,
+            0.22,
+            2.1911503837897546
+          ],
+          "illustrativeRoundedText": "0.859 + 0.641 + π × 0.22 = 2.191 m",
+          "displayed": "实时代入 · 0.859 + 0.641 + π × 0.22 = 2.191 m"
+        },
+        {
+          "number": 2,
+          "independentValues": [
+            -0.109434085013546,
+            0.109434085013546
+          ],
+          "illustrativeRoundedText": "q = -0.109 m · 左侧变化 0.109 m",
+          "displayed": "实时代入 · q = -0.109 m · 左侧变化 0.109 m"
+        },
+        {
+          "number": 3,
+          "independentValues": [
+            0.5331989159885914,
+            -0.5331989159885914
+          ],
+          "illustrativeRoundedText": "ẏ₁ = 0.533 m/s · ẏ₂ = -0.533 m/s",
+          "displayed": "实时代入 · ẏ₁ = 0.533 m/s · ẏ₂ = -0.533 m/s"
+        },
+        {
+          "number": 4,
+          "independentValues": [
+            0.4264516260171134
+          ],
+          "illustrativeRoundedText": "Tkin = 0.426 J",
+          "displayed": "实时代入 · Tkin = 0.426 J"
+        },
+        {
+          "number": 5,
+          "independentValues": [
+            1.0735483739828864
+          ],
+          "illustrativeRoundedText": "V = 1.074 J",
+          "displayed": "实时代入 · V = 1.074 J"
+        },
+        {
+          "number": 6,
+          "independentValues": [
+            0.4264516260171134,
+            1.0735483739828864,
+            -0.647096747965773
+          ],
+          "illustrativeRoundedText": "L = 0.426 − (1.074) = -0.647 J",
+          "displayed": "实时代入 · L = 0.426 − (1.074) = -0.647 J"
+        },
+        {
+          "number": 7,
+          "independentValues": [
+            9.81,
+            9.81
+          ],
+          "illustrativeRoundedText": "∂L/∂q = 9.810 N · d/dt(∂L/∂q̇) = 9.810 N",
+          "displayed": "实时代入 · ∂L/∂q = 9.810 N · d/dt(∂L/∂q̇) = 9.810 N（当前解）"
+        },
+        {
+          "number": 8,
+          "independentValues": [
+            3,
+            3.27,
+            9.81
+          ],
+          "illustrativeRoundedText": "3.00 × 3.270 = 9.810 N",
+          "displayed": "实时代入 · 3.00 × 3.270 = 9.810 N"
+        },
+        {
+          "number": 9,
+          "independentValues": [
+            3.27
+          ],
+          "illustrativeRoundedText": "a = 3.270 m/s²",
+          "displayed": "实时代入 · a = 3.270 m/s²"
+        },
+        {
+          "number": 10,
+          "independentValues": [
+            13.08
+          ],
+          "illustrativeRoundedText": "T₍rope₎ = 13.080 N",
+          "displayed": "实时代入 · T₍rope₎ = 13.080 N"
+        },
+        {
+          "number": 11,
+          "independentValues": [
+            0.46886817002709213,
+            -0.109434085013546,
+            0.5331989159885914
+          ],
+          "illustrativeRoundedText": "t = 0.469 s · q = -0.109 m · q̇ = 0.533 m/s",
+          "displayed": "实时代入 · t = 0.469 s · q = -0.109 m · q̇ = 0.533 m/s"
+        },
+        {
+          "number": 12,
+          "independentValues": [
+            1.4999999999999998,
+            1.5
+          ],
+          "illustrativeRoundedText": "E = 1.500 J · E₀ = 1.500 J",
+          "displayed": "实时代入 · E = 1.500 J · E₀ = 1.500 J · 绳长残差 = 0.0e+0 m"
+        }
+      ]
+    },
+    {
+      "name": "reverse direction with initial velocity",
+      "parameters": {
+        "m1": 2,
+        "m2": 1,
+        "g": 9.81,
+        "v0": 1
+      },
+      "time": 0.46886817002709213,
+      "steps": [
+        {
+          "number": 1,
+          "independentValues": [
+            0.640565914986454,
+            0.859434085013546,
+            0.22,
+            2.1911503837897546
+          ],
+          "illustrativeRoundedText": "0.641 + 0.859 + π × 0.22 = 2.191 m",
+          "displayed": "实时代入 · 0.641 + 0.859 + π × 0.22 = 2.191 m"
+        },
+        {
+          "number": 2,
+          "independentValues": [
+            0.109434085013546,
+            -0.109434085013546
+          ],
+          "illustrativeRoundedText": "q = 0.109 m · 左侧变化 -0.109 m",
+          "displayed": "实时代入 · q = 0.109 m · 左侧变化 -0.109 m"
+        },
+        {
+          "number": 3,
+          "independentValues": [
+            -0.5331989159885914,
+            0.5331989159885914
+          ],
+          "illustrativeRoundedText": "ẏ₁ = -0.533 m/s · ẏ₂ = 0.533 m/s",
+          "displayed": "实时代入 · ẏ₁ = -0.533 m/s · ẏ₂ = 0.533 m/s"
+        },
+        {
+          "number": 4,
+          "independentValues": [
+            0.4264516260171134
+          ],
+          "illustrativeRoundedText": "Tkin = 0.426 J",
+          "displayed": "实时代入 · Tkin = 0.426 J"
+        },
+        {
+          "number": 5,
+          "independentValues": [
+            1.0735483739828864
+          ],
+          "illustrativeRoundedText": "V = 1.074 J",
+          "displayed": "实时代入 · V = 1.074 J"
+        },
+        {
+          "number": 6,
+          "independentValues": [
+            0.4264516260171134,
+            1.0735483739828864,
+            -0.647096747965773
+          ],
+          "illustrativeRoundedText": "L = 0.426 − (1.074) = -0.647 J",
+          "displayed": "实时代入 · L = 0.426 − (1.074) = -0.647 J"
+        },
+        {
+          "number": 7,
+          "independentValues": [
+            -9.81,
+            -9.81
+          ],
+          "illustrativeRoundedText": "∂L/∂q = -9.810 N · d/dt(∂L/∂q̇) = -9.810 N",
+          "displayed": "实时代入 · ∂L/∂q = -9.810 N · d/dt(∂L/∂q̇) = -9.810 N（当前解）"
+        },
+        {
+          "number": 8,
+          "independentValues": [
+            3,
+            -3.27,
+            -9.81
+          ],
+          "illustrativeRoundedText": "3.00 × -3.270 = -9.810 N",
+          "displayed": "实时代入 · 3.00 × -3.270 = -9.810 N"
+        },
+        {
+          "number": 9,
+          "independentValues": [
+            -3.27
+          ],
+          "illustrativeRoundedText": "a = -3.270 m/s²",
+          "displayed": "实时代入 · a = -3.270 m/s²"
+        },
+        {
+          "number": 10,
+          "independentValues": [
+            13.08
+          ],
+          "illustrativeRoundedText": "T₍rope₎ = 13.080 N",
+          "displayed": "实时代入 · T₍rope₎ = 13.080 N"
+        },
+        {
+          "number": 11,
+          "independentValues": [
+            0.46886817002709213,
+            0.109434085013546,
+            -0.5331989159885914
+          ],
+          "illustrativeRoundedText": "t = 0.469 s · q = 0.109 m · q̇ = -0.533 m/s",
+          "displayed": "实时代入 · t = 0.469 s · q = 0.109 m · q̇ = -0.533 m/s"
+        },
+        {
+          "number": 12,
+          "independentValues": [
+            1.4999999999999998,
+            1.5
+          ],
+          "illustrativeRoundedText": "E = 1.500 J · E₀ = 1.500 J",
+          "displayed": "实时代入 · E = 1.500 J · E₀ = 1.500 J · 绳长残差 = 0.0e+0 m"
+        }
+      ]
+    },
+    {
+      "name": "equal moving at .05",
+      "parameters": {
+        "m1": 2,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0.05
+      },
+      "time": 2,
+      "steps": [
+        {
+          "number": 1,
+          "independentValues": [
+            0.6499999999999997,
+            0.8500000000000003,
+            0.22,
+            2.1911503837897546
+          ],
+          "illustrativeRoundedText": "0.650 + 0.850 + π × 0.22 = 2.191 m",
+          "displayed": "实时代入 · 0.650 + 0.850 + π × 0.22 = 2.191 m"
+        },
+        {
+          "number": 2,
+          "independentValues": [
+            0.10000000000000026,
+            -0.10000000000000026
+          ],
+          "illustrativeRoundedText": "q = 0.100 m · 左侧变化 -0.100 m",
+          "displayed": "实时代入 · q = 0.100 m · 左侧变化 -0.100 m"
+        },
+        {
+          "number": 3,
+          "independentValues": [
+            0.05,
+            -0.05
+          ],
+          "illustrativeRoundedText": "ẏ₁ = 0.050 m/s · ẏ₂ = -0.050 m/s",
+          "displayed": "实时代入 · ẏ₁ = 0.050 m/s · ẏ₂ = -0.050 m/s"
+        },
+        {
+          "number": 4,
+          "independentValues": [
+            0.005000000000000001
+          ],
+          "illustrativeRoundedText": "Tkin = 0.005 J",
+          "displayed": "实时代入 · Tkin = 0.005 J"
+        },
+        {
+          "number": 5,
+          "independentValues": [
+            0
+          ],
+          "illustrativeRoundedText": "V = 0.000 J",
+          "displayed": "实时代入 · V = 0.000 J"
+        },
+        {
+          "number": 6,
+          "independentValues": [
+            0.005000000000000001,
+            0,
+            0.005000000000000001
+          ],
+          "illustrativeRoundedText": "L = 0.005 − (0.000) = 0.005 J",
+          "displayed": "实时代入 · L = 0.005 − (0.000) = 0.005 J"
+        },
+        {
+          "number": 7,
+          "independentValues": [
+            0,
+            0
+          ],
+          "illustrativeRoundedText": "∂L/∂q = 0.000 N · d/dt(∂L/∂q̇) = 0.000 N",
+          "displayed": "实时代入 · ∂L/∂q = 0.000 N · d/dt(∂L/∂q̇) = 0.000 N（当前解）"
+        },
+        {
+          "number": 8,
+          "independentValues": [
+            4,
+            0,
+            0
+          ],
+          "illustrativeRoundedText": "4.00 × 0.000 = 0.000 N",
+          "displayed": "实时代入 · 4.00 × 0.000 = 0.000 N"
+        },
+        {
+          "number": 9,
+          "independentValues": [
+            0
+          ],
+          "illustrativeRoundedText": "a = 0.000 m/s²",
+          "displayed": "实时代入 · a = 0.000 m/s²"
+        },
+        {
+          "number": 10,
+          "independentValues": [
+            19.62
+          ],
+          "illustrativeRoundedText": "T₍rope₎ = 19.620 N",
+          "displayed": "实时代入 · T₍rope₎ = 19.620 N"
+        },
+        {
+          "number": 11,
+          "independentValues": [
+            2,
+            0.10000000000000026,
+            0.05
+          ],
+          "illustrativeRoundedText": "t = 2.000 s · q = 0.100 m · q̇ = 0.050 m/s",
+          "displayed": "实时代入 · t = 2.000 s · q = 0.100 m · q̇ = 0.050 m/s"
+        },
+        {
+          "number": 12,
+          "independentValues": [
+            0.005000000000000001,
+            0.005000000000000001
+          ],
+          "illustrativeRoundedText": "E = 0.005 J · E₀ = 0.005 J",
+          "displayed": "实时代入 · E = 0.005 J · E₀ = 0.005 J · 绳长残差 = 0.0e+0 m"
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-30T17:39:41.745Z",
+  "environment": "Playwright Chromium, direct file://, software WebGL; expensive post-processing disabled for audit",
+  "passed": 7,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "Direct file has no external resources and starts paused with correct default numbers",
+      "status": "passed"
+    },
+    {
+      "name": "The Run control advances the actual browser clock before pausing",
+      "status": "passed"
+    },
+    {
+      "name": "Negative acceleration, exact negative endpoint and replay",
+      "status": "passed"
+    },
+    {
+      "name": "Positive acceleration, tension and exact positive endpoint",
+      "status": "passed"
+    },
+    {
+      "name": "Equal masses remain stationary, finish the 4 s observation and replay",
+      "status": "passed"
+    },
+    {
+      "name": "X-ray toggles the actual pulley ghost without changing the physical pose",
+      "status": "passed"
+    },
+    {
+      "name": "No external requests or browser script errors",
+      "status": "passed"
+    }
+  ],
+  "blockedExternalRequests": [],
+  "errors": []
+}

@@ -101,9 +101,11 @@ export function createMachineAssembly() {
   }
   const setArrow = (arrow: THREE.ArrowHelper, at: THREE.Vector3, direction: number, length: number) => {
     arrow.position.copy(at); arrow.setDirection(new THREE.Vector3(0,direction,0))
-    arrow.setLength(Math.max(.001,length), Math.min(.055,Math.max(.018,length*.34)), Math.min(.035,Math.max(.012,length*.2)))
+    const drawnLength=Math.max(.001,length)
+    // Head size must never exceed the physical arrow length at small forces.
+    arrow.setLength(drawnLength, Math.min(.055,drawnLength*.34), Math.min(.035,Math.max(.001,drawnLength*.2)))
   }
-  function update(s: PhysicsSnapshot, p: AtwoodParameters, opts: { forces: boolean; constraint: boolean; cut: boolean; selected: string }) {
+  function update(s: PhysicsSnapshot, p: AtwoodParameters, opts: { forces: boolean; constraint: boolean; cut: boolean; selected: string; activeParts?: readonly string[]; activeVariables?: readonly string[] }) {
     const leftY=INITIAL_MASS_Y_M+s.q, rightY=INITIAL_MASS_Y_M-s.q
     massLeft.position.set(-RADIUS_M,leftY,.128); massRight.position.set(RADIUS_M,rightY,.128)
     wheel.rotation.z = -s.q/RADIUS_M // clockwise when m2 goes down
@@ -111,26 +113,30 @@ export function createMachineAssembly() {
     for (const [rope, top] of [[ropeL,leftTop],[ropeR,rightTop]] as const) {
       const length=PULLEY_Y_M-top; rope.position.y=(PULLEY_Y_M+top)/2; rope.scale.y=length
     }
+    const automatic=!opts.selected
+    const highlighted=(part:string)=>opts.selected===part || (automatic && !!opts.activeParts?.includes(part))
+    const showVelocity=opts.selected==='qdot' || (automatic && !!opts.activeVariables?.includes('qdot'))
+    const showAcceleration=opts.selected==='a' || (automatic && !!opts.activeVariables?.includes('a'))
     const showRope=opts.constraint
-    material.rope.color.set(showRope ? '#9b7850' : '#c0b29b')
+    material.rope.color.set(showRope ? (highlighted('rope') || opts.selected==='q' ? '#b65d38' : '#9b7850') : '#c0b29b')
     arc.visible=true; ropeL.visible=true; ropeR.visible=true
     ringFull.visible=!opts.cut; ringCut.visible=opts.cut
-    material.m1.emissive.set(opts.selected==='m1' ? '#264f46' : '#000000')
-    material.m2.emissive.set(opts.selected==='m2' ? '#632a1e' : '#000000')
+    material.m1.emissive.set(highlighted('m1') ? '#264f46' : '#000000')
+    material.m2.emissive.set(highlighted('m2') ? '#632a1e' : '#000000')
     const masses=[{x:-RADIUS_M,y:leftY,m:p.m1,vel:s.velocity},{x:RADIUS_M,y:rightY,m:p.m2,vel:-s.velocity}]
     masses.forEach((m,i)=>{
       const a=arrows[i], at=new THREE.Vector3(m.x,m.y,.245)
       a.tension.visible=opts.forces; a.gravity.visible=opts.forces
       setArrow(a.tension,at.clone().add(new THREE.Vector3(-.055,.07,0)),1,s.tension*.008)
       setArrow(a.gravity,at.clone().add(new THREE.Vector3(.055,-.07,0)),-1,m.m*p.g*.008)
-      a.velocity.visible=(opts.forces || opts.selected==='qdot') && Math.abs(m.vel)>.015
+      a.velocity.visible=(opts.forces || showVelocity) && Math.abs(m.vel)>.015
       setArrow(a.velocity,at.clone().add(new THREE.Vector3(.11,0,0)),Math.sign(m.vel)||1,Math.abs(m.vel)*.15)
       const signedAcceleration=i===0 ? s.acceleration : -s.acceleration
-      a.acceleration.visible=opts.selected==='a' && Math.abs(signedAcceleration)>.015
+      a.acceleration.visible=showAcceleration && Math.abs(signedAcceleration)>.015
       setArrow(a.acceleration,at.clone().add(new THREE.Vector3(-.12,0,0)),Math.sign(signedAcceleration)||1,Math.abs(signedAcceleration)*.05)
     })
     qArrow.setColor(new THREE.Color(opts.selected==='q' ? 0x9c442e : 0xb65b45))
     qArrow.visible=opts.constraint || opts.selected==='q'
   }
-  return { root, update, leftBlock, rightBlock, massLeft, massRight, wheel, ropeL, ropeR }
+  return { root, update, leftBlock, rightBlock, massLeft, massRight, wheel, ropeL, ropeR, arrows, qArrow, materials:material }
 }

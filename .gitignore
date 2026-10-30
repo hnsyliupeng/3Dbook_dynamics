@@ -10,3 +10,5 @@ test-results/
 *.tsbuildinfo
 # The pinned upstream textbook is cloned locally for audits, never vendored here.
 content/source/
+# Intermediate files used only to assemble the standalone HTML.
+standalone/.build/

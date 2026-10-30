@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-30T17:18:24.852Z",
+  "environment": "Playwright Chromium; external network blocked; HTTP server serves only dist files",
+  "checks": [
+    {
+      "name": "源码 index.html 直接 file://",
+      "url": "file:///home/user/3Dbook_dynamics/index.html",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [],
+      "errors": [
+        "Access to script at 'file:///src/main.tsx' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "生产 dist/index.html 直接 file://",
+      "url": "file:///home/user/3Dbook_dynamics/dist/index.html",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [],
+      "errors": [
+        "Access to CSS stylesheet at 'file:///assets/book-DX78lUtl.css' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to script at 'file:///assets/book-BKJ0FqQH.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED",
+        "Access to script at 'file:///assets/BufferGeometryUtils-DU4b05K-.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: chrome, chrome-untrusted, data, http, https.",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "离线静态根目录",
+      "url": "http://127.0.0.1:36887/",
+      "rendered": true,
+      "details": {
+        "acceleration": "3.27 m/s²",
+        "illustration": true
+      },
+      "blockedExternalRequests": [],
+      "errors": []
+    },
+    {
+      "name": "离线静态子目录",
+      "url": "http://127.0.0.1:45263/nested/course/",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [
+        "http://127.0.0.1:45263/assets/book-BKJ0FqQH.js",
+        "http://127.0.0.1:45263/assets/BufferGeometryUtils-DU4b05K-.js",
+        "http://127.0.0.1:45263/assets/book-DX78lUtl.css"
+      ],
+      "errors": [
+        "Failed to load resource: net::ERR_FAILED",
+        "Failed to load resource: net::ERR_FAILED",
+        "Failed to load resource: net::ERR_FAILED"
+      ]
+    },
+    {
+      "name": "完整自包含单文件 file://",
+      "rendered": false,
+      "details": {},
+      "blockedExternalRequests": [],
+      "errors": [
+        "standalone/atwood-book.html 不存在"
+      ]
+    }
+  ]
+}

@@ -15,7 +15,12 @@
     "execute:source": "python scripts/execute_source_notebooks.py",
     "build:lessons": "python scripts/build_lessons.py",
     "extract:equations": "python scripts/extract_equations.py",
-    "build:machine": "node scripts/build-machine-standalone.mjs"
+    "build:machine": "node scripts/build-machine-standalone.mjs",
+    "build:standalone": "node scripts/build-standalone.mjs",
+    "test:standalone": "node scripts/audit-standalone.mjs",
+    "audit:derivations": "python scripts/audit_derivations.py",
+    "test:machine": "node scripts/audit-machine-prototype.mjs",
+    "test:derivations": "node scripts/audit-live-derivations.mjs"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.6",

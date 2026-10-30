@@ -12,8 +12,12 @@ export class TimelineController {
     this.playing = true
   }
   pause() { this.playing = false }
-  seek(time: number) { this.pause(); this.time = Math.max(0, Math.min(this.store.endTime, time)) }
+  seek(time: number) {
+    if (!Number.isFinite(time)) throw new Error('Seek time must be finite.')
+    this.pause(); this.time = Math.max(0, Math.min(this.store.endTime, time))
+  }
   advance(delta: number) {
+    if (!Number.isFinite(delta)) throw new Error('Time increment must be finite.')
     if (!this.playing) return
     this.time = Math.min(this.store.endTime, this.time + Math.max(0, delta))
     if (this.time >= this.store.endTime - 1e-10) { this.time = this.store.endTime; this.pause() }

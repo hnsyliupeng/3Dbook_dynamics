@@ -14,7 +14,7 @@
 
 - **Machine Skill**，Air Supply Technologies Inc. (Airsup)，MIT，固定源 commit `e0bd066ac5beaf48512935de2fc0f0e55636853a`：[`licenses/MACHINE-MIT.txt`](../licenses/MACHINE-MIT.txt) 及 [`.claude/skills/machine/LICENSE`](../.claude/skills/machine/LICENSE)。本项目使用其 kit、脚本与示例；不可将其对代码的 MIT 授权扩展到课程内容。
 - **Colorfigures**，April Zhu；基于 April Zhu 的 iso-glow 和 Tolga Cohce 的 iso-figure，MIT：[`.claude/skills/colorfigures/LICENSE`](../.claude/skills/colorfigures/LICENSE) 和 [`licenses/COLORFIGURES-MIT.txt`](../licenses/COLORFIGURES-MIT.txt)。本项目从声称为官方技能镜像的 [madearga/colorfigures](https://github.com/madearga/colorfigures) commit `3a520817c1cc4277954715e69d993e1f950da1b8` 取得；与官网当前 tar 的内容一致性**未验证**。来源和实际工作流详见 [SKILLS_USAGE.md](SKILLS_USAGE.md)。
-- 两个自包含 HTML 均在文件内保留对应 MIT 版权及许可文字和教材归属信息；在分发整书时仍须附完整教材许可证及其他依赖许可。
+- 两个技能自包含 HTML 在文件内保留对应 MIT 许可和教材归属。另有完整书 `standalone/atwood-book.html`，内嵌教材完整许可、两技能许可及其打包依赖/字体许可；分发时仍须遵循所有适用条件并核验版本。
 
 ## 其他依赖与字体
 

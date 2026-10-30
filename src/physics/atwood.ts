@@ -46,21 +46,33 @@ export const atwoodModel: PhysicsModel<AtwoodParameters> = {
 
 /** First positive root at either end. Includes reversal before touching a stop. */
 export function firstStopTime(p: AtwoodParameters, limit = TRAVEL_M, horizon = HORIZON_S): number | null {
+  if (!Number.isFinite(limit) || limit <= 0 || !Number.isFinite(horizon) || horizon <= 0) {
+    throw new Error('Travel limit and horizon must be finite and positive.')
+  }
   const a = acceleration(p), v = p.v0, roots: number[] = []
   for (const target of [-limit, limit]) {
-    if (Math.abs(a) < 1e-12) {
-      if (Math.abs(v) > 1e-12) roots.push(target / v)
+    if (a === 0) {
+      if (v !== 0) roots.push(target / v)
       continue
     }
-    // 1/2 a t² + v0 t - target = 0
-    const disc = v * v + 2 * a * target
-    if (disc >= 0) {
-      const d = Math.sqrt(disc)
-      roots.push((-v + d) / a, (-v - d) / a)
+    // q = v*t + a*t²/2. Use the numerically stable quadratic form:
+    // direct (-v + sqrt(v²+2*a*target))/a loses precision when a ≈ 0.
+    const discriminant = v * v + 2 * a * target
+    // Input decimals and especially (m2-m1) can incur cancellation.
+    // Include propagation through acceleration as well as the final sum;
+    // otherwise some exact UI-grid tangencies fall just outside tolerance.
+    const discTolerance = 8 * Number.EPSILON * (Math.abs(v * v) + Math.abs(2 * a * target) + 2 * Math.abs(target) * p.g)
+    if (discriminant >= -discTolerance) {
+      const rootDiscriminant = Math.abs(discriminant) <= discTolerance ? 0 : discriminant
+      const numerator = -v - (v < 0 ? -1 : 1) * Math.sqrt(rootDiscriminant)
+      if (numerator === 0) roots.push(-v / a)
+      else roots.push(numerator / a, -2 * target / numerator)
     }
   }
-  const valid = roots.filter(x => Number.isFinite(x) && x > 1e-10 && x <= horizon + 1e-10)
-  return valid.length ? Math.min(...valid) : null
+  // Accept a root within a few floating-point ulps of the observation horizon.
+  const tolerance = 8 * Number.EPSILON * Math.max(1, horizon)
+  const valid = roots.filter(x => Number.isFinite(x) && x > 0 && x <= horizon + tolerance)
+  return valid.length ? Math.min(horizon, ...valid) : null
 }
 
 export function makeSnapshot(p: AtwoodParameters, t: number, state: InitialState): PhysicsSnapshot {

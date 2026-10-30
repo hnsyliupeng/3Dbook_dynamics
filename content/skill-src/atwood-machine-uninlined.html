@@ -77,23 +77,34 @@ const wheel = new THREE.Group()
 const rim = new THREE.Mesh(GEO.tube(.22,.166,.065),matGold);rim.rotation.x=Math.PI/2;wheel.add(rim)
 for(let i=0;i<5;i++){const a=i*2*Math.PI/5;const s=new THREE.Mesh(GEO.rbox(.17,.027,.05,.004),matGold);s.position.set(Math.cos(a)*.095,Math.sin(a)*.095,0);s.rotation.z=a;wheel.add(s)}
 const hub=new THREE.Mesh(GEO.disc(.06,.08),matGold);hub.rotation.x=Math.PI/2;wheel.add(hub);wheel.position.set(0,1.75,.08)
-lab.add(wheel,{name:'Pulley and hub',explode:[0,0,.3],label:'Pulley',at:[0,.18,0]})
+lab.add(wheel,{name:'Pulley and hub',explode:[0,0,.3],label:'Pulley',at:[0,.18,0],xray:'shell'})
 const block1=addBox('Mass 1',.19,.22,.16,[-.22,.89,.128],MAT.paint({color:'#76a69b',finish:null}),[-.25,0,0]);lab.label(block1,'m1',{at:[0,0,.08]})
 const block2=addBox('Mass 2',.19,.22,.16,[.22,.89,.128],MAT.paint({color:'#ce8069',finish:null}),[.25,0,0]);lab.label(block2,'m2',{at:[0,0,.08]})
 lab.mesh(new THREE.TorusGeometry(.22,.008,8,64,Math.PI),matRope,{name:'Rope arc',pos:[0,1.75,.128]})
 const rope1=lab.mesh(new THREE.CylinderGeometry(.008,.008,1,12),matRope,{name:'Left rope',pos:[-.22,1.375,.128],scale:[1,.75,1]})
 const rope2=lab.mesh(new THREE.CylinderGeometry(.008,.008,1,12),matRope,{name:'Right rope',pos:[.22,1.375,.128],scale:[1,.75,1]})
 lab.hero({label:'Acceleration',unit:'m/s²',max:10,digits:2})
-let elapsed=0, q=0
-const mass2=lab.slider({id:'m2',label:'Right mass',min:.2,max:5,value:2,unit:'kg',digits:1,ends:['0.2 kg','5 kg'],onInput:()=>{elapsed=0;q=0;lab.paused=true}})
+let elapsed=0, q=0, ended=false, stopAtBoundary=false
+const mass2=lab.slider({id:'m2',label:'Right mass',min:.2,max:5,step:.1,value:2,unit:'kg',digits:1,ends:['0.2 kg','5 kg'],onInput:()=>{elapsed=0;q=0;ended=false;stopAtBoundary=false;lab.paused=true;lab._syncButtons()}})
+// A Run click after either the travel event or the 4 s observation window
+// restarts rather than instantly stopping again. This prototype has its own clock.
+const originalToggle=lab.toggle.bind(lab)
+lab.toggle=(name,on)=>{if(name==='run' && lab.paused && ended){elapsed=0;q=0;ended=false;stopAtBoundary=false}return originalToggle(name,on)}
 lab.onTick((dt)=>{
   const m1=1,m2=mass2.value,g=9.81,a=(m2-m1)*g/(m1+m2), tension=2*m1*m2*g/(m1+m2)
-  if(!lab.paused){elapsed+=dt;q=.5*a*elapsed*elapsed;if(Math.abs(q)>=.5){q=Math.sign(q)*.5;lab.paused=true;lab._syncButtons()}}
+  if(!lab.paused){
+    const stop=Math.abs(a)>0 ? Math.sqrt(1/Math.abs(a)) : Infinity, end=Math.min(stop,4)
+    elapsed=Math.min(end,elapsed+dt);q=.5*a*elapsed*elapsed
+    if(elapsed>=end){
+      stopAtBoundary=stop<=4;if(stopAtBoundary)q=Math.sign(a)*.5
+      ended=true;lab.paused=true;lab._syncButtons()
+    }
+  }
   wheel.rotation.z=-q/.22
   lab.place(block1,-.22,.89+q,.128);lab.place(block2,.22,.89-q,.128)
   const l1=.75-q,l2=.75+q;rope1.scale.y=l1;rope2.scale.y=l2
   lab.place(rope1,-.22,1.75-l1/2,.128);lab.place(rope2,.22,1.75-l2/2,.128)
-  lab.setHero(a,{state:Math.abs(q)>=.5?'at travel stop':lab.paused?'paused':'running',sub:`tension ${tension.toFixed(2)} N · q ${q.toFixed(3)} m`})
+  lab.setHero(a,{state:ended?(stopAtBoundary?'at travel stop':'observation complete'):lab.paused?'paused':'running',sub:`tension ${tension.toFixed(2)} N · q ${q.toFixed(3)} m`})
 })
 lab.how('Ideal, inextensible massless rope and massless pulley; motion stops at either travel boundary. The rotor’s visible geometry has no inertia in this ideal model.', ['a = (m2 − m1)g / (m1 + m2)', 'T = 2 m1 m2 g / (m1 + m2)', 'theta = −q / R'])
 lab.paused=true

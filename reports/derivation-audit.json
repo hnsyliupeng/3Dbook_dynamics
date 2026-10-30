@@ -1,0 +1,101 @@
+{
+  "method": "exact reviewed LaTeX match + SymPy symbolic identities; not a proof of unimplemented models",
+  "lessonSha256": "60549e0f1f16bb5e97c9aa60976545e59c9de8a4bd646fb1c9cd5c4cbf9725c0",
+  "steps": [
+    {
+      "number": 1,
+      "id": "constraint",
+      "reviewedLatex": "\\ell_1+\\ell_2+\\pi R=L",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 2,
+      "id": "coordinate",
+      "reviewedLatex": "q=\\ell_2-\\ell_{2,0},\\qquad \\ell_1=\\ell_{1,0}-q",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 3,
+      "id": "velocity",
+      "reviewedLatex": "\\dot y_1=\\dot q,\\qquad \\dot y_2=-\\dot q",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 4,
+      "id": "kinetic",
+      "reviewedLatex": "T_{\\rm kin}=\\tfrac12(m_1+m_2)\\dot q^2",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 5,
+      "id": "potential",
+      "reviewedLatex": "V=(m_1-m_2)gq",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 6,
+      "id": "lagrangian",
+      "reviewedLatex": "\\mathcal L=\\tfrac12(m_1+m_2)\\dot q^2+(m_2-m_1)gq",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 7,
+      "id": "partials",
+      "reviewedLatex": "\\frac{\\partial\\mathcal L}{\\partial q}=(m_2-m_1)g,\\quad \\frac{d}{dt}\\frac{\\partial\\mathcal L}{\\partial\\dot q}=(m_1+m_2)\\ddot q",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 8,
+      "id": "euler",
+      "reviewedLatex": "\\frac{d}{dt}\\frac{\\partial\\mathcal L}{\\partial\\dot q}-\\frac{\\partial\\mathcal L}{\\partial q}=0",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 9,
+      "id": "acceleration",
+      "reviewedLatex": "a=\\ddot q=\\frac{(m_2-m_1)g}{m_1+m_2}",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 10,
+      "id": "tension",
+      "reviewedLatex": "T_{\\rm rope}=m_1(g+a)=\\frac{2m_1m_2g}{m_1+m_2}",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 11,
+      "id": "solution",
+      "reviewedLatex": "q(t)=v_0t+\\tfrac12at^2,\\qquad \\dot q(t)=v_0+at",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    },
+    {
+      "number": 12,
+      "id": "validation",
+      "reviewedLatex": "T_{\\rm kin}+V=\\tfrac12(m_1+m_2)v_0^2",
+      "latexMatchesReviewedExpression": true,
+      "symbolicIdentity": true
+    }
+  ],
+  "cases": {
+    "named": 18,
+    "seededUI": 100,
+    "samplesPerCase": 9,
+    "reference": "content/references/deep-physics-reference.json"
+  },
+  "notes": [
+    "q is m2 downward; y1 and y2 are upward.",
+    "Tangent end-stop is checked by high-precision root isolation, not merely sign-changing events.",
+    "Only the implemented ideal Atwood model is covered."
+  ]
+}

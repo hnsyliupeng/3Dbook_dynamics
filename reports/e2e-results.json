@@ -1,15 +1,310 @@
 {
-  "date": "2026-10-30T16:36:09.814Z",
+  "date": "2026-10-30T17:49:43.682Z",
   "environment": "Playwright + @sparticuz/chromium software WebGL",
-  "passed": 15,
+  "caseAudits": [
+    {
+      "name": "default",
+      "parameters": {
+        "m1": 1,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0
+      },
+      "reference": {
+        "t": 0.2765006318046655,
+        "q": 0.12499999999999996,
+        "velocity": 0.904157066001256
+      },
+      "endTime": 0.553001263609331,
+      "stop": true,
+      "screenshot": "20-01-default.png"
+    },
+    {
+      "name": "reversed masses",
+      "parameters": {
+        "m1": 2,
+        "m2": 1,
+        "g": 9.81,
+        "v0": 0
+      },
+      "reference": {
+        "t": 0.2765006318046655,
+        "q": -0.12499999999999996,
+        "velocity": -0.904157066001256
+      },
+      "endTime": 0.553001263609331,
+      "stop": true,
+      "screenshot": "20-02-reversed-masses.png"
+    },
+    {
+      "name": "equal stationary",
+      "parameters": {
+        "m1": 2,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0
+      },
+      "reference": {
+        "t": 2,
+        "q": 0,
+        "velocity": 0
+      },
+      "endTime": 4,
+      "stop": false,
+      "screenshot": "20-03-equal-stationary.png"
+    },
+    {
+      "name": "equal moving at .05",
+      "parameters": {
+        "m1": 2,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 0.05
+      },
+      "reference": {
+        "t": 2,
+        "q": 0.10000000000000026,
+        "velocity": 0.05
+      },
+      "endTime": 4,
+      "stop": false,
+      "screenshot": "20-04-equal-moving-at-05.png"
+    },
+    {
+      "name": "equal moving hits positive stop",
+      "parameters": {
+        "m1": 2,
+        "m2": 2,
+        "g": 9.81,
+        "v0": 1
+      },
+      "reference": {
+        "t": 0.25,
+        "q": 0.24999999999999997,
+        "velocity": 1
+      },
+      "endTime": 0.5,
+      "stop": true,
+      "screenshot": "20-05-equal-moving-hits-positive-stop.png"
+    },
+    {
+      "name": "initial reversal",
+      "parameters": {
+        "m1": 1,
+        "m2": 2,
+        "g": 9.81,
+        "v0": -1
+      },
+      "reference": {
+        "t": 0.46886817002709213,
+        "q": -0.109434085013546,
+        "velocity": 0.5331989159885914
+      },
+      "endTime": 0.9377363400541843,
+      "stop": true,
+      "screenshot": "20-06-initial-reversal.png"
+    },
+    {
+      "name": "reverse direction with initial velocity",
+      "parameters": {
+        "m1": 2,
+        "m2": 1,
+        "g": 9.81,
+        "v0": 1
+      },
+      "reference": {
+        "t": 0.46886817002709213,
+        "q": 0.109434085013546,
+        "velocity": -0.5331989159885914
+      },
+      "endTime": 0.9377363400541843,
+      "stop": true,
+      "screenshot": "20-07-reverse-direction-with-initial-velocity.png"
+    },
+    {
+      "name": "maximum gravity and unequal masses",
+      "parameters": {
+        "m1": 0.2,
+        "m2": 5,
+        "g": 20,
+        "v0": 0
+      },
+      "reference": {
+        "t": 0.11636866703140784,
+        "q": 0.12499999999999997,
+        "velocity": 2.1483446221182985
+      },
+      "endTime": 0.23273733406281572,
+      "stop": true,
+      "screenshot": "20-08-maximum-gravity-and-unequal-masses.png"
+    },
+    {
+      "name": "minimum gravity",
+      "parameters": {
+        "m1": 5,
+        "m2": 0.2,
+        "g": 1,
+        "v0": 0
+      },
+      "reference": {
+        "t": 0.5204164998665332,
+        "q": -0.125,
+        "velocity": -0.4803844614152612
+      },
+      "endTime": 1.0408329997330663,
+      "stop": true,
+      "screenshot": "20-09-minimum-gravity.png"
+    },
+    {
+      "name": "tangential endpoint touch",
+      "parameters": {
+        "m1": 1,
+        "m2": 3,
+        "g": 2,
+        "v0": -1
+      },
+      "reference": {
+        "t": 0.5,
+        "q": -0.37499999999999994,
+        "velocity": -0.4999999999999999
+      },
+      "endTime": 1,
+      "stop": true,
+      "screenshot": "20-10-tangential-endpoint-touch.png"
+    },
+    {
+      "name": "touch exactly at observation horizon",
+      "parameters": {
+        "m1": 1.5,
+        "m2": 1.7,
+        "g": 1,
+        "v0": 0
+      },
+      "reference": {
+        "t": 2,
+        "q": 0.12499999999999999,
+        "velocity": 0.12499999999999999
+      },
+      "endTime": 4,
+      "stop": true,
+      "screenshot": "20-12-touch-exactly-at-observation-horizon.png"
+    },
+    {
+      "name": "tangency with mass cancellation",
+      "parameters": {
+        "m1": 4.3,
+        "m2": 4.4,
+        "g": 7.83,
+        "v0": -0.3
+      },
+      "reference": {
+        "t": 1.6666666666666667,
+        "q": -0.3749999999999998,
+        "velocity": -0.14999999999999972
+      },
+      "endTime": 3.3333333333333153,
+      "stop": true,
+      "screenshot": "20-13-tangency-with-mass-cancellation.png"
+    },
+    {
+      "name": "tangency rounded positive",
+      "parameters": {
+        "m1": 0.2,
+        "m2": 0.3,
+        "g": 1.25,
+        "v0": -0.5
+      },
+      "reference": {
+        "t": 1,
+        "q": -0.37500000000000094,
+        "velocity": -0.2500000000000017
+      },
+      "endTime": 2,
+      "stop": true,
+      "screenshot": "20-14-tangency-rounded-positive.png"
+    },
+    {
+      "name": "negative tangency with rounding",
+      "parameters": {
+        "m1": 0.2,
+        "m2": 1,
+        "g": 1.5,
+        "v0": -1
+      },
+      "reference": {
+        "t": 0.5,
+        "q": -0.37499999999999994,
+        "velocity": -0.4999999999999999
+      },
+      "endTime": 0.9999999999999998,
+      "stop": true,
+      "screenshot": "20-15-negative-tangency-with-rounding.png"
+    },
+    {
+      "name": "positive tangency with rounding",
+      "parameters": {
+        "m1": 1,
+        "m2": 0.2,
+        "g": 1.5,
+        "v0": 1
+      },
+      "reference": {
+        "t": 0.5,
+        "q": 0.37499999999999994,
+        "velocity": 0.4999999999999999
+      },
+      "endTime": 0.9999999999999998,
+      "stop": true,
+      "screenshot": "20-16-positive-tangency-with-rounding.png"
+    },
+    {
+      "name": "near tangent but hits",
+      "parameters": {
+        "m1": 0.2,
+        "m2": 1,
+        "g": 1.49,
+        "v0": -1
+      },
+      "reference": {
+        "t": 0.4622568835103494,
+        "q": -0.35612844175517455,
+        "velocity": -0.5408248290463858
+      },
+      "endTime": 0.9245137670206985,
+      "stop": true,
+      "screenshot": "20-17-near-tangent-but-hits.png"
+    },
+    {
+      "name": "near tangent but misses",
+      "parameters": {
+        "m1": 0.2,
+        "m2": 1,
+        "g": 1.51,
+        "v0": -1
+      },
+      "reference": {
+        "t": 1.200282429168072,
+        "q": -0.4751412145840365,
+        "velocity": 0.20828431202919195
+      },
+      "endTime": 2.400564858336144,
+      "stop": true,
+      "screenshot": "20-18-near-tangent-but-misses.png"
+    }
+  ],
+  "passed": 18,
   "failed": 0,
   "results": [
+    {
+      "name": "Opening animation blocks physics controls until the model is ready",
+      "status": "passed"
+    },
     {
       "name": "Default model and visible WebGL assembly",
       "status": "passed"
     },
     {
-      "name": "Twelve-step derivation and bound variables are interactive",
+      "name": "All 12 displayed substitutions and physical step bindings follow the same frozen time",
       "status": "passed"
     },
     {
@@ -41,6 +336,14 @@
       "status": "passed"
     },
     {
+      "name": "Step, graph cursor, forecast styling, CSV export and replay are synchronized",
+      "status": "passed"
+    },
+    {
+      "name": "Every UI-reproducible named parameter branch matches its independent reference and has a screenshot",
+      "status": "passed"
+    },
+    {
       "name": "Page turn pauses the old simulation; exercise gives real feedback",
       "status": "passed"
     },
@@ -67,7 +370,7 @@
     {
       "name": "Headless software-rendered rAF measurement (not a GPU performance guarantee)",
       "status": "measured",
-      "fps": 56
+      "fps": 28
     }
   ],
   "failures": [],

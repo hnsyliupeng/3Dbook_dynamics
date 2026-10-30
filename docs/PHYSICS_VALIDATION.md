@@ -18,7 +18,12 @@ q(t) = v0 t + a t²/2,                qdot(t) = v0 + a t
 
 - `scripts/validate_physics.py` 使用 SymPy 从 `L` 得到欧拉–拉格朗日方程，并用 SciPy `solve_ivp` 的 RK45 与解析式对比四种情形。输出 `content/references/physics-reference.json`。浏览器采用固定步长 RK4，与 SciPy 算法不同，另以 Vitest 比较解析值、边界、净空和能量。
 - `scripts/execute_source_notebooks.py` 用 nbclient/ipykernel 完整执行固定 SHA 的两份**未经改写**的源 Notebook。`04Constraints/atwoodConstraint.ipynb` 27/27 个代码 cell、`05Simulation/atwoodSimulationSolved.ipynb` 34/34 个代码 cell 通过；执行日志及选定原输出在 `reports/source-notebook-execution.json`。这不表示执行了其余 32 份 Notebook。
-- `tests/physics/atwood.test.ts`：11/11。`reports/e2e-results.json`：15/15；同步测试读取实际 WebGL canvas 公开的轮角、质量高度、绳段长度，并检查 iframe 的 q 和错误来源拒绝。浏览器测试是指定样例，不是形式化证明。
+- `scripts/audit_derivations.py` 将 **12 个当前显示的 LaTeX** 与已人工审阅的表达式逐一精确匹配，并由 SymPy 分别验证约束、速度、能量、偏导、欧拉–拉格朗日方程、加速度、张力、时间解和能量守恒；见 `reports/derivation-audit.json`。这只覆盖已实现的理想阿特伍德推导，不是对全教材的证明。Vitest 还比较实际课程中显示的 LaTeX 与报告，避免报告过期时静默通过。
+- 新增 `content/references/deep-physics-reference.json`：18 个具名案例 + 100 个固定种子 UI 参数组，每组 9 个采样；端点由 mpmath **70 位**根求解，轨迹由独立 SciPy RK45 产生。Vitest 将 118×9 个 q、速度、解析值和能量与浏览器的 RK4 `SnapshotStore` 比较，并比较首端点时间、加速度与张力，位置/速度断言精度为 9 位小数。该常加速度模型的有效性不代表其他模型精度。
+- 其中覆盖初速反向并折返、等质量匀速、极值质量/重力、刚好在 4 s 触边、端点切触、切触附近命中/未命中和近等质量消减压力。后者的质量差约 `2×10⁻¹¹ kg`，小于 UI 的 `0.1 kg` 步长，**只能由程序测试**；其他 17 个具名情形均已在浏览器中定位、校验并截图，见 [VISUAL_VERIFICATION.md](VISUAL_VERIFICATION.md)。100 组种子样本是批量数值覆盖，不是 100 个独立课程。
+- 另对 UI 网格中所有 `t≤4 s` 的 **2,366 个精确切触参数组合**及其正反对称情形逐项检查；使用独立整数有理数判别式检查最邻近的 **16,026 个非切触组合**及正反对称情形，避免把实际近失误判为触边。这是所定义网格上的枚举，不是所有连续实数的形式化穷举。
+- `reports/live-derivation-audit.json` 对初速反向、相反方向、等质量非零初速三种浏览器状态，逐步比较全部 **36 个**实际显示的代入值与 SciPy 参考；比较按显示位数允许半个末位单位，避免独立求解器在舍入平局两侧相差一个显示末位。它不代表穷举所有连续参数。
+- `npm test` 共 **21/21**，其中真实 Machine 装配测试逐样本检查两块质量实际坐标、两段绳长度、轮角及重力/张力箭头的方向与长度、速度/加速度方向和步高亮。`reports/e2e-results.json` 的主书测试为 **18/18**，包括 12 步实时代入、切步不改时钟、模型物件高亮、参数分支、图表光标/CSV、单步、重播与端点。`reports/standalone-audit.json` 进一步验证三种离线部署的插画实际质量 SVG 反向移动、轮辐图形变化、步高亮、双向状态和错误来源/版本/窗口拒绝；`reports/machine-prototype-audit.json` 则单独记录独立原型 **7/7**。所有浏览器结果仅适用于所测 Chromium 环境。
 
 | 情形 | a (m/s²) | 张力 (N) | 结束时刻 (s) | SciPy vs 解析位移最大误差 |
 |---|---:|---:|---:|---:|
@@ -32,6 +37,12 @@ SciPy 四例最大能量漂移约 `8×10⁻¹⁵ J`，只表示所测理想常�
 ## 与原 05 Notebook 的有意区别
 
 固定版本 `05Simulation/atwoodSimulationSolved.ipynb` 的 cell `index:11` 写 `ẋ₁/R − θ̇/π = 0`，cell `index:24` 得 `θ̇=πẋ₁/R`；带 `I=MR²/2` 后 cell `index:37` 得 `a₁=2g(m₁−m₂)/(π²M+2m₁+2m₂)`。这与常见无滑移关系及本课程理想模型不一致，**未悄悄抹掉 π**。原 `m₁=8, m₂=1, M=4, g=9.81, x₀=25, v₀=−10` 复现 `a₁=2.389418598 m/s², x₁(10)=44.470930 m, v₁(10)=13.894186 m/s`。原 04 中第一块质量向下为正；本书选择第二块向下为正，公式符号相应变换。详见 [SOURCE_MAPPING.md](SOURCE_MAPPING.md)。
+
+## 本次发现并修复的逻辑边界
+
+- 二次方程原直接求根在近等质量时可能消减；现在采用稳定形式。对于数学上恰好触边但判别式因浮点计算落在零附近的情况，以运算量级的少量 ULP 作容差，避免把切触漏判成未命中；有实际间隔的近切触示例也单独验证。触边时若速度为零，仍按“首次触碰即暂停”，不会继续穿过或自行反弹。
+- 参数显示按 UI 步长保留精度，`v₀=0.05 m/s` 不再显示成 `0.1`；第 7 步左右项各自代入；`q` 正向只是坐标定义，不代表任何初速度下 m₂ 永远向下。
+- 没有端点的等质量情形在 4 s 显示“观察窗口结束”，而非碰撞；图表用实线显示已观察、虚线显示预计算预测，CSV 导出完整预计算轨迹。
 
 ## 边界
 

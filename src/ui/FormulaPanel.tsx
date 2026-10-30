@@ -1,28 +1,30 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { lessonCompiler } from '../lessons/LessonCompiler'
 const atwoodLesson = lessonCompiler.get('atwood-ideal')!
 import { Formula } from '../math/FormulaRenderer'
 import { DerivationEngine } from '../math/DerivationEngine'
+import type { DerivationStep } from '../lessons/atwood/lesson'
 import type { PhysicsSnapshot } from '../physics/PhysicsModel'
 import { INITIAL_HANGING_M, RADIUS_M, type AtwoodParameters } from '../physics/atwood'
 import { formatFixed } from './format'
 const engine=new DerivationEngine(atwoodLesson.derivation)
 const variables=[['m1','m₁'],['m2','m₂'],['q','q'],['qdot','q̇'],['a','a']] as const
-export function FormulaPanel({snapshot,parameters,selected,onSelect}: {snapshot:PhysicsSnapshot;parameters:AtwoodParameters;selected:string;onSelect:(part:string)=>void}) {
+export function FormulaPanel({snapshot,parameters,selected,onSelect,onStepChange}: {snapshot:PhysicsSnapshot;parameters:AtwoodParameters;selected:string;onSelect:(part:string)=>void;onStepChange:(step:DerivationStep)=>void}) {
   const [index,setIndex]=useState(0)
   const steps=atwoodLesson.derivation, step=steps[index]
+  useEffect(()=>{onStepChange(step)},[step,onStepChange])
   const substitution:Record<string,string>={
     constraint:`${(INITIAL_HANGING_M-snapshot.q).toFixed(3)} + ${(INITIAL_HANGING_M+snapshot.q).toFixed(3)} + π × ${RADIUS_M.toFixed(2)} = ${(2*INITIAL_HANGING_M+Math.PI*RADIUS_M).toFixed(3)} m`,
     coordinate:`q = ${formatFixed(snapshot.q,3)} m · 左侧变化 ${formatFixed((-snapshot.q),3)} m`,
     velocity:`ẏ₁ = ${formatFixed(snapshot.velocity,3)} m/s · ẏ₂ = ${formatFixed((-snapshot.velocity),3)} m/s`,
     kinetic:`Tkin = ${formatFixed(snapshot.kinetic,3)} J`, potential:`V = ${formatFixed(snapshot.potential,3)} J`,
     lagrangian:`L = ${formatFixed(snapshot.kinetic,3)} − (${formatFixed(snapshot.potential,3)}) = ${formatFixed((snapshot.kinetic-snapshot.potential),3)} J`,
-    partials:`两项均为 ${((parameters.m2-parameters.m1)*parameters.g).toFixed(3)} N`,
+    partials:`∂L/∂q = ${formatFixed((parameters.m2-parameters.m1)*parameters.g,3)} N · d/dt(∂L/∂q̇) = ${formatFixed((parameters.m1+parameters.m2)*snapshot.acceleration,3)} N（当前解）`,
     euler:`${(parameters.m1+parameters.m2).toFixed(2)} × ${formatFixed(snapshot.acceleration,3)} = ${((parameters.m2-parameters.m1)*parameters.g).toFixed(3)} N`,
     acceleration:`a = ${formatFixed(snapshot.acceleration,3)} m/s²`, tension:`T₍rope₎ = ${snapshot.tension.toFixed(3)} N`,
     solution:`t = ${snapshot.t.toFixed(3)} s · q = ${formatFixed(snapshot.q,3)} m · q̇ = ${formatFixed(snapshot.velocity,3)} m/s`,
-    validation:`E = ${formatFixed(snapshot.energy,3)} J · 绳长残差 = ${snapshot.ropeResidual.toExponential(1)} m`,
+    validation:`E = ${formatFixed(snapshot.energy,3)} J · E₀ = ${formatFixed(.5*(parameters.m1+parameters.m2)*parameters.v0**2,3)} J · 绳长残差 = ${snapshot.ropeResidual.toExponential(1)} m`,
   }
   const value:Record<string,string>={m1:`${parameters.m1.toFixed(2)} kg`,m2:`${parameters.m2.toFixed(2)} kg`,q:`${formatFixed(snapshot.q,3)} m`,qdot:`${formatFixed(snapshot.velocity,3)} m/s`,a:`${formatFixed(snapshot.acceleration,2)} m/s²`}
   return <div className="formula-panel">
