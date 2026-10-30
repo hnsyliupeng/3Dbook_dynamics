@@ -10,7 +10,8 @@ import mechanicsDefault from '../../../data/mechanics-default.json';
 import mechanicsFields from '../../../data/mechanics-fields-w032.json';
 import frameReport from '../../../data/frame-fem-default.json';
 import frameFields from '../../../data/frame-fem-fields-w032-r006.json';
-import {add,segCellTranslations,sphereCellTranslations} from './geom.mjs';
+import {add,segCellTranslations} from './geom.mjs';
+import {visibleEdgeCopies,visibleNodeCopies} from './visual-copies.mjs';
 const $=id=>document.getElementById(id), viewport=$('viewport');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.setClearColor(0,0);viewport.prepend(renderer.domElement);
 const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.01,100);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.target.set(.5,.5,.5);
@@ -43,11 +44,10 @@ function build(){
  // Render complete periodic copies, then use the six cell planes only as a display window.
  const planes=[new THREE.Plane(new THREE.Vector3(1,0,0),0),new THREE.Plane(new THREE.Vector3(-1,0,0),tiles[0]),new THREE.Plane(new THREE.Vector3(0,1,0),0),new THREE.Plane(new THREE.Vector3(0,-1,0),tiles[1]),new THREE.Plane(new THREE.Vector3(0,0,1),0),new THREE.Plane(new THREE.Vector3(0,0,-1),tiles[2])];
  for(const m of Object.values(materials))m.clippingPlanes=planes;
- const lists={red:[],blue:[],cross:[]};
- for(const e of model.edges){let a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o);for(const {t} of segCellTranslations(a,b,radius)){for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){const shift=[t[0]+x,t[1]+y,t[2]+z];lists[e.kind].push([add(a,shift),add(b,shift)])}}}
+ const {lists}=visibleEdgeCopies(model,tiles);
  const dummy=new THREE.Object3D(),up=new THREE.Vector3(0,1,0);
  for(const kind of ['red','blue','cross']){const mesh=new THREE.InstancedMesh(cyl,materials[kind],lists[kind].length);let i=0;for(const [a,b] of lists[kind]){const av=new THREE.Vector3(...a),bv=new THREE.Vector3(...b),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.clone().normalize());dummy.scale.set(radius,d.length(),radius);dummy.updateMatrix();mesh.setMatrixAt(i++,dummy.matrix)}mesh.visible=visible.struts && resultMode==='structure';mesh.name='struts';group.add(mesh)}
- for(let layer=0;layer<2;layer++){let ps=[];for(const v of model.vertices.slice(0,2*model.n).filter(v=>v.layer===layer))for(const t of sphereCellTranslations(v.p,radius*1.8))for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++)ps.push(add(v.p,[t[0]+x,t[1]+y,t[2]+z]));const mesh=new THREE.InstancedMesh(sphere,layer?materials.nodeBlue:materials.nodeRed,ps.length);ps.forEach((p,i)=>{dummy.position.set(...p);dummy.quaternion.identity();dummy.scale.setScalar(radius*1.8);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix)});mesh.name='nodes';mesh.visible=visible.nodes && resultMode==='structure';group.add(mesh)}
+ for(let layer=0;layer<2;layer++){let ps=[];for(const v of model.vertices.slice(0,2*model.n).filter(v=>v.layer===layer))ps.push(...visibleNodeCopies(v.p,tiles));const mesh=new THREE.InstancedMesh(sphere,layer?materials.nodeBlue:materials.nodeRed,ps.length);ps.forEach((p,i)=>{dummy.position.set(...p);dummy.quaternion.identity();dummy.scale.setScalar(radius*1.8);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix)});mesh.name='nodes';mesh.visible=visible.nodes && resultMode==='structure';group.add(mesh)}
  if(!surfaceGeom)surfaceGeom=surfaceGeometry();const sm=new THREE.MeshStandardMaterial({color:0x94b9a6,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false,roughness:1});for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){const m=new THREE.Mesh(surfaceGeom,sm);m.position.set(x,y,z);m.name='surface';m.visible=visible.surface;group.add(m)}
  if(resultMode==='force') addForceVisual();
  if(resultMode==='beam') addBeamVisual();
