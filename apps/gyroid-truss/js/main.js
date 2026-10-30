@@ -12,11 +12,12 @@ import frameReport from '../../../data/frame-fem-default.json';
 import frameFields from '../../../data/frame-fem-fields-w032-r006.json';
 import {add,segCellTranslations} from './geom.mjs';
 import {visibleEdgeCopies,visibleNodeCopies} from './visual-copies.mjs';
+import {capTriangles} from './visual-caps.mjs';
 const $=id=>document.getElementById(id), viewport=$('viewport');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.setClearColor(0,0);viewport.prepend(renderer.domElement);
 const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.01,100);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.target.set(.5,.5,.5);
 scene.add(new THREE.HemisphereLight(0xffffff,0x9eb3a5,2.3));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(3,5,6);scene.add(light);const light2=new THREE.DirectionalLight(0xb9d1c9,1);light2.position.set(-4,-2,-3);scene.add(light2);
-let model, group, latticeReport, resultMode='beam', radius=.006, cellMm=100, tiles=[1,1,1], visible={surface:true,struts:true,nodes:false,box:true};
+let model, group, latticeReport, resultMode='beam', radius=.006, cellMm=100, tiles=[1,1,1], previewWorker=null, previewGeneration=0, visible={surface:true,struts:true,nodes:false,box:true};
 const materials={red:new THREE.MeshStandardMaterial({color:0xc9625e,roughness:.6}),blue:new THREE.MeshStandardMaterial({color:0x497caa,roughness:.55}),cross:new THREE.MeshStandardMaterial({color:0xe6e6de,roughness:.55}),nodeRed:new THREE.MeshStandardMaterial({color:0xcf716b}),nodeBlue:new THREE.MeshStandardMaterial({color:0x5a88ac})};
 const cyl=new THREE.CylinderGeometry(1,1,1,8),sphere=new THREE.SphereGeometry(1,10,7);let surfaceGeom;
 function surfaceGeometry(){
@@ -39,6 +40,7 @@ function cameraView(axis=false){
  camera.position.copy(controls.target).addScaledVector(direction,distance);controls.update();
 }
 function build(){
+ previewGeneration++;if(previewWorker){previewWorker.terminate();previewWorker=null}
  if(group){scene.remove(group);group.traverse(o=>{if(o.geometry && o.geometry!==cyl && o.geometry!==sphere && o.geometry!==surfaceGeom)o.geometry.dispose();if(o.userData.ownedMaterial)o.material.dispose()})}
  group=new THREE.Group();scene.add(group);
  // Render complete periodic copies, then use the six cell planes only as a display window.
@@ -46,7 +48,29 @@ function build(){
  for(const m of Object.values(materials))m.clippingPlanes=planes;
  const {lists}=visibleEdgeCopies(model,tiles);
  const dummy=new THREE.Object3D(),up=new THREE.Vector3(0,1,0);
- for(const kind of ['red','blue','cross']){const mesh=new THREE.InstancedMesh(cyl,materials[kind],lists[kind].length);let i=0;for(const [a,b] of lists[kind]){const av=new THREE.Vector3(...a),bv=new THREE.Vector3(...b),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.clone().normalize());dummy.scale.set(radius,d.length(),radius);dummy.updateMatrix();mesh.setMatrixAt(i++,dummy.matrix)}mesh.visible=visible.struts && resultMode==='structure';mesh.name='struts';group.add(mesh)}
+ for(const kind of ['red','blue','cross']){const mesh=new THREE.InstancedMesh(cyl,materials[kind],lists[kind].length);let i=0;for(const [a,b] of lists[kind]){const av=new THREE.Vector3(...a),bv=new THREE.Vector3(...b),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.clone().normalize());dummy.scale.set(radius,d.length(),radius);dummy.updateMatrix();mesh.setMatrixAt(i++,dummy.matrix)}mesh.visible=visible.struts && resultMode==='structure' && $('surfaceMode').value==='rods';mesh.name='struts';mesh.userData.previewType='rods';group.add(mesh)}
+ // The clipping planes cut hollow holes in the individual displayed tubes.
+ // Add polygonal section caps in those planes; this is still not a CSG union.
+ if(resultMode==='structure'&&$('surfaceMode').value==='rods')for(const kind of ['red','blue','cross']){
+  const arr=capTriangles(lists[kind],radius,tiles);if(!arr.length)continue;
+  const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(arr,3));geom.computeVertexNormals();
+  const mat=new THREE.MeshStandardMaterial({color:materials[kind].color,roughness:.7,side:THREE.DoubleSide,clippingPlanes:planes,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1});
+  const cap=new THREE.Mesh(geom,mat);cap.name='struts';cap.userData.previewType='rods';cap.visible=visible.struts;cap.userData.ownedMaterial=true;group.add(cap);
+ }
+ if(resultMode==='structure'&&$('surfaceMode').value==='union'){
+  const current=previewGeneration,targetGroup=group,snapshotRadius=radius,snapshotCell=cellMm;
+  $('unionStatus').textContent='正在生成融合预览；较复杂阵列可能需要数秒…';
+  previewWorker=new Worker(new URL('./preview-worker.mjs',import.meta.url),{type:'module'});
+  previewWorker.onmessage=({data})=>{
+   if(current!==previewGeneration)return;previewWorker.terminate();previewWorker=null;
+   if(data.error){$('unionStatus').textContent='融合预览失败：'+data.error+'；请切换独立杆件对照。';return}
+   const geom=new THREE.BufferGeometry();geom.setAttribute('position',new THREE.BufferAttribute(data.positions,3));geom.setAttribute('color',new THREE.BufferAttribute(data.colors,3));geom.setIndex(new THREE.BufferAttribute(data.indices,1));geom.computeVertexNormals();
+   const mat=new THREE.MeshStandardMaterial({vertexColors:true,roughness:.65,side:THREE.DoubleSide});const mesh=new THREE.Mesh(geom,mat);mesh.name='struts';mesh.userData.previewType='union';mesh.userData.ownedMaterial=true;mesh.visible=visible.struts;targetGroup.add(mesh);
+   $('unionStatus').textContent=`近似融合预览：网格 ${ (data.pitch*snapshotCell).toFixed(3) } mm、杆径约 ${data.diameterSamples.toFixed(1)} 格；${data.diameterSamples<3?'采样不足，细杆可能失真或缺失；':''}相交杆件（包括红蓝层）会合并，不是可打印实体。`;
+  };
+  previewWorker.onerror=()=>{if(current===previewGeneration){$('unionStatus').textContent='融合预览生成失败；请切换独立杆件对照。';previewWorker?.terminate();previewWorker=null}};
+  previewWorker.postMessage({lists,tiles:tiles.slice(),radius:snapshotRadius});
+ }else if(resultMode==='structure')$('unionStatus').textContent='独立杆件对照：杆面可能重叠或裁剪出破片；不代表实体布尔融合。';
  for(let layer=0;layer<2;layer++){let ps=[];for(const v of model.vertices.slice(0,2*model.n).filter(v=>v.layer===layer))ps.push(...visibleNodeCopies(v.p,tiles));const mesh=new THREE.InstancedMesh(sphere,layer?materials.nodeBlue:materials.nodeRed,ps.length);ps.forEach((p,i)=>{dummy.position.set(...p);dummy.quaternion.identity();dummy.scale.setScalar(radius*1.8);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix)});mesh.name='nodes';mesh.visible=visible.nodes && resultMode==='structure';group.add(mesh)}
  if(!surfaceGeom)surfaceGeom=surfaceGeometry();const sm=new THREE.MeshStandardMaterial({color:0x94b9a6,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false,roughness:1});for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){const m=new THREE.Mesh(surfaceGeom,sm);m.position.set(x,y,z);m.name='surface';m.visible=visible.surface;group.add(m)}
  if(resultMode==='force') addForceVisual();
@@ -190,7 +214,7 @@ function updateLattice(){
 $('latticeExport').onclick=()=>{if(!latticeReport)return;const report={description:'Centreline face signatures and fixed periodic quotient graph; not a solid interference or mechanical stability certification.',w:model.w,radius,report:latticeReport};const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-2x2x2-lattice-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);syncResultUI();build();updateChecks();updateLattice();updateMechanics();updateFrame();updateDimensions();$('loading').style.display='none'}
 let dimensionTimer;
-function scheduleRebuild(){clearTimeout(dimensionTimer);$('loading').style.display='block';$('dlpClearance').textContent='正在重新检查红蓝层杆件间距…';$('dlpClearance').classList.remove('failed');dimensionTimer=setTimeout(()=>{rebuild();updateDimensions();},250)}
+function scheduleRebuild(){clearTimeout(dimensionTimer);previewGeneration++;if(previewWorker){previewWorker.terminate();previewWorker=null}if(resultMode==='structure'&&$('surfaceMode').value==='union'){$('unionStatus').textContent='参数已更改，等待重新生成融合预览…';group?.traverse(o=>{if(o.userData.previewType==='union')o.visible=false})}$('loading').style.display='block';$('dlpClearance').textContent='正在重新检查红蓝层杆件间距…';$('dlpClearance').classList.remove('failed');dimensionTimer=setTimeout(()=>{rebuild();updateDimensions();},250)}
 for(const id of ['width','radius'])$(id).addEventListener('input',()=>{if(id==='radius')$('rodMm').value=(Number($('radius').value)*cellMm).toFixed(3);else $('dlpW').value=$('width').value;$('wValue').textContent=Number($('width').value).toFixed(2);$('radiusValue').textContent=Number($('radius').value).toFixed(3);scheduleRebuild()});
 function applyDimensions(recenter=false){
  const a=Number($('cellMm').value),r=Number($('rodMm').value),counts=['arrayX','arrayY','arrayZ'].map(id=>Number($(id).value));
@@ -212,8 +236,9 @@ for(const id of ['cellMm','rodMm','arrayX','arrayY','arrayZ'])$(id).addEventList
 for(const id of ['pixelMm','layerMm'])$(id).addEventListener('input',updateDimensions);
 $('dlpW').addEventListener('input',()=>{const w=Number($('dlpW').value);if(!$('dlpW').value||w<.15||w>.5){$('dlpStatus').textContent='w 请输入 0.15–0.50；不是恒定层间距。';return}$('width').value=w;$('wValue').textContent=Number($('width').value).toFixed(3);scheduleRebuild()});
 $('dlpPreset').onclick=()=>{$('cellMm').value=14;$('rodMm').value=.45;$('arrayX').value=2;$('arrayY').value=2;$('arrayZ').value=1;$('width').value=.32;$('dlpW').value=.32;$('wValue').textContent='0.32';applyDimensions(true)};
-for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id] && ((id!=='nodes'&&id!=='struts')||resultMode==='structure');if(id==='struts'&&o.name==='force-struts')o.visible=visible.struts})});
+for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id] && ((id!=='nodes'&&id!=='struts')||resultMode==='structure') && (id!=='struts'||o.userData.previewType===$('surfaceMode').value);if(id==='struts'&&o.name==='force-struts')o.visible=visible.struts})});
 document.querySelectorAll('#resultMode button').forEach(b=>b.addEventListener('click',()=>{resultMode=b.dataset.result;syncResultUI();build();cameraView();if(resultMode!=='structure'){camera.position.sub(controls.target).multiplyScalar(.84).add(controls.target);controls.update()}}));
+$('surfaceMode').addEventListener('change',()=>{if(resultMode==='structure')build()});
 $('loadCase').addEventListener('change',()=>{if(resultMode!=='structure')build()});
 $('beamMaterial').addEventListener('change',()=>{updateFrame();if(resultMode==='beam')build()});
 $('beamScale').addEventListener('input',()=>{$('beamScaleValue').textContent=$('beamScale').value+'×';if(resultMode==='beam')build()});
