@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {buildBilayer} from '../apps/gyroid-truss/js/truss.mjs';
+import {makePrintMesh} from '../apps/gyroid-truss/js/print-mesh.mjs';
+const model=buildBilayer(.32);
+assert.throws(()=>makePrintMesh(model,{sizeMm:39}),/40/);
+assert.throws(()=>makePrintMesh(model,{diameterMm:1}),/1.2/);
+const {buffer,report}=makePrintMesh(model);
+assert.equal(report.sizeMm,40);
+assert.equal(report.diameterMm,1.4);
+assert.equal(report.badEdges,0);
+assert.equal(report.connectedVoxelComponents,1);
+assert.equal(buffer.byteLength,84+50*report.triangles);
+assert.equal(new DataView(buffer).getUint32(80,true),report.triangles);
+console.log('Default 40 mm printable geometry:',report);

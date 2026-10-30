@@ -159,6 +159,24 @@ function updateFrame(){
  $('frameYoung').textContent=m.nominal_Ex_MPa.toFixed(3)+' MPa';$('frameShear').textContent=m.nominal_C44_MPa.toFixed(3)+' MPa';
  $('framePoisson').textContent=m.moduli.poisson_xy.toFixed(4);$('frameResidual').textContent=m.max_equilibrium_residual.toExponential(1);
 }
+$('openPrint').onclick=()=>document.querySelector('.print-controls').scrollIntoView({behavior:'smooth',block:'center'});
+let printWorker;
+$('printExport').onclick=()=>{
+ const exportW=model.w,sizeMm=Number($('printSize').value),diameterMm=Number($('printDiameter').value);
+ if(!Number.isFinite(sizeMm)||sizeMm<40||sizeMm>50||!Number.isFinite(diameterMm)||diameterMm<1.2||diameterMm>3){$('printStatus').textContent='请输入边长 40–50 mm、杆径 1.2–3 mm。';return}
+ $('printExport').disabled=true;$('printStatus').textContent='正在融合杆件，可能需要几十秒及较多内存…';
+ printWorker=new Worker(new URL('./print-worker.mjs',import.meta.url),{type:'module'});
+ printWorker.onmessage=({data})=>{
+  if(data.progress){$('printStatus').textContent=data.progress;return}
+  $('printExport').disabled=false;printWorker.terminate();printWorker=null;
+  if(data.error){$('printStatus').textContent=data.error;return}
+  const url=URL.createObjectURL(new Blob([data.buffer],{type:'model/stl'})),a=document.createElement('a');a.href=url;a.download=`gyroid-w${exportW.toFixed(2)}-${sizeMm}mm-d${diameterMm}mm.stl`;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+  const support=$('printSupport').value==='yes'?'请在切片器开启支撑。':'已选择不使用支撑；悬空杆件可能打印失败。';
+  $('printStatus').textContent=`STL 已生成：${data.report.triangles.toLocaleString()} 三角面、实体连通、边检查通过；采样 ${data.report.pitchMm.toFixed(3)} mm。${support} 请检查预览与打印机尺寸。`;
+ };
+ printWorker.onerror=()=>{$('printExport').disabled=false;$('printStatus').textContent='STL 生成失败或内存不足；请尝试 40 mm，并关闭其他程序。';printWorker?.terminate();printWorker=null};
+ printWorker.postMessage({model,options:{sizeMm,diameterMm}});
+};
 $('frameExport').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(frameReport,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-rigid-beam-fea.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function updateLattice(){
  latticeReport=validateLattice(model,2);const r=latticeReport,ok=r.facePass&&r.graphPass&&r.surface.maxError<1e-12;

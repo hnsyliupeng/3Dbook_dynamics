@@ -15,3 +15,4 @@
 
 /* Show the requested finite-element results before the geometry details. */
 .right-panel .frame-check{order:-1}
+.print-controls button:disabled{opacity:.5;cursor:wait}.print-controls input[type=number]{margin-top:6px}.print-controls .side-hint{line-height:1.6}
