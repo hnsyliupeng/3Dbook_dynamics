@@ -3,6 +3,7 @@ import '@fontsource/noto-sans-sc/700.css';
 import * as THREE from '../vendor/three.module.min.js';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {F} from './gyroid.mjs';
+import {parseCompressionCSV, compressionMetrics} from './compression.mjs';
 import {buildBilayer,validate} from './truss.mjs';
 import {validateLattice} from './lattice.mjs';
 import mechanicsDefault from '../../../data/mechanics-default.json';
@@ -197,3 +198,27 @@ document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('cl
 $('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
 $('export').onclick=()=>{const data={description:'H=12 approximation with added face-contour reinforcement; fractional coordinates; each undirected edge joins a to b+offset. Not paper Fig.4 simulation data.',w:model.w,vertices:model.vertices,edges:model.edges};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-H12-periodic-graph.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 cameraView();requestAnimationFrame(()=>setTimeout(rebuild,20));function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
+
+// Compression post-processing deliberately remains independent from the beam FE.
+$('openCompression').onclick=()=>$('compressionPanel').scrollIntoView({behavior:'smooth'});
+let compressionReport=null, compressionRevision=0;
+function clearCompressionChart(){const svg=$('cChart');svg.replaceChildren();const t=document.createElementNS('http://www.w3.org/2000/svg','text');t.setAttribute('x','250');t.setAttribute('y','115');t.setAttribute('text-anchor','middle');t.textContent='计算后显示力–位移曲线';svg.append(t)}
+for(const id of ['compressionFile','cWidth','cDepth','cHeight','cMass','cDensity','cCutoff','cElasticStart','cElasticEnd','cPlateauStart','cPlateauEnd']) $(id).addEventListener('input',()=>{compressionRevision++;compressionReport=null;clearCompressionChart();$('cDownload').disabled=true;$('cResults').hidden=true;$('cStatus').textContent='输入已更改，请重新计算。'});
+$('cCalculate').onclick=async()=>{
+ const revision=++compressionRevision;compressionReport=null;clearCompressionChart();$('cDownload').disabled=true;$('cResults').hidden=true;$('cStatus').textContent='正在读取并计算…';
+ try{
+  const file=$('compressionFile').files[0];if(!file)throw Error('请先选择力–位移 CSV。');if(file.size>10*1024*1024)throw Error('CSV 超过 10 MB。');
+  const number=(id,optional=false)=>{const s=$(id).value.trim();return optional&&s===''?null:s===''?NaN:Number(s)};
+  const options={widthMm:number('cWidth'),depthMm:number('cDepth'),heightMm:number('cHeight'),massG:number('cMass'),solidDensity:number('cDensity',true),cutoffMm:number('cCutoff',true),elasticStart:number('cElasticStart',true),elasticEnd:number('cElasticEnd',true),plateauStart:number('cPlateauStart',true),plateauEnd:number('cPlateauEnd',true)};
+  const text=await file.text();if(revision!==compressionRevision)return;const points=parseCompressionCSV(text);
+  const result=compressionMetrics(points,options);compressionReport={description:'User-supplied single monotonic compression curve; not a beam FE prediction.',source:file.name,options,points,result};
+  const m=result.metrics,fmt=(x,d=4)=>x==null?'未指定':Number(x).toPrecision(d);
+  const cards=[['相对密度 ρ̄',fmt(m.relativeDensity)],['有效密度 ρeff',fmt(m.effectiveDensityGcm3)+' g/cm³'],['区间割线刚度 E',m.youngChordMPa==null?'未指定':fmt(m.youngChordMPa)+' MPa'],['比刚度 E/ρeff',m.specificStiffness==null?'未指定':fmt(m.specificStiffness)+' MPa/(g/cm³)'],['峰值压应力',fmt(m.peakStressMPa)+' MPa'],['比峰值压应力',fmt(m.specificPeakStrength)+' MPa/(g/cm³)'],['吸收能量 EA',fmt(m.absorbedEnergyJ)+' J'],['比吸能 SEA',fmt(m.SEA_J_g)+' J/g'],['压溃力效率 CFE',fmt(m.CFE)],['平台平均应力',m.plateauStressMPa==null?'未指定':fmt(m.plateauStressMPa)+' MPa'],['截断位移 / 应变',fmt(result.analysis.cutoffMm)+' mm / '+fmt(result.analysis.cutoffStrain)],['峰值 / 平均力',fmt(m.peakForceN)+' / '+fmt(m.meanForceN)+' N']];
+  $('cResults').replaceChildren(...cards.map(([label,value])=>{const d=document.createElement('div');d.className='compression-metric';const t=document.createElement('span'),v=document.createElement('b');t.textContent=label;v.textContent=value;d.append(t,v);return d}));$('cResults').hidden=false;
+  const svg=$('cChart');svg.replaceChildren();const ns='http://www.w3.org/2000/svg',node=(tag,attrs,text)=>{const el=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));if(text!==undefined)el.textContent=text;svg.append(el);return el};
+  let maxF=0;for(const p of points)maxF=Math.max(maxF,p.f);const maxU=points.at(-1).u,scaleF=maxF||1,X=u=>45+425*u/maxU,Y=f=>195-160*f/scaleF;
+  node('path',{d:'M45 20V195H470',fill:'none',stroke:'#91a99b'});node('polyline',{points:points.map(p=>`${X(p.u).toFixed(2)},${Y(p.f).toFixed(2)}`).join(' '),fill:'none',stroke:'#387c9a','stroke-width':2});const cut=X(result.analysis.cutoffMm);node('line',{x1:cut,x2:cut,y1:20,y2:195,stroke:'#cf6559','stroke-dasharray':'5 4'});node('text',{x:250,y:225,'text-anchor':'middle'},`位移 u (mm)，末点 ${maxU.toPrecision(4)}`);node('text',{x:50,y:18},`力 F (N)，最大 ${maxF.toPrecision(4)}`);
+  $('cStatus').textContent=`完成：${points.length} 个测点。刚度/平台仅对应所填区间；峰值、能量和 CFE 对应截断位移。${result.warnings.slice(3).join(' ')}`;$('cDownload').disabled=false;
+ }catch(err){if(revision===compressionRevision)$('cStatus').textContent=err.message;}
+};
+$('cDownload').onclick=()=>{if(!compressionReport)return;const url=URL.createObjectURL(new Blob([JSON.stringify(compressionReport,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='compression-analysis.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};

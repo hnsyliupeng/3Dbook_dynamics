@@ -1,0 +1,14 @@
+{
+  "file": "exports/gyroid-40mm-fdm.stl",
+  "sha256": "a95a747e4c5b888e9ffc8613152fed92296763d63652b7176de80ecd8ff89e19",
+  "triangles": 1288272,
+  "boundsMm": [
+    40,
+    40,
+    40
+  ],
+  "signedVolumeMm3": 10112.287979443829,
+  "boxVolumeMm3": 64000,
+  "relativeVolume": 0.15800449967880983,
+  "note": "Oriented mesh volume; does not verify mesh watertightness; no material mass or mechanical properties implied."
+}
