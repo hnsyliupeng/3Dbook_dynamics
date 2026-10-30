@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {buildBilayer} from '../apps/gyroid-truss/js/truss.mjs';
+import {makeDlpMesh} from '../apps/gyroid-truss/js/dlp-mesh.mjs';
+const model=buildBilayer(.32),base={sizeMm:14,radiusMm:.25,tiles:[1,1,1],pitchMm:1/6};
+assert.throws(()=>makeDlpMesh(model,{...base,pitchMm:.3}),/至少跨越 3/);
+assert.throws(()=>makeDlpMesh(model,{...base,tiles:[3,3,3]}),/总胞元数/);
+assert.throws(()=>makeDlpMesh(model,{...base,boundaryFrame:false}),/分量/);
+const {report,buffer}=makeDlpMesh(model,{...base,boundaryFrame:true});
+assert.equal(report.connectedVoxelComponents,1);assert.equal(report.badEdges,0);assert.equal(report.redBlueVoxelOverlap,0);assert.equal(report.addedFrame,true);assert.equal(buffer.byteLength,84+report.triangles*50);assert.equal(new DataView(buffer).getUint32(80,true),report.triangles);
+console.log('DLP 1³ finite-array mesh checks passed:',report);

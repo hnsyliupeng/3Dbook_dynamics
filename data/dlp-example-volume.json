@@ -1,0 +1,14 @@
+{
+  "file": "exports/dlp-example-a14-r025-1x1x1-with-frame.stl",
+  "sha256": "dd1ed3da5e6f4f5954c8ed6d61e8f062d88df4bb91000bb93a9e06dda944f1a2",
+  "triangles": 890280,
+  "boundsMm": [
+    14,
+    14,
+    14
+  ],
+  "signedVolumeMm3": 430.192158971531,
+  "boxVolumeMm3": 2744,
+  "relativeVolume": 0.15677556813831306,
+  "note": "Oriented mesh volume; does not verify mesh watertightness; no material mass or mechanical properties implied."
+}

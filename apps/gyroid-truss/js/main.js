@@ -202,6 +202,26 @@ $('printExport').onclick=()=>{
  printWorker.onerror=()=>{$('printExport').disabled=false;$('printStatus').textContent='STL 生成失败或内存不足；请尝试 40 mm，并关闭其他程序。';printWorker?.terminate();printWorker=null};
  printWorker.postMessage({model,options:{sizeMm,diameterMm}});
 };
+let dlpWorker=null,dlpReport=null;
+$('dlpExport').onclick=()=>{
+ if(dlpWorker)return;const pitchMm=Number($('dlpPitch').value),sizeMm=cellMm,radiusMm=radius*cellMm,array=tiles.slice(),boundaryFrame=$('dlpFrame').checked,w=model.w;
+ if($('loading').style.display!=='none'){$('dlpExportStatus').textContent='请等待当前几何更新完成后再导出。';return}
+ if(!$('dlpPitch').value||!Number.isFinite(pitchMm)||pitchMm<=0){$('dlpExportStatus').textContent='请输入正的采样间距。';return}
+ dlpReport=null;$('dlpReport').disabled=true;$('dlpExport').disabled=true;$('dlpExportStatus').textContent='正在检查并融合当前阵列，可能需要较大内存…';
+ const instance=new Worker(new URL('./dlp-worker.mjs',import.meta.url),{type:'module'});dlpWorker=instance;
+ instance.onmessage=({data})=>{
+  if(data.progress){$('dlpExportStatus').textContent=data.progress;return}
+  instance.terminate();dlpWorker=null;$('dlpExport').disabled=false;
+  if(data.error){$('dlpExportStatus').textContent=data.error;return}
+  const name=`gyroid-dlp-a${sizeMm}-r${radiusMm.toFixed(3)}-${array.join('x')}-w${w.toFixed(3)}${boundaryFrame?'-frame':''}.stl`;
+  const url=URL.createObjectURL(new Blob([data.buffer],{type:'model/stl'})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);
+  dlpReport={...data.report,filename:name,description:'Sampled finite-array approximate geometry; not a certified printable design. No supports included.',warnings:['Optional peripheral frame changes structure and may join layers through added members.','Checks do not verify all rod contact, self-intersection, vertex manifoldness, wall thickness, exposure, strength or support removability.','STL units must be interpreted as mm; cut outer faces do not certify exact periodic tile matching.']};$('dlpReport').disabled=false;
+  $('dlpExportStatus').textContent=`完成：${array.join('×')}、a=${sizeMm} mm、r=${radiusMm.toFixed(3)} mm；${data.report.triangles.toLocaleString()} 面，采样 ${data.report.pitchMm.toFixed(3)} mm，闭合边检查通过；${boundaryFrame?'含永久外围框架。':'未加外围框架。'}请在切片器选择支撑并检验，非打印保证。`;
+ };
+ instance.onerror=()=>{instance.terminate();if(dlpWorker===instance)dlpWorker=null;$('dlpExport').disabled=false;$('dlpExportStatus').textContent='生成失败或浏览器内存不足。请缩小阵列并复核参数。'};
+ instance.postMessage({model,options:{sizeMm,radiusMm,tiles:array,pitchMm,boundaryFrame}});
+};
+$('dlpReport').onclick=()=>{if(!dlpReport)return;const u=URL.createObjectURL(new Blob([JSON.stringify(dlpReport,null,2)],{type:'application/json'})),a=document.createElement('a');a.href=u;a.download='dlp-mesh-check.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)};
 $('frameExport').onclick=()=>{const url=URL.createObjectURL(new Blob([JSON.stringify(frameReport,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-rigid-beam-fea.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function updateLattice(){
  latticeReport=validateLattice(model,2);const r=latticeReport,ok=r.facePass&&r.graphPass&&r.surface.maxError<1e-12;
@@ -219,7 +239,7 @@ for(const id of ['width','radius'])$(id).addEventListener('input',()=>{if(id==='
 function applyDimensions(recenter=false){
  const a=Number($('cellMm').value),r=Number($('rodMm').value),counts=['arrayX','arrayY','arrayZ'].map(id=>Number($(id).value));
  if(!$('cellMm').value||!$('rodMm').value||!Number.isFinite(a)||a<10||a>100||!Number.isFinite(r)||r<.15||r>2||r/a>.08||counts.some(n=>!Number.isInteger(n)||n<1||n>3)||counts.reduce((p,n)=>p*n,1)>8){$('dlpStatus').textContent='输入范围：a 10–100 mm，半径 0.15–2 mm 且 r/a≤0.08；每轴 1–3、总胞元≤8。';return}
- cellMm=a;tiles=counts;syncRadiusBounds();$('radius').value=(r/a).toFixed(5);radius=Number($('radius').value);
+ cellMm=a;tiles=counts;syncRadiusBounds();$('radius').value=String(r/a);radius=Number($('radius').value);
  document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',counts.every(n=>n===Number(b.dataset.n))));
  resultMode='structure';syncResultUI();updateDimensions();if(recenter)cameraView();scheduleRebuild();
 }
