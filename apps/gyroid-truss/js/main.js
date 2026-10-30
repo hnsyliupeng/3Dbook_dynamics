@@ -15,7 +15,7 @@ const $=id=>document.getElementById(id), viewport=$('viewport');
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.localClippingEnabled=true;renderer.setClearColor(0,0);viewport.prepend(renderer.domElement);
 const scene=new THREE.Scene();const camera=new THREE.PerspectiveCamera(35,1,.01,100);const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.08;controls.target.set(.5,.5,.5);
 scene.add(new THREE.HemisphereLight(0xffffff,0x9eb3a5,2.3));const light=new THREE.DirectionalLight(0xffffff,2);light.position.set(3,5,6);scene.add(light);const light2=new THREE.DirectionalLight(0xb9d1c9,1);light2.position.set(-4,-2,-3);scene.add(light2);
-let model, group, latticeReport, resultMode='beam', radius=.006, tiles=1, visible={surface:true,struts:true,nodes:false,box:true};
+let model, group, latticeReport, resultMode='beam', radius=.006, cellMm=100, tiles=[1,1,1], visible={surface:true,struts:true,nodes:false,box:true};
 const materials={red:new THREE.MeshStandardMaterial({color:0xc9625e,roughness:.6}),blue:new THREE.MeshStandardMaterial({color:0x497caa,roughness:.55}),cross:new THREE.MeshStandardMaterial({color:0xe6e6de,roughness:.55}),nodeRed:new THREE.MeshStandardMaterial({color:0xcf716b}),nodeBlue:new THREE.MeshStandardMaterial({color:0x5a88ac})};
 const cyl=new THREE.CylinderGeometry(1,1,1,8),sphere=new THREE.SphereGeometry(1,10,7);let surfaceGeom;
 function surfaceGeometry(){
@@ -30,10 +30,10 @@ function surfaceGeometry(){
 }
 function resize(){const w=viewport.clientWidth,h=viewport.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix()};new ResizeObserver(resize).observe(viewport);
 function cameraView(axis=false){
- let c=tiles/2;controls.target.set(c,c,c);
+ controls.target.set(...tiles.map(n=>n/2));
  const aspect=Math.max(.15,viewport.clientWidth/Math.max(1,viewport.clientHeight));
  const vertical=THREE.MathUtils.degToRad(camera.fov),horizontal=2*Math.atan(Math.tan(vertical/2)*aspect);
- const distance=Math.max(4.1*tiles,1.12*(Math.sqrt(3)*tiles/2)/Math.sin(Math.min(vertical,horizontal)/2));
+ const distance=Math.max(2.2*Math.max(...tiles),1.12*(Math.hypot(...tiles)/2)/Math.sin(Math.min(vertical,horizontal)/2));
  const direction=new THREE.Vector3(...(axis?[1,1,1]:[2.25,1.75,2.8])).normalize();
  camera.position.copy(controls.target).addScaledVector(direction,distance);controls.update();
 }
@@ -41,18 +41,18 @@ function build(){
  if(group){scene.remove(group);group.traverse(o=>{if(o.geometry && o.geometry!==cyl && o.geometry!==sphere && o.geometry!==surfaceGeom)o.geometry.dispose();if(o.userData.ownedMaterial)o.material.dispose()})}
  group=new THREE.Group();scene.add(group);
  // Render complete periodic copies, then use the six cell planes only as a display window.
- const planes=[new THREE.Plane(new THREE.Vector3(1,0,0),0),new THREE.Plane(new THREE.Vector3(-1,0,0),tiles),new THREE.Plane(new THREE.Vector3(0,1,0),0),new THREE.Plane(new THREE.Vector3(0,-1,0),tiles),new THREE.Plane(new THREE.Vector3(0,0,1),0),new THREE.Plane(new THREE.Vector3(0,0,-1),tiles)];
+ const planes=[new THREE.Plane(new THREE.Vector3(1,0,0),0),new THREE.Plane(new THREE.Vector3(-1,0,0),tiles[0]),new THREE.Plane(new THREE.Vector3(0,1,0),0),new THREE.Plane(new THREE.Vector3(0,-1,0),tiles[1]),new THREE.Plane(new THREE.Vector3(0,0,1),0),new THREE.Plane(new THREE.Vector3(0,0,-1),tiles[2])];
  for(const m of Object.values(materials))m.clippingPlanes=planes;
  const lists={red:[],blue:[],cross:[]};
- for(const e of model.edges){let a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o);for(const {t} of segCellTranslations(a,b,radius)){for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++){const shift=[t[0]+x,t[1]+y,t[2]+z];lists[e.kind].push([add(a,shift),add(b,shift)])}}}
+ for(const e of model.edges){let a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o);for(const {t} of segCellTranslations(a,b,radius)){for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){const shift=[t[0]+x,t[1]+y,t[2]+z];lists[e.kind].push([add(a,shift),add(b,shift)])}}}
  const dummy=new THREE.Object3D(),up=new THREE.Vector3(0,1,0);
  for(const kind of ['red','blue','cross']){const mesh=new THREE.InstancedMesh(cyl,materials[kind],lists[kind].length);let i=0;for(const [a,b] of lists[kind]){const av=new THREE.Vector3(...a),bv=new THREE.Vector3(...b),d=bv.clone().sub(av);dummy.position.copy(av).add(bv).multiplyScalar(.5);dummy.quaternion.setFromUnitVectors(up,d.clone().normalize());dummy.scale.set(radius,d.length(),radius);dummy.updateMatrix();mesh.setMatrixAt(i++,dummy.matrix)}mesh.visible=visible.struts && resultMode==='structure';mesh.name='struts';group.add(mesh)}
- for(let layer=0;layer<2;layer++){let ps=[];for(const v of model.vertices.slice(0,2*model.n).filter(v=>v.layer===layer))for(const t of sphereCellTranslations(v.p,radius*1.8))for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++)ps.push(add(v.p,[t[0]+x,t[1]+y,t[2]+z]));const mesh=new THREE.InstancedMesh(sphere,layer?materials.nodeBlue:materials.nodeRed,ps.length);ps.forEach((p,i)=>{dummy.position.set(...p);dummy.quaternion.identity();dummy.scale.setScalar(radius*1.8);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix)});mesh.name='nodes';mesh.visible=visible.nodes && resultMode==='structure';group.add(mesh)}
- if(!surfaceGeom)surfaceGeom=surfaceGeometry();const sm=new THREE.MeshStandardMaterial({color:0x94b9a6,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false,roughness:1});for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++){const m=new THREE.Mesh(surfaceGeom,sm);m.position.set(x,y,z);m.name='surface';m.visible=visible.surface;group.add(m)}
+ for(let layer=0;layer<2;layer++){let ps=[];for(const v of model.vertices.slice(0,2*model.n).filter(v=>v.layer===layer))for(const t of sphereCellTranslations(v.p,radius*1.8))for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++)ps.push(add(v.p,[t[0]+x,t[1]+y,t[2]+z]));const mesh=new THREE.InstancedMesh(sphere,layer?materials.nodeBlue:materials.nodeRed,ps.length);ps.forEach((p,i)=>{dummy.position.set(...p);dummy.quaternion.identity();dummy.scale.setScalar(radius*1.8);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix)});mesh.name='nodes';mesh.visible=visible.nodes && resultMode==='structure';group.add(mesh)}
+ if(!surfaceGeom)surfaceGeom=surfaceGeometry();const sm=new THREE.MeshStandardMaterial({color:0x94b9a6,transparent:true,opacity:.12,side:THREE.DoubleSide,depthWrite:false,roughness:1});for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){const m=new THREE.Mesh(surfaceGeom,sm);m.position.set(x,y,z);m.name='surface';m.visible=visible.surface;group.add(m)}
  if(resultMode==='force') addForceVisual();
  if(resultMode==='beam') addBeamVisual();
- const boxGeom=new THREE.EdgesGeometry(new THREE.BoxGeometry(tiles,tiles,tiles));const boxMat=new THREE.LineBasicMaterial({color:0x8ea99a,transparent:true,opacity:.65});const box=new THREE.LineSegments(boxGeom,boxMat);box.position.setScalar(tiles/2);box.name='box';box.visible=visible.box;box.userData.ownedMaterial=true;group.add(box);
- $('tileTag').textContent=`${tiles} × ${tiles} × ${tiles}`;resize();
+ const boxGeom=new THREE.EdgesGeometry(new THREE.BoxGeometry(...tiles));const boxMat=new THREE.LineBasicMaterial({color:0x8ea99a,transparent:true,opacity:.65});const box=new THREE.LineSegments(boxGeom,boxMat);box.position.set(...tiles.map(n=>n/2));box.name='box';box.visible=visible.box;box.userData.ownedMaterial=true;group.add(box);
+ $('tileTag').textContent=tiles.join(' × ');resize();
 }
 // Axial-force colors on the UNDEFORMED periodic graph. Do not display the
 // non-unique displacement field of this mechanism-rich pin-jointed model.
@@ -68,7 +68,7 @@ function addForceVisual(){
   const a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o),delta=b.map((v,k)=>v-a[k]);
   for(const {t,r} of segCellTranslations(a,b)){
    if(r[1]-r[0]<1e-8)continue;
-   for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++){
+   for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){
     const shift=[t[0]+x,t[1]+y,t[2]+z],coords=q=>a.map((v,k)=>v+shift[k]+q*delta[k]);
     pieces.push({p:coords(r[0]),q:coords(r[1]),value:field.axial_strain[ei]});
    }
@@ -93,7 +93,7 @@ function addBeamVisual(){
  $('forceOverlay').querySelector('.force-foot').textContent='欧拉-伯努利梁 · 全节点刚接；色标为轴力，不包含弯曲应力。仅示例模型。';
  let maximum=0;for(const a of field.axial_force_over_Ea2)maximum=Math.max(maximum,Math.abs(a[mode]/area));
  const bound=maximum*eps;$('forceMin').textContent=(-bound).toFixed(4);$('forceMax').textContent=(bound).toFixed(4);
- function affine(p){let [x,y,z]=p.map(v=>v-tiles/2);switch(mode){case 0:return [x,0,0];case 1:return [0,y,0];case 2:return [0,0,z];case 3:return [0,z/2,y/2];case 4:return [z/2,0,x/2];default:return [y/2,x/2,0]}}
+ function affine(p){let [x,y,z]=p.map((v,k)=>v-tiles[k]/2);switch(mode){case 0:return [x,0,0];case 1:return [0,y,0];case 2:return [0,0,z];case 3:return [0,z/2,y/2];case 4:return [z/2,0,x/2];default:return [y/2,x/2,0]}}
  const vec=x=>new THREE.Vector3(...x),pieces=[];
  model.edges.forEach((e,ei)=>{
   const a=model.vertices[e.a].p,b=add(model.vertices[e.b].p,e.o),d=vec(b).sub(vec(a)),L=d.length(),ex=d.clone().normalize();
@@ -111,7 +111,7 @@ function addBeamVisual(){
   }
   for(const {t,r} of segCellTranslations(a,b)){
    if(r[1]-r[0]<1e-8)continue;
-   for(let x=0;x<tiles;x++)for(let y=0;y<tiles;y++)for(let z=0;z<tiles;z++){
+   for(let x=0;x<tiles[0];x++)for(let y=0;y<tiles[1];y++)for(let z=0;z<tiles[2];z++){
     const shift=[t[0]+x,t[1]+y,t[2]+z],point=q=>a.map((v,k)=>v+shift[k]+q*(b[k]-v));
     // Four intervals preserve curved beam shape. Clip is in the reference configuration.
     let previous=null;
@@ -137,7 +137,7 @@ function syncResultUI(){
  $('forceOverlay').hidden=resultMode==='structure';$('structureLegend').style.visibility=resultMode!=='structure'?'hidden':'visible';
  $('loadCase').disabled=!valid;$('beamMaterial').disabled=!beamValid;$('beamScale').disabled=!beamValid;
 }
-function updateChecks(){const v=validate(model,radius);$('nodeCount').textContent=model.n;$('crossCount').textContent=v.cross+v.boundaryWebs.count;$('periodText').textContent=`边界连接点 ${v.boundary.junctionCount} · 单层无断头 ${v.connectivity.red.degreeOne + v.connectivity.blue.degreeOne === 0 ? '是' : '否'}`;$('surfaceText').textContent=`最大 |g ∓ w| = ${v.residual.toExponential(1)}`;const pass=v.minClearance>0;$('clearText').textContent=`最小净距 ${v.minClearance.toFixed(4)} a · ${pass?'未发现干涉':`${v.intersections} 对发生干涉`}`;$('clearIcon').textContent=pass?'✓':'!';$('clearIcon').className='check-icon '+(pass?'':'fail');$('webText').textContent=`${v.boundaryWebs.count} 根 · 中心线交叉 ${v.boundaryWebs.intersectionCount} · 半径邻近 ${v.boundaryWebs.nearCount} 对（${v.proximity.other} 对非一跳邻接）`; $('rigidityText').textContent=`至少 ${v.rigidity.maxwellLowerBound} 个非平移机构；${v.rigidity.degreeTwo} 个二杆节点`;  $('webIcon').className='check-icon '+(v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? 'warning' : ''); $('webIcon').textContent=v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? '!' : '✓';$('periodIcon').className='check-icon '+(v.error<1e-8 && v.connectivity.red.components===1 && v.connectivity.blue.components===1 && v.connectivity.red.degreeOne===0 && v.connectivity.blue.degreeOne===0?'':'fail');$('surfaceIcon').className='check-icon '+(v.residual<1e-8?'':'fail')}
+function updateChecks(){const v=validate(model,radius);const clearance=v.minClearance*cellMm,limit=(v.minClearance+2*radius)*cellMm/2; $('dlpClearance').textContent=clearance<=0?`⚠ 红蓝层杆径重叠：净距 ${clearance.toFixed(3)} mm；当前图中避免这类重叠的半径须小于 ${limit.toFixed(3)} mm。`:`红蓝层已检查杆对最小净距 ${clearance.toFixed(3)} mm（不代表全部实体无干涉）。`; $('dlpClearance').classList.toggle('failed',clearance<=0);$('nodeCount').textContent=model.n;$('crossCount').textContent=v.cross+v.boundaryWebs.count;$('periodText').textContent=`边界连接点 ${v.boundary.junctionCount} · 单层无断头 ${v.connectivity.red.degreeOne + v.connectivity.blue.degreeOne === 0 ? '是' : '否'}`;$('surfaceText').textContent=`最大 |g ∓ w| = ${v.residual.toExponential(1)}`;const pass=v.minClearance>0;$('clearText').textContent=`最小净距 ${v.minClearance.toFixed(4)} a · ${pass?'未发现干涉':`${v.intersections} 对发生干涉`}`;$('clearIcon').textContent=pass?'✓':'!';$('clearIcon').className='check-icon '+(pass?'':'fail');$('webText').textContent=`${v.boundaryWebs.count} 根 · 中心线交叉 ${v.boundaryWebs.intersectionCount} · 半径邻近 ${v.boundaryWebs.nearCount} 对（${v.proximity.other} 对非一跳邻接）`; $('rigidityText').textContent=`至少 ${v.rigidity.maxwellLowerBound} 个非平移机构；${v.rigidity.degreeTwo} 个二杆节点`;  $('webIcon').className='check-icon '+(v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? 'warning' : ''); $('webIcon').textContent=v.boundaryWebs.intersectionCount || v.boundaryWebs.nearCount ? '!' : '✓';$('periodIcon').className='check-icon '+(v.error<1e-8 && v.connectivity.red.components===1 && v.connectivity.blue.components===1 && v.connectivity.red.degreeOne===0 && v.connectivity.blue.degreeOne===0?'':'fail');$('surfaceIcon').className='check-icon '+(v.residual<1e-8?'':'fail')}
 function updateMechanics(){
  const isDefault=Math.abs(model.w-.32)<1e-9,m=mechanicsDefault.with_boundary_webs.directional_moduli_over_EA_a2;
  $('mechanicsResults').style.display=isDefault?'block':'none';
@@ -188,16 +188,39 @@ function updateLattice(){
  $('latticeSurface').textContent=r.surface.maxError.toExponential(1);
 }
 $('latticeExport').onclick=()=>{if(!latticeReport)return;const report={description:'Centreline face signatures and fixed periodic quotient graph; not a solid interference or mechanical stability certification.',w:model.w,radius,report:latticeReport};const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-2x2x2-lattice-validation.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);syncResultUI();build();updateChecks();updateLattice();updateMechanics();updateFrame();$('loading').style.display='none'}
-for(const id of ['width','radius'])$(id).addEventListener('change',()=>{ $('loading').style.display='block';requestAnimationFrame(()=>setTimeout(rebuild,10)) });for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id] && ((id!=='nodes'&&id!=='struts')||resultMode==='structure');if(id==='struts'&&o.name==='force-struts')o.visible=visible.struts})});
+function rebuild(){model=buildBilayer(Number($('width').value));radius=Number($('radius').value);$('wValue').textContent=model.w.toFixed(2);$('radiusValue').textContent=radius.toFixed(3);syncResultUI();build();updateChecks();updateLattice();updateMechanics();updateFrame();updateDimensions();$('loading').style.display='none'}
+let dimensionTimer;
+function scheduleRebuild(){clearTimeout(dimensionTimer);$('loading').style.display='block';$('dlpClearance').textContent='正在重新检查红蓝层杆件间距…';$('dlpClearance').classList.remove('failed');dimensionTimer=setTimeout(()=>{rebuild();updateDimensions();},250)}
+for(const id of ['width','radius'])$(id).addEventListener('input',()=>{if(id==='radius')$('rodMm').value=(Number($('radius').value)*cellMm).toFixed(3);else $('dlpW').value=$('width').value;$('wValue').textContent=Number($('width').value).toFixed(2);$('radiusValue').textContent=Number($('radius').value).toFixed(3);scheduleRebuild()});
+function applyDimensions(recenter=false){
+ const a=Number($('cellMm').value),r=Number($('rodMm').value),counts=['arrayX','arrayY','arrayZ'].map(id=>Number($(id).value));
+ if(!$('cellMm').value||!$('rodMm').value||!Number.isFinite(a)||a<10||a>100||!Number.isFinite(r)||r<.15||r>2||r/a>.08||counts.some(n=>!Number.isInteger(n)||n<1||n>3)||counts.reduce((p,n)=>p*n,1)>8){$('dlpStatus').textContent='输入范围：a 10–100 mm，半径 0.15–2 mm 且 r/a≤0.08；每轴 1–3、总胞元≤8。';return}
+ cellMm=a;tiles=counts;syncRadiusBounds();$('radius').value=(r/a).toFixed(5);radius=Number($('radius').value);
+ document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',counts.every(n=>n===Number(b.dataset.n))));
+ resultMode='structure';syncResultUI();updateDimensions();if(recenter)cameraView();scheduleRebuild();
+}
+function syncRadiusBounds(){$('radius').min=String(Math.max(.001,.15/cellMm));$('radius').max=String(Math.min(.08,2/cellMm));}
+function updateDimensions(){
+ $('physicalSize').textContent=tiles.map(n=>(n*cellMm).toFixed(1)).join(' × ')+' mm';
+ $('physicalRod').textContent=(2*radius*cellMm).toFixed(2)+' mm';
+ $('relativeRadius').textContent=(radius).toFixed(4);
+ const pixel=Number($('pixelMm').value),layer=Number($('layerMm').value);$('diaPixels').textContent=pixel>=.001&&pixel<=1?((2*radius*cellMm)/pixel).toFixed(1)+' px':'请输入有效像素尺寸';$('printLayers').textContent=layer>=.001&&layer<=1?Math.ceil(tiles[2]*cellMm/layer).toLocaleString()+' 层':'请输入有效层厚';
+ const copies=tiles.reduce((a,b)=>a*b,1);$('superCount').textContent=model?`${(model.vertices.length*copies).toLocaleString()} / ${(model.edges.length*copies).toLocaleString()}`:'—';
+ $('dlpStatus').textContent='尺寸为示例，需按设备像素、树脂和后固化校准；w 是隐函数值，不是恒定层间距离。';
+}
+for(const id of ['cellMm','rodMm','arrayX','arrayY','arrayZ'])$(id).addEventListener('input',()=>applyDimensions(true));
+for(const id of ['pixelMm','layerMm'])$(id).addEventListener('input',updateDimensions);
+$('dlpW').addEventListener('input',()=>{const w=Number($('dlpW').value);if(!$('dlpW').value||w<.15||w>.5){$('dlpStatus').textContent='w 请输入 0.15–0.50；不是恒定层间距。';return}$('width').value=w;$('wValue').textContent=Number($('width').value).toFixed(3);scheduleRebuild()});
+$('dlpPreset').onclick=()=>{$('cellMm').value=14;$('rodMm').value=.45;$('arrayX').value=2;$('arrayY').value=2;$('arrayZ').value=1;$('width').value=.32;$('dlpW').value=.32;$('wValue').textContent='0.32';applyDimensions(true)};
+for(const id of ['surface','struts','nodes','box'])$(id).addEventListener('change',e=>{visible[id]=e.target.checked;group.traverse(o=>{if(o.name===id)o.visible=visible[id] && ((id!=='nodes'&&id!=='struts')||resultMode==='structure');if(id==='struts'&&o.name==='force-struts')o.visible=visible.struts})});
 document.querySelectorAll('#resultMode button').forEach(b=>b.addEventListener('click',()=>{resultMode=b.dataset.result;syncResultUI();build();cameraView();if(resultMode!=='structure'){camera.position.sub(controls.target).multiplyScalar(.84).add(controls.target);controls.update()}}));
 $('loadCase').addEventListener('change',()=>{if(resultMode!=='structure')build()});
 $('beamMaterial').addEventListener('change',()=>{updateFrame();if(resultMode==='beam')build()});
 $('beamScale').addEventListener('input',()=>{$('beamScaleValue').textContent=$('beamScale').value+'×';if(resultMode==='beam')build()});
-document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{tiles=+btn.dataset.n;document.querySelectorAll('#tiles button').forEach(b=>b.classList.toggle('active',b===btn));build();cameraView()}));
+document.querySelectorAll('#tiles button').forEach(btn=>btn.addEventListener('click',()=>{for(const id of ['arrayX','arrayY','arrayZ'])$(id).value=btn.dataset.n;applyDimensions(true)}));
 $('iso').onclick=()=>cameraView();$('axis').onclick=()=>cameraView(true);$('reset').onclick=()=>cameraView();$('openPaper').onclick=()=>$('modal').classList.add('open');$('closePaper').onclick=()=>$('modal').classList.remove('open');$('modal').onclick=e=>{if(e.target===$('modal'))$('modal').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape')$('modal').classList.remove('open')});
 $('export').onclick=()=>{const data={description:'H=12 approximation with added face-contour reinforcement; fractional coordinates; each undirected edge joins a to b+offset. Not paper Fig.4 simulation data.',w:model.w,vertices:model.vertices,edges:model.edges};const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='gyroid-H12-periodic-graph.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-cameraView();requestAnimationFrame(()=>setTimeout(rebuild,20));function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
+syncRadiusBounds();cameraView();requestAnimationFrame(()=>setTimeout(rebuild,20));function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}animate();
 
 // Compression post-processing deliberately remains independent from the beam FE.
 $('openCompression').onclick=()=>$('compressionPanel').scrollIntoView({behavior:'smooth'});
